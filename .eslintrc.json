@@ -1,0 +1,55 @@
+{
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/react",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": ["react", "jsx-a11y", "@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "packageDir": "./"
+      }
+    ],
+    "allowTernary": true,
+    "optimize-regex/optimize-regex": "warn",
+    "no-loops/no-loops": 2,
+    "no-use-extend-native/no-use-extend-native": 2,
+    "linebreak-style": "off",
+    "no-unused-vars": "warn",
+    "import/prefer-default-exports": "off",
+    "@typescript-eslint/naming-convention": ["error", {
+      "selector": "default",
+      "format": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"]
+    }],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}
