@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/rootReducer';
 import { setAuthToken } from '../utils/api';
+import { Switch, Redirect } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 const App = () => {
   const { isLogged } = useSelector((state: RootState) => state.user);
@@ -11,10 +13,26 @@ const App = () => {
     setAuthToken(Cookies.get('access') as string);
   }
 
+  const x = () => <div></div>;
+
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <>
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/login"
+          component={x}
+          redirect="/"
+          access={!isLogged}
+        />
+        <PrivateRoute
+          path="/"
+          component={x}
+          redirect="/login"
+          access={isLogged}
+        />
+      </Switch>
+    </>
   );
 };
 
