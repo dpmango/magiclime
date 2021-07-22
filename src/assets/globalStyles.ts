@@ -14,6 +14,7 @@ const useStyles = makeStyles(() =>
         overflowX: 'hidden',
         overflowY: 'auto',
         lineHeight: 1,
+        fontFamily: 'Gotham Pro',
       },
       '#root': {
         display: 'flex',

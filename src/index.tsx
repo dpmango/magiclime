@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
+import { Theme } from '@consta/uikit/Theme';
+import { presetGpnDefault } from './assets/theme/presets/presetGpnDefault';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/store';
