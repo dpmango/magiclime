@@ -60,7 +60,7 @@ module.exports = {
         exclude: '/node_modules/',
         use: [
           {
-            loader: 'svg-url-loader',
+            loader: '@svgr/webpack',
             options: {
               limit: 10000,
             },

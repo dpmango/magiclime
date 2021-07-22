@@ -5,7 +5,6 @@ import { RootState } from '../store/reducers/rootReducer';
 import { setAuthToken } from '../utils/api';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import Auth from './Auth';
 import Landing from '../pages/Landing';
 
 const App = () => {
