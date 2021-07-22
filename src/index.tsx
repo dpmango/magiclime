@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Theme, presetGpnDefault } from '@consta/uikit/Theme';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/store';
@@ -14,9 +15,11 @@ moment.locale('ru');
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Theme preset={presetGpnDefault}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Theme>
       <GlobalStyles />
     </PersistGate>
   </Provider>,
