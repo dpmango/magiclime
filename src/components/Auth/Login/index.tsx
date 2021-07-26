@@ -2,14 +2,15 @@ import React, { FC, useCallback, useState } from 'react';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
 import { TextField } from '@consta/uikit/TextField';
-import PasswordField from '../../Common/PasswordField';
-import useStyles from './style';
+import PasswordInput from '../../Common/Controls/PasswordInput';
+import useStyles from './styles';
 import { IconClose } from '@consta/uikit/IconClose';
 import { IBaseAuthProps } from '../types';
 import Flex from '../../Common/Flex';
 import { Checkbox } from '@consta/uikit/Checkbox';
 import Typography from '../../Common/Typography';
 import { GoogleLogo, VKLogo, FacebookLogo } from '../../../assets/icons/index';
+import SocialNetworks from '../SocialNetworks';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
@@ -38,7 +39,12 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         onlyIcon
       />
       <div className={styles.form}>
-        <Typography size={'3xl'} align={'center'} margin={'0 0 24px'}>
+        <Typography
+          size={'3xl'}
+          align={'center'}
+          margin={'0 0 24px'}
+          weight={'semibold'}
+        >
           Вход
         </Typography>
         <TextField
@@ -47,7 +53,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
           value={form.login}
           onChange={({ value }) => handleChange('login', value)}
         />
-        <PasswordField
+        <PasswordInput
           className={styles.field}
           placeholder={'Ваш пароль'}
           value={form.password}
@@ -67,17 +73,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         <Typography align={'center'} margin={'24px 0 12px'}>
           Или с помощью
         </Typography>
-        <Flex justify={'center'}>
-          <div className={styles.service}>
-            <VKLogo />
-          </div>
-          <div className={styles.service}>
-            <GoogleLogo />
-          </div>
-          <div className={styles.service}>
-            <FacebookLogo />
-          </div>
-        </Flex>
+        <SocialNetworks />
         <Typography
           align={'center'}
           margin={'16px auto 0'}

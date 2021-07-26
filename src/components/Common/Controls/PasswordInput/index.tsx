@@ -4,7 +4,7 @@ import { Icon } from '@consta/uikit/Icon';
 import { IconEye } from '@consta/uikit/IconEye';
 import { IconEyeClose } from '@consta/uikit/IconEyeClose';
 
-const PasswordField: FC<TextFieldProps> = (props) => {
+const PasswordInput: FC<TextFieldProps> = (props) => {
   const [isPasswordOpen, setPasswordOpen] = useState(false);
 
   const Eye = () => (
@@ -27,4 +27,4 @@ const PasswordField: FC<TextFieldProps> = (props) => {
   );
 };
 
-export default PasswordField;
+export default PasswordInput;

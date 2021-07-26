@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   container: {
     position: 'relative',
+    maxWidth: '400px',
   },
   form: {
     padding: '20px 25px 16px',
@@ -23,23 +24,6 @@ const useStyles = makeStyles(() => ({
     maxWidth: '80%',
     '& > a': {
       marginLeft: '5px',
-    },
-  },
-  service: {
-    borderRadius: '50%',
-    background: '#00000008',
-    height: '45px',
-    display: 'flex',
-    cursor: 'pointer',
-    alignItems: 'center',
-    transition: 'all .25s linear',
-    justifyContent: 'center',
-    width: '45px',
-    '&:not(:last-of-type)': {
-      marginRight: '12px',
-    },
-    '&:hover': {
-      background: 'rgba(0,0,0,0.3)',
     },
   },
   registration: {
