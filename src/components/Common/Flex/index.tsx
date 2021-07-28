@@ -11,7 +11,7 @@ interface IProps {
   className?: string;
 }
 
-const useStyles = makeStyles<null, IProps>(() => ({
+const useStyles = makeStyles<null, Omit<IProps, 'className'>>(() => ({
   flex: (props) => ({
     display: 'flex',
     flexDirection: props.direction || 'row',

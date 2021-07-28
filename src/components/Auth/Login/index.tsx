@@ -9,8 +9,10 @@ import { IBaseAuthProps } from '../types';
 import Flex from '../../Common/Flex';
 import { Checkbox } from '@consta/uikit/Checkbox';
 import Typography from '../../Common/Typography';
-import { GoogleLogo, VKLogo, FacebookLogo } from '../../../assets/icons/index';
 import SocialNetworks from '../SocialNetworks';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../store/reducers/user';
+import { useHistory } from 'react-router-dom';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
@@ -19,6 +21,8 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   });
   const [rememberUser, setRememberUser] = useState(true);
   const styles = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = useCallback(
     (name: keyof typeof form, value: string | null) => {
@@ -26,6 +30,15 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
     },
     [form]
   );
+
+  const handleSubmit = () => {
+    dispatch(
+      login({
+        ...form,
+        successCallback: () => history.push('/'),
+      })
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -69,7 +82,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
             Забыли пароль?
           </Text>
         </Flex>
-        <Button label={'Войти'} width="full" />
+        <Button label={'Войти'} width="full" onClick={handleSubmit} />
         <Typography align={'center'} margin={'24px 0 12px'}>
           Или с помощью
         </Typography>

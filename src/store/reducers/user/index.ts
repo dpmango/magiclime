@@ -19,16 +19,19 @@ const initialState = {
 export const login = createAsyncThunk<object, LoginPayloadType>(
   'user/login',
   async (payload, { dispatch, rejectWithValue }) => {
-    const { password, email, successCallback, errorCallback } = payload;
+    const { password, login, successCallback, errorCallback } = payload;
     try {
-      const response = await loginUser({ password, email });
-      if (response.status === 200) {
-        Cookies.set('access', response.data.access, { expires: 1 });
-        Cookies.set('refresh', response.data.refresh, { expires: 365 });
-        setAuthToken(response.data.access);
-        successCallback && successCallback();
-        //dispatch(getProfile());
-      }
+      //const response = await loginUser({ password, email });
+      const response = {
+        data: { access: 'test_access', refresh: 'test_refresh' },
+      };
+      // if (response.status === 200) {
+      Cookies.set('access', response.data.access, { expires: 15 });
+      Cookies.set('refresh', response.data.refresh, { expires: 365 });
+      //   setAuthToken(response.data.access);
+      successCallback && successCallback();
+      dispatch(getProfile());
+      // }
       return response.data;
     } catch (err) {
       if (errorCallback) {
@@ -49,20 +52,28 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
   }
 );
 
-// export const getProfile = createAsyncThunk(
-//   'user/getProfile',
-//   async (payload, { dispatch, rejectWithValue }) => {
-//     try {
-//       const response = await getUserProfile();
-//       if (response?.status === 200) {
-//         dispatch(setUserProfile(response.data));
-//       }
-//       return response.data as IUser;
-//     } catch (err) {
-//       return rejectWithValue(err.response.data);
-//     }
-//   }
-// );
+export const getProfile = createAsyncThunk(
+  'user/getProfile',
+  async (payload, { dispatch, rejectWithValue }) => {
+    try {
+      //const response = await getUserProfile();
+      const response = {
+        data: {
+          id: 1,
+          email: 'test_email@yandex.com',
+          name: 'Роман',
+          surname: 'Авдеев',
+        },
+      };
+      // if (response?.status === 200) {
+      dispatch(setUserProfile(response.data));
+      // }
+      return response.data as IUser;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 // export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
 //   'user/updateProfile',
@@ -87,14 +98,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLogged: (state, action: PayloadAction<boolean>) => {
-      state.isLogged = action.payload;
-    },
+    // setLogged: (state, action: PayloadAction<boolean>) => {
+    //   state.isLogged = action.payload;
+    // },
     setUserProfile: (state, action: PayloadAction<IUser>) => {
+      state.isLogged = true;
       state.profile = action.payload;
     },
     logout: (state) => {
-      state = initialState;
+      Cookies.remove('access');
+      Cookies.remove('refresh');
+      state.isLogged = false;
+      state.profile = {} as IUser;
     },
   },
   extraReducers: (builder) => {
@@ -107,6 +122,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserProfile, logout, setLogged } = userSlice.actions;
+export const { setUserProfile, logout } = userSlice.actions;
 
 export default userSlice.reducer;
