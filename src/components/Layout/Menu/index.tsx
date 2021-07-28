@@ -143,36 +143,36 @@ const Menu: FC<IProps> = ({ isFull }) => {
 
   return (
     <Container className={styles.root}>
-      <Flex
-        margin={isFull ? '0 0 30px' : '0 0 20px'}
-        className={styles.animation}
-        justify={'center'}
-      >
-        <Avatar
-          className={styles.avatar}
-          form={'default'}
-          url={
-            'https://cdn.pixabay.com/photo/2019/07/18/00/14/falcon-4345234_1280.jpg'
-          }
-          name={'Ростислав М.'}
-        />
-        <Flex
-          direction={'column'}
-          margin={isFull ? '0 85.5px 0 0' : '0'}
-          className={styles.transition}
-        >
-          <Typography size={'xl'} weight={'semibold'} className={styles.text}>
-            Ростислав М.
-          </Typography>
-          <Typography view={'secondary'} size={'s'} className={styles.text}>
-            Palo Alto, CA
-          </Typography>
-        </Flex>
-      </Flex>
+      {/*<Flex*/}
+      {/*  margin={isFull ? '0 0 30px' : '0 0 20px'}*/}
+      {/*  className={styles.animation}*/}
+      {/*  justify={'center'}*/}
+      {/*>*/}
+      {/*  <Avatar*/}
+      {/*    className={styles.avatar}*/}
+      {/*    form={'default'}*/}
+      {/*    url={*/}
+      {/*      'https://cdn.pixabay.com/photo/2019/07/18/00/14/falcon-4345234_1280.jpg'*/}
+      {/*    }*/}
+      {/*    name={'Ростислав М.'}*/}
+      {/*  />*/}
+      {/*  <Flex*/}
+      {/*    direction={'column'}*/}
+      {/*    margin={isFull ? '0 auto 0 0' : '0'}*/}
+      {/*    className={styles.transition}*/}
+      {/*  >*/}
+      {/*    <Typography size={'xl'} weight={'semibold'} className={styles.text}>*/}
+      {/*      Ростислав М.*/}
+      {/*    </Typography>*/}
+      {/*    <Typography view={'secondary'} size={'s'} className={styles.text}>*/}
+      {/*      Palo Alto, CA*/}
+      {/*    </Typography>*/}
+      {/*  </Flex>*/}
+      {/*</Flex>*/}
       {sections.map((section) => (
         <Flex
           direction={'column'}
-          margin={isFull ? '0 0 40px' : '0 0 20px'}
+          margin={isFull ? '0 0 27px' : '0 0 7px'}
           key={uuid()}
           className={styles.animation}
         >
@@ -180,7 +180,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
             margin={'0 0 8px 24px'}
             view={'secondary'}
             size={'s'}
-            weight={'bold'}
+            weight={'light'}
             className={styles.text}
           >
             {section.name}
@@ -201,8 +201,9 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 <Typography
                   margin={'0 0 0 18px'}
                   view={'secondary'}
-                  size={'l'}
+                  size={'m'}
                   weight={'semibold'}
+                  className={styles.text}
                 >
                   {link.text}
                 </Typography>

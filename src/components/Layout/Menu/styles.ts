@@ -21,18 +21,18 @@ const useStyles = makeStyles<null, IProps>(() => ({
     borderRight: `1px solid ${COLORS.layoutBorderColor}`,
     padding: '24px 0',
   },
-  avatar: {
-    width: '56px',
-    height: '56px',
-    flex: 'none',
-    margin: ({ isFull }) => (isFull ? '0 16px 0 24px' : '0'),
-    transition: 'all .2s linear',
-  },
+  // avatar: {
+  //   width: '56px',
+  //   height: '56px',
+  //   flex: 'none',
+  //   margin: ({ isFull }) => (isFull ? '0 16px 0 24px' : '0'),
+  //   transition: 'all .2s linear',
+  // },
   text: {
     whiteSpace: 'nowrap',
     transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
-    fontSize: ({ isFull }) => (isFull ? 'initial' : '0px'),
+    fontSize: ({ isFull }) => (isFull ? '' : '0px'),
     transition: 'all .4s linear',
   },
   linksContainer: {
@@ -45,16 +45,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'relative',
     height: '60px',
     width: '100%',
-    padding: '13px 0 13px 22px',
+    padding: ({ isFull }) =>
+      isFull ? '13px 0 13px 22px' : '13px 0 13px 25.5px',
     transition: 'all .2s linear',
     '& > span': {
       flex: 'none',
-      transition: 'color .2s linear',
-    },
-    '& > div': {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      opacity: ({ isFull }) => (isFull ? '1' : '0'),
       transition: 'all .2s linear',
     },
     '&:hover': {
@@ -89,9 +84,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
     transition: 'all .3s linear',
     width: '100%',
   },
-  transition: {
-    transition: 'all .4s linear',
-  },
+  // transition: {
+  //   transition: 'all .4s linear',
+  // },
   line: {
     position: 'absolute',
     left: 0,
