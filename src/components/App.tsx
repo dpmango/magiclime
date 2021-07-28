@@ -11,11 +11,6 @@ import { Theme } from '@consta/uikit/Theme';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
 
-import MainLayout from 'components/organisms/Layouts/MainLayout'
-
-import CoursesPage from 'components/pages/CoursesPage'
-import DashboardPage from 'components/pages/DashboardPage'
-
 
 const App = () => {
   const [theme, setTheme] = useState<'default' | 'dark'>('default');

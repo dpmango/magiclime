@@ -33,8 +33,6 @@ const CoursesPage = () => {
 	return (
 		<div className={styles.root}>
 			<div>
-				<Typography className={styles.title}>Курсы</Typography>
-
 				<Tags />
 				<Tabs />
 			</div>

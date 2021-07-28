@@ -4,6 +4,7 @@ import { COLORS } from '../../../utils/constants/colors';
 const useStyles = makeStyles(() => ({
   root: {
     height: '64px',
+    minHeight: '64px',
     width: '100%',
     position: 'relative',
     zIndex: 2,

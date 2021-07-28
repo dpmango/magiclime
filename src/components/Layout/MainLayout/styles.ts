@@ -11,7 +11,9 @@ const useStyles = makeStyles(() => ({
   },
   content: {
     flex: '1',
-    height: '100%',
+    padding: '95px 120px',
+    height: 'calc(100vh - 64px)',
+    overflowY: 'auto'
   },
 }));
 
