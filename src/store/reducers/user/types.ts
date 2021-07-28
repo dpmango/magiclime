@@ -1,8 +1,8 @@
 import { IUser } from '../../../types/interfaces/user';
 
 export type LoginPayloadType = {
-  email: string;
   password: string;
+  login: string;
   successCallback?: VoidFunction;
   errorCallback?: (error: string) => void;
 };

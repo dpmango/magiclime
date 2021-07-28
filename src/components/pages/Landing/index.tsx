@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
-import Auth from '../../components/Auth';
+import Auth from '../../Auth';
 
 const Landing = () => {
   const [isAuthOpen, setAuthOpen] = useState(false);

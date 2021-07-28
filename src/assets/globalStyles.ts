@@ -22,6 +22,9 @@ const useStyles = makeStyles(() =>
         minHeight: '100vh',
         width: '100%',
       },
+      a: {
+        textDecoration: 'none',
+      },
     },
   })
 );
