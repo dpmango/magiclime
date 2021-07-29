@@ -43,11 +43,18 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
+<<<<<<< HEAD
     height: ({ isFull }) => (isFull ? '48px' : '48px'),
     width: '100%',
     padding: ({ isFull }) =>
       isFull ? '14px 0 12px 24px' : '13px 0 13px 23.5px',
     transition: 'all .235s linear',
+=======
+    height: ({ isFull }) => (isFull ? '44px' : '60px'),
+    width: '100%',
+    padding: ({ isFull }) => (isFull ? '5px 0 5px 22px' : '5px 0 5px 25.5px'),
+    transition: 'all .2s linear',
+>>>>>>> a20a15206495be3950de7fa7d493919a690eb0bd
     '& > span': {
       flex: 'none',
       transition: 'all .235s linear',
