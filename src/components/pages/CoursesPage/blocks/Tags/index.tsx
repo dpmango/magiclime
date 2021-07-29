@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import { IconProps } from '@consta/uikit/Icon';
 import { makeStyles } from '@material-ui/core';
 import { Button } from '@consta/uikit/Button';
-import classNames from 'classnames';
-
-import icons from '../icons'
 
 interface Item {
 	id: string
 	label: string
-	iconLeft?: React.FC<IconProps>
 };
 
 
@@ -18,27 +13,34 @@ const items: Item[] = [
 	{
 		id: 'Маркетинг',
 		label: 'Маркетинг',
-		iconLeft: icons.MarketingIcon
 	},
 	{
 		id: 'Финансы',
 		label: 'Финансы',
-		iconLeft: icons.FinansesIcon
 	},
 	{
-		id: 'Управление',
-		label: 'Управление',
-		iconLeft: icons.ManagementIcon
+		id: 'Языки',
+		label: 'Языки',
 	},
 	{
 		id: 'Личный рост',
 		label: 'Личный рост',
-		iconLeft: icons.PersonalUpgradeIcon
 	},
 	{
-		id: 'Бизнес',
-		label: 'Бизнес',
-		iconLeft: icons.BusinessIcon
+		id: 'Инстаграм',
+		label: 'Инстаграм',
+	},
+	{
+		id: 'Программирование',
+		label: 'Программирование',
+	},
+	{
+		id: 'Инвестиции',
+		label: 'Инвестиции',
+	},
+	{
+		id: 'Общеобразовательные',
+		label: 'Общеобразовательные',
 	}
 ];
 
@@ -51,8 +53,7 @@ const useStyles = makeStyles({
 		overflowX: 'auto'
 	},
 	button: {
-		fontSize: '14px',
-		lineHeight: '20px',
+		fontSize: '16px',
 		marginRight: '12px',
 		marginBottom: '12px'
 	},

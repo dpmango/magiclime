@@ -19,16 +19,17 @@ const useStyles = makeStyles({
 	},
 	button: {
 		margin: '40px auto 0',
-		display: 'block'
+		display: 'flex'
 	}
 });
 interface IProps {
 	items: ICourse[],
+	getMore: () => void
 	hasMore?: boolean
 }
 
 
-const CoursesList = ({ items, hasMore = false }: IProps) => {
+const CoursesList = ({ items, hasMore = false, getMore }: IProps) => {
 	const styles = useStyles()
 
 	return (
@@ -44,7 +45,7 @@ const CoursesList = ({ items, hasMore = false }: IProps) => {
 				<Button
 					label="Показать еще 20 курсов"
 					view="secondary"
-					onClick={() => console.log('get more')}
+					onClick={getMore}
 					className={styles.button}
 					iconLeft={icons.RefreshIcon}
 				/>}

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Text } from '@consta/uikit/Text';
 import { ICourse } from 'types/interfaces/courses'
-
 import { Tags, CoursesList, Filters, Banners } from './blocks'
 import Typography from 'components/Common/Typography';
 
@@ -28,11 +26,21 @@ const useStyles = makeStyles({
 
 
 const CoursesPage = () => {
+	const styles = useStyles()
+
 	const [courses, setCourses] = useState<ICourse[]>([])
 	const [tags, setTags] = useState<string[]>([])
 
+	useEffect(() => {
+		getMore()
+	}, [])
 
-	const styles = useStyles()
+
+
+	const getMore = () => {
+		const _courses = Array.from({ length: 20 }).map((el, index) => ({ id: index }))
+		setCourses([...courses, ..._courses])
+	}
 
 	return (
 		<div className={styles.root}>
@@ -44,7 +52,7 @@ const CoursesPage = () => {
 				</div>
 				<div></div>
 
-				<CoursesList items={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 },]} hasMore={true} />
+				<CoursesList items={courses} hasMore={true} getMore={getMore} />
 				<Filters />
 			</div>
 		</div>
