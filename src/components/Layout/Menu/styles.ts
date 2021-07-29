@@ -43,10 +43,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-    height: '60px',
+    height: ({ isFull }) => (isFull ? '44px' : '60px'),
     width: '100%',
-    padding: ({ isFull }) =>
-      isFull ? '13px 0 13px 22px' : '13px 0 13px 25.5px',
+    padding: ({ isFull }) => (isFull ? '5px 0 5px 22px' : '5px 0 5px 25.5px'),
     transition: 'all .2s linear',
     '& > span': {
       flex: 'none',
@@ -91,10 +90,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'absolute',
     left: 0,
     width: '3px',
-    height: '60px',
-    top: ({ activeLinkIndex }) => `${activeLinkIndex * 60}px`,
+    height: ({ isFull }) => (isFull ? '44px' : '60px'),
+    top: ({ activeLinkIndex, isFull }) =>
+      `${activeLinkIndex * (isFull ? 44 : 60)}px`,
     transition: ({ isFirstAnimationPlay }) =>
-      isFirstAnimationPlay ? 'none' : 'top .25s linear',
+      isFirstAnimationPlay ? 'none' : 'all .25s linear',
     borderTopRightRadius: '3px',
     borderBottomRightRadius: '3px',
     backgroundImage: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
