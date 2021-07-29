@@ -10,7 +10,7 @@ export const ErrorMessage = styled(Typography)({
 export const StyledTitle = styled(Typography)({
 	fontSize: '16px',
 	lineHeight: '24px',
-	marginBottom: '14px',
+	marginBottom: '12px',
 });
 
 export const StyledDetailsText = styled(Typography)({

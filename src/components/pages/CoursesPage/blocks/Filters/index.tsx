@@ -93,12 +93,10 @@ const Filters = () => {
 								name='education_types'
 								items={educationTypes}
 								direction="column"
-								getLabel={(item: string) => item}
+								getLabel={(item) => item as string}
 								className={styles.group}
 							/>
 						</div>
-
-
 					</Form>
 				)}
 			</Formik>

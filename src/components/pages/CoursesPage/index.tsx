@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
-import Typography from 'components/Common/Typography'
+import { Text } from '@consta/uikit/Text';
 import { ICourse } from 'types/interfaces/courses'
 
-import { Tabs, Tags, CoursesList, Filters } from './blocks'
+import { Tags, CoursesList, Filters, Banners } from './blocks'
+import Typography from 'components/Common/Typography';
 
 const useStyles = makeStyles({
 	root: {
+		position: 'relative',
+		top: '-95px',
+	},
+	content: {
 		display: 'grid',
 		gridTemplateColumns: '84fr 26fr',
-		gridGap: '24px'
+		gridGap: '24px',
 	},
 	title: {
-		fontSize: '56px',
-		lineHeight: '1.15em',
-		marginBottom: '24px',
+		fontSize: '32px',
+		lineHeight: '56px',
+		marginBottom: '32px',
 	},
 	courses: {
 
@@ -24,7 +29,6 @@ const useStyles = makeStyles({
 
 const CoursesPage = () => {
 	const [courses, setCourses] = useState<ICourse[]>([])
-	const [tab, setTab] = useState(null)
 	const [tags, setTags] = useState<string[]>([])
 
 
@@ -32,14 +36,17 @@ const CoursesPage = () => {
 
 	return (
 		<div className={styles.root}>
-			<div>
-				<Tags />
-				<Tabs />
-			</div>
-			<div></div>
+			<Banners />
+			<div className={styles.content}>
+				<div>
+					<Typography weight="semibold" size="3xl" className={styles.title} >Все курсы</Typography>
+					<Tags />
+				</div>
+				<div></div>
 
-			<CoursesList items={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 },]} hasMore={true} />
-			<Filters />
+				<CoursesList items={[{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }, { id: 7 },]} hasMore={true} />
+				<Filters />
+			</div>
 		</div>
 	);
 };

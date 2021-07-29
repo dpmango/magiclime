@@ -47,22 +47,15 @@ const useStyles = makeStyles({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'flex-start',
-		marginBottom: '32px',
+		flexWrap: 'wrap',
 		overflowX: 'auto'
 	},
 	button: {
-		border: '1px solid rgba(0, 66, 105, 0.28)',
-		color: '#0F0F14',
 		fontSize: '14px',
 		lineHeight: '20px',
-		marginRight: '14px'
+		marginRight: '12px',
+		marginBottom: '12px'
 	},
-	active: {
-		border: '1px solid rgba(0, 120, 210, 0.5)',
-		'& .Button-Icon_position_left path': {
-			fill: '#0071B3'
-		}
-	}
 
 });
 
@@ -88,14 +81,12 @@ const TagsBlock = () => {
 				const active = values.includes(item.id)
 				return (
 					<Button
-						iconLeft={item.iconLeft}
-						iconRight={active ? icons.CloseIcon : undefined}
-						iconSize='s'
 						key={item.id}
 						label={item.label}
-						view="secondary"
-						className={classNames(styles.button, { [styles.active]: active })}
+						form="round"
+						view={active ? "primary" : "secondary"}
 						onClick={() => handleToggle(item.id)}
+						className={styles.button}
 					/>
 				)
 			})}

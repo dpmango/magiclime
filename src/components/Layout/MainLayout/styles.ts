@@ -13,7 +13,8 @@ const useStyles = makeStyles(() => ({
     flex: '1',
     padding: '95px 120px',
     height: 'calc(100vh - 64px)',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    overflowX: 'hidden',
   },
 }));
 
