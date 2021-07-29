@@ -51,6 +51,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
   };
 
   const items = [
+    { name: 'Профиль', icon: IconUser, path: '/profile'},
     { name: 'Профиль', icon: IconUser, path: '/profile' },
     { name: 'Выход', icon: IconExit },
   ];
@@ -75,8 +76,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
             </HeaderModule>
             <HeaderModule indent={'s'}>
               <Link to={'/'}>
-                <Typography size={'xl'} weight={'bold'} view={'brand'}>
-                  Lime
+                <Typography size={'2xl'} weight={'bold'} view={'brand'}>
+                  Magic Lime
                 </Typography>
               </Link>
             </HeaderModule>

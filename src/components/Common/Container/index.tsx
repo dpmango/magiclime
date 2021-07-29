@@ -14,7 +14,7 @@ const useStyles = makeStyles<
   block: (props) => ({
     background: props.isDefault ? 'rgb(255, 255, 255)' : '#212121',
     '& a, p': {
-      color: props.isDefault ? '#000000D9' : '#e3e3e3',
+      color: props.isDefault ? '#1e2329' : '#e3e3e3',
     },
   }),
 }));

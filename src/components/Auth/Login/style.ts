@@ -5,11 +5,13 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   form: {
-    padding: '20px 25px 16px',
+    padding: '24px 24px 32px',
+    maxWidth:'400px',
+    //РР сделать 360 на вход и 680 на регу
   },
   closeBtn: {
     position: 'absolute',
-    top: '15px',
+    top: '18px',
     right: '15px',
   },
   field: {
@@ -20,35 +22,36 @@ const useStyles = makeStyles(() => ({
     },
   },
   license: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     '& > a': {
       marginLeft: '5px',
+      fontWeight: '500',
     },
   },
   service: {
     borderRadius: '50%',
-    background: '#00000008',
-    height: '45px',
+    background: 'var(--color-control-bg-clear)',
+    height: '48px',
     display: 'flex',
     cursor: 'pointer',
     alignItems: 'center',
-    transition: 'all .25s linear',
+    transition: 'all .175s linear',
     justifyContent: 'center',
-    width: '45px',
+    width: '48px',
     '&:not(:last-of-type)': {
       marginRight: '12px',
     },
     '&:hover': {
-      background: 'rgba(0,0,0,0.3)',
+      background: 'var(--color-control-bg-clear-hover)',
     },
   },
   registration: {
     borderTop: '1px solid #00416633',
-    padding: '16px',
+    padding: '12px',
     height: 'auto',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    color: '#0078D2',
+    color: 'var(--color-typo-brand)',
   },
 }));
 

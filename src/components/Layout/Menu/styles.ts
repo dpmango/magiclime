@@ -9,7 +9,7 @@ interface IProps {
 
 const useStyles = makeStyles<null, IProps>(() => ({
   root: {
-    width: ({ isFull }) => (isFull ? '290px' : '75px'),
+    width: ({ isFull }) => (isFull ? '275px' : '75px'),
     height: 'calc(100vh - 64px)',
     overflowY: 'auto',
     flex: 'none',
@@ -26,14 +26,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   //   height: '56px',
   //   flex: 'none',
   //   margin: ({ isFull }) => (isFull ? '0 16px 0 24px' : '0'),
-  //   transition: 'all .2s linear',
+  //   transition: 'all .235s linear',
   // },
   text: {
     whiteSpace: 'nowrap',
-    transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
+    // transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
     fontSize: ({ isFull }) => (isFull ? '' : '0px'),
-    transition: 'all .4s linear',
+    transition: 'all .235s linear',
   },
   linksContainer: {
     width: '100%',
@@ -43,30 +43,35 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-    height: '60px',
+    height: ({ isFull }) => (isFull ? '48px' : '48px'),
     width: '100%',
     padding: ({ isFull }) =>
-      isFull ? '13px 0 13px 22px' : '13px 0 13px 25.5px',
-    transition: 'all .2s linear',
+      isFull ? '14px 0 12px 24px' : '13px 0 13px 23.5px',
+    transition: 'all .235s linear',
     '& > span': {
       flex: 'none',
-      transition: 'all .2s linear',
+      transition: 'all .235s linear',
     },
     '&:hover': {
+      color: 'var(--color-typo-brand)',
       '& > span': {
-        color: '#58CC01',
+        color: 'var(--color-typo-brand)',
       },
       '& > div': {
-        color: 'var(--color-typo-primary)',
+        color: 'var(--color-typo-brand)',
       },
     },
   },
   activeLink: {
+    background: '#f9f9f9',
     '& > span': {
-      color: '#58CC01',
+      color: 'var(--color-typo-brand)',
+      fontweight: '600',
+      
     },
     '& > div': {
-      color: 'var(--color-typo-primary)',
+      
+      color: 'var(--color-typo-brand)',
     },
     // '& > ::after': {
     //   content: "''",
@@ -77,11 +82,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
     //   bottom: 0,
     //   borderTopRightRadius: '3px',
     //   borderBottomRightRadius: '3px',
-    //   backgroundImage: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
+    //   backgroundImage: 'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
     // },
   },
   animation: {
-    transition: 'all .3s linear',
+    transition: 'all .235s linear',
     width: '100%',
   },
   // transition: {
@@ -90,14 +95,16 @@ const useStyles = makeStyles<null, IProps>(() => ({
   line: {
     position: 'absolute',
     left: 0,
-    width: '3px',
-    height: '60px',
-    top: ({ activeLinkIndex }) => `${activeLinkIndex * 60}px`,
+    width: '4px',
+    height: ({ isFull }) => (isFull ? '48px' : '48px'),
+    transition: 'all .235s linear',
+    zIndex: 5,
+    top: ({ activeLinkIndex }) => `${activeLinkIndex * 48}px`,
     transition: ({ isFirstAnimationPlay }) =>
-      isFirstAnimationPlay ? 'none' : 'top .25s linear',
-    borderTopRightRadius: '3px',
-    borderBottomRightRadius: '3px',
-    backgroundImage: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
+      isFirstAnimationPlay ? 'none' : 'top .125s linear',
+    borderTopRightRadius: '4px',
+    borderBottomRightRadius: '2px',
+    backgroundImage: 'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
   },
 }));
 

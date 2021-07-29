@@ -172,14 +172,14 @@ const Menu: FC<IProps> = ({ isFull }) => {
       {sections.map((section) => (
         <Flex
           direction={'column'}
-          margin={isFull ? '0 0 27px' : '0 0 7px'}
+          margin={isFull ? '0 0 12px' : '0 0 18px'}
           key={uuid()}
           className={styles.animation}
         >
           <Typography
             margin={'0 0 8px 24px'}
             view={'secondary'}
-            size={'s'}
+            size={'xs'}
             weight={'light'}
             className={styles.text}
           >
@@ -202,7 +202,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
                   margin={'0 0 0 18px'}
                   view={'secondary'}
                   size={'m'}
-                  weight={'semibold'}
+                  weight={'regular'}
                   className={styles.text}
                 >
                   {link.text}
