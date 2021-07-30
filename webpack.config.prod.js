@@ -84,12 +84,17 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      favicon: './public/favicon.svg',
     }),
     new CopyPlugin({
       patterns: [
         {
           from: './src/assets/images',
           to: path.resolve(__dirname, './build/images'),
+        },
+        {
+          from: './public/favicon.svg',
+          to: path.resolve(__dirname, './build'),
         },
       ],
     }),
