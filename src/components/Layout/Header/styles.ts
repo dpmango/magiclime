@@ -20,6 +20,9 @@ const useStyles = makeStyles(() => ({
   relative: {
     position: 'relative',
   },
+  clickBlock: {
+    cursor: 'pointer',
+  },
 }));
 
 export default useStyles;

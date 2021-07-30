@@ -1,10 +1,11 @@
-import React, { CSSProperties, FC } from 'react';
+import React, { FC, HTMLProps, RefObject } from 'react';
 import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
-interface IProps {
+interface IProps extends HTMLProps<HTMLDivElement> {
   className?: string;
+  divRef?: RefObject<HTMLDivElement>;
 }
 
 const useStyles = makeStyles<
@@ -19,12 +20,21 @@ const useStyles = makeStyles<
   }),
 }));
 
-const Container: FC<IProps> = ({ children, className }) => {
+const Container: FC<IProps> = ({ children, className, divRef, ...props }) => {
   const isDefault = useCheckDefaultTheme();
   const styles = useStyles({
     isDefault,
   });
-  return <div className={classNames(styles.block, className)}>{children}</div>;
+
+  return (
+    <div
+      className={classNames(styles.block, className)}
+      ref={divRef}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Container;
