@@ -30,7 +30,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
     fontSize: ({ isFull }) => (isFull ? '' : '0px'),
-    transition: 'all .235s linear',
+    transition: 'all .235s linear !important',
   },
   linksContainer: {
     width: '100%',
