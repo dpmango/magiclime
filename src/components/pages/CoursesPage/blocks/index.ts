@@ -1,10 +1,10 @@
-import Tabs from './Tabs'
 import Tags from './Tags'
 import CoursesList from './CoursesList'
 import Filters from './Filters'
+import Banners from './Banners'
 
 export {
-	Tabs,
+	Banners,
 	Tags,
 	CoursesList,
 	Filters

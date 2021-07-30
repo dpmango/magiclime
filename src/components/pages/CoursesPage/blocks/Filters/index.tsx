@@ -1,17 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Formik, Form } from 'formik';
-import Typography from 'components/Common/Typography';
+import { Formik, Form, Field } from 'formik';
+import { TextField } from '@consta/uikit/TextField';
 import FormikRadiobuttons from 'components/molecules/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/molecules/Controls/Formik/CheckboxGroup';
+import icons from '../icons';
+import SearchBlocks from './blocks/SearchBlocks';
 
 const useStyles = makeStyles({
   root: {},
   formBlock: {
     marginBottom: '24px',
-  },
-  title: {
-    marginBottom: '14px',
   },
   small: {
     marginBottom: '6px',
@@ -58,6 +57,7 @@ const Filters = () => {
           difficult: 'Любой',
           categories: [],
           education_types: [],
+          search: '',
         }}
         enableReinitialize={true}
         onSubmit={(data, { setSubmitting }) => {
@@ -67,6 +67,19 @@ const Filters = () => {
         {({ values, setFieldValue, isSubmitting }) => (
           <Form>
             <div className={styles.formBlock}>
+              <Field
+                placeholder="Поиск по курсам"
+                name="search"
+                component={TextField}
+                rightSide={icons.SearchIcon}
+              />
+            </div>
+
+            <div className={styles.formBlock}>
+              <SearchBlocks title="Цена" placeholders={['0 ₽', '156 000 ₽']} />
+            </div>
+
+            <div className={styles.formBlock}>
               <FormikCheckboxGroup
                 label="Категории"
                 name="categories"
@@ -75,6 +88,10 @@ const Filters = () => {
                 getLabel={(item) => (item as ICategory).name}
                 className={styles.group}
               />
+            </div>
+
+            <div className={styles.formBlock}>
+              <SearchBlocks title="Lime уровень" placeholders={['1', '53']} />
             </div>
 
             <div className={styles.formBlock}>
