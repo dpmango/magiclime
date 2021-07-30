@@ -4,12 +4,12 @@ import { COLORS } from '../../../utils/constants/colors';
 interface IProps {
   isFull: boolean;
   activeLinkIndex: number;
-  isFirstAnimationPlay: boolean;
+  isDefault: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
   root: {
-    width: ({ isFull }) => (isFull ? '290px' : '75px'),
+    width: ({ isFull }) => (isFull ? '275px' : '75px'),
     height: 'calc(100vh - 64px)',
     overflowY: 'auto',
     flex: 'none',
@@ -19,21 +19,18 @@ const useStyles = makeStyles<null, IProps>(() => ({
     alignItems: 'flex-start',
     flexDirection: 'column',
     borderRight: `1px solid ${COLORS.layoutBorderColor}`,
-    padding: '24px 0',
   },
-  avatar: {
-    width: '56px',
-    height: '56px',
-    flex: 'none',
-    margin: ({ isFull }) => (isFull ? '0 16px 0 24px' : '0'),
-    transition: 'all .2s linear',
+  section: {
+    height: '48px',
+    display: 'flex',
+    alignItems: 'center',
   },
   text: {
     whiteSpace: 'nowrap',
     transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
-    fontSize: ({ isFull }) => (isFull ? 'initial' : '0px'),
-    transition: 'all .4s linear',
+    fontSize: ({ isFull }) => (isFull ? '' : '0px'),
+    transition: 'all .235s linear',
   },
   linksContainer: {
     width: '100%',
@@ -43,66 +40,55 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-    height: '60px',
+    height: '48px',
     width: '100%',
-    padding: '13px 0 13px 22px',
-    transition: 'all .2s linear',
+    padding: ({ isFull }) =>
+      isFull ? '14px 0 12px 24px' : '13px 0 13px 23.5px',
+    transition: 'all .235s linear',
     '& > span': {
       flex: 'none',
-      transition: 'color .2s linear',
-    },
-    '& > div': {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      opacity: ({ isFull }) => (isFull ? '1' : '0'),
-      transition: 'all .2s linear',
+      transition: 'all .235s linear',
     },
     '&:hover': {
+      color: 'var(--color-typo-brand)',
       '& > span': {
-        color: '#58CC01',
+        color: 'var(--color-typo-brand)',
       },
       '& > div': {
-        color: 'var(--color-typo-primary)',
+        color: 'var(--color-typo-brand)',
       },
     },
   },
   activeLink: {
+    background: ({ isDefault }) =>
+      isDefault ? '#f9f9f9' : 'rgba(255, 255, 255, .05)',
     '& > span': {
-      color: '#58CC01',
+      color: 'var(--color-typo-brand)',
+      fontWeight: '600',
     },
     '& > div': {
-      color: 'var(--color-typo-primary)',
+      color: 'var(--color-typo-brand)',
     },
-    // '& > ::after': {
-    //   content: "''",
-    //   width: '2px',
-    //   position: 'absolute',
-    //   left: 0,
-    //   top: 0,
-    //   bottom: 0,
-    //   borderTopRightRadius: '3px',
-    //   borderBottomRightRadius: '3px',
-    //   backgroundImage: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
-    // },
   },
   animation: {
-    transition: 'all .3s linear',
+    transition: 'all .235s linear',
     width: '100%',
   },
-  transition: {
-    transition: 'all .4s linear',
+  relative: {
+    position: 'relative',
   },
   line: {
     position: 'absolute',
     left: 0,
-    width: '3px',
-    height: '60px',
-    top: ({ activeLinkIndex }) => `${activeLinkIndex * 60}px`,
-    transition: ({ isFirstAnimationPlay }) =>
-      isFirstAnimationPlay ? 'none' : 'top .25s linear',
-    borderTopRightRadius: '3px',
-    borderBottomRightRadius: '3px',
-    backgroundImage: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
+    width: '4px',
+    height: '48px',
+    zIndex: 5,
+    top: ({ activeLinkIndex }) => `${activeLinkIndex * 48}px`,
+    transition: 'top .235s linear',
+    borderTopRightRadius: '4px',
+    borderBottomRightRadius: '2px',
+    backgroundImage:
+      'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
   },
 }));
 

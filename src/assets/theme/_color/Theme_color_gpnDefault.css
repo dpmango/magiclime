@@ -8,10 +8,10 @@
   --color-bg-secondary: rgb(236, 241, 244); /* Цвет дефолта */
   --color-bg-brand: rgb(0, 113, 178); /* Цвет фона брендированый */
   --color-bg-link: rgb(0, 120, 210); /* Цвет фона ссылки */
-  --color-bg-border: rgba(0, 100, 158, 0.2); /* Цвет границ */
+  --color-bg-border: #e5e5e5; /* Цвет границ */
   --color-bg-stripe: rgba(0, 32, 51, 0.05); /* Цвет зебры */
   --color-bg-ghost: rgba(0, 32, 51, 0.08); /* Цвет затенения */
-  --color-bg-tone: rgba(0, 32, 51, 0.85); /* Цвет паранджи */
+  --color-bg-tone: rgba(0, 0, 0, 0.65); /* Цвет паранджи */
   --color-bg-soft: rgba(255, 255, 255, 0.9); /* Цвет молока */
   --color-bg-system: rgb(206, 216, 222); /* Цвет фона системнный */
   --color-bg-normal: rgb(86, 185, 242); /* Цвет фона нейтральный */
@@ -23,10 +23,10 @@
 
   /* //////////////////////////////
   // Цвета текста ////////////// */
-  --color-typo-primary: #0f0f14; /* Цвет основного текста */
-  --color-typo-secondary: #9a9a9a; /* Цвет второстепенного текста */
+  --color-typo-primary:#1e2329; /* Цвет основного текста */
+  --color-typo-secondary: #707a83; /* Цвет второстепенного текста */
   --color-typo-ghost: rgba(0, 32, 51, 0.3); /* Цвет дополнительного текста */
-  --color-typo-brand: rgb(0, 113, 178); /* Цвет брендового текста */
+  --color-typo-brand: #109062; /* Цвет брендового текста */
   --color-typo-system: rgb(132, 167, 189); /* Цвет фона системнный */
   --color-typo-normal: rgb(51, 180, 255); /* Цвет фона нейтральный */
   --color-typo-success: rgb(9, 179, 123); /* Цвет текста успеха */
@@ -34,11 +34,11 @@
 
   --color-typo-warning: rgb(235, 109, 0); /* Цвет текста предупреждения */
 
-  --color-typo-alert: rgb(235, 51, 51); /* Цвет текста ошибки */
+  --color-typo-alert: #EB5D56; /* Цвет текста ошибки */
   --color-typo-critical: rgb(51, 0, 15); /* Цвет фона системнный */
-  --color-typo-link: #4986cc; /* Цвет основной ссылки */
-  --color-typo-link-minor: rgb(28, 86, 130); /* Цвет второстепенной ссылки */
-  --color-typo-link-hover: rgb(0, 142, 250); /* Цвет ховера ссылки */
+  --color-typo-link: #109062; /* Цвет основной ссылки */
+  --color-typo-link-minor: #197553; /* Цвет второстепенной ссылки */
+  --color-typo-link-hover: #197553; /* Цвет ховера ссылки */
   --color-nums-shadow: 0, 32, 51; /* Значения RGB для указания теней в конструкции rgba(R,G,B, alpha) */
 
   /* //////////////////////////////
@@ -96,16 +96,8 @@
   ); /* Цвет тени в состонии нажатия  */
 
   /* Primary */
-  --color-control-bg-primary: rgb(
-    0,
-    120,
-    210
-  ); /* Цвет фона активного контрола */
-  --color-control-bg-primary-hover: rgb(
-    0,
-    145,
-    255
-  ); /* Цвет фона активного контрола по ховеру */
+  --color-control-bg-primary: #109062; /* Цвет фона активного контрола */
+  --color-control-bg-primary-hover: #2BB47E; /* Цвет фона активного контрола по ховеру */
 
   --color-control-typo-primary: rgb(255, 255, 255); /* Цвет акцентного текста */
   --color-control-typo-primary-hover: rgb(
@@ -175,27 +167,12 @@
   ); /* Цвет акцентного текста */
 
   /* Clear */
-  --color-control-bg-clear: rgba(
-    0,
-    66,
-    105,
-    0
-  ); /* Цвет фона чистого контрола */
-  --color-control-bg-clear-hover: rgba(
-    60,
-    64,
-    67,
-    0.08
-  ); /* Цвет фона чистого контрола по ховеру */
+  --color-control-bg-clear: #fff; /* Цвет фона чистого контрола */
+  --color-control-bg-clear-hover: #f1f4f5; /* Цвет фона чистого контрола по ховеру */
 
-  --color-control-typo-clear: #002033; /* Цвет акцентного текста */
+  --color-control-typo-clear:#1e2329; /* Цвет акцентного текста */
 
-  --color-control-typo-clear-hover: rgba(
-    0,
-    57,
-    92,
-    0.75
-  ); /* Цвет акцентного текста */
+  --color-control-typo-clear-hover: #109062; /* Цвет акцентного текста */
 
   /* Disable */
   --color-control-bg-disable: rgba(
