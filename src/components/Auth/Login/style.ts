@@ -6,8 +6,8 @@ const useStyles = makeStyles(() => ({
   },
   form: {
     padding: '24px 24px 32px',
-    maxWidth:'400px',
-    //РР сделать 360 на вход и 680 на регу
+    maxWidth: '400px',
+    // РР сделать 360 на вход и 680 на регу
   },
   closeBtn: {
     position: 'absolute',

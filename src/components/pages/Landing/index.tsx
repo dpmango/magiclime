@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
 import Auth from '../../Auth';
 
-const Landing = () => {
+const Landing: FC = () => {
   const [isAuthOpen, setAuthOpen] = useState(false);
 
   const closeModal = useCallback(() => {
@@ -12,7 +12,7 @@ const Landing = () => {
 
   return (
     <div>
-      <Button label={'Войти'} onClick={() => setAuthOpen(true)} />
+      <Button label="Войти" onClick={() => setAuthOpen(true)} />
       <Modal isOpen={isAuthOpen} hasOverlay onOverlayClick={closeModal}>
         <Auth closeModal={closeModal} />
       </Modal>

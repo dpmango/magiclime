@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix"
   },
   "dependencies": {
     "@consta/uikit": "^2.1.0",
@@ -28,6 +29,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
     "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },

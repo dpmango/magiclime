@@ -9,8 +9,8 @@ const PasswordField: FC<TextFieldProps> = (props) => {
 
   const Eye = () => (
     <Icon
-      view={'ghost'}
-      size={'m'}
+      view="ghost"
+      size="m"
       onClick={() => setPasswordOpen(!isPasswordOpen)}
       style={{ cursor: 'pointer' }}
     >

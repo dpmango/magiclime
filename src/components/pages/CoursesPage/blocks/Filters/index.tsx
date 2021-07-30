@@ -52,14 +52,14 @@ const Filters = () => {
   return (
     <>
       <Formik
-        validateOnChange={true}
+        validateOnChange
         initialValues={{
           difficult: 'Любой',
           categories: [],
           education_types: [],
           search: '',
         }}
-        enableReinitialize={true}
+        enableReinitialize
         onSubmit={(data, { setSubmitting }) => {
           console.log(data);
         }}

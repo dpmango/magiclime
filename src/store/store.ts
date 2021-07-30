@@ -1,14 +1,14 @@
-import {createStore, applyMiddleware, Store, Middleware} from 'redux';
+import { createStore, applyMiddleware, Store, Middleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import {rootReducer} from "./reducers/rootReducer";
-import thunk from "redux-thunk";
+import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
+import { rootReducer } from './reducers/rootReducer';
 
 const rootPersistConfig = {
-    key: 'rootStorage',
-    storage: storage,
-    whitelist: ['user']
+  key: 'rootStorage',
+  storage,
+  whitelist: ['user'],
 };
 
 const middleware: Middleware[] = [thunk];

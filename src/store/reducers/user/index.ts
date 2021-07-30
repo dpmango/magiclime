@@ -21,7 +21,7 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
   async (payload, { dispatch, rejectWithValue }) => {
     const { password, login, successCallback, errorCallback } = payload;
     try {
-      //const response = await loginUser({ password, email });
+      // const response = await loginUser({ password, email });
       const response = {
         data: { access: 'test_access', refresh: 'test_refresh' },
       };
@@ -56,7 +56,7 @@ export const getProfile = createAsyncThunk(
   'user/getProfile',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      //const response = await getUserProfile();
+      // const response = await getUserProfile();
       const response = {
         data: {
           id: 1,

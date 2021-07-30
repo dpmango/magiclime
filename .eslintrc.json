@@ -2,9 +2,9 @@
   "extends": [
     "airbnb-typescript",
     "airbnb/hooks",
-    "prettier",
     "plugin:@typescript-eslint/recommended",
-    "prettier/react",
+    "prettier",
+    "plugin:prettier/recommended",
     "plugin:jsx-a11y/recommended"
   ],
   "plugins": ["react", "jsx-a11y", "@typescript-eslint"],
@@ -34,13 +34,11 @@
         "packageDir": "./"
       }
     ],
-    "allowTernary": true,
-    "optimize-regex/optimize-regex": "warn",
-    "no-loops/no-loops": 2,
-    "no-use-extend-native/no-use-extend-native": 2,
     "linebreak-style": "off",
     "no-unused-vars": "warn",
-    "import/prefer-default-exports": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
     "@typescript-eslint/naming-convention": ["error", {
       "selector": "default",
       "format": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"]

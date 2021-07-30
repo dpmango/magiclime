@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import { Theme } from '@consta/uikit/Theme';
 import { RootState } from '../store/reducers/rootReducer';
 import { setAuthToken } from '../utils/api';
-import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Landing from './pages/Landing';
 import MainLayout from './Layout/MainLayout';
-import { Theme } from '@consta/uikit/Theme';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
-
 
 const App = () => {
   const [theme, setTheme] = useState<'default' | 'dark'>('default');
@@ -23,11 +22,11 @@ const App = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <Route exact={true} path={'/landing'} component={Landing} />
+        <Route exact path="/landing" component={Landing} />
         <PrivateRoute
-          path={'/'}
+          path="/"
           component={() => <MainLayout theme={theme} setTheme={setTheme} />}
-          redirect={'/landing'}
+          redirect="/landing"
           access={isLogged}
         />
       </Switch>

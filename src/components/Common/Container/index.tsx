@@ -1,7 +1,7 @@
 import React, { FC, HTMLProps, RefObject } from 'react';
-import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
+import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 
 interface IProps extends HTMLProps<HTMLDivElement> {
   className?: string;

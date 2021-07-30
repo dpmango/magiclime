@@ -1,3 +1,3 @@
 export interface ICourse {
-	readonly id: number
+  readonly id: number;
 }

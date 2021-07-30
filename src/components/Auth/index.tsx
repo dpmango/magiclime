@@ -12,7 +12,7 @@ const Auth: FC<IProps> = ({ closeModal }) => {
   return authType === 'sign_in' ? (
     <Login setAuthType={setAuthType} closeModal={closeModal} />
   ) : (
-    <div></div>
+    <div />
   );
 };
 

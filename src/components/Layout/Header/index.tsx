@@ -42,9 +42,9 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                 iconLeft={IconHamburger}
               />
             </HeaderModule>
-            <HeaderModule indent={'s'}>
-              <Link to={'/'}>
-                <Typography size={'2xl'} weight={'bold'} view={'brand'}>
+            <HeaderModule indent="s">
+              <Link to="/">
+                <Typography size="2xl" weight="bold" view="brand">
                   Magic Lime
                 </Typography>
               </Link>
@@ -57,8 +57,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName={'3.130 mBTC'}
-                personInfo={'Баланс'}
+                personName="3.130 mBTC"
+                personInfo="Баланс"
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}
               />
@@ -70,8 +70,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   isLogged={isLogged}
                   onClick={() => setOpen(!isOpen)}
                   isMinified={isMobile}
-                  personName={profile.name + ' ' + profile.surname}
-                  personInfo={'8 уровень'}
+                  personName={`${profile.name} ${profile.surname}`}
+                  personInfo="8 уровень"
                   className={styles.clickBlock}
                 />
               </div>
