@@ -67,9 +67,13 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|ico|ttf|woff|woff2|eot)$/,
+        test: /\.(png|jpe?g|gif|ico)$/,
         use: ['file-loader'],
       },
+      // {
+      //   test: /\.(ttf|woff|woff2|eot)$/,
+      //   use: ['file-loader'],
+      // },
       {
         test: /\.(sc|sa|c)ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
