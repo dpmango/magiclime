@@ -158,8 +158,8 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 <link.icon view={'secondary'} />
                 <Typography
                   margin={'0 0 0 18px'}
-                  view={'secondary'}
-                  size={'m'}
+                  view={'primary'}
+                  size={'s'}
                   weight={'regular'}
                   className={styles.text}
                 >
@@ -171,7 +171,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 margin={'0 0 0 24px'}
                 view={'secondary'}
                 size={'xs'}
-                weight={'light'}
+                weight={'regular'}
                 className={classNames(styles.text, styles.section)}
               >
                 {link.name}

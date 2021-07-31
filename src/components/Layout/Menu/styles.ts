@@ -9,7 +9,7 @@ interface IProps {
 
 const useStyles = makeStyles<null, IProps>(() => ({
   root: {
-    width: ({ isFull }) => (isFull ? '275px' : '75px'),
+    width: ({ isFull }) => (isFull ? '285px' : '75px'),
     height: 'calc(100vh - 64px)',
     overflowY: 'auto',
     flex: 'none',
@@ -29,8 +29,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
     whiteSpace: 'nowrap',
     transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
-    fontSize: ({ isFull }) => (isFull ? '' : '0px'),
-    transition: 'all .235s linear',
+    // fontSize: ({ isFull }) => (isFull ? '' : '0px'),
+    transition: 'all .175s linear',
   },
   linksContainer: {
     width: '100%',
@@ -51,6 +51,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     },
     '&:hover': {
       color: 'var(--color-typo-brand)',
+      textShadow: '0 0 #00000040',
       '& > span': {
         color: 'var(--color-typo-brand)',
       },
@@ -61,12 +62,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   },
   activeLink: {
     background: ({ isDefault }) =>
-      isDefault ? '#f9f9f9' : 'rgba(255, 255, 255, .05)',
+      isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
     '& > span': {
       color: 'var(--color-typo-brand)',
-      fontWeight: '600',
+      fontWeight: '500',
     },
     '& > div': {
+      fontWeight: '500',
+      textShadow: '0 0 var(--color-typo-brand)',
       color: 'var(--color-typo-brand)',
     },
   },
@@ -79,14 +82,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   },
   line: {
     position: 'absolute',
-    left: 0,
+    right: 0,
     width: '4px',
     height: '48px',
     zIndex: 5,
     top: ({ activeLinkIndex }) => `${activeLinkIndex * 48}px`,
-    transition: 'top .235s linear',
-    borderTopRightRadius: '4px',
-    borderBottomRightRadius: '2px',
+    transition: 'top .125s linear',
+    borderTopLeftRadius: '4px',
+    borderBottomLeftRadius: '4px',
     backgroundImage:
       'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
   },
