@@ -30,7 +30,6 @@ const useStyles = makeStyles(() =>
           font: 'inherit',
           verticalAlign: 'baseline',
           boxSizing: 'border-box',
-          fontFamily: 'Gotham Pro, sans-serif',
         },
       'article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section':
         {
