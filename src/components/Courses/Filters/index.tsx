@@ -1,39 +1,23 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from '@consta/uikit/TextField';
 import FormikRadiobuttons from 'components/molecules/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/molecules/Controls/Formik/CheckboxGroup';
+import FormikRangeBlock from 'components/molecules/Controls/Formik/RangeGroup';
 import icons from '../icons';
-import SearchBlocks from './blocks/SearchBlocks';
 
-const useStyles = makeStyles({
-  root: {},
-  formBlock: {
-    marginBottom: '24px',
-  },
-  small: {
-    marginBottom: '6px',
-  },
-  group: {
-    '& .RadioGroup-Item:not(:last-child), & .Checkbox-Label:not(:last-child)': {
-      marginBottom: '14px',
-    },
-    '& .Radio-Label, & .Checkbox-Label': {
-      marginLeft: '12px',
-      fontWeight: 300,
-    },
-  },
-});
+import useStyles from './styles';
 
 interface ICategory {
   id: number;
   name: string;
 }
 
-const Filters = () => {
+const Filters: FC = () => {
   const styles = useStyles();
+
   const difficults = ['Любой', 'Для новичков', 'Для специалистов'];
+  const educationTypes = ['Профессия', 'Программа', 'Курс'];
 
   const categories = [
     { id: 1, name: 'Маркетинг' },
@@ -47,8 +31,6 @@ const Filters = () => {
     { id: 9, name: 'Маркетинг5' },
   ] as ICategory[];
 
-  const educationTypes = ['Профессия', 'Программа', 'Курс'];
-
   return (
     <>
       <Formik
@@ -58,25 +40,29 @@ const Filters = () => {
           categories: [],
           education_types: [],
           search: '',
+          price: [null, null],
+          lime: [null, null],
         }}
         enableReinitialize
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={(data) => {
+          // eslint-disable-next-line no-console
           console.log(data);
         }}
       >
-        {({ values, setFieldValue, isSubmitting }) => (
+        {({ values, setFieldValue }) => (
           <Form>
+            {JSON.stringify(values)}
             <div className={styles.formBlock}>
               <Field
                 placeholder="Поиск по курсам"
                 name="search"
                 component={TextField}
                 rightSide={icons.SearchIcon}
+                value={values.search}
+                onChange={({ value }: { value: string }) =>
+                  setFieldValue('search', value)
+                }
               />
-            </div>
-
-            <div className={styles.formBlock}>
-              <SearchBlocks title="Цена" placeholders={['0 ₽', '156 000 ₽']} />
             </div>
 
             <div className={styles.formBlock}>
@@ -91,7 +77,11 @@ const Filters = () => {
             </div>
 
             <div className={styles.formBlock}>
-              <SearchBlocks title="Lime уровень" placeholders={['1', '53']} />
+              <FormikRangeBlock
+                name="price"
+                title="Цена"
+                placeholders={['0 ₽', '156 000 ₽']}
+              />
             </div>
 
             <div className={styles.formBlock}>
@@ -102,6 +92,14 @@ const Filters = () => {
                 getLabel={(item) => item as string}
                 direction="column"
                 className={styles.group}
+              />
+            </div>
+
+            <div className={styles.formBlock}>
+              <FormikRangeBlock
+                name="lime"
+                title="Lime уровень"
+                placeholders={['1', '53']}
               />
             </div>
 

@@ -15,12 +15,6 @@ type PropsType = RadiobuttonsProps & {
   Component?: Component | any;
 };
 
-const FormikRadiobuttons = (
-  props: PropsType & FieldHookConfig<typeof RadioGroup>
-) => {
-  return <Field {...props} component={FormikRadiobuttonsBase} />;
-};
-
 const FormikRadiobuttonsBase = MemoWrapper((props: PropsType & FieldProps) => {
   const {
     field: { onChange, value, ...field },
@@ -45,8 +39,8 @@ const FormikRadiobuttonsBase = MemoWrapper((props: PropsType & FieldProps) => {
         error={fieldError && fieldTouched}
         id={`${field.name}_${label || ''}`}
         value={isCorrectValue ? value : false}
-        onChange={({ value }: any) => {
-          setFieldValue(field.name, value);
+        onChange={({ value: v }) => {
+          setFieldValue(field.name, v);
         }}
         onFocus={() => setFieldError(field.name, '')}
         items={items}
@@ -55,5 +49,11 @@ const FormikRadiobuttonsBase = MemoWrapper((props: PropsType & FieldProps) => {
     </div>
   );
 });
+
+const FormikRadiobuttons = (
+  props: PropsType & FieldHookConfig<typeof RadioGroup>
+) => {
+  return <Field {...props} component={FormikRadiobuttonsBase} />;
+};
 
 export default FormikRadiobuttons;

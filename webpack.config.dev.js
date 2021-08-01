@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -85,6 +86,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.svg',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './src/assets/images',
+          to: 'images',
+        },
+      ],
     }),
   ],
 };

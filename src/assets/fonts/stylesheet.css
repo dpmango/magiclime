@@ -66,7 +66,7 @@
         url('GothamPro-Medium.woff2') format('woff2'),
         url('GothamPro-Medium.woff') format('woff'),
         url('GothamPro-Medium.ttf') format('truetype');
-    font-weight: 500;
+    font-weight: 600;
     font-style: normal;
 }
 
@@ -102,7 +102,7 @@
         url('GothamPro-MediumItalic.woff2') format('woff2'),
         url('GothamPro-MediumItalic.woff') format('woff'),
         url('GothamPro-MediumItalic.ttf') format('truetype');
-    font-weight: 500;
+    font-weight: 600;
     font-style: italic;
 }
 

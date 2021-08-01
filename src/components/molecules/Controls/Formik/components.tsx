@@ -8,7 +8,8 @@ export const ErrorMessage = styled(Typography)({
 
 export const StyledTitle = styled(Typography)({
   fontSize: '16px',
-  lineHeight: '24px',
+  lineHeight: '20px',
+  fontWeight: '600',
   marginBottom: '12px',
 });
 

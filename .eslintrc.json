@@ -39,6 +39,8 @@
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/require-default-props": "off",
     "@typescript-eslint/naming-convention": ["error", {
       "selector": "default",
       "format": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"]

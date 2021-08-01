@@ -1,7 +1,7 @@
 import React, { ComponentProps, useState } from 'react';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
 import { CheckboxGroup } from '@consta/uikit/CheckboxGroup';
-import { makeStyles } from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core';
 import Flex from 'components/Common/Flex';
 import { StyledTitle, StyledDetailsText } from '../components';
 
@@ -15,14 +15,8 @@ type PropsType = CheckboxGroupProps & {
   showAllValues?: boolean;
 };
 
-const FormikCheckboxGroup = (
-  props: PropsType & FieldHookConfig<typeof CheckboxGroup>
-) => {
-  return <Field {...props} component={CheckboxGroupComponent} />;
-};
-
 const CheckboxGroupComponent = ({
-  field: { value, name, ...field },
+  field: { value, name },
   form: { setFieldValue },
   items = [],
   label,
@@ -40,19 +34,25 @@ const CheckboxGroupComponent = ({
         <CheckboxGroup
           value={value}
           items={array}
-          onChange={({ value }) => setFieldValue(name, value)}
+          onChange={({ value: v }) => setFieldValue(name, v)}
           {...props}
         />
       </div>
       {(items.length > 5 || showAllValues !== false) && (
-        <button onClick={() => setShow(!showAllItems)}>
+        <button type="button" onClick={() => setShow(!showAllItems)}>
           <StyledDetailsText>
-            {showAllItems ? 'Скрыть' : 'Ещё'}
+            {showAllItems ? 'Скрыть' : `Показать еще ${items.length - 5}`}
           </StyledDetailsText>
         </button>
       )}
     </Flex>
   );
+};
+
+const FormikCheckboxGroup = (
+  props: PropsType & FieldHookConfig<typeof CheckboxGroup>
+) => {
+  return <Field {...props} component={CheckboxGroupComponent} />;
 };
 
 export default FormikCheckboxGroup;

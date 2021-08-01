@@ -1,7 +1,4 @@
-import React from 'react';
-
-const MobileIcon = () => (
-  <svg
+<svg
     width="111"
     height="110"
     viewBox="0 0 111 110"
@@ -393,6 +390,3 @@ const MobileIcon = () => (
       fill="#E8505B"
     />
   </svg>
-);
-
-export default MobileIcon;

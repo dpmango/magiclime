@@ -1,6 +1,6 @@
 import Tags from './Tags';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
-import Banners from './Banners';
+import FeaturedCourse from './FeaturedCourse';
 
-export { Banners, Tags, CoursesList, Filters };
+export { FeaturedCourse, Tags, CoursesList, Filters };
