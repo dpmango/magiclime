@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import Login from './Login';
 import { AuthType } from './types';
+import Registration from './Registration';
 
 interface IProps {
   closeModal: VoidFunction;
@@ -9,11 +10,20 @@ interface IProps {
 const Auth: FC<IProps> = ({ closeModal }) => {
   const [authType, setAuthType] = useState<AuthType>('sign_in');
 
-  return authType === 'sign_in' ? (
-    <Login setAuthType={setAuthType} closeModal={closeModal} />
-  ) : (
-    <div />
-  );
+  const getAuthComponent = () => {
+    switch (authType) {
+      case 'sign_in':
+        return <Login setAuthType={setAuthType} closeModal={closeModal} />;
+      case 'sign_up':
+        return (
+          <Registration setAuthType={setAuthType} closeModal={closeModal} />
+        );
+      default:
+        return <Login setAuthType={setAuthType} closeModal={closeModal} />;
+    }
+  };
+
+  return getAuthComponent();
 };
 
 export default Auth;

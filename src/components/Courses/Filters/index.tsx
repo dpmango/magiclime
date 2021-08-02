@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from '@consta/uikit/TextField';
-import FormikRadiobuttons from 'components/molecules/Controls/Formik/Radiobuttons';
-import FormikCheckboxGroup from 'components/molecules/Controls/Formik/CheckboxGroup';
-import FormikRangeBlock from 'components/molecules/Controls/Formik/RangeGroup';
+import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
+import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import icons from '../icons';
 
 import useStyles from './styles';

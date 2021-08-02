@@ -14,11 +14,7 @@ import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IconList } from '@consta/uikit/IconList';
 import classNames from 'classnames';
-import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
-import Flex from '../../Common/Flex';
-import Typography from '../../Common/Typography';
-import Container from '../../Common/Container';
-import useStyles from './styles';
+import icons from './icons';
 
 interface IProps {
   isFull: boolean;
@@ -58,59 +54,59 @@ const Menu: FC<IProps> = ({ isFull }) => {
     {
       path: '/profile',
       name: 'Профиль',
-      icon: IconUser,
+      icon: icons.UserIcon,
     },
     {
       path: '/courses',
       name: 'Курсы',
-      icon: IconCards,
+      icon: icons.CardsIcon,
     },
     {
       path: '/chats',
       name: 'Чаты',
-      icon: IconChat,
+      icon: icons.ChatsIcon,
     },
     {
       path: '/calendar',
       name: 'Календарь',
-      icon: IconCalendar,
+      icon: icons.CalendarIcon,
     },
     { name: 'ОБУЧЕНИЕ' },
     {
       path: '/marketplace',
       name: 'Маркетплейс',
-      icon: IconBag,
+      icon: icons.MarketIcon,
     },
     {
       path: '/webinars',
       name: 'Вебинары',
-      icon: IconVideo,
+      icon: icons.VideoIcon,
     },
     {
       path: '/forum',
       name: 'Форум',
-      icon: IconTeam,
+      icon: icons.ForumIcon,
     },
     {
       path: '/programs',
       name: 'Программы',
-      icon: IconBook,
+      icon: icons.ProgramIcon,
     },
     { name: 'ДОПОЛНИТЕЛЬНО' },
     {
       path: '/faq',
       name: 'База знаний',
-      icon: IconList,
+      icon: icons.KnowledgeIcon,
     },
     {
       path: '/rating',
       name: 'Рейтинг пользователей',
-      icon: IconFavorite,
+      icon: icons.RatingIcon,
     },
     {
       path: '/games',
       name: 'Игры',
-      icon: IconDinosaur,
+      icon: icons.GameIcon,
     },
   ];
 
@@ -155,7 +151,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 className={styles.link}
                 activeClassName={styles.activeLink}
               >
-                <link.icon view="secondary" />
+                <link.icon view="secondary" size="s" />
                 <Typography
                   margin="0 0 0 18px"
                   view="primary"
