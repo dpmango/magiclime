@@ -1,5 +1,6 @@
 import React from 'react';
 import { createIcon } from '@consta/uikit/createIcon';
+import { createConstaIcon } from '../../../../utils/helpers/createConstaIcon';
 
 const SearchIcon = () => (
   <svg
@@ -38,18 +39,7 @@ const RefreshIcon = () => (
   </svg>
 );
 
-const createIconEasy = (
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>,
-  name: string
-) =>
-  createIcon({
-    m: Icon,
-    s: Icon,
-    xs: Icon,
-    name,
-  });
-
 export default {
-  SearchIcon: createIconEasy(SearchIcon, 'SearchIcon'),
-  RefreshIcon: createIconEasy(RefreshIcon, 'RefreshIcon'),
+  SearchIcon: createConstaIcon(SearchIcon, 'SearchIcon'),
+  RefreshIcon: createConstaIcon(RefreshIcon, 'RefreshIcon'),
 };

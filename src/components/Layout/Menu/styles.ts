@@ -29,7 +29,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     whiteSpace: 'nowrap',
     transform: ({ isFull }) => (isFull ? 'scaleY(1)' : 'scaleY(0)'),
     opacity: ({ isFull }) => (isFull ? '1' : '0'),
-    // fontSize: ({ isFull }) => (isFull ? '' : '0px'),
+    fontSize: ({ isFull }) => (isFull ? '' : '0px'),
     transition: 'all .175s linear',
   },
   linksContainer: {
@@ -82,14 +82,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   },
   line: {
     position: 'absolute',
-    right: 0,
+    left: 0,
     width: '4px',
     height: '48px',
     zIndex: 5,
     top: ({ activeLinkIndex }) => `${activeLinkIndex * 48}px`,
     transition: 'top .125s linear',
-    borderTopLeftRadius: '4px',
-    borderBottomLeftRadius: '4px',
+    borderTopRightRadius: '4px',
+    borderBottomRightRadius: '4px',
     backgroundImage:
       'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
   },
