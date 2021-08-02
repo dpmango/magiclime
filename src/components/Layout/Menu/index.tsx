@@ -14,6 +14,11 @@ import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IconList } from '@consta/uikit/IconList';
 import classNames from 'classnames';
+import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
+import Flex from '../../Common/Flex';
+import Typography from '../../Common/Typography';
+import Container from '../../Common/Container';
+import useStyles from './styles';
 import icons from './icons';
 
 interface IProps {

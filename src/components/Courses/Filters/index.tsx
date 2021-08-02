@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from '@consta/uikit/TextField';
 import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
+import FormikRangeBlock from 'components/Common/Controls/Formik/RangeGroup';
 import icons from '../icons';
 
 import useStyles from './styles';
