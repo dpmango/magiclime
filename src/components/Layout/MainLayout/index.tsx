@@ -7,7 +7,8 @@ import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import { Switch, Route } from 'react-router-dom';
 
-import Courses from '../../pages/CoursesPage'
+import Courses from '../../pages/CoursesPage';
+import Chats from '../../pages/Chats';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -30,6 +31,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Container className={styles.content}>
           <Switch>
             <Route exact={true} path={'/courses'} component={Courses} />
+            <Route path={'/chats/:id?'} component={Chats} />
           </Switch>
         </Container>
       </Flex>
