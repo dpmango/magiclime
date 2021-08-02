@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Auth: FC<IProps> = ({ closeModal }) => {
-  const [authType, setAuthType] = useState<AuthType>('sign_up');
+  const [authType, setAuthType] = useState<AuthType>('sign_in');
 
   const getAuthComponent = () => {
     switch (authType) {
