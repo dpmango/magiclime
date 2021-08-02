@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Button } from '@consta/uikit/Button';
-import { TagType } from 'types/interfaces/courses';
+import { IType } from 'types/interfaces/courses';
 import useStyles from './styles';
 
 interface IProps {
-  tags: TagType[];
+  tags: IType[];
   activeTags: number[];
   handleSelect: (id: number) => void;
 }

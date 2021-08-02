@@ -7,7 +7,7 @@ export interface ICourse {
   image: string;
 }
 
-export interface TagType {
+export interface IType {
   id: number;
   label: string;
 }

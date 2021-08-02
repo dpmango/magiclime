@@ -1,4 +1,4 @@
-import { ICourse, TagType } from 'types/interfaces/courses';
+import { ICourse, IType } from 'types/interfaces/courses';
 
 export const mockCourses: ICourse[] = [
   {
@@ -83,7 +83,7 @@ export const mockCourses: ICourse[] = [
   },
 ];
 
-export const tags: TagType[] = [
+export const tags: IType[] = [
   {
     id: 1,
     label: 'Маркетинг',
