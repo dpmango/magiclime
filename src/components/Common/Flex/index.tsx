@@ -1,8 +1,8 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties, HTMLProps } from 'react';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
-interface IProps {
+interface IProps extends HTMLProps<HTMLDivElement> {
   direction?: CSSProperties['flexDirection'];
   margin?: string;
   padding?: string;

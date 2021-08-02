@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/rootReducer';
 import { setAuthToken } from '../utils/api';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import Landing from './pages/Landing';
 import MainLayout from './Layout/MainLayout';
@@ -22,11 +22,11 @@ const App = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <Route exact={true} path={'/landing'} component={Landing} />
+        <Route exact={true} path={'/home'} component={Landing} />
         <PrivateRoute
           path={'/'}
           component={() => <MainLayout theme={theme} setTheme={setTheme} />}
-          redirect={'/landing'}
+          redirect={'/home'}
           access={isLogged}
         />
       </Switch>

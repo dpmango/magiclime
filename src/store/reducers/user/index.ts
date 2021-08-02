@@ -12,7 +12,7 @@ import { UpdateProfileType, LoginPayloadType } from './types';
 import { loginUser } from '../../../utils/api/routes/auth/routes';
 
 const initialState = {
-  isLogged: false,
+  isLogged: true,
   profile: {} as IUser,
 };
 

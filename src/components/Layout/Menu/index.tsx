@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import useStyles from './styles';
 import Container from '../../Common/Container';
 import { Avatar } from '@consta/uikit/Avatar';
@@ -17,7 +17,9 @@ import { IconDinosaur } from '@consta/uikit/IconDinosaur';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import { IconList } from '@consta/uikit/IconList';
-import { ComponentType } from '../../../types/common';
+import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
+import classNames from 'classnames';
+import icons from './icons';
 
 interface IProps {
   isFull: boolean;
@@ -26,191 +28,160 @@ interface IProps {
 const Menu: FC<IProps> = ({ isFull }) => {
   const [activeLink, setActiveLink] = useState({
     path: '/profile',
-    index: 0,
-    isFirstRender: true,
+    index: 1,
   });
+
+  const isDefault = useCheckDefaultTheme();
 
   const styles = useStyles({
     isFull,
+    isDefault,
     activeLinkIndex: activeLink.index,
-    isFirstAnimationPlay: activeLink.isFirstRender,
   });
   const location = useLocation();
 
   useEffect(() => {
-    let index = 0;
-    for (let i = 0; i < sections.length; i++) {
-      const linkIndex = sections[i].links.findIndex(
-        (link) => link.path === location.pathname
-      );
-      if (linkIndex >= 0) {
-        index = linkIndex;
-        break;
-      }
+    let index = 1;
+    const linkIndex = links.findIndex(
+      (link) => link.path && link.path === location.pathname
+    );
+    if (linkIndex >= 0) {
+      index = linkIndex;
     }
     setActiveLink({
       path: location.pathname,
       index,
-      isFirstRender: true,
     });
-  }, []);
+  }, [location.pathname]);
 
-  const sections = [
+  const links = [
+    { name: 'ГЛАВНОЕ МЕНЮ' },
     {
-      name: 'ГЛАВНОЕ МЕНЮ',
-      links: [
-        {
-          path: '/profile',
-          text: 'Профиль',
-          icon: IconUser,
-        },
-        {
-          path: '/courses',
-          text: 'Курсы',
-          icon: IconCards,
-        },
-        {
-          path: '/chats',
-          text: 'Чаты',
-          icon: IconChat,
-        },
-        {
-          path: '/calendar',
-          text: 'Календарь',
-          icon: IconCalendar,
-        },
-      ],
+      path: '/profile',
+      name: 'Профиль',
+      icon: icons.UserIcon,
     },
     {
-      name: 'ОБУЧЕНИЕ',
-      links: [
-        {
-          path: '/marketplace',
-          text: 'Маркетплейс',
-          icon: IconBag,
-        },
-        {
-          path: '/webinars',
-          text: 'Вебинары',
-          icon: IconVideo,
-        },
-        {
-          path: '/forum',
-          text: 'Форум',
-          icon: IconTeam,
-        },
-        {
-          path: '/programs',
-          text: 'Программы',
-          icon: IconBook,
-        },
-      ],
+      path: '/courses',
+      name: 'Курсы',
+      icon: icons.CardsIcon,
     },
     {
-      name: 'ДОПОЛНИТЕЛЬНО',
-      links: [
-        {
-          path: '/faq',
-          text: 'База знаний',
-          icon: IconList,
-        },
-        {
-          path: '/rating',
-          text: 'Рейтинг пользователей',
-          icon: IconFavorite,
-        },
-        {
-          path: '/games',
-          text: 'Игры',
-          icon: IconDinosaur,
-        },
-      ],
+      path: '/chats',
+      name: 'Чаты',
+      icon: icons.ChatsIcon,
+    },
+    {
+      path: '/calendar',
+      name: 'Календарь',
+      icon: icons.CalendarIcon,
+    },
+    { name: 'ОБУЧЕНИЕ' },
+    {
+      path: '/marketplace',
+      name: 'Маркетплейс',
+      icon: icons.MarketIcon,
+    },
+    {
+      path: '/webinars',
+      name: 'Вебинары',
+      icon: icons.VideoIcon,
+    },
+    {
+      path: '/forum',
+      name: 'Форум',
+      icon: icons.ForumIcon,
+    },
+    {
+      path: '/programs',
+      name: 'Программы',
+      icon: icons.ProgramIcon,
+    },
+    { name: 'ДОПОЛНИТЕЛЬНО' },
+    {
+      path: '/faq',
+      name: 'База знаний',
+      icon: icons.KnowledgeIcon,
+    },
+    {
+      path: '/rating',
+      name: 'Рейтинг пользователей',
+      icon: icons.RatingIcon,
+    },
+    {
+      path: '/games',
+      name: 'Игры',
+      icon: icons.GameIcon,
     },
   ];
 
-  const onLinkClick = (
-    path: string,
-    index: number,
-    array: Array<{ path: string; text: string; icon: ComponentType }>
-  ) => {
-    const isFirstRender = !!array.find((link) => link.path === activeLink.path);
-    setActiveLink({
-      path,
-      index,
-      isFirstRender: !isFirstRender,
-    });
-  };
-
   return (
     <Container className={styles.root}>
+      {/*<Flex*/}
+      {/*  margin={isFull ? '0 0 30px' : '0 0 20px'}*/}
+      {/*  className={styles.animation}*/}
+      {/*  justify={'center'}*/}
+      {/*>*/}
+      {/*  <Avatar*/}
+      {/*    className={styles.avatar}*/}
+      {/*    form={'default'}*/}
+      {/*    url={*/}
+      {/*      'https://cdn.pixabay.com/photo/2019/07/18/00/14/falcon-4345234_1280.jpg'*/}
+      {/*    }*/}
+      {/*    name={'Ростислав М.'}*/}
+      {/*  />*/}
+      {/*  <Flex*/}
+      {/*    direction={'column'}*/}
+      {/*    margin={isFull ? '0 auto 0 0' : '0'}*/}
+      {/*    className={styles.transition}*/}
+      {/*  >*/}
+      {/*    <Typography size={'xl'} weight={'semibold'} className={styles.text}>*/}
+      {/*      Ростислав М.*/}
+      {/*    </Typography>*/}
+      {/*    <Typography view={'secondary'} size={'s'} className={styles.text}>*/}
+      {/*      Palo Alto, CA*/}
+      {/*    </Typography>*/}
+      {/*  </Flex>*/}
+      {/*</Flex>*/}
       <Flex
-        margin={isFull ? '0 0 30px' : '0 0 20px'}
-        className={styles.animation}
-        justify={'center'}
+        direction={'column'}
+        margin={'0 0 12px'}
+        className={classNames(styles.animation, styles.relative)}
       >
-        <Avatar
-          className={styles.avatar}
-          form={'default'}
-          url={
-            'https://cdn.pixabay.com/photo/2019/07/18/00/14/falcon-4345234_1280.jpg'
-          }
-          name={'Ростислав М.'}
-        />
-        <Flex
-          direction={'column'}
-          margin={isFull ? '0 85.5px 0 0' : '0'}
-          className={styles.transition}
-        >
-          <Typography size={'xl'} weight={'semibold'} className={styles.text}>
-            Ростислав М.
-          </Typography>
-          <Typography view={'secondary'} size={'s'} className={styles.text}>
-            Palo Alto, CA
-          </Typography>
-        </Flex>
-      </Flex>
-      {sections.map((section) => (
-        <Flex
-          direction={'column'}
-          margin={isFull ? '0 0 40px' : '0 0 20px'}
-          key={uuid()}
-          className={styles.animation}
-        >
-          <Typography
-            margin={'0 0 8px 24px'}
-            view={'secondary'}
-            size={'s'}
-            weight={'bold'}
-            className={styles.text}
-          >
-            {section.name}
-          </Typography>
-          <div className={styles.linksContainer}>
-            {section.links.find((link) => link.path === activeLink.path) && (
-              <div className={styles.line}></div>
-            )}
-            {section.links.map((link, index, array) => (
+        {links.map((link) => (
+          <React.Fragment key={uuid()}>
+            {link.icon && link.path ? (
               <NavLink
-                key={uuid()}
                 to={link.path}
                 className={styles.link}
                 activeClassName={styles.activeLink}
-                onClick={() => onLinkClick(link.path, index, array)}
               >
-                <link.icon view={'secondary'} />
+                <link.icon view={'secondary'} size={'s'} />
                 <Typography
                   margin={'0 0 0 18px'}
-                  view={'secondary'}
-                  size={'l'}
-                  weight={'semibold'}
+                  view={'primary'}
+                  size={'s'}
+                  weight={'regular'}
+                  className={styles.text}
                 >
-                  {link.text}
+                  {link.name}
                 </Typography>
               </NavLink>
-            ))}
-          </div>
-        </Flex>
-      ))}
+            ) : (
+              <Typography
+                margin={'0 0 0 24px'}
+                view={'secondary'}
+                size={'xs'}
+                weight={'regular'}
+                className={classNames(styles.text, styles.section)}
+              >
+                {link.name}
+              </Typography>
+            )}
+            <div className={styles.line}></div>
+          </React.Fragment>
+        ))}
+      </Flex>
     </Container>
   );
 };

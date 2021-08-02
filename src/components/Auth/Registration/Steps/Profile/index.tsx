@@ -64,12 +64,7 @@ const ProfileStep = () => {
           'Я согласен получать уведомления о новых продуктах и предложениях Lime'
         }
       />
-      <Typography
-        margin={'25px 0 8px'}
-        align={'center'}
-        weight={'semibold'}
-        size={'l'}
-      >
+      <Typography margin={'25px 0 8px'} align={'center'} size={'l'}>
         Через социальную сеть
       </Typography>
       <SocialNetworks />

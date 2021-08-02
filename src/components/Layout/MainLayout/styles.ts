@@ -11,7 +11,19 @@ const useStyles = makeStyles(() => ({
   },
   content: {
     flex: '1',
-    height: '100%',
+    padding: '95px 120px',
+    height: 'calc(100vh - 64px)',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    '@media screen and (max-width: 1224px)': {
+      padding: '95px 90px',
+    },
+    '@media screen and (max-width: 1024px)': {
+      padding: '95px 70px',
+    },
+    '@media screen and (max-width: 768px)': {
+      padding: '95px 50px',
+    },
   },
 }));
 

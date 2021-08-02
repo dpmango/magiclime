@@ -6,11 +6,13 @@ const useStyles = makeStyles(() => ({
     maxWidth: '400px',
   },
   form: {
-    padding: '20px 25px 16px',
+    padding: '24px 24px 32px',
+    maxWidth: '400px',
+    //РР сделать 360 на вход и 680 на регу
   },
   closeBtn: {
     position: 'absolute',
-    top: '15px',
+    top: '18px',
     right: '15px',
   },
   field: {
@@ -21,18 +23,19 @@ const useStyles = makeStyles(() => ({
     },
   },
   license: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     '& > a': {
       marginLeft: '5px',
+      fontWeight: '500',
     },
   },
   registration: {
     borderTop: '1px solid #00416633',
-    padding: '16px',
+    padding: '12px',
     height: 'auto',
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
-    color: '#0078D2',
+    color: 'var(--color-typo-brand)',
   },
 }));
 

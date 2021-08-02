@@ -46,7 +46,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         className={styles.closeBtn}
         onClick={closeModal}
         label={'Закрыть'}
-        size={'s'}
+        size={'m'}
         view={'clear'}
         iconLeft={IconClose}
         onlyIcon
@@ -72,28 +72,33 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
           value={form.password}
           onChange={({ value }) => handleChange('password', value)}
         />
-        <Flex align={'center'} justify={'space-between'} margin={'0 0 24px'}>
+        <Flex align={'center'} justify={'space-between'} margin={'0 0 16px'}>
           <Checkbox
             label="Запомнить меня"
             checked={rememberUser}
             onClick={() => setRememberUser(!rememberUser)}
           />
-          <Text view={'link'} onClick={() => setAuthType('pass_recovery')}>
+          <Text
+            size={'s'}
+            view={'link'}
+            onClick={() => setAuthType('pass_recovery')}
+          >
             Забыли пароль?
           </Text>
         </Flex>
         <Button label={'Войти'} width="full" onClick={handleSubmit} />
-        <Typography align={'center'} margin={'24px 0 12px'}>
+        <Typography align={'center'} margin={'16px 0 8px'}>
           Или с помощью
         </Typography>
         <SocialNetworks />
         <Typography
           align={'center'}
           margin={'16px auto 0'}
+          size={'s'}
           className={styles.license}
         >
           При авторизации через социальную сеть, вы принимаете условия
-          <Text view={'link'} as={'a'}>
+          <Text view={'link'} as={'a'} size={'s'}>
             Пользовательского соглашения
           </Text>
         </Typography>
