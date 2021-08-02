@@ -51,7 +51,7 @@ const Filters: FC = () => {
       >
         {({ values, setFieldValue }) => (
           <Form>
-            {JSON.stringify(values)}
+            {/* {JSON.stringify(values)} */}
             <div className={styles.formBlock}>
               <Field
                 placeholder="Поиск по курсам"

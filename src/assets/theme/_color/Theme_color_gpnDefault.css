@@ -128,12 +128,7 @@
   ); /* Цвет акцентного текста */
 
   /* Ghost */
-  --color-control-bg-ghost: rgba(
-    0,
-    66,
-    105,
-    0.07
-  ); /* Цвет фона дополнительного контрола */
+  --color-control-bg-ghost: transparent; /* Цвет фона дополнительного контрола */
 
   --color-control-bg-ghost-hover: rgba(
     0,
@@ -142,12 +137,7 @@
     0.05
   ); /* Цвет фона дополнительного контрола по ховеру */
 
-  --color-control-typo-ghost: rgba(
-    0,
-    57,
-    92,
-    0.8
-  ); /* Цвет дополнительного текста контрола */
+  --color-control-typo-ghost: #002033; /* Цвет дополнительного текста контрола */
 
   --color-control-typo-ghost-hover: rgba(
     0,
@@ -155,6 +145,11 @@
     92,
     0.75
   ); /* Цвет акцентного текста */
+
+  --color-control-bg-border-ghost: rgba(0, 66, 105, 0.28); /* Цвет фона бордеров котрола */
+
+  --color-control-bg-border-ghost-hover: rgba(0, 66, 105, 0.5); /* Цвет фона бордеров контрола по ховеру */
+
 
   /* Clear */
   --color-control-bg-clear: #fff; /* Цвет фона чистого контрола */

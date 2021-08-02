@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import cns from 'classnames';
-
+import { Button } from '@consta/uikit/Button';
 import { TagType } from 'types/interfaces/courses';
 import useStyles from './styles';
 
@@ -18,15 +17,14 @@ const Tags: FC<IProps> = ({ tags, activeTags, handleSelect }) => {
       {tags.map((item) => {
         const active = activeTags.includes(item.id);
         return (
-          <span
+          <Button
             key={item.id}
-            role="button"
-            tabIndex={0}
+            label={item.label}
+            form="round"
+            view={active ? 'primary' : 'ghost'}
             onClick={() => handleSelect(item.id)}
-            className={cns(styles.button, active && 'active')}
-          >
-            {item.label}
-          </span>
+            className={styles.button}
+          />
         );
       })}
     </div>
