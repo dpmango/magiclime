@@ -43,7 +43,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
   useEffect(() => {
     let index = 1;
     const linkIndex = links.findIndex(
-      (link) => link.path && link.path === location.pathname
+      (link) => link.path && location.pathname.indexOf(link.path) === 0
     );
     if (linkIndex >= 0) {
       index = linkIndex;
