@@ -5,6 +5,6 @@ export type ComponentType<T = any> = typeof Component | React.FC<T>;
 
 export type ChangeType<T = HTMLInputElement> = ChangeEvent<T>;
 
-//Тип для функции изменения сосотояние (useState)
+//Тип для функции изменения состояния (useState)
 
 export type SetStateType<T = any> = Dispatch<SetStateAction<T>>;
