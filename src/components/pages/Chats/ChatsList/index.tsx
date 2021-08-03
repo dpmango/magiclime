@@ -8,6 +8,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { IChat } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
+import { IconMeatball } from '@consta/uikit/IconMeatball';
 
 interface IProps {
   chatId?: string;
@@ -70,7 +71,8 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
           form={'brick'}
           placeholder="Поиск по сообщениям"
           value={search}
-          rightSide={IconSearch}
+          leftSide={IconSearch}
+          rightSide={IconMeatball}
           onChange={({ value }) => setSearch(value as string)}
         />
       </div>

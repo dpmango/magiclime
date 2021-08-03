@@ -3,10 +3,13 @@ import { COLORS } from '../../../../../utils/constants/colors';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '100%',
     borderTop: `1px solid ${COLORS.layoutBorderColor}`,
+    minHeight: '56px',
+    height: 'auto',
+  },
+  messagePanel: {
     padding: '5px 15px',
-    height: '56px',
+    minHeight: '56px',
   },
   input: {
     border: 'none',
