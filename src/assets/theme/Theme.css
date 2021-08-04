@@ -32,3 +32,16 @@
 .Theme *::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-scroll-thumb-hover);
 }
+
+.Button_view_primary{
+  /* prevent jumping between states */
+  /* todo - toggle height */
+  border: 1px solid transparent;
+}
+
+.Button_view_ghost{
+  border: var(--control-border-width) solid var(--color-control-bg-border-ghost);
+}
+.Button_view_ghost:hover{
+  border-color: var(--color-control-bg-border-ghost-hover);
+}

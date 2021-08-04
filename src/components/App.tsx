@@ -22,11 +22,11 @@ const App = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <Route exact path="/landing" component={Landing} />
+        <Route exact path="/home" component={Landing} />
         <PrivateRoute
           path="/"
           component={() => <MainLayout theme={theme} setTheme={setTheme} />}
-          redirect="/landing"
+          redirect="/home"
           access={isLogged}
         />
       </Switch>
