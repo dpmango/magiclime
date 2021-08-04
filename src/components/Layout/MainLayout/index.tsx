@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
 import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
-import { Switch, Route } from 'react-router-dom';
 
-import Courses from '../../pages/CoursesPage'
+import Courses from '../../pages/CoursesPage';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -19,7 +19,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const [isFullMenu, setIsFullMenu] = useState(true);
 
   return (
-    <Flex direction={'column'} className={styles.root}>
+    <Flex direction="column" className={styles.root}>
       <Header
         theme={theme}
         setTheme={setTheme}
@@ -27,11 +27,13 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
       />
       <Flex className={styles.container}>
         <Menu isFull={isFullMenu} />
-        <Container className={styles.content}>
-          <Switch>
-            <Route exact={true} path={'/courses'} component={Courses} />
-          </Switch>
-        </Container>
+        <div className={styles.scroller}>
+          <Container className={styles.content}>
+            <Switch>
+              <Route exact path="/courses" component={Courses} />
+            </Switch>
+          </Container>
+        </div>
       </Flex>
       {/* FOOTER */}
     </Flex>

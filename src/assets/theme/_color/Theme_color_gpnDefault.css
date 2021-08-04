@@ -82,12 +82,12 @@
     145,
     255
   ); /* Цвет аутлайна контролов при фокусе */ /* TODO заменить на правило целиком */
-  --color-control-bg-focus: #1975533d; /* Цвет тени в состонии фокуса */
-  --color-control-bg-active: #1975533d; /* Цвет тени в состонии нажатия  */
+  --color-control-bg-focus: #0078D23d; /* Цвет тени в состонии фокуса */
+  --color-control-bg-active: #0078D23d; /* Цвет тени в состонии нажатия  */
 
   /* Primary */
-  --color-control-bg-primary: #109062; /* Цвет фона активного контрола */
-  --color-control-bg-primary-hover: #2BB47E; /* Цвет фона активного контрола по ховеру */
+  --color-control-bg-primary: #0078D2; /* Цвет фона активного контрола */
+  --color-control-bg-primary-hover: rgba(0, 145, 255, 1); /* Цвет фона активного контрола по ховеру */
 
   --color-control-typo-primary: rgb(255, 255, 255); /* Цвет акцентного текста */
   --color-control-typo-primary-hover: rgb(
@@ -128,12 +128,7 @@
   ); /* Цвет акцентного текста */
 
   /* Ghost */
-  --color-control-bg-ghost: rgba(
-    0,
-    66,
-    105,
-    0.07
-  ); /* Цвет фона дополнительного контрола */
+  --color-control-bg-ghost: transparent; /* Цвет фона дополнительного контрола */
 
   --color-control-bg-ghost-hover: rgba(
     0,
@@ -142,12 +137,7 @@
     0.05
   ); /* Цвет фона дополнительного контрола по ховеру */
 
-  --color-control-typo-ghost: rgba(
-    0,
-    57,
-    92,
-    0.8
-  ); /* Цвет дополнительного текста контрола */
+  --color-control-typo-ghost: #002033; /* Цвет дополнительного текста контрола */
 
   --color-control-typo-ghost-hover: rgba(
     0,
@@ -155,6 +145,11 @@
     92,
     0.75
   ); /* Цвет акцентного текста */
+
+  --color-control-bg-border-ghost: rgba(0, 66, 105, 0.28); /* Цвет фона бордеров котрола */
+
+  --color-control-bg-border-ghost-hover: rgba(0, 66, 105, 0.5); /* Цвет фона бордеров контрола по ховеру */
+
 
   /* Clear */
   --color-control-bg-clear: #fff; /* Цвет фона чистого контрола */

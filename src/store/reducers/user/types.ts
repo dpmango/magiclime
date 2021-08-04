@@ -13,4 +13,4 @@ export type UpdateProfileType = {
   errorCallback?: (error: string) => void;
 };
 
-//export type UpdateType = Pick<IUser, 'email' | 'phone' | 'vk' | 'instagram' | 'telegram'>
+// export type UpdateType = Pick<IUser, 'email' | 'phone' | 'vk' | 'instagram' | 'telegram'>

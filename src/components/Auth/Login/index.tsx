@@ -2,17 +2,15 @@ import React, { FC, useCallback, useState } from 'react';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
 import { TextField } from '@consta/uikit/TextField';
+import { IconClose } from '@consta/uikit/IconClose';
+import { useDispatch } from 'react-redux';
 import PasswordInput from '../../Common/Controls/PasswordInput';
 import useStyles from './styles';
-import { IconClose } from '@consta/uikit/IconClose';
 import { IBaseAuthProps } from '../types';
 import Flex from '../../Common/Flex';
-import { Checkbox } from '@consta/uikit/Checkbox';
 import Typography from '../../Common/Typography';
 import SocialNetworks from '../SocialNetworks';
-import { useDispatch } from 'react-redux';
 import { login } from '../../../store/reducers/user';
-import { useHistory } from 'react-router-dom';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
@@ -45,69 +43,69 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
       <Button
         className={styles.closeBtn}
         onClick={closeModal}
-        label={'Закрыть'}
-        size={'m'}
-        view={'clear'}
+        label="Закрыть"
+        size="m"
+        view="clear"
         iconLeft={IconClose}
         onlyIcon
       />
       <div className={styles.form}>
         <Typography
-          size={'3xl'}
-          align={'center'}
-          margin={'0 0 24px'}
-          weight={'semibold'}
+          size="3xl"
+          align="center"
+          margin="0 0 24px"
+          weight="semibold"
         >
           Вход
         </Typography>
         <TextField
           className={styles.field}
-          placeholder={'Ваш логин'}
+          placeholder="Ваш логин"
           value={form.login}
           onChange={({ value }) => handleChange('login', value)}
         />
         <PasswordInput
           className={styles.field}
-          placeholder={'Ваш пароль'}
+          placeholder="Ваш пароль"
           value={form.password}
           onChange={({ value }) => handleChange('password', value)}
         />
-        <Flex align={'center'} justify={'space-between'} margin={'0 0 16px'}>
+        <Flex align="center" justify="space-between" margin="0 0 16px">
           <Checkbox
             label="Запомнить меня"
             checked={rememberUser}
             onClick={() => setRememberUser(!rememberUser)}
           />
           <Text
-            size={'s'}
-            view={'link'}
+            size="s"
+            view="link"
             onClick={() => setAuthType('pass_recovery')}
           >
             Забыли пароль?
           </Text>
         </Flex>
-        <Button label={'Войти'} width="full" onClick={handleSubmit} />
-        <Typography align={'center'} margin={'16px 0 8px'}>
+        <Button label="Войти" width="full" onClick={handleSubmit} />
+        <Typography align="center" margin="16px 0 8px">
           Или с помощью
         </Typography>
         <SocialNetworks />
         <Typography
-          align={'center'}
-          margin={'16px auto 0'}
-          size={'s'}
+          align="center"
+          margin="16px auto 0"
+          size="s"
           className={styles.license}
         >
           При авторизации через социальную сеть, вы принимаете условия
-          <Text view={'link'} as={'a'} size={'s'}>
+          <Text view="link" as="a" size="s">
             Пользовательского соглашения
           </Text>
         </Typography>
       </div>
       <Button
         className={styles.registration}
-        label={'Регистрация'}
-        view={'clear'}
-        width={'full'}
+        label="Регистрация"
+        view="clear"
+        width="full"
         onClick={() => setAuthType('sign_up')}
       />
     </div>

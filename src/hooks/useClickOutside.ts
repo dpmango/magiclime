@@ -11,7 +11,7 @@ export const useClickOutside = <T extends HTMLElement = HTMLElement>(
         !elementRef.current.contains(event.target as Node)
       ) {
         closeCallback();
-        //event.stopPropagation();
+        // event.stopPropagation();
       }
     };
 

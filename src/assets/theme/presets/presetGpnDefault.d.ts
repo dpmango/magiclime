@@ -6,4 +6,5 @@ import '../_font/Theme_font_gpnDefault.css';
 import '../_size/Theme_size_gpnDefault.css';
 import '../_space/Theme_space_gpnDefault.css';
 import { ThemePreset } from '../Theme';
+
 export declare const presetGpnDefault: ThemePreset;

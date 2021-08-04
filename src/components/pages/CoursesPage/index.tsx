@@ -1,62 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core';
-import { ICourse } from 'types/interfaces/courses'
-import { Tags, CoursesList, Filters, Banners } from './blocks'
+import React, { FC, useState, useEffect } from 'react';
+import shuffle from 'lodash/shuffle';
+import { Grid, GridItem } from '@consta/uikit/Grid';
+import { ICourse } from 'types/interfaces/courses';
 import Typography from 'components/Common/Typography';
+import { FeaturedCourse, CoursesList, Filters, Tags } from 'components/Courses';
 
-const useStyles = makeStyles({
-	root: {
-		position: 'relative',
-		top: '-95px',
-	},
-	content: {
-		display: 'grid',
-		gridTemplateColumns: '84fr 26fr',
-		gridGap: '24px',
-	},
-	title: {
-		fontSize: '32px',
-		lineHeight: '56px',
-		marginBottom: '32px',
-	},
-	courses: {
+import { tags, mockCourses } from './mockData';
+import useStyles from './styles';
 
-	}
-});
+const CoursesPage: FC = () => {
+  const styles = useStyles();
 
+  const [courses, setCourses] = useState<ICourse[]>(mockCourses);
+  const [activeTags, setActiveTags] = useState<number[]>([]);
 
-const CoursesPage = () => {
-	const styles = useStyles()
+  const getMore = () => {
+    const newCourses = shuffle(
+      mockCourses.map((x) => ({
+        ...x,
+        id: x.id + 1,
+      }))
+    );
+    setCourses([...courses, ...newCourses]);
+  };
 
-	const [courses, setCourses] = useState<ICourse[]>([])
-	const [tags, setTags] = useState<string[]>([])
+  const handleTagsToggle = (id: number) => {
+    let newValues = [...activeTags];
 
-	useEffect(() => {
-		getMore()
-	}, [])
+    if (newValues.includes(id)) {
+      newValues = newValues.filter((val) => val !== id);
+    } else {
+      newValues = [...newValues, id];
+    }
+    setActiveTags(newValues);
+  };
 
+  return (
+    <div className={styles.root}>
+      <FeaturedCourse />
 
+      <div className={styles.content}>
+        <Typography weight="semibold" size="3xl" lineHeight="l">
+          Все курсы
+        </Typography>
+        <div className={styles.tags}>
+          <Tags
+            tags={tags}
+            activeTags={activeTags}
+            handleSelect={handleTagsToggle}
+          />
+        </div>
 
-	const getMore = () => {
-		const _courses = Array.from({ length: 20 }).map((el, index) => ({ id: index }))
-		setCourses([...courses, ..._courses])
-	}
+        <Grid cols="4" gap="xl" className={styles.main}>
+          <GridItem col="3">
+            <CoursesList items={courses} hasMore getMore={getMore} />
+          </GridItem>
 
-	return (
-		<div className={styles.root}>
-			<Banners />
-			<div className={styles.content}>
-				<div>
-					<Typography weight="semibold" size="3xl" className={styles.title} >Все курсы</Typography>
-					<Tags />
-				</div>
-				<div></div>
-
-				<CoursesList items={courses} hasMore={true} getMore={getMore} />
-				<Filters />
-			</div>
-		</div>
-	);
+          <GridItem col="1">
+            <Filters />
+          </GridItem>
+        </Grid>
+      </div>
+    </div>
+  );
 };
 
 export default CoursesPage;

@@ -1,13 +1,13 @@
 import React, { FC, MouseEvent, RefObject } from 'react';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
-import { logout } from '../../../../store/reducers/user';
 import { IconUser } from '@consta/uikit/IconUser';
 import { IconExit } from '@consta/uikit/IconExit';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { IUserDropdownProps, UserDropdownItem } from './types';
 import { Switch } from '@consta/uikit/Switch';
 import { IconMoon } from '@consta/uikit/IconMoon';
+import { IUserDropdownProps, UserDropdownItem } from './types';
+import { logout } from '../../../../store/reducers/user';
 
 const UserDropdown: FC<IUserDropdownProps> = ({
   clickOutside,
@@ -84,7 +84,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       anchorRef={targetRef}
       getLeftSideBar={renderLeftSide}
       getRightSideBar={renderRightSide}
-      direction={'downStartRight'}
+      direction="downStartRight"
       onClickOutside={clickOutside}
     />
   );
