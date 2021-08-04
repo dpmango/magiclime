@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useMemo } from 'react';
 import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
@@ -9,6 +9,7 @@ import {
   Achivements,
   Events,
   Courses,
+  Balance,
 } from 'components/Profile';
 
 import useStyles from './styles';
@@ -19,13 +20,13 @@ import {
   mockCourses,
 } from './mockData';
 
-interface ITabs {
+interface ITab {
   id: number;
   slug: string;
   label: string;
 }
 
-const tabs: ITabs[] = [
+const tabs: ITab[] = [
   { id: 1, slug: '/profile', label: 'Основное' },
   { id: 2, slug: '/profile/balance', label: 'Баланс' },
   { id: 3, slug: '/profile/referal', label: 'Рефералы' },
@@ -38,7 +39,15 @@ const ProfilePage: FC = () => {
   const history = useHistory();
   const firstRender = useFirstRender();
 
-  const [tab, setTab] = useState<ITabs>(tabs[0]);
+  const getTabWithRouter = useMemo((): ITab => {
+    // path is not up to date at this point
+    // because of nested Switch ?
+    const cTab = tabs.find((x) => x.slug === window.location.pathname);
+
+    return cTab || tabs[0];
+  }, []);
+
+  const [tab, setTab] = useState<ITab>(getTabWithRouter);
 
   useEffect(() => {
     if (!firstRender) {
@@ -97,7 +106,7 @@ const ProfilePage: FC = () => {
           render={() => (
             <>
               <div className={styles.section}>
-                <h2>test</h2>
+                <Balance />
               </div>
             </>
           )}
