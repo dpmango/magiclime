@@ -54,7 +54,7 @@ const Withdrawal: FC = () => {
   return (
     <div className={styles.root}>
       <Typography size="xl" weight="semibold" className={styles.title}>
-        Пополнение счёта
+        Вывод средств
       </Typography>
 
       <Formik

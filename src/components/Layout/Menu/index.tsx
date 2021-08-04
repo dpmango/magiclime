@@ -156,7 +156,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 className={styles.link}
                 activeClassName={styles.activeLink}
               >
-                <link.icon view="secondary" size="s" />
+                <link.icon view="ghost" size="s" />
                 <Typography
                   margin="0 0 0 18px"
                   view="primary"

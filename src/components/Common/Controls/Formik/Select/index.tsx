@@ -44,7 +44,7 @@ const FormikSelectComponent = MemoWrapper(
     return (
       <Flex direction="column">
         {label && (
-          <Typography margin="0 0 6px" view="secondary">
+          <Typography size="s" margin="0 0 6px" view="secondary">
             {label}
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>

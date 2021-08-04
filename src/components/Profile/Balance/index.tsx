@@ -14,7 +14,7 @@ const Events: FC = () => {
   return (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        Надо придумать заголовок
+        Операции с балансом
       </Typography>
 
       <Grid

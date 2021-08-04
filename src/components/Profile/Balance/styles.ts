@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     borderRadius: 10,
     background: 'var(--color-bg-default)',
-    padding: '20px 24px',
+    padding: '16px 24px 24px',
     border: '1px solid var(--color-control-bg-border-ghost)',
   },
 });

@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {},
   title: {
-    margin: '0 -24px 8px',
-    padding: '0 24px 12px',
+    margin: '0 -24px 16px',
+    padding: '0 24px 16px',
     borderBottom: '1px solid var(--color-bg-stripe)',
   },
 
