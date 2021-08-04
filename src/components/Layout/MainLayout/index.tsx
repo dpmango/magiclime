@@ -8,6 +8,7 @@ import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 
 import Courses from '../../pages/CoursesPage';
+import Profile from '../../pages/ProfilePage';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -30,6 +31,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <div className={styles.scroller}>
           <Container className={styles.content}>
             <Switch>
+              <Route exact path="/profile" component={Profile} />
               <Route exact path="/courses" component={Courses} />
             </Switch>
           </Container>
