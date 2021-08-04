@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   section: {
     marginTop: 36,
     paddingBottom: 36,
-    borderBottom: '1px solid var(--color-bg-stripe)',
+    borderBottom: '1px solid var(--color-bg-border)',
     '&:last-child': {
       borderBottom: 0,
     },

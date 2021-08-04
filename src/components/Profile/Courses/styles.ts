@@ -13,9 +13,9 @@ const useStyles = makeStyles({
     marginTop: 24,
     overflow: 'hidden',
     borderRadius: 10,
-    background: 'white',
+    background: 'var(--color-bg-default)',
     padding: 24,
-    border: '1px solid var(--color-control-bg-border-ghost)',
+    border: '1px solid var(--color-bg-border)',
   },
   courseImage: {
     flex: '0 0 auto',

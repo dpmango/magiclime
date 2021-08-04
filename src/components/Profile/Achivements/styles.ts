@@ -10,12 +10,12 @@ const useStyles = makeStyles({
     width: '100%',
     position: 'relative',
     zIndex: 1,
-    marginTop: 24,
+    marginTop: 20,
     overflow: 'hidden',
     borderRadius: 10,
-    background: 'white',
+    background: 'var(--color-bg-default)',
     padding: 24,
-    border: '1px solid var(--color-control-bg-border-ghost)',
+    border: '1px solid var(--color-bg-border)',
   },
   boxList: {
     flex: '1 0 auto',
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   group: {
     paddingBottom: 24,
     paddingTop: 24,
-    borderBottom: '1px solid var(--color-bg-stripe)',
+    borderBottom: '1px solid var(--color-bg-border)',
     '&:first-child': {
       paddingTop: 0,
     },
@@ -71,7 +71,7 @@ const useStyles = makeStyles({
     },
     '&.compleated': {
       background: 'var(--color-bg-success)',
-      color: 'white',
+      color: 'var(--color-bg-default)',
     },
   },
 });

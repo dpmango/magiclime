@@ -116,6 +116,27 @@ export const mockAchivements: IActivementsGroups[] = [
       },
     ],
   },
+  {
+    id: 3,
+    image: 'images/achivement-2.svg',
+    title: 'Заголовок группы достижений',
+    stats: {
+      compleated: 1,
+      total: 35,
+    },
+    list: [
+      {
+        id: 3,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+        compleated: true,
+      },
+      {
+        id: 4,
+        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
+        compleated: true,
+      },
+    ],
+  },
 ];
 
 export const mockEvents: IEvent[] = [

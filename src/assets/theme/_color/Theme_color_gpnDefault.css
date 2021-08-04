@@ -5,7 +5,7 @@
   /* //////////////////////////////
   // Цвета фонов /////////////// */
   --color-bg-default: rgb(255, 255, 255); /* Цвет дефолта */
-  --color-bg-secondary: rgb(236, 241, 244); /* Цвет дефолта */
+  --color-bg-secondary: #F7F7F7; /* Цвет дефолта */
   --color-bg-brand: rgb(0, 113, 178); /* Цвет фона брендированый */
   --color-bg-link: rgb(0, 120, 210); /* Цвет фона ссылки */
   --color-bg-border: #e5e5e5; /* Цвет границ */
@@ -82,12 +82,12 @@
     145,
     255
   ); /* Цвет аутлайна контролов при фокусе */ /* TODO заменить на правило целиком */
-  --color-control-bg-focus: #0078D23d; /* Цвет тени в состонии фокуса */
-  --color-control-bg-active: #0078D23d; /* Цвет тени в состонии нажатия  */
+  --color-control-bg-focus: #02c0774d; /* Цвет тени в состонии фокуса */
+  --color-control-bg-active: rgba(16, 144, 97, 0.555); /* Цвет тени в состонии нажатия  */
 
   /* Primary */
-  --color-control-bg-primary: #0078D2; /* Цвет фона активного контрола */
-  --color-control-bg-primary-hover: rgba(0, 145, 255, 1); /* Цвет фона активного контрола по ховеру */
+  --color-control-bg-primary: #109062; /* Цвет фона активного контрола */
+  --color-control-bg-primary-hover: #109061c4; /* Цвет фона активного контрола по ховеру */
 
   --color-control-typo-primary: rgb(255, 255, 255); /* Цвет акцентного текста */
   --color-control-typo-primary-hover: rgb(
@@ -137,18 +137,13 @@
     0.05
   ); /* Цвет фона дополнительного контрола по ховеру */
 
-  --color-control-typo-ghost: #002033; /* Цвет дополнительного текста контрола */
+  --color-control-typo-ghost: rgb(30, 35, 41); /* Цвет дополнительного текста контрола */
 
-  --color-control-typo-ghost-hover: rgba(
-    0,
-    57,
-    92,
-    0.75
-  ); /* Цвет акцентного текста */
+  --color-control-typo-ghost-hover: #197553; /* Цвет акцентного текста */
 
-  --color-control-bg-border-ghost: rgba(0, 66, 105, 0.28); /* Цвет фона бордеров котрола */
+  --color-control-bg-border-ghost: #dbdbdbbd; /* Цвет фона бордеров котрола */
 
-  --color-control-bg-border-ghost-hover: rgba(0, 66, 105, 0.5); /* Цвет фона бордеров контрола по ховеру */
+  --color-control-bg-border-ghost-hover: #109061be; /* Цвет фона бордеров контрола по ховеру */
 
 
   /* Clear */

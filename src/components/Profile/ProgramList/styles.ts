@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   grid: {
-    marginTop: 24,
+    marginTop: 20,
   },
 });
 

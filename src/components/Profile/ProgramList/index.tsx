@@ -20,7 +20,7 @@ const ProgramList: FC<IProps> = ({ list }) => {
       </Typography>
       <Grid
         cols="1"
-        gap="xl"
+        gap="l"
         breakpoints={{
           s: {
             cols: 2,

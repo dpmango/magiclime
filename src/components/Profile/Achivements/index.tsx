@@ -73,13 +73,13 @@ const Achivements: FC<IProps> = ({ groups }) => {
               ))}
             </div>
 
-            <Button
+            {/* <Button
               label="Смотреть все"
               size="s"
               view="secondary"
               className={styles.boxCta}
               iconRight={IconArrowRight}
-            />
+            /> */}
           </>
         ) : (
           <Typography
