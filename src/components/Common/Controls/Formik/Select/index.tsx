@@ -60,8 +60,7 @@ const FormikSelectComponent = MemoWrapper(
               className={cnSelectItem({
                 active,
                 hovered,
-                // TODO - no props for size/indent are passed in render function
-                size: 'm',
+                size: props.size,
                 indent: 'normal',
               })}
               role="option"

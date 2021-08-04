@@ -5,6 +5,7 @@ import Achivements from './Achivements';
 import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
+import BalanceHistory from './BalanceHistory';
 
 export {
   Head,
@@ -14,4 +15,5 @@ export {
   Events,
   Courses,
   Balance,
+  BalanceHistory,
 };

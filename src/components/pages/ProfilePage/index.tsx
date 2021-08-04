@@ -10,6 +10,7 @@ import {
   Events,
   Courses,
   Balance,
+  BalanceHistory,
 } from 'components/Profile';
 
 import useStyles from './styles';
@@ -107,6 +108,9 @@ const ProfilePage: FC = () => {
             <>
               <div className={styles.section}>
                 <Balance />
+              </div>
+              <div className={styles.section}>
+                <BalanceHistory />
               </div>
             </>
           )}
