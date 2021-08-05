@@ -5,6 +5,7 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     width: '100%',
     padding: '12px 16px',
     display: 'flex',
+    fontSize: '14px !important',
     alignItems: 'center',
     cursor: 'pointer',
     '&:hover': {
@@ -14,6 +15,8 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
   },
   activeChat: {
     background: 'var(--color-bg-brand)',
+    // background: ({ isDefault }) =>
+    // isDefault ? '#f5f5f5' : 'rgba(255, 255, 255, .05)',
     '&:hover': {
       background: 'var(--color-bg-brand) !important',
     },
@@ -31,16 +34,17 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     marginLeft: '5px',
   },
   text: {
+    fontSize: '14px !important',
     whiteSpace: 'nowrap',
     maxWidth: '100%',
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
   avatar: {
-    width: '48px',
-    height: '48px',
-    lineHeight: '48px',
-    fontSize: '20px',
+    width: '52px',
+    height: '52px',
+    lineHeight: '52px',
+    fontSize: '18px',
   },
 }));
 

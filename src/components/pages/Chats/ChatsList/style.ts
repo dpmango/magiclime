@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     padding: '2px 0',
     borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    marginBottom: '7px',
+    // marginBottom: '7px',
     height: 'min-content',
     '& > div': {
       width: '100%',

@@ -26,9 +26,9 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
       />
       <div className={styles.nameWrapper}>
         <Typography
-          weight={'bold'}
+          weight={'semibold'}
           size={'s'}
-          margin={'0 0 4px'}
+          margin={'0 0 2px'}
           className={styles.text}
         >
           {chat.name}
@@ -42,7 +42,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           {moment(chat.last_message_time).format('HH:mm')}
         </Typography>
         <Badge
-          size={'s'}
+          size={'m'}
           status={'normal'}
           form={'round'}
           label={`${chat.unread_count}`}
