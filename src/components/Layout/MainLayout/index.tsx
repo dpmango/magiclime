@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
@@ -30,9 +30,14 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Menu isFull={isFullMenu} />
         <Container className={styles.content}>
           <Switch>
+            <Route
+              exact={true}
+              path={'/'}
+              render={() => <Redirect to={'profile'} />}
+            />
             <Route exact={true} path={'/courses'} component={Courses} />
             <Route path={'/chats/:id?'} component={Chats} />
-            <Route path="/profile" component={Profile} />
+            <Route path={'/profile'} component={Profile} />
           </Switch>
         </Container>
       </Flex>
