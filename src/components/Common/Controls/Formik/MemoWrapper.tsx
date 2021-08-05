@@ -16,9 +16,19 @@ const MemoWrapper = (Component: ComponentType<any>) =>
       nextProps.form.errors,
       nextProps.field.name
     );
+    const containsNestedTouchedPrev = getNestedValue(
+      prevProps.form.touched,
+      prevProps.field.name
+    );
+    const containsNestedTouchedNext = getNestedValue(
+      nextProps.form.touched,
+      nextProps.field.name
+    );
+
     return (
       prevProps.field.value === nextProps.field.value &&
-      containsNestedErrorPrev === containsNestedErrorNext
+      containsNestedErrorPrev === containsNestedErrorNext &&
+      containsNestedTouchedPrev === containsNestedTouchedNext
     );
   });
 

@@ -9,7 +9,13 @@ import { IconClose } from '@consta/uikit/IconClose';
 import { StepType } from './types';
 import Stepper from './Stepper';
 import ProfileStep from './Steps/Profile';
-import { REQUIRED_STRING } from '../../../utils/formik/validation';
+import {
+  CONFIRM,
+  EMAIL,
+  REGEXP_TEST,
+  REQUIRED_CHECKBOX,
+  REQUIRED_STRING,
+} from '../../../utils/formik/validation';
 import UserType from './Steps/UserType';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { IconForward } from '@consta/uikit/IconForward';
@@ -37,22 +43,34 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const initialValues = {
-    login: '',
+    username: '',
     email: '',
     password: '',
     passwordConfirm: '',
-    code: '',
+    media_sponsor: '',
     phone: '',
     user_agreement: false,
     mailing_agree: false,
     user_type: '',
     name: '',
-    description: '',
-    photo: '',
+    about: '',
+    avatar: '',
   };
 
   const schema = Yup.object({
     login: REQUIRED_STRING,
+    email: EMAIL,
+    password: REGEXP_TEST(
+      'password',
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).$/gi,
+      'Пароль должен содержать хотя бы одну цифру, заглавную и прописную буквы!'
+    )
+      .min(8, 'Минимум 8 символов!')
+      .max(30, 'Максимум 30 символов!'),
+    passwordConfirm: CONFIRM,
+    media_sponsor: REQUIRED_STRING,
+    user_agreement: REQUIRED_CHECKBOX('user_agreement'),
+    name: REQUIRED_STRING,
   });
 
   const handleSubmit = (values: typeof initialValues) => {

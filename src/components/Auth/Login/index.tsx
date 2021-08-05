@@ -2,6 +2,8 @@ import React, { FC, useCallback, useState } from 'react';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
 import { TextField } from '@consta/uikit/TextField';
+import { Checkbox } from '@consta/uikit/Checkbox';
+import { useHistory } from 'react-router-dom';
 import { IconClose } from '@consta/uikit/IconClose';
 import { useDispatch } from 'react-redux';
 import PasswordInput from '../../Common/Controls/PasswordInput';
@@ -14,10 +16,11 @@ import { login } from '../../../store/reducers/user';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
-    login: '',
+    username: '',
     password: '',
   });
   const [rememberUser, setRememberUser] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,7 +36,9 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
     dispatch(
       login({
         ...form,
+        remember: rememberUser,
         successCallback: () => history.push('/'),
+        errorCallback: (message: string) => setErrorMessage(message),
       })
     );
   };
@@ -58,11 +63,22 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         >
           Вход
         </Typography>
+        {errorMessage && (
+          <Typography
+            view={'alert'}
+            margin={'0 0 15px'}
+            align={'center'}
+            weight={'semibold'}
+            size={'l'}
+          >
+            {errorMessage}
+          </Typography>
+        )}
         <TextField
           className={styles.field}
           placeholder="Ваш логин"
-          value={form.login}
-          onChange={({ value }) => handleChange('login', value)}
+          value={form.username}
+          onChange={({ value }) => handleChange('username', value)}
         />
         <PasswordInput
           className={styles.field}
@@ -84,7 +100,12 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
             Забыли пароль?
           </Text>
         </Flex>
-        <Button label="Войти" width="full" onClick={handleSubmit} />
+        <Button
+          label="Войти"
+          width="full"
+          onClick={handleSubmit}
+          disabled={!form.username || !form.password}
+        />
         <Typography align="center" margin="16px 0 8px">
           Или с помощью
         </Typography>

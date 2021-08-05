@@ -174,7 +174,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   isLogged={isLogged}
                   onClick={() => setOpen(!isOpen)}
                   isMinified={isMobile}
-                  personName={`${profile.name} ${profile.surname}`}
+                  personName={profile.name}
+                  personAvatarUrl={profile.avatar}
                   personInfo="8 уровень"
                   className={styles.clickBlock}
                 />

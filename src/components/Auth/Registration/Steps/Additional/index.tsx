@@ -14,7 +14,7 @@ const Additional = () => {
   return (
     <Flex margin={'0 0 40px'}>
       <div className={styles.photoField}>
-        <Field name={'photo'}>
+        <Field name={'avatar'}>
           {({
             field: { value, ...field },
             form: { touched, errors, setFieldValue },
@@ -36,7 +36,7 @@ const Additional = () => {
       </div>
       <div className={styles.inputsWrapper}>
         <FormikInput label={'Имя'} name={'name'} placeholder={'Ваше имя'} />
-        <FormikTextarea label={'О себе'} name={'description'} />
+        <FormikTextarea label={'О себе'} name={'about'} />
       </div>
     </Flex>
   );

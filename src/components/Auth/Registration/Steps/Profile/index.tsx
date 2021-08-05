@@ -13,7 +13,11 @@ const ProfileStep = () => {
   return (
     <>
       <div className={styles.container}>
-        <FormikInput label={'Логин'} name={'login'} placeholder={'Ваше имя'} />
+        <FormikInput
+          label={'Логин'}
+          name={'username'}
+          placeholder={'Ваш логин'}
+        />
         <FormikInput
           label={'Email'}
           name={'email'}
@@ -33,7 +37,7 @@ const ProfileStep = () => {
         />
         <FormikInput
           label={'Рефедральный код'}
-          name={'code'}
+          name={'media_sponsor'}
           placeholder={'Введите код'}
         />
         <FormikInput
