@@ -15,9 +15,9 @@ const ProgramList: FC<IProps> = ({ list }) => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
+      {/* <Typography weight="semibold" lineHeight="s" size="2xl">
         Мои программы
-      </Typography>
+      </Typography> */}
       <Grid
         cols="1"
         gap="l"

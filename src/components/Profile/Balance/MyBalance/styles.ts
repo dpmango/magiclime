@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {},
   curBalance: {
-    padding: '24px',
-    margin: '20px -24px 0',
-    borderTop: '1px solid var(--color-bg-stripe)',
-    borderBottom: '1px solid var(--color-bg-stripe)',
+    padding: '0 24px',
+    margin: '16px -24px 0',
+    // padding: '24px',
+    // margin: '20px -24px 0',
+    // borderTop: '1px solid var(--color-bg-stripe)',
+    // borderBottom: '1px solid var(--color-bg-stripe)',
   },
   options: {
     marginTop: 16,

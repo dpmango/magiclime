@@ -13,9 +13,9 @@ const Events: FC = () => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
+      {/* <Typography weight="semibold" lineHeight="s" size="2xl">
         Операции с балансом
-      </Typography>
+      </Typography> */}
 
       <Grid
         cols="1"
@@ -26,11 +26,11 @@ const Events: FC = () => {
           },
         }}
       >
-        <GridItem col="1">
+        {/* <GridItem col="1">
           <div className={styles.box}>
             <MyBalance />
           </div>
-        </GridItem>
+        </GridItem> */}
         <GridItem col="3">
           <Grid
             cols="1"

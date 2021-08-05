@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     marginTop: 36,
   },
   tags: {
-    marginTop: 32,
+    marginTop: 24,
     maxWidth: 720,
   },
   main: {
