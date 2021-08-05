@@ -16,6 +16,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     transition: 'all .4s linear',
     overflowX: 'hidden',
+    position: 'sticky',
+    top: '64px',
     alignItems: 'flex-start',
     flexDirection: 'column',
     borderRight: `1px solid ${COLORS.layoutBorderColor}`,
