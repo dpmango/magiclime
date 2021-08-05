@@ -30,7 +30,7 @@ const FeaturedCourse: FC = () => {
         <Typography
           className={styles.title}
           as="h2"
-          weight="semibold"
+          weight="bold"
           size="5xl"
           lineHeight="xs"
         >
