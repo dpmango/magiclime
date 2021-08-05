@@ -6,6 +6,7 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import BalanceHistory from './BalanceHistory';
+import Settings from './Settings';
 
 export {
   Head,
@@ -16,4 +17,5 @@ export {
   Courses,
   Balance,
   BalanceHistory,
+  Settings,
 };

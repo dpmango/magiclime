@@ -4,7 +4,7 @@ import Flex from 'components/Common/Flex';
 
 import useStyles from './styles';
 
-const Events: FC = () => {
+const MyBalance: FC = () => {
   const styles = useStyles();
 
   return (
@@ -71,4 +71,4 @@ const Events: FC = () => {
   );
 };
 
-export default Events;
+export default MyBalance;

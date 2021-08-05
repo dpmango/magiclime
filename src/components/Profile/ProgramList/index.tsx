@@ -21,17 +21,7 @@ const ProgramList: FC<IProps> = ({ list }) => {
       <Grid
         cols="1"
         gap="l"
-        breakpoints={{
-          s: {
-            cols: 2,
-          },
-          m: {
-            cols: 3,
-          },
-          l: {
-            cols: 4,
-          },
-        }}
+        breakpoints={{ s: { cols: 2 }, m: { cols: 3 }, l: { cols: 4 } }}
         className={styles.grid}
       >
         {list &&

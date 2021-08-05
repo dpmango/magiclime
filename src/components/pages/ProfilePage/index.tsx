@@ -11,6 +11,7 @@ import {
   Courses,
   Balance,
   BalanceHistory,
+  Settings,
 } from 'components/Profile';
 
 import useStyles from './styles';
@@ -54,7 +55,7 @@ const ProfilePage: FC = () => {
     if (!firstRender) {
       history.push(tab.slug);
     }
-  }, [firstRender, tab]);
+  }, [tab]);
 
   return (
     <div className={styles.root}>
@@ -79,15 +80,7 @@ const ProfilePage: FC = () => {
                 <ProgramList list={mockPrograms} />
               </div>
               <div className={styles.section}>
-                <Grid
-                  cols="1"
-                  gap="xl"
-                  breakpoints={{
-                    m: {
-                      cols: 2,
-                    },
-                  }}
-                >
+                <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>
                     <Achivements groups={mockAchivements} />
                   </GridItem>
@@ -115,6 +108,7 @@ const ProfilePage: FC = () => {
             </>
           )}
         />
+        <Route path={`${path}/settings`} render={() => <Settings />} />
       </Switch>
     </div>
   );

@@ -5,6 +5,7 @@ export const validationMessages = {
   numeric: 'Введите число',
   email: 'Неверный email',
   phone: 'Неверный номер телефона',
+  passwordRepeat: 'Пароли не совпадают',
 };
 
 export const REQUIRED_STRING = Yup.string().required(
@@ -37,4 +38,4 @@ export const PHONE = Yup.string()
 
 export const CONFIRM = Yup.string()
   .required(validationMessages.required)
-  .oneOf([Yup.ref('new_password'), null], 'Пароли не совпадают');
+  .oneOf([Yup.ref('new_password'), null], validationMessages.passwordRepeat);

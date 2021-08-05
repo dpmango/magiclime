@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   box: {
     flex: '1 0 auto',
     width: '100%',
-    height: 'calc(100% - 24px)',
+    height: '100%',
     position: 'relative',
     zIndex: 1,
     // marginTop: 20,
