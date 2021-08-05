@@ -14,14 +14,15 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     },
   },
   activeChat: {
-    background: 'var(--color-bg-brand)',
+    background: '#9978c8',
     // background: ({ isDefault }) =>
     // isDefault ? '#f5f5f5' : 'rgba(255, 255, 255, .05)',
     '&:hover': {
-      background: 'var(--color-bg-brand) !important',
+      background: '#9978c8 !important',
     },
     '& *': {
       color: '#fff !important',
+      textShadow: '0 0 #ffffff40'
     },
   },
   nameWrapper: {
@@ -44,6 +45,7 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     width: '52px',
     height: '52px',
     lineHeight: '52px',
+    border: '1px solid var(--color-bg-border)',
     fontSize: '18px',
   },
 }));
