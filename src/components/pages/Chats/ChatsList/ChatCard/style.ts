@@ -5,7 +5,8 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     width: '100%',
     padding: '12px 16px',
     display: 'flex',
-    fontSize: '14px !important',
+    fontSize: '15px !important',
+    // transition: 'all 0.3s',
     alignItems: 'center',
     cursor: 'pointer',
     '&:hover': {
@@ -14,14 +15,21 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     },
   },
   activeChat: {
-    background: '#9978c8',
-    // background: ({ isDefault }) =>
-    // isDefault ? '#f5f5f5' : 'rgba(255, 255, 255, .05)',
+    padding: '11px 16px !important',
+    // background: '#40a7e3',
+    background: ({ isDefault }) =>
+    isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
+    borderTop: '1px solid var(--color-bg-border)',
+    borderBottom: '1px solid var(--color-bg-border)',
+    '&:first-of-type': {
+      borderTop: 'none !important',
+      padding: '12px 16px 11px !important',
+    },
     '&:hover': {
-      background: '#9978c8 !important',
+      // background: '#40a7e3 !important',
     },
     '& *': {
-      color: '#fff !important',
+      // color: '#fff !important',
       textShadow: '0 0 #ffffff40'
     },
   },
@@ -35,7 +43,7 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     marginLeft: '5px',
   },
   text: {
-    fontSize: '14px !important',
+    fontSize: '15px !important',
     whiteSpace: 'nowrap',
     maxWidth: '100%',
     textOverflow: 'ellipsis',
@@ -45,8 +53,9 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     width: '52px',
     height: '52px',
     lineHeight: '52px',
-    border: '1px solid var(--color-bg-border)',
-    fontSize: '18px',
+    border: '1px solid #d1d1d1',
+    fontSize: '17px',
+    letterSpacing:'-0.8px',
   },
 }));
 

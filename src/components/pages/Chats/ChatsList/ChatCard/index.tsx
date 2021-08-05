@@ -42,7 +42,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           {moment(chat.last_message_time).format('HH:mm')}
         </Typography>
         <Badge
-          size={'m'}
+          size={'s'}
           status={'normal'}
           form={'round'}
           label={`${chat.unread_count}`}

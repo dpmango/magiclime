@@ -45,7 +45,7 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
       justify={!!chat ? 'flex-start' : 'center'}
     >
       {!chat ? (
-        <Typography size={'2xl'} weight={'semibold'}>
+        <Typography size={'xl'} >
           Выберите чат, чтобы начать переписку
         </Typography>
       ) : (
