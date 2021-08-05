@@ -27,13 +27,14 @@ export const ONLY_NUMBERS = Yup.number()
   .required(validationMessages.required)
   .typeError(validationMessages.numeric);
 
-export const PHONE = Yup.string()
-  .required(validationMessages.required)
-  .test('mobile', validationMessages.phone, (value) =>
+export const PHONE = Yup.string().test(
+  'phone',
+  validationMessages.phone,
+  (value) =>
     /^((\+7|7|8)(\s|-|\()?\d{3}(\s|-|\))?([0-9\-\s]){7,10})$/.test(
       value as string
     )
-  );
+);
 
 export const CONFIRM = Yup.string()
   .required(validationMessages.required)

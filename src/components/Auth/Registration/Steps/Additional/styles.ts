@@ -14,12 +14,17 @@ const useStyles = makeStyles(() => ({
     borderRadius: '10px',
     padding: '16px 0',
     marginRight: '20px',
-    minHeight: '200px',
+    height: '200px',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     '& > svg': {
       marginTop: '25px',
+    },
+    '& img': {
+      width: '100%',
+      height: '70%',
+      objectFit: 'contain',
     },
   },
   photo: {

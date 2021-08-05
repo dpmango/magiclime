@@ -7,37 +7,77 @@ import {
 
 import Cookies from 'js-cookie';
 import { IUser } from '../../../types/interfaces/user';
-import { deleteAuthHeader, setAuthToken } from '../../../utils/api';
-import { UpdateProfileType, LoginPayloadType } from './types';
-import { getUserProfile, loginUser } from '../../../utils/api/routes/auth';
+import { setAuthToken } from '../../../utils/api';
+import {
+  UpdateProfileType,
+  LoginPayloadType,
+  RegistrationPayloadType,
+} from './types';
+import {
+  getUserProfile,
+  loginUser,
+  registrationUser,
+} from '../../../utils/api/routes/auth';
 
 const initialState = {
-  isLogged: true,
+  isLogged: false,
+  isFirstTime: false,
   profile: {} as IUser,
 };
 
 export const login = createAsyncThunk<object, LoginPayloadType>(
   'user/login',
   async (payload, { dispatch, rejectWithValue }) => {
-    const { password, username, remember, successCallback, errorCallback } =
+    const { password, email, remember, successCallback, errorCallback } =
       payload;
     try {
-      const response = await loginUser({ password, username });
-      if (response.status === 200) {
-        remember &&
-          Cookies.set('access', response.data.access, { expires: 10 / 24 });
-        remember &&
-          Cookies.set('refresh', response.data.refresh, { expires: 1 });
-        setAuthToken(response.data.access);
-        successCallback && successCallback();
-        dispatch(getProfile());
-      }
+      const response = await loginUser({ password, email });
+
+      remember &&
+        Cookies.set('access', response.data.access, { expires: 10 / 24 });
+      remember && Cookies.set('refresh', response.data.refresh, { expires: 1 });
+      setAuthToken(response.data.access);
+      dispatch(setLogged());
+      dispatch(getProfile());
+      successCallback && successCallback();
+
       return response.data;
     } catch (err) {
       if (errorCallback) {
         switch (err.status) {
           case 401:
             errorCallback('Неверный логин или пароль!');
+            break;
+          default:
+            errorCallback('Ошибка сервера!');
+            break;
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const registration = createAsyncThunk<object, RegistrationPayloadType>(
+  'user/registration',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback, ...data } = payload;
+    try {
+      const {
+        data: { access, refresh, ...profile },
+        status,
+      } = await registrationUser(data);
+      Cookies.set('access', access, { expires: 10 / 24 });
+      Cookies.set('refresh', refresh, { expires: 1 });
+      setAuthToken(access);
+      dispatch(userRegistration(profile));
+      successCallback && successCallback();
+      return { access, refresh, ...profile };
+    } catch (err) {
+      if (errorCallback) {
+        switch (err.status) {
+          case 401:
+            errorCallback('Данный email уже используется!');
             break;
           default:
             errorCallback('Ошибка сервера!');
@@ -87,14 +127,18 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserProfile: (state, action: PayloadAction<IUser>) => {
+    setLogged: (state) => {
       state.isLogged = true;
+    },
+    userRegistration: (state, action: PayloadAction<IUser>) => {
+      state.isLogged = true;
+      state.isFirstTime = true;
+      state.profile = action.payload;
+    },
+    setUserProfile: (state, action: PayloadAction<IUser>) => {
       state.profile = action.payload;
     },
     logout: (state) => {
-      Cookies.remove('access');
-      Cookies.remove('refresh');
-      deleteAuthHeader();
       state.isLogged = false;
       state.profile = {} as IUser;
     },
@@ -109,6 +153,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUserProfile, logout } = userSlice.actions;
+export const { setUserProfile, logout, setLogged, userRegistration } =
+  userSlice.actions;
 
 export default userSlice.reducer;

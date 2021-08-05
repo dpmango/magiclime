@@ -34,7 +34,7 @@ const FormikCheckboxComponent = MemoWrapper(
     const fieldTouched = getNestedValue(touched, field.name);
 
     return (
-      <Flex>
+      <div>
         <Checkbox
           label={label}
           checked={!!value}
@@ -43,7 +43,7 @@ const FormikCheckboxComponent = MemoWrapper(
           {...field}
           {...props}
         />
-      </Flex>
+      </div>
     );
   }
 );

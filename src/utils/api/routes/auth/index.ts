@@ -3,7 +3,7 @@ import { AxiosPromise } from '../../../../types/common';
 import { IUser } from '../../../../types/interfaces/user';
 
 export const loginUser = (data: {
-  username: string;
+  email: string;
   password: string;
 }): AxiosPromise<{ refresh: string; access: string }> => {
   return instance.post('/auth/jwt/create/', data);
@@ -21,6 +21,6 @@ export const refreshAuthToken = (
 
 export const registrationUser = (
   data: Partial<IUser> & { password: string }
-): AxiosPromise<Partial<IUser>> => {
+): AxiosPromise<IUser & { refresh: string; access: string }> => {
   return instance.post('/auth/users/', data);
 };

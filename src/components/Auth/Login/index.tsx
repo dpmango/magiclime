@@ -2,8 +2,6 @@ import React, { FC, useCallback, useState } from 'react';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
 import { TextField } from '@consta/uikit/TextField';
-import { Checkbox } from '@consta/uikit/Checkbox';
-import { useHistory } from 'react-router-dom';
 import { IconClose } from '@consta/uikit/IconClose';
 import { Checkbox } from '@consta/uikit/Checkbox';
 import { useDispatch } from 'react-redux';
@@ -18,7 +16,7 @@ import { login } from '../../../store/reducers/user';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const [rememberUser, setRememberUser] = useState(true);
@@ -79,8 +77,8 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         <TextField
           className={styles.field}
           placeholder="Ваш логин"
-          value={form.username}
-          onChange={({ value }) => handleChange('username', value)}
+          value={form.email}
+          onChange={({ value }) => handleChange('email', value)}
         />
         <PasswordInput
           className={styles.field}
@@ -106,7 +104,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
           label="Войти"
           width="full"
           onClick={handleSubmit}
-          disabled={!form.username || !form.password}
+          disabled={!form.email || !form.password}
         />
         <Typography align="center" margin="16px 0 8px">
           Или с помощью

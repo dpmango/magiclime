@@ -28,7 +28,7 @@ const Stepper: FC<IProps> = ({ currentStep, setCurrentStep }) => {
   };
 
   return (
-    <Flex align="center" className={styles.container} margin="0 50px">
+    <Flex align="center" className={styles.container} margin="0 50px 90px">
       {steps.map((step, index) => (
         <React.Fragment key={uuidv4()}>
           <div className={styles.stepWrapper}>

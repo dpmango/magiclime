@@ -1,3 +1,5 @@
+import { IPhoto } from './common';
+
 export interface IUser {
   readonly id: number;
   name: string;
@@ -17,7 +19,7 @@ export interface IUser {
   faculty: string;
   educational_program: string;
   education_level: string;
-  avatar: string;
+  avatar: IPhoto;
   sound: boolean;
   animation: boolean;
   listening: boolean;

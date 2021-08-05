@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import FormikInput from '../../../../Common/Controls/Formik/Input';
 import FormikTextarea from '../../../../Common/Controls/Formik/Textarea';
 import Flex from '../../../../Common/Flex';
 import useStyles from './styles';
 import { Field, FieldProps } from 'formik';
-import { Button } from '@consta/uikit/Button';
 import { IconCamera } from '@consta/uikit/IconCamera';
-import Typography from '../../../../Common/Typography';
 import { UserIcon } from '../../../../../assets/icons';
+import { ChangeType, SetStateType } from '../../../../../types/common';
+import { uploadImage } from '../../../../../utils/api/routes/other';
 
-const Additional = () => {
+const Additional: FC = () => {
   const styles = useStyles();
+
+  const handleChange = (
+    e: ChangeType,
+    setValue: (name: string, message?: any) => void
+  ) => {
+    uploadImage(e.target!.files![0]).then((res) => {
+      setValue('avatar_id', res.data);
+    });
+  };
+
   return (
     <Flex margin={'0 0 40px'}>
       <div className={styles.photoField}>
-        <Field name={'avatar'}>
-          {({
-            field: { value, ...field },
-            form: { touched, errors, setFieldValue },
-          }: FieldProps) => (
+        <Field name={'avatar_id'}>
+          {({ field: { value }, form: { setFieldValue } }: FieldProps) => (
             <>
-              {!!value ? <img src={value} alt={'avatar'} /> : <UserIcon />}
+              {!!value.id ? (
+                <img src={value.image} alt={'avatar'} />
+              ) : (
+                <UserIcon />
+              )}
               <input
                 type={'file'}
                 id={'user_photo_field'}
+                onChange={(e) => handleChange(e, setFieldValue)}
                 className={styles.hiddenInput}
               />
               <label htmlFor={'user_photo_field'} className={styles.addPhoto}>

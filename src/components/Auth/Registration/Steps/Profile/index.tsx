@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import useStyles from './styles';
 import FormikInput from '../../../../Common/Controls/Formik/Input';
 import { Button } from '@consta/uikit/Button';
@@ -8,7 +8,7 @@ import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
 import SocialNetworks from '../../../SocialNetworks';
 
-const ProfileStep = () => {
+const ProfileStep: FC = () => {
   const styles = useStyles();
   return (
     <>
