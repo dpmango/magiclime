@@ -20,28 +20,28 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
   const [chats, setChats] = useState<IChat[]>([
     {
       id: '1',
-      name: 'Test',
+      name: 'Беседа проекта',
       image: '',
-      last_message: 'Hello everybody!',
+      last_message: 'Во сколько встреча?',
       last_message_time: '2021-08-03 13:30',
       unread_count: 8,
       members_count: 6,
     },
     {
       id: '2',
-      name: 'New chat',
+      name: 'Эксперты',
       image: '',
-      last_message: 'Hello everybody!',
+      last_message: 'Вам стоит закупить TAL',
       last_message_time: '2021-08-03 13:30',
       unread_count: 112,
       members_count: 3,
     },
     {
       id: '3',
-      name: 'Leopard',
+      name: 'Лидеры мнений',
       image:
         'https://dogcatdog.ru/wp-content/uploads/a/2/8/a28fbb088c1313f7c04ce868eb9ce10d.jpg',
-      last_message: 'Hello everybody!',
+      last_message: 'Собрание в 18:30!!!',
       last_message_time: '2021-08-03 13:30',
       unread_count: 8,
       members_count: 6,
@@ -71,7 +71,7 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
           form={'brick'}
           placeholder="Поиск по сообщениям"
           value={search}
-          leftSide={IconSearch}
+          // leftSide={IconSearch}
           rightSide={IconMeatball}
           onChange={({ value }) => setSearch(value as string)}
         />
