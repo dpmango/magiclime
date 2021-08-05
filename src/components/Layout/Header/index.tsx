@@ -72,7 +72,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   onClick={() => setOpen(!isOpen)}
                   isMinified={isMobile}
                   personName={profile.name}
-                  personAvatarUrl={profile.avatar.image}
+                  personAvatarUrl={profile.avatar && profile.avatar.image}
                   personInfo="8 уровень"
                   className={styles.clickBlock}
                 />
