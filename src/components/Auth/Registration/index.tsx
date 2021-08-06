@@ -93,7 +93,8 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
     if (step !== 4) {
       setStep((step + 1) as StepType);
     } else {
-      const data = { ...values, avatar_id: +values.avatar_id.id };
+      const avatar = !!values.avatar_id.id ? +values.avatar_id.id : null;
+      const data = { ...values, avatar_id: avatar };
       dispatch(
         registration({
           ...data,
