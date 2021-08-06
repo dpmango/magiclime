@@ -2,6 +2,7 @@ import React, { FC, SyntheticEvent, useCallback } from 'react';
 import { Select, SelectProps, DefaultItem } from '@consta/uikit/Select';
 import { Field, FieldProps } from 'formik';
 import { withNaming } from '@bem-react/classname';
+import cns from 'classnames';
 import Typography from '../../../Typography';
 import Flex from '../../../Flex';
 import MemoWrapper from '../MemoWrapper';
@@ -55,9 +56,8 @@ const FormikSelectComponent = MemoWrapper(
         )}
 
         <Select
-          className={styles.input}
+          className={cns(styles.input, fieldError && fieldTouched && 'alert')}
           value={value}
-          state={fieldError && fieldTouched ? 'alert' : undefined}
           onChange={handleChange}
           renderItem={({
             item,
@@ -73,7 +73,7 @@ const FormikSelectComponent = MemoWrapper(
               className={cnSelectItem({
                 active,
                 hovered,
-                size: props.size,
+                size: props.size || 'm',
                 indent: 'normal',
               })}
               role="option"
@@ -86,7 +86,7 @@ const FormikSelectComponent = MemoWrapper(
               </span>
             </div>
           )}
-          renderValue={({ item }) => (
+          renderValue={({ item }: { item: ISelectItem }) => (
             <span className={styles.selectItemCustom}>
               {item.icon && <img src={item.icon} alt={item.label} />}
               <span>{item.label}</span>

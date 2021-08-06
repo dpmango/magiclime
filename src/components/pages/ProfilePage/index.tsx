@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
+import { Formik, Form } from 'formik';
 import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
@@ -11,6 +12,8 @@ import {
   Courses,
   Balance,
   BalanceHistory,
+  ReferralStats,
+  ReferralList,
   Settings,
 } from 'components/Profile';
 
@@ -31,7 +34,7 @@ interface ITab {
 const tabs: ITab[] = [
   { id: 1, slug: '/profile', label: 'Основное' },
   { id: 2, slug: '/profile/balance', label: 'Баланс' },
-  { id: 3, slug: '/profile/referal', label: 'Рефералы' },
+  { id: 3, slug: '/profile/referrals', label: 'Рефералы' },
   { id: 4, slug: '/profile/settings', label: 'Настройки' },
 ];
 
@@ -105,6 +108,15 @@ const ProfilePage: FC = () => {
               <div className={styles.section}>
                 <BalanceHistory />
               </div>
+            </>
+          )}
+        />
+        <Route
+          path={`${path}/referrals`}
+          render={() => (
+            <>
+              <ReferralStats />
+              <ReferralList />
             </>
           )}
         />

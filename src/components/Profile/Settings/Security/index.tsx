@@ -27,10 +27,7 @@ const Profile: FC = () => {
     newPassword: REQUIRED_STRING,
     repeatPassword: Yup.string()
       .required(validationMessages.required)
-      .oneOf(
-        [Yup.ref('newPassword'), REQUIRED_STRING],
-        validationMessages.passwordRepeat
-      ),
+      .oneOf([Yup.ref('newPassword'), null], validationMessages.passwordRepeat),
   });
 
   return (
