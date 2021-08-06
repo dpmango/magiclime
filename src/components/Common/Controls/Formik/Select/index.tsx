@@ -1,23 +1,28 @@
 import React, { FC, SyntheticEvent, useCallback } from 'react';
-import { Select, SelectProps } from '@consta/uikit/Select';
+import { Select, SelectProps, DefaultItem } from '@consta/uikit/Select';
 import { Field, FieldProps } from 'formik';
 import { withNaming } from '@bem-react/classname';
+import cns from 'classnames';
 import Typography from '../../../Typography';
 import Flex from '../../../Flex';
 import MemoWrapper from '../MemoWrapper';
 import useStyles from './styles';
 import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
-interface IProps extends SelectProps {
+interface ISelectItem extends DefaultItem {
+  icon?: string;
+}
+
+interface IProps extends Omit<SelectProps, 'onChange'> {
   label?: string;
   isRequired?: boolean;
+  onChange?: (props: {
+    value: string | null;
+    e: SyntheticEvent<Element, Event>;
+  }) => void;
 }
 
 const cn = withNaming({ e: '-', m: '_', v: '_' });
-
-const FormikSelect = (props: IProps) => {
-  return <Field {...props} component={FormikSelectComponent} />;
-};
 
 const FormikSelectComponent = MemoWrapper(
   ({
@@ -51,16 +56,24 @@ const FormikSelectComponent = MemoWrapper(
         )}
 
         <Select
-          className={styles.input}
+          className={cns(styles.input, fieldError && fieldTouched && 'alert')}
           value={value}
-          state={fieldError && fieldTouched ? 'alert' : undefined}
           onChange={handleChange}
-          renderItem={({ item, active, hovered, ...renderProps }) => (
+          renderItem={({
+            item,
+            active,
+            hovered,
+            ...renderProps
+          }: {
+            active: boolean;
+            hovered: boolean;
+            item: ISelectItem;
+          }) => (
             <div
               className={cnSelectItem({
                 active,
                 hovered,
-                size: props.size,
+                size: props.size || 'm',
                 indent: 'normal',
               })}
               role="option"
@@ -73,9 +86,9 @@ const FormikSelectComponent = MemoWrapper(
               </span>
             </div>
           )}
-          renderValue={({ item }) => (
+          renderValue={({ item }: { item: ISelectItem }) => (
             <span className={styles.selectItemCustom}>
-              {item.icon && <img src={item.icon} alt={item.title} />}
+              {item.icon && <img src={item.icon} alt={item.label} />}
               <span>{item.label}</span>
             </span>
           )}
@@ -92,5 +105,9 @@ const FormikSelectComponent = MemoWrapper(
     );
   }
 );
+
+const FormikSelect: FC<IProps> = (props) => {
+  return <Field {...props} component={FormikSelectComponent} />;
+};
 
 export default FormikSelect;

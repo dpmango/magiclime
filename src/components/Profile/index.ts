@@ -6,6 +6,10 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import BalanceHistory from './BalanceHistory';
+import ReferralStats from './ReferralStats';
+import ReferralList from './ReferralList';
+import ReferralUser from './ReferralUser';
+import Settings from './Settings';
 
 export {
   Head,
@@ -16,4 +20,8 @@ export {
   Courses,
   Balance,
   BalanceHistory,
+  ReferralStats,
+  ReferralList,
+  ReferralUser,
+  Settings,
 };

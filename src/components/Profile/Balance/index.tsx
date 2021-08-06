@@ -17,30 +17,14 @@ const Events: FC = () => {
         Операции с балансом
       </Typography> */}
 
-      <Grid
-        cols="1"
-        gap="xl"
-        breakpoints={{
-          m: {
-            cols: 4,
-          },
-        }}
-      >
+      <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 4 } }}>
         {/* <GridItem col="1">
           <div className={styles.box}>
             <MyBalance />
           </div>
         </GridItem> */}
         <GridItem col="3">
-          <Grid
-            cols="1"
-            gap="xl"
-            breakpoints={{
-              s: {
-                cols: 2,
-              },
-            }}
-          >
+          <Grid cols="1" gap="xl" breakpoints={{ s: { cols: 2 } }}>
             <GridItem col="1">
               <div className={styles.box}>
                 <BalanceRefill />

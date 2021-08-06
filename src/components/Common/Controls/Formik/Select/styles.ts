@@ -7,6 +7,7 @@ const useStyles = makeStyles(() => ({
   },
   input: {
     width: '100%',
+    '&.alert': {},
   },
   selectItemCustom: {
     display: 'inline-flex',

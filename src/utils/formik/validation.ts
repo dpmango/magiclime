@@ -5,6 +5,7 @@ export const validationMessages = {
   numeric: 'Введите число',
   email: 'Неверный email',
   phone: 'Неверный номер телефона',
+  passwordRepeat: 'Пароли не совпадают',
 };
 
 export const REQUIRED_STRING = Yup.string().required(
