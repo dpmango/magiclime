@@ -7,9 +7,10 @@ import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { IconSearch } from '@consta/uikit/IconSearch';
-// import { Button } from '@consta/uikit/Button';
-// import cns from 'classnames';
+import { IReferalGroup, IReferal } from 'components/pages/ProfilePage/types';
+import { ReferralUser } from 'components/Profile';
 
+import { referalsList } from './mockData';
 import icons from './icons';
 import useStyles from './styles';
 
@@ -64,10 +65,8 @@ const Referrals: FC = () => {
 
   const matrixLevels: number[] = [...Array(17).keys()].map((x) => x + 1);
 
-  const [filterSearch, setFilterSearch] = useState<string>('');
-  const [filterProgram, setFilterProgram] = useState<IProgram>(
-    programOptions[0]
-  );
+  const [filterSearch, setFilterSearch] = useState<string | null>('');
+  const [filterProgram, setFilterProgram] = useState<IProgram | null>(null);
   const [selectedLeveles, setSelectedLevels] = useState<number[]>([]);
 
   const handleBreadcrumbClick = useCallback(
@@ -108,7 +107,21 @@ const Referrals: FC = () => {
             onlyIconRoot
             onClick={handleBreadcrumbClick}
           />
+
+          <div className={styles.referals}>
+            {referalsList.map((group: IReferalGroup) => (
+              <div key={group.id} className={styles.referalGroup}>
+                <ReferralUser key={group.referal.id} data={group.referal} />
+                {group.referals &&
+                  group.referals.map((referal: IReferal) => (
+                    <ReferralUser key={referal.id} data={referal} nested />
+                  ))}
+              </div>
+            ))}
+          </div>
         </GridItem>
+
+        {/* Filters */}
         <GridItem col="1">
           <div className={styles.filters}>
             <div className={styles.filtersGroup}>
@@ -123,6 +136,7 @@ const Referrals: FC = () => {
               <Select
                 items={programOptions}
                 value={filterProgram}
+                placeholder="Выберите уровень"
                 onChange={({ value }) => setFilterProgram(value)}
               />
             </div>
