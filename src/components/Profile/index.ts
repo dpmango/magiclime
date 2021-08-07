@@ -4,5 +4,18 @@ import ProgramCard from './ProgramCard';
 import Achivements from './Achivements';
 import Events from './Events';
 import Courses from './Courses';
+import Balance from './Balance';
+import BalanceHistory from './BalanceHistory';
+import Settings from './Settings';
 
-export { Head, ProgramList, ProgramCard, Achivements, Events, Courses };
+export {
+  Head,
+  ProgramList,
+  ProgramCard,
+  Achivements,
+  Events,
+  Courses,
+  Balance,
+  BalanceHistory,
+  Settings,
+};

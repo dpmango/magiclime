@@ -42,7 +42,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             lineHeight="s"
             view="secondary"
           >
-            + {data.profit} mBtc
+            + {data.profit} mBTL
           </Typography>
         </div>
         <div className={styles.image}>
@@ -72,7 +72,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
           <div className={styles.progress}>
             <div className={styles.progresInner} />
           </div>
-          <Flex justify="space-between" margin="8px 0 0 0">
+          <Flex justify="space-between" margin="12px 0 0 0">
             <Typography view="ghost" size="xs" lineHeight="s" weight="semibold">
               {data.league} лига
             </Typography>

@@ -31,8 +31,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <div className={styles.scroller}>
           <Container className={styles.content}>
             <Switch>
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/courses" component={Courses} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/courses" component={Courses} />
             </Switch>
           </Container>
         </div>

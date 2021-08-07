@@ -30,7 +30,7 @@ const Courses: FC<IProps> = ({ list }) => {
               {course.title}
             </Typography>
 
-            <Typography margin="12px 0 0 0" size="m">
+            <Typography margin="12px 0 20px 0 " size="m">
               {course.description}
             </Typography>
 

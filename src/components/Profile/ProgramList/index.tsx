@@ -15,23 +15,13 @@ const ProgramList: FC<IProps> = ({ list }) => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
+      {/* <Typography weight="semibold" lineHeight="s" size="2xl">
         Мои программы
-      </Typography>
+      </Typography> */}
       <Grid
         cols="1"
-        gap="xl"
-        breakpoints={{
-          s: {
-            cols: 2,
-          },
-          m: {
-            cols: 3,
-          },
-          l: {
-            cols: 4,
-          },
-        }}
+        gap="l"
+        breakpoints={{ s: { cols: 2 }, m: { cols: 3 }, l: { cols: 4 } }}
         className={styles.grid}
       >
         {list &&

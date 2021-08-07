@@ -161,7 +161,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName="3.130 mBTC"
+                personName="3.130 mBTL"
                 personInfo="Баланс"
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}

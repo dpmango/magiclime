@@ -10,8 +10,8 @@ const useStyles = makeStyles<
     minHeight: 346,
     overflow: 'hidden',
     borderRadius: 10,
-    background: 'white',
-    border: '1px solid var(--color-control-bg-border-ghost)',
+    background: 'var(--color-bg-default)',
+    border: '1px solid var(--color-bg-border)',
   },
   hero: (props) => ({
     position: 'relative',
@@ -34,20 +34,20 @@ const useStyles = makeStyles<
   }),
   profit: {
     position: 'absolute',
-    top: 14,
-    right: 14,
-    background: 'white',
-    borderRadius: 6,
-    padding: '4px 6px 3px',
+    top: 16,
+    right: 16,
+    background: 'var(--color-bg-default)',
+    borderRadius: 4,
+    padding: '5px 6px 4px',
   },
   image: {
     position: 'absolute',
     bottom: -36,
-    left: 24,
+    left: 14,
     width: 72,
     height: 72,
     borderRadius: '50%',
-    background: 'white',
+    background: 'var(--color-bg-default)',
     border: '6px solid white',
     fontSize: 0,
     '& img': {
@@ -57,7 +57,7 @@ const useStyles = makeStyles<
   content: {
     flex: '1 0 auto',
     width: '100%',
-    padding: '45px 24px 14px',
+    padding: '42px 20px 16px 20px',
   },
   title: {},
   matrixLevel: {
@@ -65,8 +65,8 @@ const useStyles = makeStyles<
   },
   meta: {
     marginTop: 'auto',
-    paddingBottom: 14,
-    borderBottom: '1px solid var(--color-bg-stripe)',
+    paddingBottom: 12,
+    borderBottom: '1px solid var(--color-bg-border)',
   },
   progress: {
     position: 'relative',
@@ -74,7 +74,7 @@ const useStyles = makeStyles<
     overflow: 'hidden',
     height: 6,
     marginTop: 6,
-    background: 'var(--color-bg-secondary)',
+    background: '',
     borderRadius: 5,
   },
   progresInner: (props) => ({
@@ -96,7 +96,7 @@ const useStyles = makeStyles<
     paddingRight: 12,
   },
   referalUser: {
-    border: '1px solid white',
+    border: '1px solid var(--color-bg-secondary)',
     marginLeft: -12,
     '&:first-child': {
       marginLeft: 0,

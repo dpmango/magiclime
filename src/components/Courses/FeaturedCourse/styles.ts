@@ -6,8 +6,11 @@ const useStyles = makeStyles({
   },
   right: {},
   button: {
+    fontWeight: '500',
+    letterSpacing: '-0.3px',
+    color: '#fafafa',
     background:
-      'linear-gradient(90deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
+      'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
   },
   image: {
     position: 'relative',
@@ -36,8 +39,8 @@ const useStyles = makeStyles({
       left: 0,
       bottom: 0,
       height: '2px',
-      width: '40px',
-      background: 'var(--color-typo-primary)',
+      width: '56px',
+      background: '#14151A',
     },
     '@media screen and (max-width: 1439px)': {
       fontSize: '40px',
@@ -47,13 +50,13 @@ const useStyles = makeStyles({
     },
   },
   description: {
-    color: 'var(--color-typo-secondary)!important',
+    color: '#474d57!important',
     marginBottom: '24px',
   },
   panel: {
     padding: '90px calc(((100vw - 1208px) / 2) + 274px + 40px) 28px 32px',
     marginRight: 'calc(((-100vw + 1208px) / 2) - 274px - 40px)',
-    background: '#F7F7F7',
+    background: 'var(--color-bg-secondary)',
     '@media screen and (max-width: 1023px)': {
       paddingTop: '32px',
       paddingRight: '32px',
@@ -64,7 +67,7 @@ const useStyles = makeStyles({
     marginTop: '24px',
   },
   details: {
-    margin: '16px 0 8px',
+    margin: '8px 0 12px',
     display: 'flex',
     flexWrap: 'wrap',
     '& > span': {

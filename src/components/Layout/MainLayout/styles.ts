@@ -15,15 +15,7 @@ const useStyles = makeStyles(() => ({
     overflowX: 'hidden',
     overflowY: 'auto',
   },
-  content: {
-    maxWidth: '1208px',
-    padding: '95px 40px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    '@media screen and (max-width: 768px)': {
-      padding: '95px 20px',
-    },
-  },
+  content: {},
 }));
 
 export default useStyles;
