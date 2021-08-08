@@ -7,6 +7,7 @@ import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
+import Articles from '../../pages/ArticlesPage';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
 
@@ -30,14 +31,11 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Menu isFull={isFullMenu} />
         <Container className={styles.content}>
           <Switch>
-            <Route
-              exact={true}
-              path={'/'}
-              render={() => <Redirect to={'profile'} />}
-            />
-            <Route exact={true} path={'/courses'} component={Courses} />
-            <Route path={'/chats/:id?'} component={Chats} />
-            <Route path={'/profile'} component={Profile} />
+            <Route exact path="/" render={() => <Redirect to="profile" />} />
+            <Route exact path="/courses" component={Courses} />
+            <Route exact path="/faq" component={Articles} />
+            <Route path="/chats/:id?" component={Chats} />
+            <Route path="/profile" component={Profile} />
           </Switch>
         </Container>
       </Flex>
