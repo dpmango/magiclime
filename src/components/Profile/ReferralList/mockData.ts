@@ -1,4 +1,13 @@
-import { IReferalGroup } from 'components/pages/ProfilePage/types';
+import { IReferal, IReferalGroup } from 'components/pages/ProfilePage/types';
+
+export const referalRoot: IReferal = {
+  id: 99,
+  avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
+  username: 'MyUserLogin',
+  btl: 153.13,
+  level: 5,
+  referalsCount: 10,
+};
 
 export const referalsList: IReferalGroup[] = [
   {
@@ -35,7 +44,7 @@ export const referalsList: IReferalGroup[] = [
       id: 10,
       avatar: 'https://randomuser.me/api/portraits/women/30.jpg',
       username: 'AnotherUser',
-      btl: 153.13,
+      btl: 123.13,
       level: 1,
       referalsCount: 17,
     },

@@ -10,7 +10,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { IReferalGroup, IReferal } from 'components/pages/ProfilePage/types';
 import { ReferralUser } from 'components/Profile';
 
-import { referalsList } from './mockData';
+import { referalRoot, referalsList } from './mockData';
 import icons from './icons';
 import useStyles from './styles';
 
@@ -109,6 +109,8 @@ const Referrals: FC = () => {
           />
 
           <div className={styles.referals}>
+            <ReferralUser data={referalRoot} root />
+
             {referalsList.map((group: IReferalGroup) => (
               <div key={group.id} className={styles.referalGroup}>
                 <ReferralUser key={group.referal.id} data={group.referal} />
