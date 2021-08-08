@@ -15,9 +15,17 @@ export type RegistrationPayloadType = Partial<IUser> & {
 };
 
 export type UpdateProfileType = {
-  profile: IUser;
+  profile: Partial<IUser>;
   successCallback?: VoidFunction;
   errorCallback?: (error: string) => void;
 };
 
+export type ChangePasswordType = {
+  data: {
+    current_password: string;
+    new_password: string;
+  };
+  successCallback?: VoidFunction;
+  errorCallback?: (error: string) => void;
+};
 // export type UpdateType = Pick<IUser, 'email' | 'phone' | 'vk' | 'instagram' | 'telegram'>

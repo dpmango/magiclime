@@ -1,7 +1,9 @@
 import React, { FC, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { Avatar } from '@consta/uikit/Avatar';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
 
@@ -9,6 +11,8 @@ const refLink = 'https://test.my.link/$2gwdf22fFFgdkmwh/';
 
 const ProfileHead: FC = () => {
   const styles = useStyles();
+
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const handleCopyRefClick = useCallback(() => {
     // TODO - should be changed to some library ?
@@ -34,13 +38,13 @@ const ProfileHead: FC = () => {
   return (
     <Flex align="center" className={styles.root} margin="0 0px">
       <Avatar
-        url="https://randomuser.me/api/portraits/women/13.jpg"
-        name="Анастасия Котомкина"
+        url={profile.avatar?.image}
+        name={profile.name}
         className={styles.avatar}
       />
       <div className={styles.content}>
         <Typography weight="semibold" lineHeight="s" size="4xl">
-          Анастасия Котомкина
+          {profile.name}
         </Typography>
         <Typography
           view="secondary"

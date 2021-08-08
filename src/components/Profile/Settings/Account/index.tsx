@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -8,24 +9,38 @@ import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
 import cns from 'classnames';
+import { RootState } from 'store/reducers/rootReducer';
+import { updateProfile, getProfile } from 'store/reducers/user';
 
 import useStyles from './styles';
 
 const Account: FC = () => {
   const styles = useStyles();
+  const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const initialValues = {
-    login: 'My Login',
-    sponsor: 'Sponsor`s Login',
-    email: 'vsproweb@gmail.com',
-    phone: '+7 999 888 88 88',
+    login: 'api TODO',
+    sponsor: 'api TODO',
+    email: profile.email,
+    phone: profile.phone,
     switch1: false,
     switch2: true,
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
-    console.log('TODO - form submit', values);
+    const { phone } = values;
+    dispatch(
+      updateProfile({
+        profile: {
+          phone,
+        },
+        successCallback: () => setErrorMessage(''),
+        errorCallback: (message: string) => setErrorMessage(message),
+      })
+    );
   };
 
   const schema = Yup.object({
@@ -39,6 +54,18 @@ const Account: FC = () => {
       <Typography weight="semibold" lineHeight="s" size="2xl">
         Аккаунт
       </Typography>
+
+      {errorMessage && (
+        <Typography
+          view="alert"
+          margin="16px 0 16px"
+          align="center"
+          weight="semibold"
+          size="l"
+        >
+          {errorMessage}
+        </Typography>
+      )}
 
       <Formik
         initialValues={initialValues}
@@ -73,6 +100,7 @@ const Account: FC = () => {
                   label="Email"
                   name="email"
                   placeholder="Введите логин"
+                  disabled
                 />
               </GridItem>
               <GridItem>

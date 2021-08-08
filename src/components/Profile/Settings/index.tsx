@@ -38,7 +38,6 @@ const Settings: FC = () => {
   const firstRender = useFirstRender();
 
   useEffect(() => {
-    console.log('route changed');
     if (!firstRender) {
       history.push(tab.slug);
     }

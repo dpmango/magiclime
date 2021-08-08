@@ -1,33 +1,54 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import { REQUIRED_STRING, validationMessages } from 'utils/formik/validation';
+import { changePassword } from 'store/reducers/user';
 
 import useStyles from './styles';
 
 const Profile: FC = () => {
   const styles = useStyles();
+  const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const initialValues = {
-    oldPassword: '1234556',
-    newPassword: '',
+    current_password: '',
+    new_password: '',
     repeatPassword: '',
   };
 
-  const handleSubmit = (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
-    console.log('TODO - form submit', values);
+  const handleSubmit = (values: typeof initialValues, { resetForm }) => {
+    const { current_password, new_password } = values;
+
+    dispatch(
+      changePassword({
+        data: {
+          current_password,
+          new_password,
+        },
+        successCallback: () => {
+          resetForm();
+          setErrorMessage('');
+        },
+        errorCallback: (message: string) => setErrorMessage(message),
+      })
+    );
   };
 
   const schema = Yup.object({
-    oldPassword: REQUIRED_STRING,
-    newPassword: REQUIRED_STRING,
+    current_password: REQUIRED_STRING,
+    new_password: REQUIRED_STRING,
     repeatPassword: Yup.string()
       .required(validationMessages.required)
-      .oneOf([Yup.ref('newPassword'), null], validationMessages.passwordRepeat),
+      .oneOf(
+        [Yup.ref('new_password'), null],
+        validationMessages.passwordRepeat
+      ),
   });
 
   return (
@@ -35,6 +56,18 @@ const Profile: FC = () => {
       <Typography weight="semibold" lineHeight="s" size="2xl">
         Безопасность
       </Typography>
+
+      {errorMessage && (
+        <Typography
+          view="alert"
+          margin="16px 0 16px"
+          align="center"
+          weight="semibold"
+          size="l"
+        >
+          {errorMessage}
+        </Typography>
+      )}
 
       <Formik
         initialValues={initialValues}
@@ -45,12 +78,16 @@ const Profile: FC = () => {
           <div className={styles.section}>
             <div className={styles.inputs}>
               <div className={styles.uiGroup}>
-                <FormikInput label="Пароль" name="oldPassword" isPassword />
+                <FormikInput
+                  label="Пароль"
+                  name="current_password"
+                  isPassword
+                />
               </div>
               <div className={styles.uiGroup}>
                 <FormikInput
                   label="Новый Пароль"
-                  name="newPassword"
+                  name="new_password"
                   isPassword
                 />
               </div>

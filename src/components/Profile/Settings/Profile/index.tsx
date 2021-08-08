@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -6,24 +7,42 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import { REQUIRED_STRING } from 'utils/formik/validation';
+import { RootState } from 'store/reducers/rootReducer';
+import { updateProfile } from 'store/reducers/user';
 
 import useStyles from './styles';
 
 const Profile: FC = () => {
   const styles = useStyles();
+  const dispatch = useDispatch();
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const initialValues = {
-    name: 'Анастасия',
-    surname: 'Котомкина',
-    patronymic: 'Викторовна',
-    birthday: '03.07.1992',
-    country: 'Россия',
-    city: 'Санкт-Петербург',
+    name: profile.name,
+    surname: 'api TODO',
+    patronymic: 'api TODO',
+    date_of_birth: profile.date_of_birth,
+    country: profile.country,
+    city: profile.city,
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
-    console.log('TODO - form submit', values);
+    const { name, date_of_birth, country, city } = values;
+
+    dispatch(
+      updateProfile({
+        profile: {
+          name: name || '',
+          date_of_birth,
+          // country,
+          // city: city || '',
+        },
+        successCallback: () => setErrorMessage(''),
+        errorCallback: (message: string) => setErrorMessage(message),
+      })
+    );
   };
 
   const schema = Yup.object({
@@ -36,6 +55,18 @@ const Profile: FC = () => {
       <Typography weight="semibold" lineHeight="s" size="2xl">
         Профиль
       </Typography>
+
+      {errorMessage && (
+        <Typography
+          view="alert"
+          margin="16px 0 16px"
+          align="center"
+          weight="semibold"
+          size="l"
+        >
+          {errorMessage}
+        </Typography>
+      )}
 
       <Formik
         initialValues={initialValues}
@@ -54,7 +85,11 @@ const Profile: FC = () => {
                 <FormikInput label="Имя" name="name" />
               </GridItem>
               <GridItem>
-                <FormikInput label="Фамилия" name="surname" />
+                <FormikInput
+                  label="Фамилия"
+                  name="surname"
+                  isRequired={false}
+                />
               </GridItem>
               <GridItem>
                 <FormikInput
@@ -66,7 +101,7 @@ const Profile: FC = () => {
               <GridItem>
                 <FormikInput
                   label="Дата рождения"
-                  name="birthday"
+                  name="date_of_birth"
                   placeholder="DD.MM.YYYY"
                   isRequired={false}
                 />
