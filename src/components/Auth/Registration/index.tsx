@@ -9,17 +9,31 @@ import { IconClose } from '@consta/uikit/IconClose';
 import { StepType } from './types';
 import Stepper from './Stepper';
 import ProfileStep from './Steps/Profile';
-import { REQUIRED_STRING } from '../../../utils/formik/validation';
+import {
+  CONFIRM,
+  EMAIL,
+  PHONE,
+  REGEXP_TEST,
+  REQUIRED_CHECKBOX,
+  REQUIRED_STRING,
+} from '../../../utils/formik/validation';
 import UserType from './Steps/UserType';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { IconForward } from '@consta/uikit/IconForward';
 import { IconBackward } from '@consta/uikit/IconBackward';
 import Additional from './Steps/Additional';
 import Preferences from './Steps/Preferences';
+import { registrationUser } from '../../../utils/api/routes/auth';
+import { useDispatch } from 'react-redux';
+import { registration } from '../../../store/reducers/user';
+import { useHistory } from 'react-router-dom';
 
 const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   const [step, setStep] = useState<StepType>(1);
+  const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const renderStep = () => {
     switch (step) {
@@ -37,29 +51,56 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const initialValues = {
-    login: '',
+    username: '',
     email: '',
     password: '',
     passwordConfirm: '',
-    code: '',
+    media_sponsor: '',
     phone: '',
     user_agreement: false,
     mailing_agree: false,
     user_type: '',
     name: '',
-    description: '',
-    photo: '',
+    about: '',
+    avatar_id: {
+      id: 0,
+      image: '',
+    },
   };
 
   const schema = Yup.object({
-    login: REQUIRED_STRING,
+    username: REQUIRED_STRING,
+    email: EMAIL,
+    password: REGEXP_TEST(
+      'password',
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+      'Пароль должен содержать хотя бы одну цифру, заглавную и прописную буквы!'
+    )
+      .min(8, 'Минимум 8 символов!')
+      .max(30, 'Максимум 30 символов!'),
+    passwordConfirm: CONFIRM,
+    media_sponsor: REQUIRED_STRING.length(40, 'Неверный формат кода!'),
+    user_agreement: REQUIRED_CHECKBOX('user_agreement'),
+    name: step === 4 ? REQUIRED_STRING : Yup.string(),
   });
+
+  const errorCallback = (error: string) => {
+    setErrorMessage(error);
+    setStep(1);
+  };
 
   const handleSubmit = (values: typeof initialValues) => {
     if (step !== 4) {
       setStep((step + 1) as StepType);
     } else {
-      console.log(values);
+      const data = { ...values, avatar_id: +values.avatar_id.id };
+      dispatch(
+        registration({
+          ...data,
+          successCallback: () => history.push('/profile'),
+          errorCallback,
+        })
+      );
     }
   };
 
@@ -82,6 +123,17 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       >
         Регистрация
       </Typography>
+      {errorMessage && (
+        <Typography
+          view={'alert'}
+          margin={'0 0 25px'}
+          align={'center'}
+          weight={'semibold'}
+          size={'l'}
+        >
+          {errorMessage}
+        </Typography>
+      )}
       <Stepper currentStep={step} setCurrentStep={setStep} />
       <Formik
         initialValues={initialValues}

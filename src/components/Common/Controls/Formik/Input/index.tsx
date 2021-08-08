@@ -30,7 +30,7 @@ const FormikInputComponent = MemoWrapper(
     const styles = useStyles();
 
     const handleChange = useCallback(({ value }: { value: string | null }) => {
-      setFieldValue(field.name, value);
+      setFieldValue(field.name, value || '');
     }, []);
 
     const fieldError = getNestedValue(errors, field.name);

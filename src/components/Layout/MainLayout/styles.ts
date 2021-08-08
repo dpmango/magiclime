@@ -9,13 +9,9 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     flex: 1,
   },
-  scroller: {
-    flex: '1',
-    height: 'calc(100vh - 64px)',
-    overflowX: 'hidden',
-    overflowY: 'auto',
+  content: {
+    width: '100%',
   },
-  content: {},
 }));
 
 export default useStyles;

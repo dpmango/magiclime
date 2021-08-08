@@ -15,6 +15,7 @@ interface IProps extends HTMLProps<HTMLDivElement> {
 const useStyles = makeStyles<null, Omit<IProps, 'className'>>(() => ({
   flex: (props) => ({
     display: 'flex',
+    width: '100%',
     flexDirection: props.direction || 'row',
     alignItems: props.align || 'flex-start',
     justifyContent: props.justify || 'flex-start',

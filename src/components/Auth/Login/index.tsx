@@ -16,10 +16,11 @@ import { login } from '../../../store/reducers/user';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
   const [form, setForm] = useState({
-    login: '',
+    email: '',
     password: '',
   });
   const [rememberUser, setRememberUser] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,7 +36,9 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
     dispatch(
       login({
         ...form,
+        remember: rememberUser,
         successCallback: () => history.push('/'),
+        errorCallback: (message: string) => setErrorMessage(message),
       })
     );
   };
@@ -60,11 +63,22 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         >
           Вход
         </Typography>
+        {errorMessage && (
+          <Typography
+            view={'alert'}
+            margin={'0 0 15px'}
+            align={'center'}
+            weight={'semibold'}
+            size={'l'}
+          >
+            {errorMessage}
+          </Typography>
+        )}
         <TextField
           className={styles.field}
           placeholder="Ваш логин"
-          value={form.login}
-          onChange={({ value }) => handleChange('login', value)}
+          value={form.email}
+          onChange={({ value }) => handleChange('email', value)}
         />
         <PasswordInput
           className={styles.field}
@@ -86,7 +100,12 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
             Забыли пароль?
           </Text>
         </Flex>
-        <Button label="Войти" width="full" onClick={handleSubmit} />
+        <Button
+          label="Войти"
+          width="full"
+          onClick={handleSubmit}
+          disabled={!form.email || !form.password}
+        />
         <Typography align="center" margin="16px 0 8px">
           Или с помощью
         </Typography>
