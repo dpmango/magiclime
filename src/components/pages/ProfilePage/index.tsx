@@ -47,9 +47,15 @@ const ProfilePage: FC = () => {
   const getTabWithRouter = useMemo((): ITab => {
     // path is not up to date at this point
     // because of nested Switch ?
-    const cTab = tabs.find((x) => x.slug === window.location.pathname);
+    if (window.location.pathname.split('/').length > 2) {
+      const cTab = tabs
+        .slice(1, tabs.length)
+        .find((x) => window.location.pathname.includes(x.slug));
 
-    return cTab || tabs[0];
+      return cTab || tabs[0];
+    }
+
+    return tabs[0];
   }, []);
 
   const [tab, setTab] = useState<ITab>(getTabWithRouter);

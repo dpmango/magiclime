@@ -12,6 +12,7 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
     listStyle: 'none',
     margin: '8px 0',
     padding: 0,
+    borderLeft: '1px solid var(--color-bg-border)',
     '& li': {
       display: 'block',
     },
@@ -25,11 +26,12 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
   },
   navLine: {
     position: 'absolute',
-    left: 0,
+    left: -1,
     width: '2px',
     height: '44px',
     zIndex: 2,
-    top: ({ activeTab }) => `${(activeTab - 1) * 44}px`,
+    top: ({ activeTab }) =>
+      `${(activeTab - 1) * 44 + (activeTab > 4 ? 49 : 0)}px`,
     transition: 'top .125s linear',
     borderTopRightRadius: '2px',
     borderBottomRightRadius: '2px',

@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Notifications from './Notifications';
 import Security from './Security';
 import useStyles from './styles';
+import Achivements from './Achivements';
 
 interface ITab {
   id: number;
@@ -21,6 +22,7 @@ const tabs: ITab[] = [
   { id: 2, slug: '/profile/settings/profile', label: 'Профиль' },
   { id: 3, slug: '/profile/settings/notifications', label: 'Уведомления' },
   { id: 4, slug: '/profile/settings/security', label: 'Безопасность' },
+  { id: 5, slug: '/profile/settings/achivements', label: 'Мои достижения' },
 ];
 
 const Settings: FC = () => {
@@ -56,7 +58,7 @@ const Settings: FC = () => {
             Основная информация
           </Typography>
           <ul className={styles.navList}>
-            {tabs.map((t) => (
+            {tabs.slice(0, 4).map((t) => (
               <li key={t.id}>
                 <span
                   className={styles.navLink}
@@ -72,6 +74,32 @@ const Settings: FC = () => {
             ))}
             <div className={styles.navLine} />
           </ul>
+
+          <Typography
+            margin="28px 0 0"
+            view="ghost"
+            lineHeight="s"
+            size="xs"
+            transform="uppercase"
+          >
+            моя активность
+          </Typography>
+          <ul className={styles.navList}>
+            {tabs.slice(4, 5).map((t) => (
+              <li key={t.id}>
+                <span
+                  className={styles.navLink}
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => setTab(t)}
+                >
+                  <Typography view={tab.id === t.id ? 'primary' : 'secondary'}>
+                    {t.label}
+                  </Typography>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className={styles.content}>
           <Switch>
@@ -79,6 +107,7 @@ const Settings: FC = () => {
             <Route path={`${path}/profile`} component={Profile} />
             <Route path={`${path}/notifications`} component={Notifications} />
             <Route path={`${path}/security`} component={Security} />
+            <Route path={`${path}/achivements`} component={Achivements} />
           </Switch>
         </div>
       </Flex>
