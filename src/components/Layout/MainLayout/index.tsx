@@ -8,6 +8,7 @@ import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 
 import Courses from '../../pages/Courses';
+import Course from '../../pages/Course';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -31,6 +32,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
           <Container className={styles.content}>
             <Switch>
               <Route exact path="/courses" component={Courses} />
+              <Route path="/courses/:id" component={Course} />
             </Switch>
           </Container>
         </div>
