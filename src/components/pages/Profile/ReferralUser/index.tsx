@@ -4,7 +4,7 @@ import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Plurize } from 'utils/helpers/plurize';
 
-import { IReferal } from 'components/pages/ProfilePage/types';
+import { IReferal } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {

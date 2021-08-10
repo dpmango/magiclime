@@ -2,8 +2,8 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 
-import { ProgramCard } from 'components/Profile';
-import { IProgram } from 'components/pages/ProfilePage/types';
+import ProgramCard from 'components/pages/Profile/ProgramCard';
+import { IProgram } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {

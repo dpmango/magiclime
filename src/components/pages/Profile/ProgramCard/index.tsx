@@ -6,7 +6,7 @@ import { Button } from '@consta/uikit/Button';
 import { Plurize } from 'utils/helpers/plurize';
 import cns from 'classnames';
 
-import { IProgram } from 'components/pages/ProfilePage/types';
+import { IProgram } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {

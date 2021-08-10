@@ -1,4 +1,4 @@
-import { IReferal, IReferalGroup } from 'components/pages/ProfilePage/types';
+import { IReferal, IReferalGroup } from 'components/pages/Profile/types';
 
 export const referalRoot: IReferal = {
   id: 99,

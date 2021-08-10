@@ -5,7 +5,7 @@ import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { IconCheck } from '@consta/uikit/IconCheck';
 import { IconArrowRight } from '@consta/uikit/IconArrowRight';
-import { IActivementsGroups } from 'components/pages/ProfilePage/types';
+import { IActivementsGroups } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {

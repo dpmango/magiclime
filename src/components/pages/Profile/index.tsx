@@ -4,18 +4,17 @@ import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import {
-  Head,
-  ProgramList,
-  Achivements,
-  Events,
-  Courses,
-  Balance,
-  BalanceHistory,
-  ReferralStats,
-  ReferralList,
-  Settings,
-} from 'components/Profile';
+
+import Head from './Head';
+import ProgramList from './ProgramList';
+import Achivements from './Achivements';
+import Events from './Events';
+import Courses from './Courses';
+import Balance from './Balance';
+import BalanceHistory from './BalanceHistory';
+import ReferralStats from './ReferralStats';
+import ReferralList from './ReferralList';
+import Settings from './Settings';
 
 import useStyles from './styles';
 import {

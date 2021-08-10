@@ -7,8 +7,8 @@ import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import { IReferalGroup, IReferal } from 'components/pages/ProfilePage/types';
-import { ReferralUser } from 'components/Profile';
+import { IReferalGroup, IReferal } from 'components/pages/Profile/types';
+import ReferralUser from 'components/pages/Profile/ReferralUser';
 
 import { referalRoot, referalsList } from './mockData';
 import icons from './icons';

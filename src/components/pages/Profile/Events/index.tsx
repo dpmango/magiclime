@@ -4,7 +4,7 @@ import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { IconArrowRight } from '@consta/uikit/IconArrowRight';
 
-import { IEvent } from 'components/pages/ProfilePage/types';
+import { IEvent } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {

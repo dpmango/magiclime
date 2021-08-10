@@ -8,7 +8,7 @@ import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
 import Chats from '../../pages/Chats';
-import Profile from '../../pages/ProfilePage';
+import Profile from '../../pages/Profile';
 
 interface IProps {
   theme: 'default' | 'dark';

@@ -3,7 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Badge } from '@consta/uikit/Badge';
 
-import { ICourse } from 'components/pages/ProfilePage/types';
+import { ICourse } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {
