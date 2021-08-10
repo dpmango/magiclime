@@ -48,6 +48,16 @@ const Settings: FC = () => {
   return (
     <div className={styles.root}>
       <Flex align="stretch">
+        <div className={styles.content}>
+          <Switch>
+            <Route exact path={path} component={Account} />
+            <Route path={`${path}/profile`} component={Profile} />
+            <Route path={`${path}/notifications`} component={Notifications} />
+            <Route path={`${path}/security`} component={Security} />
+            <Route path={`${path}/achivements`} component={Achivements} />
+          </Switch>
+        </div>
+
         <div className={styles.nav}>
           <Typography
             view="ghost"
@@ -100,15 +110,6 @@ const Settings: FC = () => {
               </li>
             ))}
           </ul>
-        </div>
-        <div className={styles.content}>
-          <Switch>
-            <Route exact path={path} component={Account} />
-            <Route path={`${path}/profile`} component={Profile} />
-            <Route path={`${path}/notifications`} component={Notifications} />
-            <Route path={`${path}/security`} component={Security} />
-            <Route path={`${path}/achivements`} component={Achivements} />
-          </Switch>
         </div>
       </Flex>
     </div>

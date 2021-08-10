@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import FormikCheckbox from 'components/Common/Controls/Formik/Checkbox';
 import { REQUIRED_STRING } from 'utils/formik/validation';
@@ -32,52 +33,66 @@ const Notifications: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        Профиль
-      </Typography>
-
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
-        <Form>
-          <div className={styles.section}>
-            <Typography weight="semibold" lineHeight="s" size="m">
-              Общие
-            </Typography>
+        {({ touched }) => (
+          <Form>
+            <Flex align="center" justify="space-between">
+              <Typography
+                margin="0 24px 0 0"
+                weight="semibold"
+                lineHeight="s"
+                size="2xl"
+              >
+                Уведомления
+              </Typography>
 
-            <div className={styles.uiGroup}>
-              <FormikCheckbox label="Платежные уведомления" name="payments" />
-            </div>
-            <div className={styles.uiGroup}>
-              <FormikCheckbox
-                label="Информация о новых курсах, вебинарах и программах"
-                name="courses"
+              <Button
+                view="primary"
+                type="submit"
+                disabled={Object.keys(touched).length === 0}
+                label="Сохранить изменения"
               />
-            </div>
-            <div className={styles.uiGroup}>
-              <FormikCheckbox
-                label="Напоминания о предстоящих событиях в календаре"
-                name="events"
-              />
-            </div>
-            <div className={styles.uiGroup}>
-              <FormikCheckbox label="Новости сервиса" name="news" />
-            </div>
-            <div className={styles.uiGroup}>
-              <FormikCheckbox label="Акции и скидки от Lime" name="promo" />
-            </div>
-            <div className={styles.uiGroup}>
-              <FormikCheckbox
-                label="Рекомендованные материалы"
-                name="materials"
-              />
-            </div>
-          </div>
+            </Flex>
 
-          <Button view="secondary" type="submit" label="Сохранить изменения" />
-        </Form>
+            <div className={styles.section}>
+              <Typography weight="semibold" lineHeight="s" size="m">
+                Общие
+              </Typography>
+
+              <div className={styles.uiGroup}>
+                <FormikCheckbox label="Платежные уведомления" name="payments" />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox
+                  label="Информация о новых курсах, вебинарах и программах"
+                  name="courses"
+                />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox
+                  label="Напоминания о предстоящих событиях в календаре"
+                  name="events"
+                />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox label="Новости сервиса" name="news" />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox label="Акции и скидки от Lime" name="promo" />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox
+                  label="Рекомендованные материалы"
+                  name="materials"
+                />
+              </div>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );

@@ -5,6 +5,7 @@ export interface IProgramReferal {
 
 export interface IProgram {
   readonly id: number;
+  disabled?: boolean;
   profit: number;
   background: string;
   image: string;

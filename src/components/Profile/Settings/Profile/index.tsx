@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
@@ -52,71 +53,89 @@ const Profile: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        Профиль
-      </Typography>
-
-      {errorMessage && (
-        <Typography
-          view="alert"
-          margin="16px 0 16px"
-          align="center"
-          weight="semibold"
-          size="l"
-        >
-          {errorMessage}
-        </Typography>
-      )}
-
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
-        <Form>
-          <div className={styles.section}>
-            <Grid
-              cols="1"
-              gap="xl"
-              breakpoints={{ s: { cols: 2 } }}
-              className={styles.inputs}
-            >
-              <GridItem>
-                <FormikInput label="Имя" name="name" />
-              </GridItem>
-              <GridItem>
-                <FormikInput
-                  label="Фамилия"
-                  name="surname"
-                  isRequired={false}
-                />
-              </GridItem>
-              <GridItem>
-                <FormikInput
-                  label="Отчество"
-                  name="patronymic"
-                  isRequired={false}
-                />
-              </GridItem>
-              <GridItem>
-                <FormikInput
-                  label="Дата рождения"
-                  name="date_of_birth"
-                  placeholder="DD.MM.YYYY"
-                  isRequired={false}
-                />
-              </GridItem>
-              <GridItem>
-                <FormikInput label="Страна" name="country" isRequired={false} />
-              </GridItem>
-              <GridItem>
-                <FormikInput label="Город" name="city" isRequired={false} />
-              </GridItem>
-            </Grid>
-          </div>
+        {({ touched }) => (
+          <Form>
+            <Flex align="center" justify="space-between">
+              <Typography
+                margin="0 24px 0 0"
+                weight="semibold"
+                lineHeight="s"
+                size="2xl"
+              >
+                Профиль
+              </Typography>
 
-          <Button view="secondary" type="submit" label="Сохранить изменения" />
-        </Form>
+              <Button
+                view="primary"
+                type="submit"
+                disabled={Object.keys(touched).length === 0}
+                label="Сохранить изменения"
+              />
+            </Flex>
+
+            {errorMessage && (
+              <Typography
+                view="alert"
+                margin="16px 0 16px"
+                align="center"
+                weight="semibold"
+                size="l"
+              >
+                {errorMessage}
+              </Typography>
+            )}
+
+            <div className={styles.section}>
+              <Grid
+                cols="1"
+                gap="xl"
+                breakpoints={{ s: { cols: 2 } }}
+                className={styles.inputs}
+              >
+                <GridItem>
+                  <FormikInput label="Имя" name="name" />
+                </GridItem>
+                <GridItem>
+                  <FormikInput
+                    label="Фамилия"
+                    name="surname"
+                    isRequired={false}
+                  />
+                </GridItem>
+                <GridItem>
+                  <FormikInput
+                    label="Отчество"
+                    name="patronymic"
+                    isRequired={false}
+                  />
+                </GridItem>
+                <GridItem>
+                  <FormikInput
+                    label="Дата рождения"
+                    name="date_of_birth"
+                    placeholder="DD.MM.YYYY"
+                    isRequired={false}
+                  />
+                </GridItem>
+                <GridItem>
+                  <FormikInput
+                    label="Страна"
+                    name="country"
+                    isRequired={false}
+                  />
+                </GridItem>
+                <GridItem>
+                  <FormikInput label="Город" name="city" isRequired={false} />
+                </GridItem>
+              </Grid>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );

@@ -5,7 +5,7 @@ export const mockPrograms: IProgram[] = [
     id: 1,
     profit: 3.13,
     background: 'green',
-    image: 'images/program-silver.svg',
+    image: '/images/program-silver.svg',
     title: 'BitLime',
     matrixLevel: 2,
     level: 3,
@@ -21,10 +21,11 @@ export const mockPrograms: IProgram[] = [
     referalsTotal: 17,
   },
   {
+    disabled: true,
     id: 2,
     profit: 3.13,
     background: 'lime',
-    image: 'images/program-gold.svg',
+    image: '/images/program-gold.svg',
     title: 'Лайм',
     matrixLevel: 2,
     level: 8,
@@ -40,10 +41,11 @@ export const mockPrograms: IProgram[] = [
     referalsTotal: 12,
   },
   {
+    disabled: true,
     id: 3,
     profit: 3.13,
     background: 'blue',
-    image: 'images/program-silver.svg',
+    image: '/images/program-silver.svg',
     title: 'Дом',
     matrixLevel: 2,
     level: 3,
@@ -59,10 +61,11 @@ export const mockPrograms: IProgram[] = [
     referalsTotal: 7,
   },
   {
+    disabled: true,
     id: 4,
     profit: 3.13,
     background: 'violet',
-    image: 'images/program-silver.svg',
+    image: '/images/program-silver.svg',
     title: 'Авто Премиум',
     matrixLevel: 2,
     level: 1,
@@ -76,7 +79,7 @@ export const mockPrograms: IProgram[] = [
 export const mockAchivements: IActivementsGroups[] = [
   {
     id: 1,
-    image: 'images/achivement-1.svg',
+    image: '/images/achivement-1.svg',
     title: 'Заголовок группы достижений',
     stats: {
       compleated: 2,
@@ -97,7 +100,7 @@ export const mockAchivements: IActivementsGroups[] = [
   },
   {
     id: 2,
-    image: 'images/achivement-2.svg',
+    image: '/images/achivement-2.svg',
     title: 'Заголовок группы достижений',
     stats: {
       compleated: 1,
@@ -118,7 +121,7 @@ export const mockAchivements: IActivementsGroups[] = [
   },
   {
     id: 3,
-    image: 'images/achivement-2.svg',
+    image: '/images/achivement-2.svg',
     title: 'Заголовок группы достижений',
     stats: {
       compleated: 1,
@@ -150,7 +153,7 @@ export const mockEvents: IEvent[] = [
 export const mockCourses: ICourse[] = [
   {
     id: 1,
-    image: 'images/course-image.jpg',
+    image: '/images/course-image.jpg',
     tag: 'Маркетинг',
     title: 'SEO-специалист с нуля до PRO',
     description:

@@ -19,31 +19,31 @@ type SelectItem = {
 
 const currencySelectList: SelectItem[] = [
   {
-    label: 'BitLime',
-    icon: '/images/bitlime.svg',
+    label: 'Bitcoin',
+    icon: '/images/bitcoin.svg',
     disabled: false,
     id: 1,
   },
   {
-    label: 'BitBox',
-    icon: '/images/bitcoin.svg',
-    disabled: false,
+    label: 'USDT',
+    icon: '/images/bitlime.svg',
+    disabled: true,
     id: 2,
+  },
+  {
+    label: 'RUB',
+    icon: '/images/bitlime.svg',
+    disabled: true,
+    id: 3,
   },
 ];
 
 const paymentSelectList: SelectItem[] = [
   {
-    label: 'BitBox',
-    icon: '/images/bitcoin.svg',
-    disabled: false,
-    id: 1,
-  },
-  {
-    label: 'BitLime',
+    label: 'BtcPAY',
     icon: '/images/bitlime.svg',
     disabled: false,
-    id: 2,
+    id: 1,
   },
 ];
 
@@ -95,9 +95,9 @@ const Refill: FC = () => {
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label="Сумма в BTL"
+              label="Сумма пополнения"
               name="amount"
-              placeholder="Введите сумму"
+              placeholder="Введите сумму в BTL"
             />
           </div>
 

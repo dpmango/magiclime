@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import { REQUIRED_STRING, validationMessages } from 'utils/formik/validation';
@@ -53,56 +54,70 @@ const Profile: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        Безопасность
-      </Typography>
-
-      {errorMessage && (
-        <Typography
-          view="alert"
-          margin="16px 0 16px"
-          align="center"
-          weight="semibold"
-          size="l"
-        >
-          {errorMessage}
-        </Typography>
-      )}
-
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={schema}
       >
-        <Form>
-          <div className={styles.section}>
-            <div className={styles.inputs}>
-              <div className={styles.uiGroup}>
-                <FormikInput
-                  label="Пароль"
-                  name="current_password"
-                  isPassword
-                />
-              </div>
-              <div className={styles.uiGroup}>
-                <FormikInput
-                  label="Новый Пароль"
-                  name="new_password"
-                  isPassword
-                />
-              </div>
-              <div className={styles.uiGroup}>
-                <FormikInput
-                  label="Новый Пароль еще раз"
-                  name="repeatPassword"
-                  isPassword
-                />
+        {({ touched }) => (
+          <Form>
+            <Flex align="center" justify="space-between">
+              <Typography
+                margin="0 24px 0 0"
+                weight="semibold"
+                lineHeight="s"
+                size="2xl"
+              >
+                Безопасность
+              </Typography>
+
+              <Button
+                view="primary"
+                type="submit"
+                disabled={Object.keys(touched).length === 0}
+                label="Сохранить изменения"
+              />
+            </Flex>
+
+            {errorMessage && (
+              <Typography
+                view="alert"
+                margin="16px 0 16px"
+                align="center"
+                weight="semibold"
+                size="l"
+              >
+                {errorMessage}
+              </Typography>
+            )}
+
+            <div className={styles.section}>
+              <div className={styles.inputs}>
+                <div className={styles.uiGroup}>
+                  <FormikInput
+                    label="Пароль"
+                    name="current_password"
+                    isPassword
+                  />
+                </div>
+                <div className={styles.uiGroup}>
+                  <FormikInput
+                    label="Новый Пароль"
+                    name="new_password"
+                    isPassword
+                  />
+                </div>
+                <div className={styles.uiGroup}>
+                  <FormikInput
+                    label="Новый Пароль еще раз"
+                    name="repeatPassword"
+                    isPassword
+                  />
+                </div>
               </div>
             </div>
-          </div>
-
-          <Button view="secondary" type="submit" label="Сохранить изменения" />
-        </Form>
+          </Form>
+        )}
       </Formik>
     </div>
   );

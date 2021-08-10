@@ -39,7 +39,7 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
   },
   content: {
     flex: '0 0 calc(100% - 240px)',
-    paddingLeft: 24,
+    paddingRight: 24,
   },
 }));
 

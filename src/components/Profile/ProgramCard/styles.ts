@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles<
-  null,
-  { heroBackground: string; progressWidth: string }
->(() => ({
+interface IProps {
+  heroBackground: string;
+  progressWidth: string;
+  disabled?: boolean;
+}
+
+const useStyles = makeStyles<null, IProps>(() => ({
   card: {
     position: 'relative',
     zIndex: 1,
@@ -12,6 +15,14 @@ const useStyles = makeStyles<
     borderRadius: 10,
     background: 'var(--color-bg-default)',
     border: '1px solid var(--color-bg-border)',
+    pointerEvents: (props) => (props.disabled ? 'none' : 'all'),
+  },
+  wrapper: {
+    flex: '1 0 auto',
+    width: '100%',
+    filter: (props) => (props.disabled ? 'blur(5px)' : 'none'),
+    pointerEvents: (props) => (props.disabled ? 'none' : 'all'),
+    userSelect: (props) => (props.disabled ? 'none' : 'all'),
   },
   hero: (props) => ({
     position: 'relative',
@@ -116,6 +127,18 @@ const useStyles = makeStyles<
       fontWeight: 600,
       color: 'var(--color-typo-secondary)',
     },
+  },
+  context: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    background: 'white',
+    maxWidth: '200px',
+    textAlign: 'center',
+    padding: 12,
+    borderRadius: 8,
+    pointerEvents: 'all',
   },
 }));
 
