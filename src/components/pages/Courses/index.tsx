@@ -3,7 +3,11 @@ import shuffle from 'lodash/shuffle';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { ICourse } from 'types/interfaces/courses';
 import Typography from 'components/Common/Typography';
-import { FeaturedCourse, CoursesList, Filters, Tags } from 'components/Courses';
+
+import Tags from 'components/Common/Tags';
+import FeaturedCourse from './FeaturedCourse';
+import CoursesList from './CoursesList';
+import Filters from './Filters';
 
 import { tags, mockCourses } from './mockData';
 import useStyles from './styles';

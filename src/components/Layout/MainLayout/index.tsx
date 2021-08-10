@@ -7,7 +7,7 @@ import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 
-import Courses from '../../pages/CoursesPage';
+import Courses from '../../pages/Courses';
 
 interface IProps {
   theme: 'default' | 'dark';
