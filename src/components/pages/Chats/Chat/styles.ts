@@ -5,6 +5,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: '24px 0 0',
     flex: 1,
+    width: '200px',
     height: 'calc(100vh - 64px)',
   },
   header: {

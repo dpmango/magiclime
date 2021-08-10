@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { IChat } from '../../types';
 import { Avatar } from '@consta/uikit/Avatar';
-import useStyles from './style';
+import useStyles from './styles';
 import Typography from '../../../../Common/Typography';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';

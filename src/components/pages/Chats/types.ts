@@ -15,3 +15,9 @@ export interface IMessage {
   user_name: string;
   user_avatar: string;
 }
+
+export interface IFriend {
+  readonly id: number;
+  name: string;
+  image: string;
+}

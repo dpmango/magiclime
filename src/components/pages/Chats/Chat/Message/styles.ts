@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     lineHeight: '52px',
     border: '1px solid #d1d1d1',
     fontSize: '17px',
-    letterSpacing:'-0.8px',
+    letterSpacing: '-0.8px',
     marginRight: '12px',
     flex: 'none',
   },
@@ -21,8 +21,12 @@ const useStyles = makeStyles(() => ({
   text: {
     maxWidth: '630px',
   },
-   date: {
+  date: {
     lineHeight: '24px',
+  },
+  reply: {
+    marginRight: '20px',
+    padding: 0,
   },
   '@media screen and (max-width: 1300px)': {
     text: {

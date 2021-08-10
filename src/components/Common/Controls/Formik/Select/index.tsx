@@ -59,16 +59,7 @@ const FormikSelectComponent = MemoWrapper(
           className={cns(styles.input, fieldError && fieldTouched && 'alert')}
           value={value}
           onChange={handleChange}
-          renderItem={({
-            item,
-            active,
-            hovered,
-            ...renderProps
-          }: {
-            active: boolean;
-            hovered: boolean;
-            item: ISelectItem;
-          }) => (
+          renderItem={({ item, active, hovered, ...renderProps }) => (
             <div
               className={cnSelectItem({
                 active,

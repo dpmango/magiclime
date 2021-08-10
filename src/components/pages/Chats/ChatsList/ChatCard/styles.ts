@@ -16,21 +16,30 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
   },
   activeChat: {
     padding: '11px 16px !important',
-    // background: '#40a7e3',
+    position: 'relative',
     background: ({ isDefault }) =>
-    isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
+      isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
     borderTop: '1px solid var(--color-bg-border)',
     borderBottom: '1px solid var(--color-bg-border)',
     '&:first-of-type': {
       borderTop: 'none !important',
       padding: '12px 16px 11px !important',
     },
-    '&:hover': {
-      // background: '#40a7e3 !important',
-    },
     '& *': {
-      // color: '#fff !important',
-      textShadow: '0 0 #ffffff40'
+      textShadow: '0 0 #ffffff40',
+    },
+    '&::after': {
+      content: "''",
+      width: '4px',
+      background: 'var(--color-bg-brand)',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      bottom: 0,
+      borderTopRightRadius: '4px',
+      borderBottomRightRadius: '4px',
+      backgroundImage:
+        'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
     },
   },
   nameWrapper: {
@@ -55,7 +64,7 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     lineHeight: '52px',
     border: '1px solid #d1d1d1',
     fontSize: '17px',
-    letterSpacing:'-0.8px',
+    letterSpacing: '-0.8px',
   },
 }));
 

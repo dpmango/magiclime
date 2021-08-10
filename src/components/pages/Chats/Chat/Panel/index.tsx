@@ -1,16 +1,25 @@
-import React, { FC, useState, KeyboardEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  KeyboardEvent,
+  useContext,
+  useCallback,
+} from 'react';
 import Flex from '../../../../Common/Flex';
 import { TextField } from '@consta/uikit/TextField';
-import useStyles from './style';
+import useStyles from './styles';
 import { Button } from '@consta/uikit/Button';
 import { IconAttach } from '@consta/uikit/IconAttach';
 import { FileField } from '@consta/uikit/FileField';
 import icons from './icons';
 import FilesBlock from './FilesBlock';
+import { ChatContext } from '../../context';
+import ReplyBlock from './ReplyBlock';
 
 const Panel: FC = () => {
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState<File[]>([]);
+  const { chatContext, setChatContext } = useContext(ChatContext);
   const styles = useStyles();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -26,8 +35,18 @@ const Panel: FC = () => {
     if (file) setFiles([...files, file]);
   };
 
+  const cancelReply = useCallback(() => {
+    setChatContext({ ...chatContext, replyMessage: null });
+  }, [chatContext]);
+
   return (
     <Flex className={styles.root} align={'center'} direction={'column'}>
+      {chatContext.replyMessage && (
+        <ReplyBlock
+          message={chatContext.replyMessage}
+          cancelReply={cancelReply}
+        />
+      )}
       {files.length !== 0 && <FilesBlock files={files} setFiles={setFiles} />}
       <Flex className={styles.messagePanel}>
         <FileField id="chat_file_attach" onChange={(e) => addFile(e)}>

@@ -1,20 +1,12 @@
 import { makeStyles } from '@material-ui/core';
-import { COLORS } from '../../../../utils/constants/colors';
+import { COLORS } from '../../../../../utils/constants/colors';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    width: '360px',
-    minWidth: '310px',
-    borderRight: `1px solid ${COLORS.layoutBorderColor}`,
-    height: 'calc(100vh - 64px)',
-    display: 'flex',
-    flexDirection: 'column',
-  },
   search: {
     width: '100%',
     padding: '2px 0',
+    position: 'relative',
     borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    // marginBottom: '7px',
     background: 'var(--color-bg-secondary)',
     height: 'min-content',
     '& > div': {
@@ -24,9 +16,22 @@ const useStyles = makeStyles(() => ({
       border: 'none',
     },
   },
-  list: {
-    flex: 1,
-    overflowY: 'auto',
+  group: {
+    width: '100%',
+    borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
+    height: '55px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  groupSelect: {
+    maxWidth: '30%',
+    '& span': {
+      fontWeight: 500,
+    },
+  },
+  cursor: {
+    cursor: 'pointer',
   },
 }));
 

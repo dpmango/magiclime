@@ -1,8 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { IChat, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
-import useStyles from './style';
+import useStyles from './styles';
 import { Avatar } from '@consta/uikit/Avatar';
 import Typography from '../../../Common/Typography';
 import Message from './Message';
@@ -25,17 +25,18 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
       date: '2021-08-03 16:09',
     },
   ]);
+  const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
   //const socket = io('');
   useEffect(() => {}, []);
 
-  // Скроллим окно сообщений вниз
+  //Скроллим окно сообщений вниз
   // useEffect(() => {
-  //     if (ref.current) {
-  //         const elem = ref.current
-  //         elem.scrollTop = elem.scrollHeight - elem.clientHeight;
-  //     }
-  // }, [ref.current, messages.length])
+  //   if (ref.current) {
+  //     const elem = ref.current;
+  //     elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+  //   }
+  // }, [ref.current, messages.length]);
 
   return (
     <Flex
@@ -63,7 +64,7 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
               </Typography>
             </div>
           </Flex>
-          <div className={styles.body}>
+          <div className={styles.body} ref={ref}>
             {messages.map((message) => (
               <Message message={message} key={message.id} />
             ))}

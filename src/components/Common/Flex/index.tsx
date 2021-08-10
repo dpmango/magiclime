@@ -25,9 +25,31 @@ const useStyles = makeStyles<null, Omit<IProps, 'className'>>(() => ({
   }),
 }));
 
-const Flex: FC<IProps> = ({ children, className, ...props }) => {
-  const styles = useStyles(props);
-  return <div className={classNames(styles.flex, className)}>{children}</div>;
+const Flex: FC<IProps> = ({
+  children,
+  className,
+  align,
+  justify,
+  direction,
+  wrap,
+  margin,
+  padding,
+  ...props
+}) => {
+  const styles = useStyles({
+    align,
+    justify,
+    direction,
+    wrap,
+    margin,
+    padding,
+  });
+
+  return (
+    <div className={classNames(styles.flex, className)} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default Flex;

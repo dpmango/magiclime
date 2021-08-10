@@ -1,14 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Flex from '../../../Common/Flex';
-import useStyles from './style';
+import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { TextField } from '@consta/uikit/TextField';
-import { IconSearch } from '@consta/uikit/IconSearch';
 import { IChat } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
-import { IconMeatball } from '@consta/uikit/IconMeatball';
+import Header from './Header';
 
 interface IProps {
   chatId?: string;
@@ -17,6 +15,7 @@ interface IProps {
 
 const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
   const [search, setSearch] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const [chats, setChats] = useState<IChat[]>([
     {
       id: '1',
@@ -54,7 +53,7 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
 
   useEffect(() => {
     //Api request
-  }, [debouncedSearch]);
+  }, [debouncedSearch, selectedGroup]);
 
   useEffect(() => {
     const activeChat = chats.find((chat) => chat.id === chatId);
@@ -66,16 +65,12 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.search}>
-        <TextField
-          form={'brick'}
-          placeholder="Поиск по сообщениям"
-          value={search}
-          // leftSide={IconSearch}
-          rightSide={IconMeatball}
-          onChange={({ value }) => setSearch(value as string)}
-        />
-      </div>
+      <Header
+        search={search}
+        setSearch={setSearch}
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
+      />
       <Flex direction={'column'} className={styles.list}>
         {chats.map((chat) => (
           <ChatCard chat={chat} key={chat.id} />
