@@ -22,8 +22,6 @@ const Profile: FC = () => {
 
   const initialValues = {
     name: profile.name,
-    surname: 'api TODO',
-    patronymic: 'api TODO',
     date_of_birth: profile.date_of_birth,
     country: profile.country,
     city: profile.city,
@@ -99,20 +97,6 @@ const Profile: FC = () => {
               >
                 <GridItem>
                   <FormikInput label="Имя" name="name" />
-                </GridItem>
-                <GridItem>
-                  <FormikInput
-                    label="Фамилия"
-                    name="surname"
-                    isRequired={false}
-                  />
-                </GridItem>
-                <GridItem>
-                  <FormikInput
-                    label="Отчество"
-                    name="patronymic"
-                    isRequired={false}
-                  />
                 </GridItem>
                 <GridItem>
                   <FormikInput

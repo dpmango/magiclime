@@ -7,8 +7,6 @@ import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
 
-const refLink = 'https://test.my.link/$2gwdf22fFFgdkmwh/';
-
 const ProfileHead: FC = () => {
   const styles = useStyles();
 
@@ -17,7 +15,7 @@ const ProfileHead: FC = () => {
   const handleCopyRefClick = useCallback(() => {
     // TODO - should be changed to some library ?
     const textArea = document.createElement('textarea');
-    textArea.value = refLink;
+    textArea.value = `http://link.me/${profile.referral_number}`;
     textArea.style.opacity = '0';
     document.body.appendChild(textArea);
     textArea.focus();
@@ -33,7 +31,7 @@ const ProfileHead: FC = () => {
     }
 
     document.body.removeChild(textArea);
-  }, [refLink]);
+  }, [profile.referral_number]);
 
   return (
     <Flex align="center" className={styles.root} margin="0 0px">

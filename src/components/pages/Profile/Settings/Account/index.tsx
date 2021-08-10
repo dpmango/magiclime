@@ -36,11 +36,12 @@ const Account: FC = () => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    const { phone } = values;
+    const { phone, email } = values;
     dispatch(
       updateProfile({
         profile: {
           phone,
+          email,
         },
         successCallback: () => setErrorMessage(''),
         errorCallback: (message: string) => setErrorMessage(message),
@@ -127,8 +128,7 @@ const Account: FC = () => {
                   <FormikInput
                     label="Email"
                     name="email"
-                    placeholder="Введите логин"
-                    disabled
+                    placeholder="Введите email"
                   />
                 </GridItem>
                 <GridItem>
