@@ -8,30 +8,39 @@ import {
 import Cookies from 'js-cookie';
 import { IUser } from '../../../types/interfaces/user';
 import { setAuthToken } from '../../../utils/api';
-import { UpdateProfileType, LoginPayloadType } from './types';
-import { loginUser } from '../../../utils/api/routes/auth/routes';
+import {
+  UpdateProfileType,
+  LoginPayloadType,
+  RegistrationPayloadType,
+} from './types';
+import {
+  getUserProfile,
+  loginUser,
+  registrationUser,
+} from '../../../utils/api/routes/auth';
 
 const initialState = {
-  isLogged: true,
+  isLogged: false,
+  isFirstTime: false,
   profile: {} as IUser,
 };
 
 export const login = createAsyncThunk<object, LoginPayloadType>(
   'user/login',
   async (payload, { dispatch, rejectWithValue }) => {
-    const { password, login, successCallback, errorCallback } = payload;
+    const { password, email, remember, successCallback, errorCallback } =
+      payload;
     try {
-      // const response = await loginUser({ password, email });
-      const response = {
-        data: { access: 'test_access', refresh: 'test_refresh' },
-      };
-      // if (response.status === 200) {
-      Cookies.set('access', response.data.access, { expires: 15 });
-      Cookies.set('refresh', response.data.refresh, { expires: 365 });
-      //   setAuthToken(response.data.access);
-      successCallback && successCallback();
+      const response = await loginUser({ password, email });
+
+      remember &&
+        Cookies.set('access', response.data.access, { expires: 10 / 24 });
+      remember && Cookies.set('refresh', response.data.refresh, { expires: 1 });
+      setAuthToken(response.data.access);
+      dispatch(setLogged());
       dispatch(getProfile());
-      // }
+      successCallback && successCallback();
+
       return response.data;
     } catch (err) {
       if (errorCallback) {
@@ -39,8 +48,36 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
           case 401:
             errorCallback('Неверный логин или пароль!');
             break;
-          case 403:
-            errorCallback('Ваша учетная запись заблокирована!');
+          default:
+            errorCallback('Ошибка сервера!');
+            break;
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const registration = createAsyncThunk<object, RegistrationPayloadType>(
+  'user/registration',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback, ...data } = payload;
+    try {
+      const {
+        data: { access, refresh, ...profile },
+        status,
+      } = await registrationUser(data);
+      Cookies.set('access', access, { expires: 10 / 24 });
+      Cookies.set('refresh', refresh, { expires: 1 });
+      setAuthToken(access);
+      dispatch(userRegistration(profile));
+      successCallback && successCallback();
+      return { access, refresh, ...profile };
+    } catch (err) {
+      if (errorCallback) {
+        switch (err.status) {
+          case 401:
+            errorCallback('Данный email уже используется!');
             break;
           default:
             errorCallback('Ошибка сервера!');
@@ -56,19 +93,11 @@ export const getProfile = createAsyncThunk(
   'user/getProfile',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      // const response = await getUserProfile();
-      const response = {
-        data: {
-          id: 1,
-          email: 'test_email@yandex.com',
-          name: 'Роман',
-          surname: 'Авдеев',
-        },
-      };
-      // if (response?.status === 200) {
-      dispatch(setUserProfile(response.data));
-      // }
-      return response.data as IUser;
+      const response = await getUserProfile();
+      if (response?.status === 200) {
+        dispatch(setUserProfile(response.data));
+      }
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -98,30 +127,33 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // setLogged: (state, action: PayloadAction<boolean>) => {
-    //   state.isLogged = action.payload;
-    // },
-    setUserProfile: (state, action: PayloadAction<IUser>) => {
+    setLogged: (state) => {
       state.isLogged = true;
+    },
+    userRegistration: (state, action: PayloadAction<IUser>) => {
+      state.isLogged = true;
+      state.isFirstTime = true;
+      state.profile = action.payload;
+    },
+    setUserProfile: (state, action: PayloadAction<IUser>) => {
       state.profile = action.payload;
     },
     logout: (state) => {
-      Cookies.remove('access');
-      Cookies.remove('refresh');
       state.isLogged = false;
       state.profile = {} as IUser;
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(
-    //   getProfile.fulfilled,
-    //   (state, action: PayloadAction<IUser>) => {
-    //     state.profile = action.payload;
-    //   }
-    // );
+    builder.addCase(
+      getProfile.fulfilled,
+      (state, action: PayloadAction<IUser>) => {
+        state.profile = action.payload;
+      }
+    );
   },
 });
 
-export const { setUserProfile, logout } = userSlice.actions;
+export const { setUserProfile, logout, setLogged, userRegistration } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import useStyles from './styles';
 import FormikInput from '../../../../Common/Controls/Formik/Input';
 import { Button } from '@consta/uikit/Button';
@@ -8,12 +8,16 @@ import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
 import SocialNetworks from '../../../SocialNetworks';
 
-const ProfileStep = () => {
+const ProfileStep: FC = () => {
   const styles = useStyles();
   return (
     <>
       <div className={styles.container}>
-        <FormikInput label={'Логин'} name={'login'} placeholder={'Ваше имя'} />
+        <FormikInput
+          label={'Логин'}
+          name={'username'}
+          placeholder={'Ваш логин'}
+        />
         <FormikInput
           label={'Email'}
           name={'email'}
@@ -33,7 +37,7 @@ const ProfileStep = () => {
         />
         <FormikInput
           label={'Рефедральный код'}
-          name={'code'}
+          name={'media_sponsor'}
           placeholder={'Введите код'}
         />
         <FormikInput

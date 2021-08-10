@@ -16,6 +16,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     transition: 'all .4s linear',
     overflowX: 'hidden',
+    position: 'sticky',
+    top: '64px',
     alignItems: 'flex-start',
     flexDirection: 'column',
     borderRight: `1px solid ${COLORS.layoutBorderColor}`,
@@ -62,7 +64,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
   },
   activeLink: {
     background: ({ isDefault }) =>
-      isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
+      isDefault ? 'var(--color-bg-secondary)' : 'rgba(255, 255, 255, .05)',
     '& > span': {
       color: 'var(--color-typo-brand)',
       fontWeight: '500',

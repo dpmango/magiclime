@@ -27,7 +27,7 @@ const FormikTextareaComponent = MemoWrapper(
     const fieldTouched = getNestedValue(touched, field.name);
 
     const handleChange = useCallback(({ value }: { value: string | null }) => {
-      setFieldValue(field.name, value);
+      setFieldValue(field.name, value || '');
     }, []);
 
     return (

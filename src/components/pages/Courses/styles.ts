@@ -11,10 +11,10 @@ const useStyles = makeStyles({
     },
   },
   content: {
-    marginTop: 48,
+    marginTop: 36,
   },
   tags: {
-    marginTop: 32,
+    marginTop: 24,
     maxWidth: 720,
   },
   main: {
