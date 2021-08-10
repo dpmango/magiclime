@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { IWebinar } from 'components/pages/WebinarsPage/types';
+import { IWebinar } from 'components/pages/Webinars/types';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 // import { SkeletonBrick } from '@consta/uikit/Skeleton';

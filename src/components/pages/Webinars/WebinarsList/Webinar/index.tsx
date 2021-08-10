@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IWebinar } from 'components/pages/WebinarsPage/types';
+import { IWebinar } from 'components/pages/Webinars/types';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';

@@ -2,8 +2,9 @@ import React, { FC, useState } from 'react';
 import shuffle from 'lodash/shuffle';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
-import { WebinarsList, Filters } from 'components/Webinars';
 import Tags from 'components/Common/Tags';
+import WebinarsList from './WebinarsList';
+import Filters from './Filters';
 import { IWebinar } from './types';
 
 import { tags, mockWebinars } from './mockData';

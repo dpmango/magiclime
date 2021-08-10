@@ -9,7 +9,7 @@ import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
-import Webinars from '../../pages/WebinarsPage';
+import Webinars from '../../pages/Webinars';
 
 interface IProps {
   theme: 'default' | 'dark';
