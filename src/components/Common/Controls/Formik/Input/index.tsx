@@ -30,7 +30,7 @@ const FormikInputComponent = MemoWrapper(
     const styles = useStyles();
 
     const handleChange = useCallback(({ value }: { value: string | null }) => {
-      setFieldValue(field.name, value);
+      setFieldValue(field.name, value || '');
     }, []);
 
     const fieldError = getNestedValue(errors, field.name);
@@ -39,7 +39,7 @@ const FormikInputComponent = MemoWrapper(
     return (
       <Flex direction={'column'}>
         {label && (
-          <Typography margin={'0 0 6px'} view={'secondary'}>
+          <Typography size={'s'} margin={'0 0 6px'} view={'secondary'}>
             {label}
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>

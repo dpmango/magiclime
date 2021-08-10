@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   container: {
     width: 'calc(100% - 100px)',
-    marginBottom: '90px',
   },
   line: {
     flex: 1,
@@ -29,7 +28,7 @@ const useStyles = makeStyles(() => ({
     height: '16px',
     borderRadius: '50%',
     flex: 'none',
-    cursor: 'pointer',
+    //cursor: 'pointer',
   },
   disableStep: {
     background: 'rgba(0, 65, 102, .2)',

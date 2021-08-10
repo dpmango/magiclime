@@ -28,16 +28,7 @@ const CoursesList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
 
   return (
     <div className={styles.root}>
-      <Grid
-        cols="1"
-        gap="xl"
-        breakpoints={{
-          m: {
-            cols: 2,
-            gap: 'xl',
-          },
-        }}
-      >
+      <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2, gap: 'xl' } }}>
         {items.map((item) => (
           <GridItem col="1" key={item.id}>
             <Course item={item} />

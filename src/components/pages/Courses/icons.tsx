@@ -1,5 +1,4 @@
 import React from 'react';
-import { createIcon } from '@consta/uikit/createIcon';
 import { createConstaIcon } from 'utils/helpers/createConstaIcon';
 
 const SearchIcon = () => (

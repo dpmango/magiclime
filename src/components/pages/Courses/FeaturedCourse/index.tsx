@@ -9,16 +9,7 @@ const FeaturedCourse: FC = () => {
   const styles = useStyles();
 
   return (
-    <Grid
-      cols="1"
-      gap="xl"
-      breakpoints={{
-        m: {
-          cols: 2,
-          gap: 'xl',
-        },
-      }}
-    >
+    <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2, gap: 'xl' } }}>
       <GridItem className={styles.left}>
         <Typography
           className={styles.recomended}
@@ -30,7 +21,7 @@ const FeaturedCourse: FC = () => {
         <Typography
           className={styles.title}
           as="h2"
-          weight="semibold"
+          weight="bold"
           size="5xl"
           lineHeight="xs"
         >

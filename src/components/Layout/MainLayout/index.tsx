@@ -1,13 +1,15 @@
 import React, { FC, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
 import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
-
 import Courses from '../../pages/Courses';
+import Chats from '../../pages/Chats';
+import Profile from '../../pages/Profile';
+
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -27,13 +29,18 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
       />
       <Flex className={styles.container}>
         <Menu isFull={isFullMenu} />
-        <div className={styles.scroller}>
-          <Container className={styles.content}>
-            <Switch>
-              <Route exact path="/courses" component={Courses} />
-            </Switch>
-          </Container>
-        </div>
+        <Container className={styles.content}>
+          <Switch>
+            <Route
+              exact={true}
+              path={'/'}
+              render={() => <Redirect to={'profile'} />}
+            />
+            <Route exact={true} path={'/courses'} component={Courses} />
+            <Route path={'/chats/:id?'} component={Chats} />
+            <Route path={'/profile'} component={Profile} />
+          </Switch>
+        </Container>
       </Flex>
       {/* FOOTER */}
     </Flex>

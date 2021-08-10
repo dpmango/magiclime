@@ -8,6 +8,8 @@ import { Switch } from '@consta/uikit/Switch';
 import { IconMoon } from '@consta/uikit/IconMoon';
 import { IUserDropdownProps, UserDropdownItem } from './types';
 import { logout } from '../../../../store/reducers/user';
+import Cookies from 'js-cookie';
+import { deleteAuthHeader } from '../../../../utils/api';
 
 const UserDropdown: FC<IUserDropdownProps> = ({
   clickOutside,
@@ -66,6 +68,9 @@ const UserDropdown: FC<IUserDropdownProps> = ({
   const onItemClick = (item: UserDropdownItem) => {
     return (e: MouseEvent<HTMLDivElement>) => {
       if (item.name === 'Выход') {
+        Cookies.remove('access');
+        Cookies.remove('refresh');
+        deleteAuthHeader();
         dispatch(logout());
         history.push('/landing');
       } else if (item.path) {

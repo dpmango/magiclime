@@ -1,18 +1,6 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { Avatar } from '@consta/uikit/Avatar';
-import { IconCards } from '@consta/uikit/IconCards';
-import { IconUser } from '@consta/uikit/IconUser';
-import { IconChat } from '@consta/uikit/IconChat';
-import { IconCalendar } from '@consta/uikit/IconCalendar';
-import { IconBag } from '@consta/uikit/IconBag';
-import { IconVideo } from '@consta/uikit/IconVideo';
-import { IconTeam } from '@consta/uikit/IconTeam';
-import { IconBook } from '@consta/uikit/IconBook';
-import { IconFavorite } from '@consta/uikit/IconFavorite';
-import { IconDinosaur } from '@consta/uikit/IconDinosaur';
+import React, { FC, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
-import { IconList } from '@consta/uikit/IconList';
 import classNames from 'classnames';
 import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 import Flex from '../../Common/Flex';
@@ -43,7 +31,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
   useEffect(() => {
     let index = 1;
     const linkIndex = links.findIndex(
-      (link) => link.path && link.path === location.pathname
+      (link) => link.path && location.pathname.indexOf(link.path) === 0
     );
     if (linkIndex >= 0) {
       index = linkIndex;
@@ -156,7 +144,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
                 className={styles.link}
                 activeClassName={styles.activeLink}
               >
-                <link.icon view="secondary" size="s" />
+                <link.icon view="ghost" size="s" />
                 <Typography
                   margin="0 0 0 18px"
                   view="primary"
