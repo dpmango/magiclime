@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { IArticle } from 'types/interfaces/article';
 
-import { ArticleCard } from 'components/Article';
+import ArticleCard from './ArticleCard';
 import { tags } from './mockData';
 import useStyles from './styles';
 

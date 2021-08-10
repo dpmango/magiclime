@@ -7,7 +7,7 @@ import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
-import Articles from '../../pages/ArticlesPage';
+import Articles from '../../pages/Articles';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
 

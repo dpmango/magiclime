@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Tag } from '@consta/uikit/Tag';
@@ -14,6 +14,7 @@ interface IProps {
 
 const ArticleCard: FC<IProps> = ({ data }) => {
   const styles = useStyles();
+  const history = useHistory();
 
   return (
     <Link to={`/article/${data.id}`} className={styles.root}>
@@ -28,11 +29,13 @@ const ArticleCard: FC<IProps> = ({ data }) => {
                 key={tag.id}
                 label={tag.title}
                 size="m"
-                mode="link"
-                href={`/faq/category/${tag.id}`}
                 className={styles.tag}
                 icon={IconCheck}
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  history.push(`/article/tag/${tag.id}`);
+                }}
               />
             ))}
         </Flex>
