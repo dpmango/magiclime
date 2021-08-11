@@ -10,6 +10,14 @@ interface IProps extends React.ComponentProps<typeof Text> {
 const useStyle = makeStyles<null, IProps>(() => ({
   text: (props) => ({
     margin: props.margin || 0,
+    '& a': {
+      color: 'var(--color-typo-link) !important',
+      textDecoration: 'underline',
+      '&:hover': {
+        color: 'var(--color-typo-link-hover) !important',
+        textDecoration: 'none',
+      },
+    },
   }),
 }));
 

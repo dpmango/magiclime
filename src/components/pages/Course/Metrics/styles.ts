@@ -4,15 +4,13 @@ const useStyles = makeStyles({
   root: {
     position: 'relative',
   },
-  container: {
-    maxWidth: '1208px',
-    paddingLeft: 40,
-    paddingRight: 40,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  row: {
+    padding: '36px 0',
+    borderBottom: '1px solid var(--color-bg-border)',
   },
-  tabs: {
-    marginTop: 36,
+  item: {
+    flex: '0 0 192px',
+    paddingRight: 24,
   },
 });
 
