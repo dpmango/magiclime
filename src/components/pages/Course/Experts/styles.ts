@@ -19,9 +19,9 @@ const useStyles = makeStyles({
   },
   slide: {
     // flex: '0 0 auto',
-    // height: 'auto',
-    // display: 'flex',
-    // flexDirection: 'column',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
   },
   info: {
     position: 'absolute',
@@ -43,9 +43,10 @@ const useStyles = makeStyles({
     maxWidth: '100%',
   },
   title: {
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    wordWrap: 'break-word',
+    // whiteSpace: 'nowrap',
+    // textOverflow: 'ellipsis',
+    // overflow: 'hidden',
   },
   description: {
     color: '#474d57!important',

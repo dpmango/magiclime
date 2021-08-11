@@ -1,5 +1,4 @@
 import React, { FC, useRef, useCallback } from 'react';
-import { Grid, GridItem } from '@consta/uikit/Grid';
 import SwiperCore, { Navigation, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Tooltip } from '@consta/uikit/Tooltip';
@@ -99,15 +98,12 @@ const CourseExperts: FC = () => {
             setWrapperSize={false}
             breakpoints={{
               768: {
-                // width: 768,
                 slidesPerView: 2,
               },
               992: {
-                // width: 992,
                 slidesPerView: 3,
               },
-              1200: {
-                // width: 1200,
+              1440: {
                 slidesPerView: 4,
               },
             }}

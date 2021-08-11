@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
-import { Button } from '@consta/uikit/Button';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
-const CourseHero: FC = () => {
+const CourseMetrics: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
 
@@ -59,4 +58,4 @@ const CourseHero: FC = () => {
   );
 };
 
-export default CourseHero;
+export default CourseMetrics;

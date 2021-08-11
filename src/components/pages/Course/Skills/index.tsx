@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Button } from '@consta/uikit/Button';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -41,7 +40,7 @@ const content = [
   },
 ];
 
-const CourseHero: FC = () => {
+const CourseSkills: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
 
@@ -94,4 +93,4 @@ const CourseHero: FC = () => {
   );
 };
 
-export default CourseHero;
+export default CourseSkills;

@@ -45,7 +45,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
             </HeaderModule>
             <HeaderModule indent="m">
               <HeaderLogo>
-                <Link to={'/'}>
+                <Link to="/">
                   <Logo />
                 </Link>
               </HeaderLogo>
@@ -58,8 +58,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName={'3.130 mBTL'}
-                personInfo={'Баланс'}
+                personName="3.130 mBTL"
+                personInfo="Баланс"
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}
               />

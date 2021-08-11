@@ -98,6 +98,35 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
     display: 'inline-flex',
     alignItems: 'center',
     cursor: 'pointer',
+    '& .Text': {
+      color: 'var(--color-typo-secondary)',
+      transition: 'color .25s ease-in-out',
+    },
+    '&.compleated': {
+      '& .Text': {
+        color: 'var(--color-typo-primary)',
+      },
+      '&::after': {
+        position: 'absolute',
+        content: "''",
+        left: -1,
+        width: '2px',
+        height: '44px',
+        zIndex: 2,
+        top: 0,
+        borderTopRightRadius: '2px',
+        borderBottomRightRadius: '2px',
+        background: 'var(--color-bg-success)',
+      },
+    },
+    '&.current': {
+      '& .Text': {
+        color: 'var(--color-typo-primary)',
+      },
+    },
+    '&:hover': {
+      color: 'var(--color-typo-primary)',
+    },
   },
   navLine: {
     position: 'absolute',

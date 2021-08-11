@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@consta/uikit/Button';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
@@ -40,7 +41,9 @@ const CourseHero: FC = () => {
               финансовыми рисками, влиять на инвестиционные решения и стратегию
               развития бизнеса
             </Typography>
-            <Button size="l" label="Купить курс" />
+            <Link to="/courses/1/1">
+              <Button size="l" label="Купить курс" />
+            </Link>
           </GridItem>
           <GridItem>
             <div className={styles.image}>

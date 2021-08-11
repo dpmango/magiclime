@@ -9,7 +9,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
-
+import cns from 'classnames';
 import useStyles from './styles';
 
 const htmlContentIntro = `
@@ -31,16 +31,18 @@ const htmlContentTask = `
 
 interface ITab {
   id: number;
+  compleated: boolean;
   label: string;
 }
 
 const tabs: ITab[] = [
-  { id: 1, label: '1. Первая часть' },
-  { id: 2, label: '2. Вторая часть' },
+  { id: 1, compleated: true, label: '1. Первая часть' },
+  { id: 2, compleated: false, label: '2. Вторая часть' },
+  { id: 3, compleated: false, label: '3. Третья часть' },
 ];
 
 const CoursePage: FC = () => {
-  const [tab, setTab] = useState<ITab>(tabs[0]);
+  const [tab, setTab] = useState<ITab>(tabs[1]);
 
   const styles = useStyles({ activeTab: tab.id });
   const { course, id } = useParams();
@@ -110,14 +112,16 @@ const CoursePage: FC = () => {
             {tabs.map((t) => (
               <li key={t.id}>
                 <span
-                  className={styles.navLink}
+                  className={cns(
+                    styles.navLink,
+                    t.compleated && 'compleated',
+                    tab.id === t.id && 'current'
+                  )}
                   role="link"
                   tabIndex={0}
                   onClick={() => setTab(t)}
                 >
-                  <Typography view={tab.id === t.id ? 'primary' : 'secondary'}>
-                    {t.label}
-                  </Typography>
+                  <Typography>{t.label}</Typography>
                 </span>
               </li>
             ))}

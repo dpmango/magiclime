@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { FC, useState, useEffect } from 'react';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
@@ -19,7 +19,22 @@ interface IProps {
 
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
-  const [isFullMenu, setIsFullMenu] = useState(true);
+  const location = useLocation();
+
+  const getFullMenuState = () => {
+    const shouldCollapseRoute = location.pathname.includes('/courses/');
+    return !shouldCollapseRoute;
+  };
+
+  const [isFullMenu, setIsFullMenu] = useState(getFullMenuState());
+
+  useEffect(() => {
+    const shouldCollapseRoute = location.pathname.includes('/courses/');
+
+    if (shouldCollapseRoute) {
+      setIsFullMenu(false);
+    }
+  }, [location.pathname]);
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -37,8 +52,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route path="/chats/:id?" component={Chats} />
             {/* <Route path="/profile" component={Profile} /> */}
             <Route exact path="/courses" component={Courses} />
-            <Route path="/courses/:course" component={Course} />
-            <Route path="/courses/:course/:id" component={CourseTask} />
+            <Route exact path="/courses/:course" component={Course} />
+            <Route exact path="/courses/:course/:id" component={CourseTask} />
           </Switch>
         </Container>
       </Flex>
