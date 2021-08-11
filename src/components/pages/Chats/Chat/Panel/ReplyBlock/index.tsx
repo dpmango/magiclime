@@ -21,7 +21,7 @@ const ReplyBlock: FC<IProps> = ({ message, cancelReply }) => {
       </div>
       <div className={styles.replyMessage}>
         <Typography weight={'semibold'} size={'s'} className={styles.text}>
-          {message.user_name}
+          {message.creator.name}
         </Typography>
         <Typography view={'primary'} size={'s'} className={styles.text}>
           {message.text}

@@ -1,3 +1,5 @@
+import { IPhoto } from '../../../types/interfaces/common';
+
 export interface IChat {
   readonly id: string;
   name: string;
@@ -9,11 +11,24 @@ export interface IChat {
 }
 
 export interface IMessage {
-  readonly id: string;
+  readonly id: number;
+  action?: string;
+  creator: {
+    readonly id: number;
+    name: string;
+    avatar: IPhoto | null;
+  };
   text: string;
-  date: string;
-  user_name: string;
-  user_avatar: string;
+  created_at: string;
+  reply_to?: {
+    readonly id: number;
+    text: string;
+    creator: {
+      readonly id: number;
+      name: string;
+      avatar: IPhoto | null;
+    };
+  };
 }
 
 export interface IFriend {

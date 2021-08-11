@@ -11,18 +11,14 @@ import Panel from './Panel';
 const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
   const [messages, setMessages] = useState<IMessage[]>([
     {
-      id: '1',
-      text: 'Hello!',
-      user_name: 'Roman Avdeev',
-      user_avatar: '',
-      date: '2021-08-03 16:09',
-    },
-    {
-      id: '2',
-      text: 'С учётом сложившейся международной обстановки, современная методология разработки не оставляет шанса для распределения внутренних резервов и ресурсов. Но независимые государства смешаны с не уникальными данными до степени совершенной неузнаваемости, из-за чего возрастает их статус бесполезности. Ясность нашей позиции очевидна: современная методология разработки является качественно новой ступенью первоочередных требований!',
-      user_name: 'Roman Avdeev',
-      user_avatar: '',
-      date: '2021-08-03 16:09',
+      id: 1,
+      text: 'Hello',
+      created_at: '2021-08-09 15:43',
+      creator: {
+        name: 'Roman Avdeev',
+        id: 1,
+        avatar: null,
+      },
     },
   ]);
   const ref = useRef<HTMLDivElement>(null);

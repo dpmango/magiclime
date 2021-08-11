@@ -1,5 +1,10 @@
 import React, { FC, SyntheticEvent, useCallback } from 'react';
-import { Select, SelectProps, DefaultItem } from '@consta/uikit/Select';
+import {
+  Select,
+  SelectProps,
+  DefaultItem,
+  PropRenderItem,
+} from '@consta/uikit/Select';
 import { Field, FieldProps } from 'formik';
 import { withNaming } from '@bem-react/classname';
 import cns from 'classnames';
@@ -11,15 +16,12 @@ import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
 interface ISelectItem extends DefaultItem {
   icon?: string;
+  title?: string;
 }
 
-interface IProps extends Omit<SelectProps, 'onChange'> {
+interface IProps extends Omit<SelectProps<ISelectItem>, 'onChange'> {
   label?: string;
   isRequired?: boolean;
-  onChange?: (props: {
-    value: string | null;
-    e: SyntheticEvent<Element, Event>;
-  }) => void;
 }
 
 const cn = withNaming({ e: '-', m: '_', v: '_' });
@@ -35,7 +37,7 @@ const FormikSelectComponent = MemoWrapper(
     const styles = useStyles();
 
     const handleChange = useCallback(
-      ({ value: v }: { value: string | null }) => {
+      ({ value: v }: { value: ISelectItem | null }) => {
         setFieldValue(field.name, v);
       },
       []
@@ -77,7 +79,7 @@ const FormikSelectComponent = MemoWrapper(
               </span>
             </div>
           )}
-          renderValue={({ item }: { item: ISelectItem }) => (
+          renderValue={({ item }) => (
             <span className={styles.selectItemCustom}>
               {item.icon && <img src={item.icon} alt={item.label} />}
               <span>{item.label}</span>
