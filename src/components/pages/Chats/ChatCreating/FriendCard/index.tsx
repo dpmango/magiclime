@@ -35,7 +35,7 @@ const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
     >
       <Flex align={'center'}>
         <Avatar form={'round'} name={friend.name} url={friend.image} />
-        <Typography weight={'semibold'} margin={'0 0 0 15px'}>
+        <Typography size={'s'} weight={'semibold'} margin={'0 0 0 15px'}>
           {friend.name}
         </Typography>
       </Flex>

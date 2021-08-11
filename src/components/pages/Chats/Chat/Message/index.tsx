@@ -36,7 +36,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
   }, []);
 
   return (
-    <Flex margin={'0 0 50px'} onDoubleClick={replyMessage}>
+    <Flex margin={'0 0 36px'} onDoubleClick={replyMessage}>
       <Avatar
         form={'round'}
         name={message.creator.name}
@@ -53,7 +53,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             {moment(message.created_at).format('HH:mm')}
           </Typography>
         </Flex>
-        <Flex margin={'0 0 9px'}>
+        <Flex margin={'0 0 6px'}>
           <Typography view={'primary'} size={'m'} className={styles.text}>
             {message.text}
           </Typography>

@@ -62,12 +62,12 @@ const ChatCreating: FC = () => {
       <Flex
         justify={'space-between'}
         align={'center'}
-        padding={'10px'}
+        padding={'11px 16px'}
         margin={'0 0 20px'}
         className={styles.header}
       >
-        <Typography weight={'semibold'}>Создание беседы</Typography>
-        <Button view={'clear'} onlyIcon iconLeft={IconClose} onClick={cancel} />
+        <Typography size={'s'} weight={'semibold'}>Создание беседы</Typography>
+        <Button size={'s'} view={'clear'} onlyIcon iconLeft={IconClose} onClick={cancel} />
       </Flex>
       <Flex align={'center'} padding={'0 16px'}>
         <div>

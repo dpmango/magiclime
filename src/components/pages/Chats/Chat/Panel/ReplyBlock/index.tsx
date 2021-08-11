@@ -28,7 +28,12 @@ const ReplyBlock: FC<IProps> = ({ message, cancelReply }) => {
         </Typography>
       </div>
       <div>
-        <Button view={'clear'} iconLeft={IconClose} onClick={cancelReply} />
+        <Button
+          size={'s'}
+          view={'clear'}
+          iconLeft={IconClose}
+          onClick={cancelReply}
+        />
       </div>
     </Flex>
   );
