@@ -17,10 +17,11 @@ const ReplyBlock: FC<IProps> = ({ message, cancelReply }) => {
   return (
     <Flex className={styles.root} align={'center'}>
       <div>
-        <IconReply className={styles.icon} />
+        {/* <IconReply className={styles.icon} /> */}
+        <Button size={'s'} view={'clear'} iconLeft={IconClose} onClick={cancelReply} />
       </div>
       <div className={styles.replyMessage}>
-        <Typography weight={'semibold'} size={'s'} className={styles.text}>
+        <Typography weight={'semibold'} size={'s'} className={styles.username}>
           {message.user_name}
         </Typography>
         <Typography view={'primary'} size={'s'} className={styles.text}>
@@ -28,7 +29,7 @@ const ReplyBlock: FC<IProps> = ({ message, cancelReply }) => {
         </Typography>
       </div>
       <div>
-        <Button view={'clear'} iconLeft={IconClose} onClick={cancelReply} />
+        {/* <Button size={'s'} view={'clear'} iconLeft={IconClose} onClick={cancelReply} /> */}
       </div>
     </Flex>
   );

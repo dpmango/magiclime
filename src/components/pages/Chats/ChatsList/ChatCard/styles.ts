@@ -15,15 +15,15 @@ const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
     },
   },
   activeChat: {
-    padding: '11px 16px !important',
+    // padding: '11px 16px !important',
     position: 'relative',
     background: ({ isDefault }) =>
-      isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
-    borderTop: '1px solid var(--color-bg-border)',
-    borderBottom: '1px solid var(--color-bg-border)',
+      isDefault ? '#fcfcfc' : 'rgba(255, 255, 255, .05)',
+    // borderTop: '1px solid var(--color-bg-border)',
+    // borderBottom: '1px solid var(--color-bg-border)',
     '&:first-of-type': {
-      borderTop: 'none !important',
-      padding: '12px 16px 11px !important',
+      // borderTop: 'none !important',
+      // padding: '12px 16px 11px !important',
     },
     '& *': {
       textShadow: '0 0 #ffffff40',

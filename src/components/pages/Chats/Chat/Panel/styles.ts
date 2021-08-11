@@ -8,14 +8,14 @@ const useStyles = makeStyles(() => ({
     height: 'auto',
   },
   messagePanel: {
-    padding: '5px 15px',
+    padding: '5px 10px',
     minHeight: '56px',
   },
   input: {
     border: 'none',
     background: 'none !important',
     flex: 1,
-    marginLeft: '6px',
+    marginLeft: '2px',
   },
   addFile: {
     '& path': {

@@ -19,7 +19,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
   };
 
   return (
-    <Flex margin={'0 0 50px'} onDoubleClick={replyMessage}>
+    <Flex margin={'0 0 36px'} onDoubleClick={replyMessage}>
       <Avatar
         form={'round'}
         name={message.user_name}
@@ -36,7 +36,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             {moment(message.date).format('HH:mm')}
           </Typography>
         </Flex>
-        <Flex margin={'0 0 9px'}>
+        <Flex margin={'0 0 6px'}>
           <Typography view={'primary'} size={'m'} className={styles.text}>
             {message.text}
           </Typography>
@@ -44,13 +44,13 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         <Flex>
           <Button
             label={'Ответить'}
-            iconLeft={IconChat}
+            // iconLeft={IconChat}
             view={'clear'}
-            size={'xs'}
+            size={'s'}
             onClick={replyMessage}
             className={styles.reply}
           />
-          <Button iconLeft={IconMeatball} view={'clear'} size={'xs'} onlyIcon />
+          <Button iconLeft={IconMeatball} view={'clear'} size={'s'} onlyIcon />
         </Flex>
       </div>
     </Flex>

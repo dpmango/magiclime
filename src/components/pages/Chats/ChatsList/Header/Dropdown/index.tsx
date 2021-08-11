@@ -25,6 +25,7 @@ const Dropdown: FC<IProps> = ({ clickOutside, targetRef }) => {
   return (
     <ContextMenu
       items={items}
+      size={'s'}
       getLabel={(item: DropdownItem) => item.name}
       getOnClick={onItemClick}
       anchorRef={targetRef}

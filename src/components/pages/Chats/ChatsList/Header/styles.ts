@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
   groupSelect: {
-    maxWidth: '30%',
+    maxWidth: '60%',
     '& span': {
       fontWeight: 500,
     },

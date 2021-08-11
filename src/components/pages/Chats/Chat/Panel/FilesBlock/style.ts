@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
     overflowX: 'auto',
-    padding: '15px',
+    padding: '12px 16px 11px',
   },
   file: {
     position: 'relative',
