@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { Collapse } from '@consta/uikit/Collapse';
 import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 import Flex from '../../Common/Flex';
 import Typography from '../../Common/Typography';
@@ -131,6 +132,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
       {/*    </Typography> */}
       {/*  </Flex> */}
       {/* </Flex> */}
+
       <Flex
         direction="column"
         margin="0 0 12px"

@@ -5,12 +5,9 @@
   "course": {
     "task": {
       "answer": {
-        "label": "Ваш ответ",
-        "placeholder": "Введите ответ",
-        "cta": "Узнать ответ"
-      },
-      "navigation": {
-        
+        "header": "Задание",
+        "cta": "Узнать ответ",
+        "continue": "Продолжить"
       }
     }
   }

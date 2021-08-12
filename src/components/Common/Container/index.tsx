@@ -14,8 +14,11 @@ const useStyles = makeStyles<
 >(() => ({
   block: (props) => ({
     background: props.isDefault ? 'rgb(255, 255, 255)' : '#212121',
-    '& a, p': {
+    '& a, p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote': {
       color: props.isDefault ? '#1e2329' : '#e3e3e3',
+    },
+    '& a': {
+      textDecoration: 'underline',
     },
   }),
 }));

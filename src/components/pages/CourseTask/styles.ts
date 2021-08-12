@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles<null, { activeTab: number }>(() => ({
+const useStyles = makeStyles({
   root: {
     maxWidth: '1208px',
     padding: '95px 40px 95px',
@@ -15,12 +15,6 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
     padding: '0 70px',
   },
 
-  taskBox: {
-    marginTop: 34,
-    padding: '32px 32px 24px',
-    border: '1px solid var(--color-bg-border)',
-    borderRadius: 4,
-  },
   wysiwyg: {
     '& > :first-child': {
       marginTop: 0,
@@ -34,11 +28,29 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
       lineHeight: 1.45,
       margin: '32px 0',
     },
+    '& h2': {
+      fontWeight: 500,
+      fontSize: 32,
+      lineHeight: 1.33,
+      margin: '32px 0',
+    },
     '& h3': {
       fontWeight: 500,
       fontSize: 24,
       lineHeight: 1.33,
       margin: '32px 0',
+    },
+    '& h4': {
+      fontWeight: 500,
+      fontSize: 20,
+      lineHeight: 1.33,
+      margin: '24px 0',
+    },
+    '& h5': {
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: 1.33,
+      margin: '24px 0',
     },
     '& p': {
       margin: '20px 0',
@@ -49,6 +61,20 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
       display: 'block',
       maxWidth: '100%',
       margin: '32px 0',
+    },
+    '& .scaler': {
+      position: 'relative',
+      fontSize: 0,
+      margin: '32px 0',
+      '& iframe, & img': {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        margin: 0,
+      },
+      '&[data-ar="16:9"]': {
+        paddingBottom: '56.25%',
+      },
     },
     '& blockquote': {
       position: 'relative',
@@ -68,85 +94,21 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
         borderRadius: 1,
       },
     },
-  },
-  answer: {
-    marginTop: 24,
-    '& .Button': {
-      marginTop: 24,
-    },
-  },
-
-  nav: {
-    flex: '0 0 288px',
-    paddingLeft: 24,
-    position: 'sticky',
-  },
-
-  navList: {
-    position: 'relative',
-    listStyle: 'none',
-    margin: '8px 0',
-    padding: 0,
-    borderLeft: '1px solid var(--color-bg-border)',
-    '& li': {
-      display: 'block',
-    },
-  },
-  navLink: {
-    position: 'relative',
-    minHeight: 44,
-    paddingLeft: 24,
-    display: 'inline-flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    '& .Text': {
-      color: 'var(--color-typo-secondary)',
-      transition: 'color .25s ease-in-out',
-    },
-    '&.compleated': {
-      '& .Text': {
-        color: 'var(--color-typo-primary)',
+    '& table': {
+      width: '100%',
+      borderCollapse: 'collapse',
+      margin: '32px 0',
+      '& td': {
+        fontSize: 15,
+        padding: '12px 16px',
+        border: '1px solid var(--color-bg-border)',
       },
-      '&::after': {
-        position: 'absolute',
-        content: "''",
-        left: -1,
-        width: '2px',
-        height: '44px',
-        zIndex: 2,
-        top: 0,
-        borderTopRightRadius: '2px',
-        borderBottomRightRadius: '2px',
-        background: 'var(--color-bg-success)',
+      '& td p': {
+        fontSize: 15,
+        margin: 0,
       },
     },
-    '&.current': {
-      '& .Text': {
-        color: 'var(--color-typo-primary)',
-      },
-    },
-    '&.available': {
-      '& .Text': {
-        color: 'var(--color-typo-primary)',
-      },
-    },
-    '&:hover': {
-      color: 'var(--color-typo-primary)',
-    },
   },
-  navLine: {
-    position: 'absolute',
-    left: -1,
-    width: '2px',
-    height: '44px',
-    zIndex: 2,
-    top: ({ activeTab }) =>
-      `${(activeTab - 1) * 44 + (activeTab > 4 ? 49 : 0)}px`,
-    transition: 'top .125s linear',
-    borderTopRightRadius: '2px',
-    borderBottomRightRadius: '2px',
-    background: 'var(--color-bg-brand)',
-  },
-}));
+});
 
 export default useStyles;

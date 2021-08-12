@@ -1,82 +1,105 @@
-/* eslint-disable react/no-danger */
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import { Button } from '@consta/uikit/Button';
-import Typography from 'components/Common/Typography';
+// import { useTranslation } from 'react-i18next';
+// import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
-import { REQUIRED_STRING } from 'utils/formik/validation';
 import { ScrollTo } from 'utils/helpers/scroll';
-import cns from 'classnames';
+import { ISection } from 'components/pages/CourseTask/types';
+
+import Navigation from './Navigation';
+import AnswerBox from './AnswerBox';
+
 import useStyles from './styles';
-
-const htmlContentIntro1 = `
-<h1>Урок 1. Как устроена вводная часть</h1>
-<p>Обучение будет проходить в образовательной среде Лайм. Сейчас ты уже в ней. </p>
-<p>В вводной части ты познакомишься с нашим подходом и форматом обучения. На протяжении учёбы ты будешь изучать теорию в виде текста с интерактивными тестами. Для практики мы подготовили несколько форматов: разбор кейсов и несложные задания с самопроверкой.</p>
-<p>В вводной части ты познакомишься с нашим подходом и форматом обучения. На протяжении учёбы ты будешь изучать теорию в виде текста с интерактивными тестами. Для практики мы подготовили несколько форматов: разбор кейсов и несложные задания с самопроверкой.</p>
-
-<h3>Что мы разберём в вводной части:</h3>
-<img src="/images/course-image-1.png" alt="alt" />
-<blockquote>В вводной части ты познакомишься с нашим подходом и форматом обучения. На протяжении учёбы ты будешь изучать теорию в виде текста с интерактивными тестами. Для практики мы подготовили несколько форматов: разбор кейсов и несложные задания с самопроверкой.</blockquote>
-`;
-
-const htmlContentIntro2 = `
-<h1>Урок 2. Вторая часть</h1>
-<p>Обучение будет проходить в образовательной среде Лайм. Сейчас ты уже в ней. </p>
-<blockquote>В вводной части ты познакомишься с нашим подходом и форматом обучения. На протяжении учёбы ты будешь изучать теорию в виде текста с интерактивными тестами. Для практики мы подготовили несколько форматов: разбор кейсов и несложные задания с самопроверкой.</blockquote>
-
-<h3>Что мы разберём в вводной части:</h3>
-<img src="/images/course-image-1.png" alt="alt" />
-`;
-
-const htmlContentIntro3 = `
-<h1>Урок 3. Третья часть</h1>
-<img src="/images/course-image-1.png" alt="alt" />
-
-<h3>Что мы разберём в вводной части:</h3>
-`;
-
-const htmlContentTask = `
-<h3>Задание</h3>
-<p>В вводной части ты познакомишься с нашим подходом и форматом обучения. На протяжении учёбы ты будешь изучать теорию в виде текста с интерактивными тестами. Для практики мы подготовили несколько форматов: разбор кейсов и несложные задания с самопроверкой.</p>
-<img src="/images/course-image-2.png" alt="alt" />
-`;
-
-interface ISection {
-  id: number;
-  compleated: boolean;
-  available: boolean;
-  current: boolean;
-  label: string;
-}
+import {
+  htmlContentIntro1,
+  htmlContentIntro2,
+  htmlContentIntro3,
+  htmlContentIntro4,
+  htmlContentIntro5,
+  htmlContentIntro6,
+  htmlContentIntro7,
+  htmlContentIntro8,
+  htmlContentIntro9,
+} from './mockData';
 
 const CoursePage: FC = () => {
   const [sections, setSections] = useState<ISection[]>([
     {
       id: 1,
+      module: 1,
       compleated: false,
       available: true,
       current: true,
-      label: '1. Первая часть',
+      label: '1. Как запустить продажи и масштабировать бизнес',
     },
     {
       id: 2,
+      module: 1,
       compleated: false,
       available: false,
       current: false,
-      label: '2. Вторая часть',
+      label: '2. Вторичные выгоды',
     },
     {
       id: 3,
+      module: 1,
       compleated: false,
       available: false,
       current: false,
-      label: '3. Третья часть',
+      label: '3. Как привести покупателя в ресурс. Каналы восприятия',
+    },
+
+    {
+      id: 4,
+      module: 2,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '4. Пирамида успеха',
+    },
+    {
+      id: 5,
+      module: 2,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '5. Как воздействовать на покупателя',
+    },
+
+    {
+      id: 6,
+      module: 3,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '6. Уровень нормы. Как «‎пробить потолок»',
+    },
+    {
+      id: 7,
+      module: 3,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '7. Повышаем уровень нормы',
+    },
+
+    {
+      id: 8,
+      module: 4,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '8. Эффект заражения. Формула ресурсности',
+    },
+    {
+      id: 9,
+      module: 4,
+      compleated: false,
+      available: false,
+      current: false,
+      label: '9. Ошибки и выводы',
     },
   ]);
 
@@ -101,27 +124,28 @@ const CoursePage: FC = () => {
         return htmlContentIntro2;
       case 3:
         return htmlContentIntro3;
+      case 4:
+        return htmlContentIntro4;
+      case 5:
+        return htmlContentIntro5;
+      case 6:
+        return htmlContentIntro6;
+      case 7:
+        return htmlContentIntro7;
+      case 8:
+        return htmlContentIntro8;
+      case 9:
+        return htmlContentIntro9;
       default:
         return '';
     }
   }, [activeSectionId]);
 
-  const styles = useStyles({ activeTab: activeSectionId });
-  const { course, id } = useParams();
+  const styles = useStyles();
+  // const { course, id } = useParams();
   const history = useHistory();
-  const { t } = useTranslation();
 
-  const initialValues = {
-    answer: '',
-  };
-
-  const schema = Yup.object({
-    answer: REQUIRED_STRING,
-  });
-
-  const handleSubmit = (values: typeof initialValues, { resetForm }) => {
-    // TODO - api things
-
+  const handleContinue = useCallback(() => {
     if (nextSectionId) {
       // move to next section (compleate current, make next available and set current to next)
       setSections([
@@ -140,9 +164,7 @@ const CoursePage: FC = () => {
       alert('you are done here - moving to next course');
       history.push('/courses');
     }
-
-    resetForm();
-  };
+  }, [nextSectionId, activeSectionId, sections]);
 
   const handleSectionClick = useCallback(
     (section) => {
@@ -159,10 +181,10 @@ const CoursePage: FC = () => {
     [sections]
   );
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(`should fetch course ${course} : ${id}`);
-  }, [id]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line no-console
+  //   console.log(`should fetch course ${course} : ${id}`);
+  // }, [id]);
 
   return (
     <div className={styles.root}>
@@ -172,68 +194,18 @@ const CoursePage: FC = () => {
             className={styles.wysiwyg}
             dangerouslySetInnerHTML={{ __html: getContent }}
           />
-          <div className={styles.taskBox}>
-            <div
-              className={styles.wysiwyg}
-              dangerouslySetInnerHTML={{ __html: htmlContentTask }}
-            />
 
-            <div className={styles.answer}>
-              <Formik
-                initialValues={initialValues}
-                onSubmit={handleSubmit}
-                validationSchema={schema}
-              >
-                {({ isValid, touched }) => (
-                  <Form>
-                    <FormikTextarea
-                      label={t('course.task.answer.label')}
-                      name="answer"
-                      rows={5}
-                      placeholder={t('course.task.answer.placeholder')}
-                    />
-                    <Button
-                      disabled={Object.keys(touched).length === 0 || !isValid}
-                      label={t('course.task.answer.cta')}
-                      type="submit"
-                    />
-                  </Form>
-                )}
-              </Formik>
-            </div>
-          </div>
+          <AnswerBox
+            onContinue={handleContinue}
+            activeSectionId={activeSectionId}
+          />
         </div>
 
-        <div className={styles.nav}>
-          <Typography
-            view="ghost"
-            lineHeight="s"
-            size="xs"
-            transform="uppercase"
-          >
-            Навигация
-          </Typography>
-          <ul className={styles.navList}>
-            {sections.map((section) => (
-              <li key={section.id}>
-                <span
-                  className={cns(
-                    styles.navLink,
-                    section.compleated && 'compleated',
-                    section.available && 'available',
-                    section.current && 'current'
-                  )}
-                  role="link"
-                  tabIndex={0}
-                  onClick={() => handleSectionClick(section)}
-                >
-                  <Typography>{section.label}</Typography>
-                </span>
-              </li>
-            ))}
-            <div className={styles.navLine} />
-          </ul>
-        </div>
+        <Navigation
+          sections={sections}
+          onSectionClick={handleSectionClick}
+          activeSectionId={activeSectionId}
+        />
       </Flex>
     </div>
   );

@@ -13,6 +13,7 @@ type CheckboxGroupProps = Omit<
 type PropsType = CheckboxGroupProps & {
   label?: string;
   showAllValues?: boolean;
+  showCollapse?: boolean;
 };
 
 const FormikCheckboxGroup = (
@@ -23,15 +24,16 @@ const FormikCheckboxGroup = (
 
 const CheckboxGroupComponent = ({
   field: { value, name, ...field },
-  form: { setFieldValue },
+  form: { setFieldValue, setFieldTouched },
   items = [],
   label,
   showAllValues = false,
+  showCollapse = true,
   ...props
 }: FieldProps & PropsType) => {
   const [showAllItems, setShow] = useState(showAllValues);
 
-  const array = showAllItems ? items : items.slice(0, 5);
+  const array = showCollapse && showAllItems ? items : items.slice(0, 5);
 
   return (
     <Flex direction="column">
@@ -40,11 +42,15 @@ const CheckboxGroupComponent = ({
         <CheckboxGroup
           value={value}
           items={array}
-          onChange={({ value }) => setFieldValue(name, value)}
+          onChange={({ value }) => {
+
+            setFieldValue(name, value);
+            setFieldTouched(name, true);
+          }}
           {...props}
         />
       </div>
-      {(items.length > 5 || showAllValues !== false) && (
+      {showCollapse && (items.length > 5 || showAllValues !== false) && (
         <button onClick={() => setShow(!showAllItems)}>
           <StyledDetailsText>
             {showAllItems ? 'Скрыть' : 'Ещё'}
