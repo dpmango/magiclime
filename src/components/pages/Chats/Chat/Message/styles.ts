@@ -18,8 +18,12 @@ const useStyles = makeStyles(() => ({
     margin: '-4px 12px 0',
     background: 'var(--color-typo-secondary)',
   },
-  text: {
+  text: {},
+  container: {
     maxWidth: '630px',
+  },
+  w100: {
+    width: '100%',
   },
   date: {
     lineHeight: '24px',
@@ -29,7 +33,7 @@ const useStyles = makeStyles(() => ({
     padding: 0,
   },
   '@media screen and (max-width: 1300px)': {
-    text: {
+    container: {
       maxWidth: '80%',
     },
   },

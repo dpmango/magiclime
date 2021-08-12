@@ -66,7 +66,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       {
         name: 'Пополнить баланс',
         icon: IconRouble,
-        path: '/balance',
+        path: '/profile/balance',
         group: 1,
       },
       { name: 'Настройки', icon: IconSettings, path: '/settings', group: 1 },
@@ -74,6 +74,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       {
         name: 'Тёмная тема',
         switch: true,
+        switchCondition: theme === 'dark',
         icon: IconMoon,
         clickCallback: changeTheme,
         group: 2,
@@ -81,6 +82,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       {
         name: 'Версия для слабовидящих',
         switch: true,
+        switchCondition: false,
         icon: IconEye,
         clickCallback: redirectToPoorVision,
         group: 2,
@@ -104,7 +106,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       },
       { name: 'Выход', icon: IconExit, group: 3 },
     ],
-    []
+    [theme]
   );
 
   const renderLeftSide = useCallback((item: UserDropdownItem) => {
@@ -121,7 +123,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       item.switch && (
         <Switch
           size="m"
-          checked={theme === 'dark'}
+          checked={item.switchCondition}
           onChange={() => item.clickCallback && item.clickCallback()}
           key="Switch"
         />

@@ -43,7 +43,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
         url={!!message.creator.avatar ? message.creator.avatar.image : ''}
         className={styles.avatar}
       />
-      <div>
+      <div className={styles.w100}>
         <Flex align={'center'} margin={'0 0 4px'}>
           <Typography weight={'semibold'} size={'m'}>
             {message.creator.name}
@@ -53,7 +53,7 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             {moment(message.created_at).format('HH:mm')}
           </Typography>
         </Flex>
-        <Flex margin={'0 0 6px'}>
+        <Flex margin={'0 0 6px'} className={styles.container}>
           <Typography view={'primary'} size={'m'} className={styles.text}>
             {message.text}
           </Typography>

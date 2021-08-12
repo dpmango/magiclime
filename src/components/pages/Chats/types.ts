@@ -3,11 +3,14 @@ import { IPhoto } from '../../../types/interfaces/common';
 export interface IChat {
   readonly id: number;
   title: string;
-  type: number;
-  image: string;
-  messages: IMessage[];
+  avatar: IPhoto;
+  last_message: IMessage | null;
   unread_count: number;
+}
+
+export interface IChatDetail extends Omit<IChat, 'last_message'> {
   participants_count: string;
+  messages: IMessage[];
 }
 
 export interface IMessage {

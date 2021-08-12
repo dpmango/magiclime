@@ -1,13 +1,19 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles<null, { isDefault: boolean }>(() => ({
+interface IProps {
+  isDefault: boolean;
+  haveLastMessage: boolean;
+}
+
+const useStyles = makeStyles<null, IProps>(() => ({
   root: {
     width: '100%',
     padding: '12px 16px',
     display: 'flex',
     fontSize: '15px !important',
     // transition: 'all 0.3s',
-    alignItems: 'center',
+    alignItems: ({ haveLastMessage }) =>
+      haveLastMessage ? 'center' : 'flex-start',
     cursor: 'pointer',
     '&:hover': {
       background: ({ isDefault }) =>

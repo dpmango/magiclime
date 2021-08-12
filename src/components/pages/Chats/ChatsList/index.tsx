@@ -13,10 +13,10 @@ import { RootState } from '../../../../store/reducers/rootReducer';
 
 interface IProps {
   chatId?: string;
-  setActiveChat: SetStateType<IChat | null>;
+  setActiveChatId: SetStateType<number | null>;
 }
 
-const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
+const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
   const [search, setSearch] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const { id } = useSelector((state: RootState) => state.user.profile);
@@ -27,16 +27,18 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    getChatsList(id).then((res) => {
-      console.log(res.data);
+    getChatsList(id, search).then((res) => {
+      setChats(res.data.chats);
     });
   }, [debouncedSearch, selectedGroup]);
 
   useEffect(() => {
-    const activeChat = chats.find((chat) => chat.id === chatId);
-    if (activeChat) setActiveChat(activeChat);
-    else {
-      history.push('/chats');
+    if (chatId) {
+      const activeChat = chats.find((chat) => chat.id === +chatId);
+      if (activeChat) setActiveChatId(activeChat.id);
+      else {
+        history.push('/chats');
+      }
     }
   }, [chatId]);
 

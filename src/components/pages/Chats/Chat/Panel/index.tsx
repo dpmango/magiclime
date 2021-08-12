@@ -15,18 +15,27 @@ import icons from './icons';
 import FilesBlock from './FilesBlock';
 import { ChatContext } from '../../context';
 import ReplyBlock from './ReplyBlock';
+import { sendMessage } from '../../../../../utils/api/routes/chat';
 
-const Panel: FC = () => {
+const Panel: FC<{ chatId: number }> = ({ chatId }) => {
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState<File[]>([]);
   const { chatContext, setChatContext } = useContext(ChatContext);
   const styles = useStyles();
 
+  const submitMessage = () => {
+    const reply = chatContext.replyMessage ? chatContext.replyMessage.id : null;
+    sendMessage({ text: message, chat: chatId, reply_to_id: reply }).then(
+      () => {
+        setMessage('');
+      }
+    );
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (!e.shiftKey && e.key === 'Enter') {
       e.preventDefault();
-      setMessage('');
-      //send
+      submitMessage();
     }
   };
 
@@ -69,7 +78,12 @@ const Panel: FC = () => {
           placeholder={'Новое сообщение'}
           className={styles.input}
         />
-        <Button iconRight={icons.SendIcon} onlyIcon view={'clear'} />
+        <Button
+          iconRight={icons.SendIcon}
+          onlyIcon
+          view={'clear'}
+          onClick={submitMessage}
+        />
       </Flex>
     </Flex>
   );

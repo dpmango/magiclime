@@ -10,7 +10,7 @@ import { useCheckDefaultTheme } from '../../../../../hooks/useCheckDefaultTheme'
 
 const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
   const isDefault = useCheckDefaultTheme();
-  const styles = useStyles({ isDefault });
+  const styles = useStyles({ isDefault, haveLastMessage: !!chat.last_message });
 
   return (
     <NavLink
@@ -21,7 +21,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
       <Avatar
         form={'round'}
         name={chat.title}
-        url={chat.image}
+        url={chat.avatar && chat.avatar.image}
         className={styles.avatar}
       />
       <div className={styles.nameWrapper}>
@@ -33,25 +33,25 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
         >
           {chat.title}
         </Typography>
-        {!!chat.messages.length && (
+        {chat.last_message && (
           <Typography size={'s'} view={'ghost'} className={styles.text}>
-            {chat.messages[chat.messages.length - 1].text}
+            {chat.last_message.text}
           </Typography>
         )}
       </div>
       <div className={styles.timeWrapper}>
         <Typography size={'xs'} view={'ghost'} margin={'0 0 4px'}>
-          {!!chat.messages.length &&
-            moment(chat.messages[chat.messages.length - 1].created_at).format(
-              'HH:mm'
-            )}
+          {chat.last_message &&
+            moment(chat.last_message.created_at).format('HH:mm')}
         </Typography>
-        <Badge
-          size={'s'}
-          status={'normal'}
-          form={'round'}
-          label={`${chat.unread_count}`}
-        />
+        {chat.unread_count && (
+          <Badge
+            size={'s'}
+            status={'normal'}
+            form={'round'}
+            label={`${chat.unread_count}`}
+          />
+        )}
       </div>
     </NavLink>
   );
