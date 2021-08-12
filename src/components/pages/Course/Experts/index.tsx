@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import cns from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
@@ -53,6 +54,7 @@ const slides = [
 const CourseExperts: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   const swiperRef = useRef(null);
 
@@ -84,10 +86,10 @@ const CourseExperts: FC = () => {
             weight="semibold"
             lineHeight="s"
           >
-            Вам будут преподавать
+            {t('course.page.experts.accent')}
           </Typography>
           <br />
-          эксперты-практики
+          {t('course.page.experts.main')}
         </Typography>
 
         <div className={styles.slider}>

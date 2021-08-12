@@ -2,11 +2,12 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import { Button } from '@consta/uikit/Button';
-
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 
 const FeaturedCourse: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2, gap: 'xl' } }}>
@@ -16,7 +17,7 @@ const FeaturedCourse: FC = () => {
           weight="semibold"
           transform="uppercase"
         >
-          рекомендованное
+          {t('course.featured.tag')}
         </Typography>
         <Typography
           className={styles.title}
@@ -33,7 +34,11 @@ const FeaturedCourse: FC = () => {
           опытным пользователем, желающим разработать торговую стратегию, мы
           сможем вам помочь.
         </Typography>
-        <Button size="l" label="Открыть модуль" className={styles.button} />
+        <Button
+          size="l"
+          label={t('course.featured.cta')}
+          className={styles.button}
+        />
       </GridItem>
       <GridItem className={styles.right}>
         <div className={styles.panel}>

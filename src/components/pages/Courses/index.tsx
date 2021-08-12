@@ -3,6 +3,7 @@ import shuffle from 'lodash/shuffle';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { ICourse } from 'types/interfaces/courses';
 import Typography from 'components/Common/Typography';
+import { useTranslation } from 'react-i18next';
 
 import Tags from 'components/Common/Tags';
 import FeaturedCourse from './FeaturedCourse';
@@ -14,6 +15,7 @@ import useStyles from './styles';
 
 const CoursesPage: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const [courses, setCourses] = useState<ICourse[]>(mockCourses);
   const [activeTags, setActiveTags] = useState<number[]>([]);
@@ -45,7 +47,7 @@ const CoursesPage: FC = () => {
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">
-          Все курсы
+          {t('course.list.title')}
         </Typography>
         <div className={styles.tags}>
           <Tags

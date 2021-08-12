@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
+import { useTranslation } from 'react-i18next';
 
 import { ITab } from 'components/pages/Course/types';
 import Tab from 'components/pages/Course/Program/Tab';
@@ -60,12 +61,13 @@ const tabs: ITab[] = [
 const CourseProgram: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
       <div className={rootStyles.container}>
         <Typography size="4xl" weight="semibold" lineHeight="s">
-          Программа обучения
+          {t('course.page.program.main')}
         </Typography>
 
         <Typography margin="24px 0 0" size="m" className={styles.description}>

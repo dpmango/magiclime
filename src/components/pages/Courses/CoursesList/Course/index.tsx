@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import { ICourse } from 'types/interfaces/courses';
 import Typography from 'components/Common/Typography';
 import { Link } from 'react-router-dom';
-
+import { Plurize } from 'utils/helpers/plurize';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 
 interface IProps {
@@ -13,6 +14,7 @@ const Course: FC<IProps> = ({ item }) => {
   const styles = useStyles({
     category: item.category,
   });
+  const { t } = useTranslation();
 
   return (
     <Link to={`/courses/${item.id}`} className={styles.root}>
@@ -32,7 +34,7 @@ const Course: FC<IProps> = ({ item }) => {
         </div>
         <Typography size="s" as="p" className={styles.detail}>
           <span>{item.duration}&nbsp;</span>
-          месяцев
+          {t('course.card.month')}
         </Typography>
       </div>
       <div className={styles.image}>

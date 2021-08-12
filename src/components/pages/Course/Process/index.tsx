@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
@@ -32,6 +33,7 @@ const content = [
 const CourseProcess: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -42,6 +44,7 @@ const CourseProcess: FC = () => {
           weight="semibold"
           lineHeight="s"
         >
+          {t('course.page.process.main')}&nbsp;
           <Typography
             as="span"
             view="brand"
@@ -49,9 +52,8 @@ const CourseProcess: FC = () => {
             weight="semibold"
             lineHeight="s"
           >
-            Как проходит
+            {t('course.page.process.accent')}
           </Typography>
-          &nbsp;обучение
         </Typography>
 
         <Grid cols="2" gap="xl">

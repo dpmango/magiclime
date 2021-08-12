@@ -17,7 +17,7 @@ const useStyles = makeStyles<
     '& a, p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote': {
       color: props.isDefault ? '#1e2329' : '#e3e3e3',
     },
-    '& a': {
+    '& p a': {
       textDecoration: 'underline',
     },
   }),

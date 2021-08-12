@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import cns from 'classnames';
-
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
 const CourseSuitable: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -20,9 +21,9 @@ const CourseSuitable: FC = () => {
             weight="semibold"
             lineHeight="s"
           >
-            Кому
+            {t('course.page.suitableFor.accent')}
           </Typography>
-          &nbsp;подойдёт курс
+          &nbsp;{t('course.page.suitableFor.main')}
         </Typography>
 
         <div className={styles.grid}>

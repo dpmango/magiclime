@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
 const CourseMetrics: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -15,7 +16,7 @@ const CourseMetrics: FC = () => {
         <Flex wrap="wrap" className={styles.row}>
           <div className={styles.item}>
             <Typography size="xs" view="ghost" weight="semibold" lineHeight="s">
-              Формат обучения
+              {t('course.page.format')}
             </Typography>
             <Typography
               margin="8px 0 0"
@@ -28,7 +29,7 @@ const CourseMetrics: FC = () => {
           </div>
           <div className={styles.item}>
             <Typography size="xs" view="ghost" weight="semibold" lineHeight="s">
-              Уровень матрицы
+              {t('course.page.matrixLevel')}
             </Typography>
             <Typography
               margin="8px 0 0"
@@ -41,7 +42,7 @@ const CourseMetrics: FC = () => {
           </div>
           <div className={styles.item}>
             <Typography size="xs" view="ghost" weight="semibold" lineHeight="s">
-              Стоимость
+              {t('course.page.price')}
             </Typography>
             <Typography
               margin="8px 0 0"

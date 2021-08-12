@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@consta/uikit/Button';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
@@ -10,6 +11,7 @@ import useStylesRoot from '../styles';
 const CourseHero: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -42,7 +44,7 @@ const CourseHero: FC = () => {
               развития бизнеса
             </Typography>
             <Link to="/courses/1/1">
-              <Button size="l" label="Купить курс" />
+              <Button size="l" label={t('course.page.buy')} />
             </Link>
           </GridItem>
           <GridItem>

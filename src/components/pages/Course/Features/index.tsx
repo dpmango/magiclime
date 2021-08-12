@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
@@ -36,6 +37,7 @@ const list = [
 const CourseFeatures: FC = () => {
   const styles = useStyles();
   const rootStyles = useStylesRoot();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -46,7 +48,7 @@ const CourseFeatures: FC = () => {
           weight="semibold"
           lineHeight="s"
         >
-          Польза на каждом этапе
+          {t('course.page.features.main')}
         </Typography>
 
         <div className={styles.grid}>
