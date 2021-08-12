@@ -93,6 +93,7 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
     },
   },
   navLink: {
+    position: 'relative',
     minHeight: 44,
     paddingLeft: 24,
     display: 'inline-flex',
@@ -120,6 +121,11 @@ const useStyles = makeStyles<null, { activeTab: number }>(() => ({
       },
     },
     '&.current': {
+      '& .Text': {
+        color: 'var(--color-typo-primary)',
+      },
+    },
+    '&.available': {
       '& .Text': {
         color: 'var(--color-typo-primary)',
       },

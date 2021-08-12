@@ -1,5 +1,17 @@
 {
   "main": {
     "hello": "Привет"
+  },
+  "course": {
+    "task": {
+      "answer": {
+        "label": "Ваш ответ",
+        "placeholder": "Введите ответ",
+        "cta": "Узнать ответ"
+      },
+      "navigation": {
+        
+      }
+    }
   }
 }
