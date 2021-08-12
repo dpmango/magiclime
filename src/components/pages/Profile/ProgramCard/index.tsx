@@ -5,6 +5,7 @@ import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
 import { Plurize } from 'utils/helpers/plurize';
 import cns from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { IProgram } from 'components/pages/Profile/types';
 import useStyles from './styles';
@@ -25,13 +26,14 @@ const ProgramCard: FC<IProps> = ({ data }) => {
     progressWidth,
     disabled: data.disabled,
   });
+  const { t } = useTranslation();
 
   const referalsTotalPlural = useMemo(() => {
     const plural = Plurize(
       data.referalsTotal,
-      'реферал',
-      'реферала',
-      'рефералов'
+      t('profile.referalPlural.one'),
+      t('profile.referalPlural.two'),
+      t('profile.referalPlural.five')
     );
 
     return `${data.referalsTotal} ${plural}`;
@@ -70,11 +72,13 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             view="secondary"
             className={styles.matrixLevel}
           >
-            {data.matrixLevel} уровень матрицы
+            {data.matrixLevel} {t('profile.programCard.matrixLevel')}
           </Typography>
 
           <div className={styles.meta}>
-            <Typography weight="semibold">{data.level} уровень</Typography>
+            <Typography weight="semibold">
+              {data.level} {t('profile.programCard.level')}
+            </Typography>
             <div className={styles.progress}>
               <div className={styles.progresInner} />
             </div>
@@ -85,7 +89,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
                 lineHeight="s"
                 weight="semibold"
               >
-                {data.league} лига
+                {data.league} {t('profile.programCard.league')}
               </Typography>
               <Typography
                 view="ghost"
@@ -140,7 +144,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
                 lineHeight="s"
                 weight="semibold"
               >
-                Нет рефералов
+                {t('profile.programCard.noReferals')}
               </Typography>
             )}
           </div>
@@ -155,9 +159,9 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             size="l"
             weight="semibold"
           >
-            Недоступно
+            {t('profile.programCard.blocked.title')}
           </Typography>
-          <Button size="s" label="Открыть Доступ" />
+          <Button size="s" label={t('profile.programCard.blocked.cta')} />
         </div>
       )}
     </Flex>

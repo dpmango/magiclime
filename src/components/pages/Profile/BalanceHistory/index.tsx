@@ -10,6 +10,7 @@ import { IconCalendar } from '@consta/uikit/IconCalendar';
 import { useClickOutside } from 'hooks/useClickOutside';
 import cns from 'classnames';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 import { columns, content } from './mockData';
 import useStyles from './styles';
@@ -36,6 +37,7 @@ const paymentSelectList: SelectItem[] = [
 
 const BalanceHistory: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const filtersRef = useRef(null);
 
@@ -76,18 +78,18 @@ const BalanceHistory: FC = () => {
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        История пополнений
+        {t('profile.balance.history.title')}
       </Typography>
 
       <div className={styles.filters} ref={filtersRef}>
         <div className={cns(styles.filtersGroup, 'input')}>
           <Typography view="ghost" margin="0 0 6px" size="s" lineHeight="s">
-            Дата
+            {t('profile.balance.history.date.label')}
           </Typography>
           <TextField
             value={date}
             size="s"
-            placeholder="Выберите дату"
+            placeholder={t('profile.balance.history.date.placeholder')}
             onChange={({ value }) => setDate(value)}
             onFocus={() => setCalendarActive(true)}
             // onBlur={() => setCalendarActive(false)}
@@ -103,7 +105,7 @@ const BalanceHistory: FC = () => {
         </div>
         <div className={cns(styles.filtersGroup, 'input')}>
           <Typography view="ghost" margin="0 0 6px" size="s" lineHeight="s">
-            Пара
+            {t('profile.balance.history.pare.label')}
           </Typography>
           <Select
             value={payment}
@@ -116,7 +118,7 @@ const BalanceHistory: FC = () => {
           <Button
             view="secondary"
             size="s"
-            label="Сброс"
+            label={t('profile.balance.history.actions.reset')}
             onClick={handleFiltersReset}
           />
         </div>
@@ -124,7 +126,7 @@ const BalanceHistory: FC = () => {
           <Button
             view="primary"
             size="s"
-            label="Поиск"
+            label={t('profile.balance.history.actions.search')}
             onClick={handleFiltersApply}
           />
         </div>
@@ -137,7 +139,7 @@ const BalanceHistory: FC = () => {
         className={styles.table}
         emptyRowsPlaceholder={
           <Typography weight="semibold" size="xl">
-            Здесь пока нет данных
+            {t('profile.balance.history.empty')}
           </Typography>
         }
       />

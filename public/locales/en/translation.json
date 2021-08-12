@@ -3,6 +3,111 @@
     "moreDetails": "More",
     "complain": "Complain"
   },
+  "profile": {
+    "tabs": {
+      "main": "Main",
+      "balance": "Balance",
+      "referrals": "Referrals",
+      "settings": "Settings"
+    },
+    "head": {
+      "copyRefLink": "Copy referral link"
+    },
+    "referalPlural": {
+      "one": "referral",
+      "two": "referrals",
+      "five": "referrals"
+    },
+    "programCard": {
+      "matrixLevel": "matrix level",
+      "level": "level",
+      "league": "league",
+      "noReferals": "No referals",
+      "blocked": {
+        "title": "Unavailable",
+        "cta": "Open access"
+      } 
+    },
+    "achivements": {
+      "title": "Achivements",
+      "empty": "Achivements are not opened yet"
+    },
+    "events": {
+      "title": "Events",
+      "empty": "No events",
+      "more": "Watch all"
+    },
+    "courses": {
+      "title": "My courses",
+      "process": "Process",
+      "rate": "Rate",
+      "rateFrom": "from"
+    },
+    "balance": {
+      "refill": {
+        "title": "Refill balance",
+        "inputLabel": "Incoming currenct",
+        "pamentLabel": "Payment type",
+        "paymentAmount": "Сумма пополнения",
+        "amount": {
+          "label": "Refill amount",
+          "placeholder": "Enter amount in BTL"
+        },
+        "cta": "Refill balance"
+      },
+      "withdrawal": {
+        "title": "Withdrawal",
+        "credentials": {
+          "label": "Withdrawal type",
+          "placeholder": "Enter wallet credentials"
+        },
+        "amount": {
+          "label": "Ask withdrawal",
+          "placeholder": "Enter amount"
+        },
+        "cta": "Ask withdrawal"
+      },
+      "history": {
+        "title": "Withdrawal history",
+        "date": {
+          "label": "Date",
+          "placeholder": "Select date"
+        },
+        "pare": {
+          "label": "Pare"
+        },
+        "actions": {
+          "reset": "Reset",
+          "search": "Search"
+        },
+        "empty": "No data yet"
+      }
+    },
+    "referal": {
+      "stats": {
+        "link": "Referral link",
+        "gain": "Gain",
+        "invited": "Invited",
+        "matrix": "Matrix",
+        "level": "Level",
+        "invitee": "Invitee"
+      },
+      "list": {
+        "title": "My referrals"
+      },
+      "card": {
+        "extraInfo": "Extra info",
+        "gain": "Gain",
+        "level": "Level",
+        "referals": "referrals"
+      },
+      "filter": {
+        "search": "Search referrals",
+        "level": "Select level",
+        "matrix": "Matrix level:"
+      }
+    }
+  },
   "webinar": {
   },
   "menu": {

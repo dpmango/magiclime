@@ -3,6 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { IconArrowRight } from '@consta/uikit/IconArrowRight';
+import { useTranslation } from 'react-i18next';
 
 import { IEvent } from 'components/pages/Profile/types';
 import useStyles from './styles';
@@ -13,11 +14,12 @@ interface IProps {
 
 const Events: FC<IProps> = ({ list }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        События
+        {t('profile.events.title')}
       </Typography>
 
       <Flex direction="column" className={styles.box}>
@@ -35,7 +37,7 @@ const Events: FC<IProps> = ({ list }) => {
             </div>
 
             <Button
-              label="Смотреть все"
+              label={t('profile.events.more')}
               size="s"
               view="secondary"
               className={styles.boxCta}
@@ -50,7 +52,7 @@ const Events: FC<IProps> = ({ list }) => {
             size="xl"
             align="center"
           >
-            Нет событий
+            {t('profile.events.empty')}
           </Typography>
         )}
       </Flex>

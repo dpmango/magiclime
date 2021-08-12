@@ -7,6 +7,7 @@ import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED_STRING } from 'utils/formik/validation';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 
@@ -49,6 +50,7 @@ const paymentSelectList: SelectItem[] = [
 
 const Refill: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const initialValues = {
     currency: currencySelectList[0],
@@ -68,7 +70,7 @@ const Refill: FC = () => {
   return (
     <div className={styles.root}>
       <Typography size="xl" weight="semibold" className={styles.title}>
-        Пополнение счёта
+        {t('profile.balance.refill.title')}
       </Typography>
 
       <Formik
@@ -80,7 +82,7 @@ const Refill: FC = () => {
           <div className={styles.uiGroup}>
             <FormikSelect
               items={currencySelectList}
-              label="Валюта ввода"
+              label={t('profile.balance.refill.inputLabel')}
               name="currency"
               isRequired={false}
             />
@@ -88,16 +90,16 @@ const Refill: FC = () => {
           <div className={styles.uiGroup}>
             <FormikSelect
               items={paymentSelectList}
-              label="Способ оплаты"
+              label={t('profile.balance.refill.pamentLabel')}
               name="payment"
               isRequired={false}
             />
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label="Сумма пополнения"
+              label={t('profile.balance.refill.amount.label')}
               name="amount"
-              placeholder="Введите сумму в BTL"
+              placeholder={t('profile.balance.refill.amount.placeholder')}
             />
           </div>
 
@@ -105,7 +107,7 @@ const Refill: FC = () => {
             width="full"
             view="primary"
             type="submit"
-            label="Пополнить баланс"
+            label={t('profile.balance.refill.cta')}
             className={styles.cta}
           />
         </Form>

@@ -4,11 +4,13 @@ import { Avatar } from '@consta/uikit/Avatar';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 
 const ProfileHead: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -50,7 +52,7 @@ const ProfileHead: FC = () => {
           onClick={handleCopyRefClick}
           className={styles.refLink}
         >
-          Скопировать рефферальную ссылку
+          {t('profile.head.copyRefLink')}
         </Typography>
       </div>
     </Flex>

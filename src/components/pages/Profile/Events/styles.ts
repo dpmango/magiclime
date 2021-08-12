@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   },
   boxList: {
     flex: '1 0 auto',
+    paddingBottom: 24,
   },
   boxCta: {},
 

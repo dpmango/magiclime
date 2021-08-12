@@ -9,6 +9,7 @@ import { Select } from '@consta/uikit/Select';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { IReferalGroup, IReferal } from 'components/pages/Profile/types';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
+import { useTranslation } from 'react-i18next';
 
 import { referalRoot, referalsList } from './mockData';
 import icons from './icons';
@@ -28,6 +29,7 @@ interface IPage {
 
 const Referrals: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const breadcrumbs: IPage[] = [
     {
@@ -91,7 +93,7 @@ const Referrals: FC = () => {
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        Мои рефералы
+        {t('profile.referal.list.title')}
       </Typography>
 
       <Grid cols="4" gap="xl" className={styles.grid}>
@@ -129,7 +131,7 @@ const Referrals: FC = () => {
             <div className={styles.filtersGroup}>
               <TextField
                 value={filterSearch}
-                placeholder="Поиск по рефералам"
+                placeholder={t('profile.referal.filter.search')}
                 rightSide={IconSearch}
                 onChange={({ value }) => setFilterSearch(value)}
               />
@@ -138,13 +140,13 @@ const Referrals: FC = () => {
               <Select
                 items={programOptions}
                 value={filterProgram}
-                placeholder="Выберите уровень"
+                placeholder={t('profile.referal.filter.level')}
                 onChange={({ value }) => setFilterProgram(value)}
               />
             </div>
             <div className={styles.filtersGroup}>
               <Typography weight="semibold" margin="0 0 12px" lineHeight="s">
-                Уровень матрицы:
+                {t('profile.referal.filter.matrix')}
               </Typography>
               <Flex wrap="wrap" justify="center">
                 {matrixLevels.map((lvl) => (

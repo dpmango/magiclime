@@ -3,6 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Plurize } from 'utils/helpers/plurize';
+import { useTranslation } from 'react-i18next';
 
 import { IReferal } from 'components/pages/Profile/types';
 import useStyles from './styles';
@@ -15,13 +16,14 @@ interface IProps {
 
 const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
   const styles = useStyles({ nested, root });
+  const { t } = useTranslation();
 
   const referalsPlural = useMemo(() => {
     const plural = Plurize(
       data.referalsCount,
-      'реферал',
-      'реферала',
-      'рефералов'
+      t('profile.referalPlural.one'),
+      t('profile.referalPlural.two'),
+      t('profile.referalPlural.five')
     );
 
     return root ? data.referalsCount : `${data.referalsCount} ${plural}`;
@@ -46,7 +48,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
               weight="semibold"
               view="ghost"
             >
-              Доп информация
+              {t('profile.referal.card.extraInfo')}
             </Typography>
           )}
         </div>
@@ -61,7 +63,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            Заработано
+            {t('profile.referal.card.gain')}
           </Typography>
         )}
       </div>
@@ -69,7 +71,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
         <Typography size={root ? 'l' : 's'}>{data.level}</Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            Уровень
+            {t('profile.referal.card.level')}
           </Typography>
         )}
       </div>
@@ -79,7 +81,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            Рефералов
+            {t('profile.referal.card.referals')}
           </Typography>
         )}
       </div>

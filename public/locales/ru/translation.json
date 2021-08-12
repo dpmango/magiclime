@@ -3,6 +3,111 @@
     "moreDetails": "Подробнее",
     "complain": "Пожаловаться"
   },
+  "profile": {
+    "tabs": {
+      "main": "Основное",
+      "balance": "Баланс",
+      "referrals": "Рефералы",
+      "settings": "Настройки"
+    },
+    "referalPlural": {
+      "one": "реферал",
+      "two": "реферала",
+      "five": "рефералов"
+    },
+    "head": {
+      "copyRefLink": "Скопировать рефферальную ссылку"
+    },
+    "programCard": {
+      "matrixLevel": "уровень матрицы",
+      "level": "уровень",
+      "league": "лига",
+      "noReferals": "Нет рефералов",
+      "blocked": {
+        "title": "Недоступно",
+        "cta": "Открыть доступ"
+      } 
+    },
+    "achivements": {
+      "title": "Достижения",
+      "empty": "Достижения еще не открыты"
+    },
+    "events": {
+      "title": "События",
+      "empty": "Нет событий",
+      "more": "Смотреть все"
+    },
+    "courses": {
+      "title": "Мои курсы",
+      "process": "Прогресс",
+      "rate": "Оценка",
+      "rateFrom": "из"
+    },
+    "balance": {
+      "refill": {
+        "title": "Пополнение счёта",
+        "inputLabel": "Валюта ввода",
+        "pamentLabel": "Способ оплаты",
+        "paymentAmount": "Сумма пополнения",
+        "amount": {
+          "label": "Сумма пополнения",
+          "placeholder": "Введите сумму в BTL"
+        },
+        "cta": "Пополнить баланс"
+      },
+      "withdrawal": {
+        "title": "Вывод средств",
+        "credentials": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите адрес кошелька"
+        },
+        "amount": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите сумму"
+        },
+        "cta": "Запросить вывод"
+      },
+      "history": {
+        "title": "История пополнений",
+        "date": {
+          "label": "Дата",
+          "placeholder": "Выберите дату"
+        },
+        "pare": {
+          "label": "Пара"
+        },
+        "actions": {
+          "reset": "Сброс",
+          "search": "Поиск"
+        },
+        "empty": "Здесь пока нет данных"
+      }
+    },
+    "referal": {
+      "stats": {
+        "link": "Реферальная ссылка",
+        "gain": "Заработано",
+        "invited": "Приглашено",
+        "matrix": "Матрица",
+        "level": "Уровень",
+        "invitee": "Пригласивший"
+      },
+      "list": {
+        "title": "Мои рефералы"
+      },
+      "card": {
+        "extraInfo": "Доп информация",
+        "gain": "Заработано",
+        "level": "Уровень",
+        "referals": "Рефералов"
+      },
+      "filter": {
+        "search": "Поиск по рефералам",
+        "level": "Выберите уровень",
+        "matrix": "Уровень матрицы:"
+      }
+    }
+  },
   "webinar": {
     "signUp": "Записаться",
     "speakers": "Спикеры"

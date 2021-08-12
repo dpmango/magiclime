@@ -6,11 +6,13 @@ import { IconCopy } from '@consta/uikit/IconCopy';
 import Flex from 'components/Common/Flex';
 // import { Button } from '@consta/uikit/Button';
 // import cns from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 
 const Referrals: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -23,7 +25,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              Реферальная ссылка
+              {t('profile.referal.stats.link')}
             </Typography>
             <TextField
               name="name"
@@ -43,7 +45,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              Заработано
+              {t('profile.referal.stats.gain')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
@@ -63,7 +65,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              Приглашено
+              {t('profile.referal.stats.invited')}
             </Typography>
 
             <Typography size="xl" weight="semibold">
@@ -79,13 +81,15 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              Матрица
+              {t('profile.referal.stats.matrix')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold">
                 5
               </Typography>
-              <Typography size="xl">&nbsp;уровень</Typography>
+              <Typography size="xl">
+                &nbsp;{t('profile.referal.stats.level')}
+              </Typography>
             </Flex>
           </div>
         </GridItem>
@@ -97,7 +101,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              Пригласивший
+              {t('profile.referal.stats.invitee')}
             </Typography>
             <Typography size="xl" weight="light" view="brand">
               UserLogin

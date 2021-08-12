@@ -7,6 +7,7 @@ import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED_STRING } from 'utils/formik/validation';
+import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 
@@ -40,6 +41,7 @@ const paymentSelectList: SelectItem[] = [
 
 const Withdrawal: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const initialValues = {
     payment: paymentSelectList[0],
@@ -60,7 +62,7 @@ const Withdrawal: FC = () => {
   return (
     <div className={styles.root}>
       <Typography size="xl" weight="semibold" className={styles.title}>
-        Вывод средств
+        {t('profile.balance.withdrawal.title')}
       </Typography>
 
       <Formik
@@ -79,16 +81,18 @@ const Withdrawal: FC = () => {
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label="Адрес вывода"
+              label={t('profile.balance.withdrawal.credentials.label')}
               name="credentials"
-              placeholder="Введите адрес кошелька"
+              placeholder={t(
+                'profile.balance.withdrawal.credentials.placeholder'
+              )}
             />
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label="Запросить вывод"
+              label={t('profile.balance.withdrawal.amount.label')}
               name="amount"
-              placeholder="Введите сумму"
+              placeholder={t('profile.balance.withdrawal.amount.placeholder')}
             />
           </div>
 
@@ -96,7 +100,7 @@ const Withdrawal: FC = () => {
             width="full"
             view="primary"
             type="submit"
-            label="Запросить вывод"
+            label={t('profile.balance.withdrawal.cta')}
             className={styles.cta}
           />
         </Form>

@@ -4,6 +4,7 @@ import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
+import { useTranslation } from 'react-i18next';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -30,18 +31,19 @@ interface ITab {
   label: string;
 }
 
-const tabs: ITab[] = [
-  { id: 1, slug: '/profile', label: 'Основное' },
-  { id: 2, slug: '/profile/balance', label: 'Баланс' },
-  { id: 3, slug: '/profile/referrals', label: 'Рефералы' },
-  { id: 4, slug: '/profile/settings', label: 'Настройки' },
-];
-
 const ProfilePage: FC = () => {
   const styles = useStyles();
   const { path } = useRouteMatch();
   const history = useHistory();
   const firstRender = useFirstRender();
+  const { t } = useTranslation();
+
+  const tabs: ITab[] = [
+    { id: 1, slug: '/profile', label: t('profile.tabs.main') },
+    { id: 2, slug: '/profile/balance', label: t('profile.tabs.balance') },
+    { id: 3, slug: '/profile/referrals', label: t('profile.tabs.referrals') },
+    { id: 4, slug: '/profile/settings', label: t('profile.tabs.settings') },
+  ];
 
   const getTabWithRouter = useMemo((): ITab => {
     // path is not up to date at this point

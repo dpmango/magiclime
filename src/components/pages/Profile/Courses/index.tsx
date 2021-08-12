@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Badge } from '@consta/uikit/Badge';
+import { useTranslation } from 'react-i18next';
 
 import { ICourse } from 'components/pages/Profile/types';
 import useStyles from './styles';
@@ -12,11 +13,12 @@ interface IProps {
 
 const Courses: FC<IProps> = ({ list }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        Мои курсы
+        {t('profile.courses.title')}
       </Typography>
 
       {list.map((course) => (
@@ -43,7 +45,7 @@ const Courses: FC<IProps> = ({ list }) => {
                   view="secondary"
                   weight="semibold"
                 >
-                  Прогресс
+                  {t('profile.courses.process')}
                 </Typography>
                 <Badge
                   size="s"
@@ -61,7 +63,7 @@ const Courses: FC<IProps> = ({ list }) => {
                   view="secondary"
                   weight="semibold"
                 >
-                  Оценка
+                  {t('profile.courses.rate')}
                 </Typography>
                 <Typography
                   margin="0 8px 0 0"
@@ -70,7 +72,7 @@ const Courses: FC<IProps> = ({ list }) => {
                   view="link"
                   weight="semibold"
                 >
-                  {course.rate[0]} из {course.rate[1]}
+                  {course.rate[0]} {t('profile.courses.rateFrom')} {course.rate[1]}
                 </Typography>
               </Flex>
             </Flex>

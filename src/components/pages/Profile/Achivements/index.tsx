@@ -6,6 +6,7 @@ import { Button } from '@consta/uikit/Button';
 import { IconCheck } from '@consta/uikit/IconCheck';
 import { IconArrowRight } from '@consta/uikit/IconArrowRight';
 import { IActivementsGroups } from 'components/pages/Profile/types';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 
 interface IProps {
@@ -14,11 +15,12 @@ interface IProps {
 
 const Achivements: FC<IProps> = ({ groups }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        Достижения
+        {t('profile.achivements.title')}
       </Typography>
 
       <Flex direction="column" className={styles.box}>
