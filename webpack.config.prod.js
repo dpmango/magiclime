@@ -100,6 +100,10 @@ module.exports = {
           from: './public/favicon.svg',
           to: path.resolve(__dirname, './build'),
         },
+        {
+          from: './public/locales',
+          to: path.resolve(__dirname, './build/locales'),
+        },
       ],
     }),
   ],
