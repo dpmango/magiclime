@@ -11,3 +11,8 @@ export type SetStateType<T = any> = Dispatch<SetStateAction<T>>;
 
 // Более короткая запись axios ответа
 export type AxiosPromise<T = any> = Promise<AxiosResponse<T>>;
+
+export enum Language {
+  RU = 'ru',
+  EN = 'en',
+}

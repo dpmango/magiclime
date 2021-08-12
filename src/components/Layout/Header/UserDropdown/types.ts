@@ -10,9 +10,11 @@ export interface IUserDropdownProps {
 
 export type UserDropdownItem = {
   name: string;
-  icon: ComponentType;
+  icon?: ComponentType;
+  image?: string;
   path?: string;
   switch?: boolean;
   clickCallback?: VoidFunction;
-  group: number;
+  group?: number;
+  menu?: UserDropdownItem[];
 };
