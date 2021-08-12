@@ -24,6 +24,17 @@ const useStyles = makeStyles(() => ({
   clickBlock: {
     cursor: 'pointer',
   },
+  poorVision: {
+    position: 'absolute',
+    opacity: 0,
+    top: 0,
+    left: 0,
+    width: '1px',
+  },
+  dropdownImage: {
+    width: '24px',
+    height: '24px',
+  },
 }));
 
 export default useStyles;

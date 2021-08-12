@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import moment from 'moment';
+import './i18n';
 import { store, persistor } from './store/store';
 import 'moment/locale/ru';
 import App from './components/App';

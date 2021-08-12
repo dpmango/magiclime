@@ -8,7 +8,7 @@ import { rootReducer } from './reducers/rootReducer';
 const rootPersistConfig = {
   key: 'rootStorage',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'settings'],
 };
 
 const middleware: Middleware[] = [thunk];
