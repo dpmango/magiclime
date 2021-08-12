@@ -43,7 +43,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
   }, [location.pathname]);
 
   const links = [
-    { name: 'ГЛАВНОЕ МЕНЮ' },
+    { name: '' },
     {
       path: '/profile',
       name: 'Профиль',
