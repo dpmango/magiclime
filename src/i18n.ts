@@ -9,12 +9,6 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'ru',
-    backend: {
-      loadPath:
-        process.env.NODE_ENV === 'development'
-          ? '/public/locales/{{lng}}/translation.json'
-          : './locales/{{lng}}/translation.json',
-    },
     debug: process.env.NODE_ENV === 'development',
     detection: {
       order: ['localStorage'],
