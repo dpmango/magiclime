@@ -4,7 +4,22 @@
     "complain": "Пожаловаться"
   },
   "webinar": {
-    "test": "Ntdj",
-    "hello": "hello"
+    "signUp": "Записаться",
+    "speakers": "Спикеры"
+  },
+  "menu": {
+    "profile": "Профиль",
+    "courses": "Курсы",
+    "chats": "Чаты",
+    "calendar": "Календарь",
+    "education": "ОБУЧЕНИЕ",
+    "marketplace": "Маркетплейс",
+    "webinars": "Вебинары",
+    "forum": "Форум",
+    "programs": "Программы",
+    "extra": "ДОПОЛНИТЕЛЬНО",
+    "faq": "База знаний",
+    "rating": "Рейтинг пользователей",
+    "games": "Игры"
   }
 }

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
+import Header from './Header';
 
 const WebinarInfo: FC = () => {
   const styles = useStyles();
@@ -8,7 +9,7 @@ const WebinarInfo: FC = () => {
 
   return (
     <div className={styles.root}>
-      <p>{t('webinar.hello')}</p>
+      <Header />
     </div>
   );
 };

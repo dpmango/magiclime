@@ -6,7 +6,7 @@ const useStyles = makeStyles({
   },
   right: {},
   button: {
-    fontWeight: '500',
+    fontWeight: 500,
     letterSpacing: '-0.3px',
     color: '#fafafa',
     background:

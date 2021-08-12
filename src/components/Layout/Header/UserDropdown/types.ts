@@ -14,6 +14,7 @@ export type UserDropdownItem = {
   image?: string;
   path?: string;
   switch?: boolean;
+  switchCondition?: boolean;
   clickCallback?: VoidFunction;
   group?: number;
   menu?: UserDropdownItem[];

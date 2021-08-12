@@ -23,6 +23,10 @@ const useStyles = makeStyles({
   content: {
     height: '100%',
   },
+  speakers: {
+    color: 'var(--color-typo-ghost)',
+    marginRight: '5px',
+  },
   cta: {
     marginTop: 40,
   },
@@ -65,6 +69,8 @@ const useStyles = makeStyles({
     '& > div': {
       marginRight: '15px',
       marginTop: '8px',
+      background: 'rgba(255, 108, 71, .2)',
+      color: '#FF6C47',
     },
   },
 });

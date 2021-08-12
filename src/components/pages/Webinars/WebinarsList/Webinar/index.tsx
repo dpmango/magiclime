@@ -14,6 +14,7 @@ import { IconWarning } from '@consta/uikit/IconWarning';
 import { ComponentType } from '../../../../../types/common';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 
 interface IProps {
   item: IWebinar;
@@ -78,12 +79,18 @@ const Webinar: FC<IProps> = ({ item }) => {
         justify="space-between"
         className={styles.content}
       >
-        <Typography margin="16px 0 0" weight="semibold" size="xl">
-          {item.title}
-        </Typography>
-        <Typography margin="8px 0 0" view="secondary" size="m">
-          {item.description}
-        </Typography>
+        <div>
+          <Typography weight="semibold" size="xl">
+            {item.title}
+          </Typography>
+          <Typography margin="8px 0 0" view="brand" weight="semibold">
+            {'10 августа, 12:00'}
+          </Typography>
+          <Typography margin="8px 0 0">
+            <span className={styles.speakers}>{t('webinar.speakers')}:</span>
+            Елена Анатольевна, Анна Ахматова
+          </Typography>
+        </div>
 
         <Flex align="center" justify="space-between" className={styles.cta}>
           <Button
