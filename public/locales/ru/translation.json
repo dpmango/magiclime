@@ -1,5 +1,10 @@
 {
-  "main": {
-    "hello": "Привет"
+  "common": {
+    "moreDetails": "Подробнее",
+    "complain": "Пожаловаться"
+  },
+  "webinar": {
+    "test": "Ntdj",
+    "hello": "hello"
   }
 }

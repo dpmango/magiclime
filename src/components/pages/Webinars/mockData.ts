@@ -22,7 +22,7 @@ export const mockWebinars: IWebinar[] = [
     title: 'Представление информации и данных. Создание презентаций',
     description:
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
-    tag: 'Дизайн',
+    tags: ['Дизайн'],
     referals: [
       { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
       { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
@@ -40,7 +40,7 @@ export const mockWebinars: IWebinar[] = [
     title: 'Представление информации и данных. Создание презентаций',
     description:
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
-    tag: 'Дизайн',
+    tags: ['Дизайн', 'Разработка', 'Прочее'],
     referals: [
       { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
       { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },

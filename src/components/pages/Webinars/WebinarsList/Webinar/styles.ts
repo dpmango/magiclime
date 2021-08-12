@@ -60,6 +60,13 @@ const useStyles = makeStyles({
   author: {
     flex: '0 0 auto',
   },
+  tagsContainer: {
+    flex: 1,
+    '& > div': {
+      marginRight: '15px',
+      marginTop: '8px',
+    },
+  },
 });
 
 export default useStyles;

@@ -1,5 +1,6 @@
 {
-  "main": {
-    "hello": "Hello"
+  "common": {
+    "moreDetails": "More",
+    "complain": "Complain"
   }
 }

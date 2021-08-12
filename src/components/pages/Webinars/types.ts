@@ -12,7 +12,7 @@ export interface IWebinar {
   readonly id: number;
   title: string;
   description: string;
-  tag: string;
+  tags: string[];
   image?: string;
   referals: IWebinarReferal[];
   referalsTotal: number;

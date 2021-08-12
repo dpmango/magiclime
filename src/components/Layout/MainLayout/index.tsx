@@ -10,6 +10,7 @@ import Courses from '../../pages/CoursesPage';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
 import Webinars from '../../pages/Webinars';
+import WebinarInfo from '../../pages/WebinarInfo';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -35,7 +36,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route exact path="/courses" component={Courses} />
             <Route path="/chats/:id?" component={Chats} />
             <Route path="/profile" component={Profile} />
-            <Route path="/webinars" component={Webinars} />
+            <Route exact path="/webinars" component={Webinars} />
+            <Route path="/webinars/:id" component={WebinarInfo} />
           </Switch>
         </Container>
       </Flex>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { IWebinar } from 'components/pages/Webinars/types';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -6,16 +6,37 @@ import { Button } from '@consta/uikit/Button';
 import { Avatar } from '@consta/uikit/Avatar';
 import { useHistory } from 'react-router-dom';
 import cns from 'classnames';
-
+import { v4 as uuid } from 'uuid';
 import useStyles from './styles';
+import { IconKebab } from '@consta/uikit/IconKebab';
+import { Badge } from '@consta/uikit/Badge';
+import { IconWarning } from '@consta/uikit/IconWarning';
+import { ComponentType } from '../../../../../types/common';
+import { ContextMenu } from '@consta/uikit/ContextMenu';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   item: IWebinar;
 }
 
+type DropdownItem = {
+  name: string;
+  icon: ComponentType;
+};
+
 const Webinar: FC<IProps> = ({ item }) => {
   const styles = useStyles();
   const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
+  const { t } = useTranslation();
+
+  const items = [{ name: t('common.complain'), icon: IconWarning }];
+
+  const renderLeftSide = useCallback((item: DropdownItem) => {
+    const Icon = item.icon;
+    return <Icon size="s" />;
+  }, []);
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -25,6 +46,32 @@ const Webinar: FC<IProps> = ({ item }) => {
           alt={item.title}
         />
       </div>
+
+      <Flex justify={'space-between'} align={'center'} margin={'10px 0 16px'}>
+        <Flex className={styles.tagsContainer} wrap={'wrap'}>
+          {item.tags.map((tag) => (
+            <Badge label={tag} status="warning" key={uuid()} />
+          ))}
+        </Flex>
+        <Button
+          onlyIcon
+          ref={ref}
+          view={'clear'}
+          iconLeft={IconKebab}
+          onClick={() => setOpen(!open)}
+        />
+        {open && (
+          <ContextMenu
+            items={items}
+            getLabel={(item: DropdownItem) => item.name}
+            anchorRef={ref}
+            size={'s'}
+            getLeftSideBar={renderLeftSide}
+            direction="downStartRight"
+            onClickOutside={() => setOpen(false)}
+          />
+        )}
+      </Flex>
 
       <Flex
         direction="column"
@@ -40,10 +87,10 @@ const Webinar: FC<IProps> = ({ item }) => {
 
         <Flex align="center" justify="space-between" className={styles.cta}>
           <Button
-            onClick={() => history.push(`/webinars/${item.id}`)}
+            onClick={() => history.push(`/webinars/${item.id}/`)}
             form="round"
             size="s"
-            label="Смотреть"
+            label={t('common.moreDetails')}
           />
 
           <Flex align="center" className={styles.referalWrapper}>
