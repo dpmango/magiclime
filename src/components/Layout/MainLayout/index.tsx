@@ -9,6 +9,8 @@ import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/Profile';
+import Webinars from '../../pages/Webinars';
+import WebinarInfo from '../../pages/WebinarInfo';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -30,14 +32,12 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Menu isFull={isFullMenu} />
         <Container className={styles.content}>
           <Switch>
-            <Route
-              exact={true}
-              path={'/'}
-              render={() => <Redirect to={'profile'} />}
-            />
-            <Route exact={true} path={'/courses'} component={Courses} />
-            <Route path={'/chats/:id?'} component={Chats} />
-            <Route path={'/profile'} component={Profile} />
+            <Route exact path="/" render={() => <Redirect to="profile" />} />
+            <Route exact path="/courses" component={Courses} />
+            <Route path="/chats/:id?" component={Chats} />
+            <Route path="/profile" component={Profile} />
+            <Route exact path="/webinars" component={Webinars} />
+            <Route path="/webinars/:id" component={WebinarInfo} />
           </Switch>
         </Container>
       </Flex>

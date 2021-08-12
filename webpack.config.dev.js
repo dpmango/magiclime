@@ -18,6 +18,7 @@ module.exports = {
   devServer: {
     open: true,
     port: 3000,
+    contentBase: ['./src', './public'],
     historyApiFallback: true,
     inline: true,
     hot: true,
@@ -70,6 +71,10 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|ico)$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.json$/,
+        use: ['json-loader'],
       },
       // {
       //   test: /\.(ttf|woff|woff2|eot)$/,

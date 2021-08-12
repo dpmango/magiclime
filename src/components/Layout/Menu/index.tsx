@@ -8,6 +8,7 @@ import Typography from '../../Common/Typography';
 import Container from '../../Common/Container';
 import useStyles from './styles';
 import icons from './icons';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   isFull: boolean;
@@ -20,6 +21,7 @@ const Menu: FC<IProps> = ({ isFull }) => {
   });
 
   const isDefault = useCheckDefaultTheme();
+  const { t } = useTranslation();
 
   const styles = useStyles({
     isFull,
@@ -43,62 +45,62 @@ const Menu: FC<IProps> = ({ isFull }) => {
   }, [location.pathname]);
 
   const links = [
-    { name: 'ГЛАВНОЕ МЕНЮ' },
+    { name: '' },
     {
       path: '/profile',
-      name: 'Профиль',
+      name: t('menu.profile'),
       icon: icons.UserIcon,
     },
     {
       path: '/courses',
-      name: 'Курсы',
+      name: t('menu.courses'),
       icon: icons.CardsIcon,
     },
     {
       path: '/chats',
-      name: 'Чаты',
+      name: t('menu.chats'),
       icon: icons.ChatsIcon,
     },
     {
       path: '/calendar',
-      name: 'Календарь',
+      name: t('menu.calendar'),
       icon: icons.CalendarIcon,
     },
-    { name: 'ОБУЧЕНИЕ' },
+    { name: t('menu.education') },
     {
       path: '/marketplace',
-      name: 'Маркетплейс',
+      name: t('menu.marketplace'),
       icon: icons.MarketIcon,
     },
     {
       path: '/webinars',
-      name: 'Вебинары',
+      name: t('menu.webinars'),
       icon: icons.VideoIcon,
     },
     {
       path: '/forum',
-      name: 'Форум',
+      name: t('menu.forum'),
       icon: icons.ForumIcon,
     },
     {
       path: '/programs',
-      name: 'Программы',
+      name: t('menu.programs'),
       icon: icons.ProgramIcon,
     },
-    { name: 'ДОПОЛНИТЕЛЬНО' },
+    { name: t('menu.extra') },
     {
       path: '/faq',
-      name: 'База знаний',
+      name: t('menu.faq'),
       icon: icons.KnowledgeIcon,
     },
     {
       path: '/rating',
-      name: 'Рейтинг пользователей',
+      name: t('menu.rating'),
       icon: icons.RatingIcon,
     },
     {
       path: '/games',
-      name: 'Игры',
+      name: t('menu.games'),
       icon: icons.GameIcon,
     },
   ];

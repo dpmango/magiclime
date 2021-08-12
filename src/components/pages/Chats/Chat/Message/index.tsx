@@ -22,12 +22,12 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
             {message.user_name}
           </Typography>
           <div className={styles.dot}></div>
-          <Typography size={'s'} view={'secondary'}>
+          <Typography className={styles.date} size={'xs'} view={'secondary'}>
             {moment(message.date).format('HH:mm')}
           </Typography>
         </Flex>
         <Flex>
-          <Typography view={'secondary'} size={'m'} className={styles.text}>
+          <Typography view={'primary'} size={'m'} className={styles.text}>
             {message.text}
           </Typography>
         </Flex>

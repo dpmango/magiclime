@@ -58,8 +58,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName="3.130 mBTL"
-                personInfo="Баланс"
+                personName={'3.130 mBTL'}
+                personInfo={'Баланс'}
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}
               />
@@ -72,10 +72,15 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   onClick={() => setOpen(!isOpen)}
                   isMinified={isMobile}
                   personName={profile.name}
-                  personAvatarUrl={profile.avatar.image}
+                  personAvatarUrl={profile.avatar && profile.avatar.image}
                   personInfo="8 уровень"
                   className={styles.clickBlock}
                 />
+                <a
+                  id="specialButton"
+                  href="#"
+                  className={styles.poorVision}
+                ></a>
               </div>
               {isOpen && (
                 <UserDropdown
