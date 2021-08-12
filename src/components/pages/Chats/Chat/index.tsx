@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { io } from 'socket.io-client';
 import { IChat, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
@@ -7,8 +6,15 @@ import { Avatar } from '@consta/uikit/Avatar';
 import Typography from '../../../Common/Typography';
 import Message from './Message';
 import Panel from './Panel';
+import { instance } from '../../../../utils/api';
+import { getChatMessages } from '../../../../utils/api/routes/chat';
 
-const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
+interface IProps {
+  chat: IChat | null;
+  socket: WebSocket | any;
+}
+
+const Chat: FC<IProps> = ({ chat, socket }) => {
   const [messages, setMessages] = useState<IMessage[]>([
     {
       id: 1,
@@ -23,8 +29,17 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
   ]);
   const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
-  //const socket = io('');
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    if (chat) {
+      getChatMessages(chat.id).then((res) =>
+        setMessages((prev) => [...prev, ...res.data])
+      );
+    }
+    // socket.onmessage = (data) => {
+    //   console.log(data);
+    // };
+  }, [chat]);
 
   //Скроллим окно сообщений вниз
   // useEffect(() => {
@@ -49,14 +64,14 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
         <>
           <Flex className={styles.header}>
             <div className={styles.avatarWrapper}>
-              <Avatar form={'round'} name={chat.name} url={chat.image} />
+              <Avatar form={'round'} name={chat.title} url={chat.image} />
             </div>
             <div>
               <Typography size={'xl'} weight={'bold'}>
-                {chat.name}
+                {chat.title}
               </Typography>
               <Typography view={'secondary'}>
-                {chat.members_count} members
+                {chat.participants_count} members
               </Typography>
             </div>
           </Flex>

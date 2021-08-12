@@ -20,7 +20,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
     >
       <Avatar
         form={'round'}
-        name={chat.name}
+        name={chat.title}
         url={chat.image}
         className={styles.avatar}
       />
@@ -31,15 +31,20 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           margin={'0 0 2px'}
           className={styles.text}
         >
-          {chat.name}
+          {chat.title}
         </Typography>
-        <Typography size={'s'} view={'ghost'} className={styles.text}>
-          {chat.last_message}
-        </Typography>
+        {!!chat.messages.length && (
+          <Typography size={'s'} view={'ghost'} className={styles.text}>
+            {chat.messages[chat.messages.length - 1].text}
+          </Typography>
+        )}
       </div>
       <div className={styles.timeWrapper}>
         <Typography size={'xs'} view={'ghost'} margin={'0 0 4px'}>
-          {moment(chat.last_message_time).format('HH:mm')}
+          {!!chat.messages.length &&
+            moment(chat.messages[chat.messages.length - 1].created_at).format(
+              'HH:mm'
+            )}
         </Typography>
         <Badge
           size={'s'}

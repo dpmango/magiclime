@@ -1,13 +1,13 @@
 import { IPhoto } from '../../../types/interfaces/common';
 
 export interface IChat {
-  readonly id: string;
-  name: string;
+  readonly id: number;
+  title: string;
+  type: number;
   image: string;
-  last_message: string;
-  last_message_time: string;
+  messages: IMessage[];
   unread_count: number;
-  members_count: number;
+  participants_count: string;
 }
 
 export interface IMessage {

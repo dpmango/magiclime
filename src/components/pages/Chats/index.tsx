@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import Flex from '../../Common/Flex';
 import { RouteComponentProps } from 'react-router-dom';
 import ChatsList from './ChatsList';
@@ -16,6 +16,13 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
   // const socket = new WebSocket(
   //   `ws://178.154.196.41:443/ws/chat/?token=${Cookies.get('access')}`
   // );
+  const socket = {};
+
+  useEffect(() => {
+    return () => {
+      //socket.close();
+    };
+  }, []);
 
   return (
     <Flex>
@@ -24,7 +31,7 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
       ) : (
         <ChatCreating />
       )}
-      <Chat chat={activeChat} />
+      <Chat chat={activeChat} socket={socket} />
     </Flex>
   );
 };
