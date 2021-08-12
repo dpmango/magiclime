@@ -39,6 +39,9 @@ const useStyles = makeStyles({
   referalUsers: {
     paddingRight: 12,
   },
+  date: {
+    fontSize: '14px',
+  },
   referalUser: {
     width: 28,
     height: 28,

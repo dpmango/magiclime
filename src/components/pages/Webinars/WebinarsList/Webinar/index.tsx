@@ -83,10 +83,10 @@ const Webinar: FC<IProps> = ({ item }) => {
           <Typography className={styles.title} weight="semibold" size="xl">
             {item.title}
           </Typography>
-          <Typography margin="8px 0 0" view="brand" weight="semibold">
+          <Typography className={styles.date} margin="8px 0 0" view="brand" weight="semibold">
             {'10 августа, 12:00'}
           </Typography>
-          <Typography margin="8px 0 0">
+          <Typography size={'s'} margin="8px 0 0">
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
             Елена Анатольевна, Анна Ахматова
           </Typography>
