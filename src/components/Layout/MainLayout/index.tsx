@@ -52,7 +52,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Container className={styles.content}>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="profile" />} />
-            <Route path="/chats/:id?" component={Chats} />
             <Route
               path="/chats/:id?"
               render={(props) => (
@@ -64,7 +63,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/courses/:course" component={Course} />
             <Route exact path="/courses/:course/:id" component={CourseTask} />
-            <Route path="/chats/:id?" component={Chats} />
             <Route path="/profile" component={Profile} />
             <Route exact path="/webinars" component={Webinars} />
             <Route path="/webinars/:id" component={WebinarInfo} />
