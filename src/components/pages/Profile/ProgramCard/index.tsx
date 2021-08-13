@@ -1,6 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import Members from 'components/Common/Members';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
 import { Plurize } from 'utils/helpers/plurize';
@@ -105,33 +106,13 @@ const ProgramCard: FC<IProps> = ({ data }) => {
           <div className={styles.referal}>
             {data.referalsTotal ? (
               <Flex align="center" justify="space-between">
-                <Flex className={styles.referalUsers}>
-                  {data.referals &&
-                    data.referals.map((u) => (
-                      <Avatar
-                        key={u.id}
-                        url={u.avatar}
-                        size="s"
-                        className={styles.referalUser}
-                      />
-                    ))}
-
-                  {data.referalsTotal > 5 && (
-                    <div
-                      className={cns(
-                        styles.referalUser,
-                        styles.referalUserCount
-                      )}
-                    >
-                      <span>+{data.referalsTotal - 5}</span>
-                    </div>
-                  )}
-                </Flex>
+                <Members members={data.referals} />
                 <Typography
                   view="secondary"
                   size="xs"
                   lineHeight="s"
                   weight="semibold"
+                  className={styles.referalCount}
                 >
                   {referalsTotalPlural}
                 </Typography>

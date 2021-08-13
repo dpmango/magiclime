@@ -12,11 +12,42 @@ export const mockPrograms: IProgram[] = [
     league: 'Серебрянная',
     progress: [3, 17],
     referals: [
-      { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-      { id: 3, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 4, avatar: 'https://randomuser.me/api/portraits/men/19.jpg' },
-      { id: 5, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+      {
+        id: 1,
+        avatar: {
+          id: 1,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+      },
+      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      {
+        id: 3,
+        avatar: {
+          id: 3,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+      },
+      {
+        id: 4,
+        avatar: {
+          id: 4,
+          image: 'https://randomuser.me/api/portraits/men/19.jpg',
+        },
+      },
+      {
+        id: 5,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+      },
+      {
+        id: 6,
+        avatar: {
+          id: 6,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+      },
     ],
     referalsTotal: 17,
   },
@@ -32,11 +63,49 @@ export const mockPrograms: IProgram[] = [
     league: 'Золотая',
     progress: [8, 15],
     referals: [
-      { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-      { id: 3, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 4, avatar: 'https://randomuser.me/api/portraits/men/19.jpg' },
-      { id: 5, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+      {
+        id: 1,
+        avatar: {
+          id: 1,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+      },
+      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      {
+        id: 3,
+        avatar: {
+          id: 3,
+          image: 'https://randomuser.me/api/portraits/women/5.jpg',
+        },
+      },
+      {
+        id: 4,
+        avatar: {
+          id: 4,
+          image: 'https://randomuser.me/api/portraits/men/9.jpg',
+        },
+      },
+      {
+        id: 5,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+      },
+      {
+        id: 7,
+        avatar: {
+          id: 6,
+          image: 'https://randomuser.me/api/portraits/men/2.jpg',
+        },
+      },
+      {
+        id: 8,
+        avatar: {
+          id: 6,
+          image: 'https://randomuser.me/api/portraits/men/3.jpg',
+        },
+      },
     ],
     referalsTotal: 12,
   },
@@ -52,11 +121,35 @@ export const mockPrograms: IProgram[] = [
     league: 'Серебрянная',
     progress: [5, 10],
     referals: [
-      { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-      { id: 3, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 4, avatar: 'https://randomuser.me/api/portraits/men/19.jpg' },
-      { id: 5, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+      {
+        id: 1,
+        avatar: {
+          id: 1,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+      },
+      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      {
+        id: 3,
+        avatar: {
+          id: 3,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+      },
+      {
+        id: 4,
+        avatar: {
+          id: 4,
+          image: 'https://randomuser.me/api/portraits/men/19.jpg',
+        },
+      },
+      {
+        id: 5,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+      },
     ],
     referalsTotal: 7,
   },

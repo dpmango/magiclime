@@ -1,6 +1,10 @@
 export interface IProgramReferal {
   readonly id: number;
-  avatar: string;
+  avatar: {
+    id: number;
+    image?: string;
+  };
+  name?: string;
 }
 
 export interface IProgram {
