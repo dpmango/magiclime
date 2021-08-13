@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useContext, useRef, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { IMessage } from '../../types';
 import Flex from '../../../../Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
@@ -12,7 +19,7 @@ import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconWarning } from '@consta/uikit/IconWarning';
 import { ComponentType } from '../../../../../types/common';
-import { IconReply } from '@consta/uikit/IconReply';
+import { useTranslation } from 'react-i18next';
 
 type DropdownItem = {
   name: string;
@@ -29,8 +36,9 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const styles = useStyles();
   const ref = useRef<HTMLButtonElement>(null);
   const { chatContext, setChatContext } = useContext(ChatContext);
+  const { t } = useTranslation();
 
-  const items = [{ name: 'Пожаловаться', icon: IconWarning }];
+  const items = [{ name: t('common.complain'), icon: IconWarning }];
 
   const replyMessage = () => {
     setChatContext({ ...chatContext, replyMessage: message });
@@ -39,6 +47,11 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const renderLeftSide = useCallback((item: DropdownItem) => {
     const Icon = item.icon;
     return <Icon size="s" />;
+  }, []);
+
+  const format = useMemo(() => {
+    if (moment().isAfter(moment(message.created_at), 'day')) return 'DD MMMM';
+    else return 'HH:mm';
   }, []);
 
   return (
@@ -58,7 +71,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
           <Typography weight={'semibold'}>{message.creator.name}</Typography>
           <div className={styles.dot}></div>
           <Typography className={styles.date} view={'secondary'}>
-            {moment(message.created_at).format('HH:mm')}
+            {moment(message.created_at).format(format)}
           </Typography>
         </Flex>
         {message.reply_to && (
@@ -66,13 +79,15 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             className={styles.replyFrom}
             onClick={() => onReplyClick(message.reply_to?.id as number)}
           >
-            <Flex align={'center'} margin={'0 0 4px'}>
-              <Typography weight={'semibold'} className={styles.text}>
-                {message.reply_to.creator.name}
-              </Typography>
-              <IconReply view={'secondary'} size={'s'} />
-            </Flex>
-            <Typography className={styles.text}>
+            <Typography
+              weight={'semibold'}
+              margin={'0 0 4px'}
+              className={styles.replyCreator}
+              view={'brand'}
+            >
+              {message.reply_to.creator.name}
+            </Typography>
+            <Typography className={styles.text} size={'s'}>
               {message.reply_to.text}
             </Typography>
           </div>
@@ -80,9 +95,9 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
         <Flex margin={'0 0 6px'} className={styles.container}>
           <Typography className={styles.text}>{message.text}</Typography>
         </Flex>
-        <Flex>
+        <Flex className={styles.buttons}>
           <Button
-            label={'Ответить'}
+            label={t('chats.toAnswer')}
             iconLeft={IconChat}
             view={'clear'}
             size={'xs'}

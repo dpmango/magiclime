@@ -32,7 +32,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
     message?.classList.add(styles.replyAnimation);
     setTimeout(() => {
       message?.classList.remove(styles.replyAnimation);
-    }, 4000);
+    }, 3000);
   }, []);
 
   socket.onmessage = (event) => {

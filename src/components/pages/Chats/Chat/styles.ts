@@ -31,20 +31,20 @@ const useStyles = makeStyles(() => ({
     padding: '28px 0 0 24px',
   },
   replyAnimation: {
-    animation: '$effect 4s ease-out',
+    animation: '$effect 3s ease-out',
   },
   '@keyframes effect': {
     '0%': {
       background: 'transparent',
-      borderRight: '5px solid transparent',
+      // borderRight: '5px solid transparent',
     },
-    '25%': {
-      background: 'var(--color-bg-ghost)',
-      borderRight: '5px solid var(--color-typo-brand)',
+    '20%': {
+      background: 'var(--color-bg-system)',
+      // borderRight: '5px solid var(--color-typo-brand)',
     },
     '100%': {
       transform: 'transparent',
-      borderRight: '5px solid transparent',
+      // borderRight: '5px solid transparent',
     },
   },
 }));

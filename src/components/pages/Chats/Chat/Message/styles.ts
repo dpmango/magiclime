@@ -22,6 +22,11 @@ const useStyles = makeStyles(() => ({
   container: {
     maxWidth: '630px',
   },
+  buttons: {
+    '& > button': {
+      background: 'transparent',
+    },
+  },
   w100: {
     width: '100%',
   },
@@ -30,17 +35,16 @@ const useStyles = makeStyles(() => ({
   },
   replyFrom: {
     cursor: 'pointer',
-    borderLeft: '4px solid #E8E8E8',
-    padding: '4px 0 4px 14px',
+    borderLeft: '4px solid var(--color-bg-brand)',
+    padding: '4px 0 4px 16px',
     margin: '8px 0 12px',
-    '& span': {
-      marginLeft: '12px',
-      transform: 'scaleX(-1)',
-    },
   },
   reply: {
     marginRight: '20px',
     padding: 0,
+  },
+  replyCreator: {
+    fontSize: '13px',
   },
   '@media screen and (max-width: 1300px)': {
     container: {

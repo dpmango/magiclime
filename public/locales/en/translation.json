@@ -15,6 +15,9 @@
     "aboutFormat": "Пару слов о формате",
     "aboutSpeakers": "О спикерах"
   },
+  "chats": {
+    "toAnswer": "Ответить"
+  },
   "menu": {
     "profile": "Profile",
     "courses": "Courses",
