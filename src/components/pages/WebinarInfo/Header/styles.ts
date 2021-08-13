@@ -6,8 +6,12 @@ const useStyles = makeStyles(() => ({
     backgroundImage:
       'linear-gradient(41.87deg, rgba(88, 204, 1,.2) 0%, rgba(87, 212, 246, .2) 102.92%)',
     '& > div': {
-      maxWidth: '1130px',
+      maxWidth: '1210px',
     },
+  },
+  title: {
+    fontSize: '56px',
+    lineHeight: '64px',
   },
   signUp: {
     color: '#fafafa',
@@ -22,6 +26,16 @@ const useStyles = makeStyles(() => ({
     background: '#fff',
     borderRadius: '10px',
     flex: 'none',
+  },
+  '@media screen and (max-width: 1300px)': {
+    square: {
+      width: '300px',
+      height: '300px',
+    },
+    title: {
+      fontSize: '36px',
+      lineHeight: '44px',
+    },
   },
 }));
 

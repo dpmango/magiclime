@@ -15,6 +15,7 @@ import { ComponentType } from '../../../../../types/common';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+import Members from '../../../../Common/Members';
 
 interface IProps {
   item: IWebinar;
@@ -101,25 +102,12 @@ const Webinar: FC<IProps> = ({ item }) => {
           />
 
           <Flex align="center" className={styles.referalWrapper}>
-            <Flex className={styles.referalUsers}>
-              {item.referals &&
-                item.referals.map((u) => (
-                  <Avatar
-                    key={u.id}
-                    url={u.avatar}
-                    size="s"
-                    className={styles.referalUser}
-                  />
-                ))}
-
-              {item.referalsTotal > 5 && (
-                <div
-                  className={cns(styles.referalUser, styles.referalUserCount)}
-                >
-                  <span>+{item.referalsTotal - 5}</span>
-                </div>
-              )}
-            </Flex>
+            {item.referals && (
+              <Members
+                members={item.referals}
+                className={styles.referalUsers}
+              />
+            )}
             <Avatar
               className={styles.author}
               name={item.author.name}
