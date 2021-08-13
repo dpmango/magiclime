@@ -49,7 +49,7 @@ const Webinar: FC<IProps> = ({ item }) => {
         />
       </div>
 
-      <Flex justify={'space-between'} align={'center'} margin={'10px 0 16px'}>
+      <Flex justify={'space-between'} align={'center'} margin={'6px 0'}>
         <Flex className={styles.tagsContainer} wrap={'wrap'}>
           {item.tags.map((tag) => (
             <Badge label={tag} status="warning" key={uuid()} />
@@ -81,13 +81,13 @@ const Webinar: FC<IProps> = ({ item }) => {
         className={styles.content}
       >
         <div>
-          <Typography weight="semibold" size="xl">
+          <Typography className={styles.title} weight="semibold" size="xl">
             {item.title}
           </Typography>
-          <Typography margin="8px 0 0" view="brand" weight="semibold">
+          <Typography className={styles.date} margin="8px 0 0" view="brand" weight="semibold">
             {'10 августа, 12:00'}
           </Typography>
-          <Typography margin="8px 0 0">
+          <Typography size={'s'} margin="8px 0 0">
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
             Елена Анатольевна, Анна Ахматова
           </Typography>
