@@ -29,11 +29,7 @@ instance.interceptors.response.use(
     const originalRequest: typeof error.config & { _retry?: boolean } =
       error.config;
 
-    if (
-      error?.response?.status === 401 &&
-      !originalRequest._retry &&
-      originalRequest.headers.Authorization
-    ) {
+    if (error?.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const refreshToken = Cookies.get('refresh') || '';
@@ -44,7 +40,9 @@ instance.interceptors.response.use(
         Cookies.set('access', access, { expires: 10 / 24 });
         originalRequest.headers['Authorization'] = 'Bearer ' + access;
         return Axios(originalRequest);
-      } else logoutFunc();
+      } else {
+        logoutFunc();
+      }
     }
 
     return Promise.reject(error.response);

@@ -28,6 +28,16 @@ const useStyles = makeStyles(() => ({
   date: {
     lineHeight: '24px',
   },
+  replyFrom: {
+    cursor: 'pointer',
+    borderLeft: '4px solid #E8E8E8',
+    padding: '4px 0 4px 14px',
+    margin: '8px 0 12px',
+    '& span': {
+      marginLeft: '12px',
+      transform: 'scaleX(-1)',
+    },
+  },
   reply: {
     marginRight: '20px',
     padding: 0,

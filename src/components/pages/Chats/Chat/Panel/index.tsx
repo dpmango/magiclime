@@ -28,6 +28,7 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
     sendMessage({ text: message, chat: chatId, reply_to_id: reply }).then(
       () => {
         setMessage('');
+        if (reply) setChatContext({ ...chatContext, replyMessage: null });
       }
     );
   };

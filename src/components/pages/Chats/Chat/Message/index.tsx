@@ -12,13 +12,19 @@ import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconWarning } from '@consta/uikit/IconWarning';
 import { ComponentType } from '../../../../../types/common';
+import { IconReply } from '@consta/uikit/IconReply';
 
 type DropdownItem = {
   name: string;
   icon: ComponentType;
 };
 
-const Message: FC<{ message: IMessage }> = ({ message }) => {
+interface IProps {
+  message: IMessage;
+  onReplyClick: (id: number) => void;
+}
+
+const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
   const ref = useRef<HTMLButtonElement>(null);
@@ -36,7 +42,11 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
   }, []);
 
   return (
-    <Flex margin={'0 0 36px'} onDoubleClick={replyMessage}>
+    <Flex
+      margin={'0 0 36px'}
+      onDoubleClick={replyMessage}
+      id={`message_${message.id}`}
+    >
       <Avatar
         form={'round'}
         name={message.creator.name}
@@ -45,18 +55,30 @@ const Message: FC<{ message: IMessage }> = ({ message }) => {
       />
       <div className={styles.w100}>
         <Flex align={'center'} margin={'0 0 4px'}>
-          <Typography weight={'semibold'} size={'m'}>
-            {message.creator.name}
-          </Typography>
+          <Typography weight={'semibold'}>{message.creator.name}</Typography>
           <div className={styles.dot}></div>
-          <Typography className={styles.date} size={'xs'} view={'secondary'}>
+          <Typography className={styles.date} view={'secondary'}>
             {moment(message.created_at).format('HH:mm')}
           </Typography>
         </Flex>
+        {message.reply_to && (
+          <div
+            className={styles.replyFrom}
+            onClick={() => onReplyClick(message.reply_to?.id as number)}
+          >
+            <Flex align={'center'} margin={'0 0 4px'}>
+              <Typography weight={'semibold'} className={styles.text}>
+                {message.reply_to.creator.name}
+              </Typography>
+              <IconReply view={'secondary'} size={'s'} />
+            </Flex>
+            <Typography className={styles.text}>
+              {message.reply_to.text}
+            </Typography>
+          </div>
+        )}
         <Flex margin={'0 0 6px'} className={styles.container}>
-          <Typography view={'primary'} size={'m'} className={styles.text}>
-            {message.text}
-          </Typography>
+          <Typography className={styles.text}>{message.text}</Typography>
         </Flex>
         <Flex>
           <Button

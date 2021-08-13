@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { IChat, IChatDetail, IMessage } from '../types';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
 import { Avatar } from '@consta/uikit/Avatar';
@@ -26,16 +26,29 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
     }
   }, [chatId]);
 
-  useEffect(() => {
-    socket.onmessage = (event) => {
-      if (chat) {
-        setChat((prev) => ({
-          ...prev!,
-          messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
-        }));
-      }
-    };
-  }, [chat]);
+  const onReplyClick = useCallback((id: number) => {
+    const message = document.getElementById(`message_${id}`);
+    message?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    message?.classList.add(styles.replyAnimation);
+    setTimeout(() => {
+      message?.classList.remove(styles.replyAnimation);
+    }, 4000);
+  }, []);
+
+  socket.onmessage = (event) => {
+    // Пока от бэка приходят дубли, нужна такая проверка
+    if (
+      chat &&
+      !chat.messages.find(
+        (item) => item.id === (JSON.parse(event.data) as IMessage).id
+      )
+    ) {
+      setChat((prev) => ({
+        ...prev!,
+        messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
+      }));
+    }
+  };
 
   //Скроллим окно сообщений вниз
   useEffect(() => {
@@ -77,7 +90,11 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
           </Flex>
           <div className={styles.body} ref={ref}>
             {chat.messages.map((message) => (
-              <Message message={message} key={message.id} />
+              <Message
+                message={message}
+                onReplyClick={onReplyClick}
+                key={message.id}
+              />
             ))}
           </div>
           <Panel chatId={chat.id} />
