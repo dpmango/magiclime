@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -23,17 +23,19 @@ const App = () => {
   }
 
   return (
-    <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
-      <Switch>
-        <Route exact path="/home" component={Landing} />
-        <PrivateRoute
-          path="/"
-          component={() => <MainLayout theme={theme} setTheme={setTheme} />}
-          redirect="/home"
-          access={isLogged}
-        />
-      </Switch>
-    </Theme>
+    <Suspense fallback="Загрузка...">
+      <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
+        <Switch>
+          <Route exact path="/home" component={Landing} />
+          <PrivateRoute
+            path="/"
+            component={() => <MainLayout theme={theme} setTheme={setTheme} />}
+            redirect="/home"
+            access={isLogged}
+          />
+        </Switch>
+      </Theme>
+    </Suspense>
   );
 };
 

@@ -1,4 +1,60 @@
 {
+  "course": {
+    "featured": {
+      "tag": "recommended",
+      "cta": "Open module"
+    },
+    "list": {
+      "title": "All courses",
+      "more": "Show more 20 courses"
+    },
+    "card": {
+      "month": "months"
+    },
+    "filter": {
+      "searchPlaceholder": "Search in courses",
+      "categories": "Categories",
+      "price": "Price",
+      "difficulty": "Difficulty",
+      "limeLevel": "Lime level",
+      "educationType": "Education Type"
+    },
+    "page": {
+      "buy": "Buy course",
+      "format": "Education format",
+      "matrixLevel": "Matrix level",
+      "price": "Price",
+      "suitableFor": {
+        "accent": "Whom",
+        "main": "course is suitable for"
+      },
+      "skills": {
+        "accent": "What",
+        "main": "you will learn"
+      },
+      "process": {
+        "main": "How",
+        "accent": "education is going on"
+      },
+      "experts": {
+        "accent": "You will be teached by",
+        "main": "practicing experts"
+      },
+      "program": {
+        "main": "Education program"
+      },
+      "features": {
+        "main": "Benefits at every step"
+      }
+    },
+    "task": {
+      "answer": {
+        "header": "Task",
+        "cta": "Show answer",
+        "continue": "Continue"
+      }
+    }
+  },
   "common": {
     "moreDetails": "More",
     "complain": "Complain"

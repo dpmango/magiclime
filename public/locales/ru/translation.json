@@ -1,4 +1,60 @@
 {
+  "course": {
+    "featured": {
+      "tag": "рекомендованное",
+      "cta": "Открыть модуль"
+    },
+    "list": {
+      "title": "Все курсы",
+      "more": "Показать еще 20 курсов"
+    },
+    "card": {
+      "month": "месяцев"
+    },
+    "filter": {
+      "searchPlaceholder": "Поиск по курсам",
+      "categories": "Категории",
+      "price": "Цена",
+      "difficulty": "Уровень сложности",
+      "limeLevel": "Lime уровень",
+      "educationType": "Тип обучения"
+    },
+    "page": {
+      "buy": "Купить курс",
+      "format": "Формат обучения",
+      "matrixLevel": "Уровень матрицы",
+      "price": "Стоимость",
+      "suitableFor": {
+        "accent": "Кому",
+        "main": "подойдёт курс"
+      },
+      "skills": {
+        "accent": "Чему вы",
+        "main": "научитесь"
+      },
+      "process": {
+        "main": "Как проходит",
+        "accent": "обучение"
+      },
+      "experts": {
+        "accent": "Вам будут преподавать",
+        "main": "эксперты-практики"
+      },
+      "program": {
+        "main": "Программа обучения"
+      },
+      "features": {
+        "main": "Польза на каждом этапе"
+      }
+    },
+    "task": {
+      "answer": {
+        "header": "Задание",
+        "cta": "Узнать ответ",
+        "continue": "Продолжить"
+      }
+    }
+  },
   "common": {
     "moreDetails": "Подробнее",
     "complain": "Пожаловаться"

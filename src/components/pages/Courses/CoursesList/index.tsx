@@ -4,6 +4,7 @@ import { ICourse } from 'types/interfaces/courses';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 // import { SkeletonBrick } from '@consta/uikit/Skeleton';
+import { useTranslation } from 'react-i18next';
 import Course from './Course';
 import icons from '../icons';
 
@@ -25,6 +26,7 @@ interface IProps {
 
 const CoursesList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
@@ -39,7 +41,7 @@ const CoursesList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
 
       {hasMore && (
         <Button
-          label="Показать еще 20 курсов"
+          label={t('course.list.more')}
           view="secondary"
           onClick={getMore}
           className={styles.button}

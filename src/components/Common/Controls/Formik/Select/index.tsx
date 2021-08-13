@@ -66,6 +66,7 @@ const FormikSelectComponent = MemoWrapper(
               className={cnSelectItem({
                 active,
                 hovered,
+                disabled: item.disabled,
                 size: props.size || 'm',
                 indent: 'normal',
               })}

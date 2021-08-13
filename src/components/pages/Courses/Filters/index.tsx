@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
 import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
@@ -15,6 +16,7 @@ interface ICategory {
 
 const Filters: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const difficults = ['Любой', 'Для новичков', 'Для специалистов'];
   const educationTypes = ['Профессия', 'Программа', 'Курс'];
@@ -54,7 +56,7 @@ const Filters: FC = () => {
             {/* {JSON.stringify(values)} */}
             <div className={styles.formBlock}>
               <Field
-                placeholder="Поиск по курсам"
+                placeholder={t('course.filter.searchPlaceholder')}
                 name="search"
                 component={TextField}
                 rightSide={icons.SearchIcon}
@@ -67,7 +69,7 @@ const Filters: FC = () => {
 
             <div className={styles.formBlock}>
               <FormikCheckboxGroup
-                label="Категории"
+                label={t('course.filter.categories')}
                 name="categories"
                 items={categories}
                 direction="column"
@@ -79,14 +81,14 @@ const Filters: FC = () => {
             <div className={styles.formBlock}>
               <FormikRangeBlock
                 name="price"
-                title="Цена"
+                title={t('course.filter.price')}
                 placeholders={['0 ₽', '156 000 ₽']}
               />
             </div>
 
             <div className={styles.formBlock}>
               <FormikRadiobuttons
-                label="Уровень сложности"
+                label={t('course.filter.difficulty')}
                 name="difficult"
                 items={difficults}
                 getLabel={(item) => item as string}
@@ -98,14 +100,14 @@ const Filters: FC = () => {
             <div className={styles.formBlock}>
               <FormikRangeBlock
                 name="lime"
-                title="Lime уровень"
+                title={t('course.filter.limeLevel')}
                 placeholders={['1', '53']}
               />
             </div>
 
             <div className={styles.formBlock}>
               <FormikCheckboxGroup
-                label="Тип обучения"
+                label={t('course.filter.educationType')}
                 name="education_types"
                 items={educationTypes}
                 direction="column"
