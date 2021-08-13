@@ -5,6 +5,11 @@
   },
   "webinar": {
   },
+  "articles": {
+    "list": {
+      "title": "Knowledge base"
+    }
+  },
   "menu": {
     "profile": "Profile",
     "courses": "Courses",

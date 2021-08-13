@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
-import { Tags } from 'components/Courses';
+import Tags from 'components/Common/Tags';
 import { getArticles } from 'store/reducers/article';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
@@ -14,6 +15,7 @@ import useStyles from './styles';
 const ArticlePage: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { articles } = useSelector((state: RootState) => state.article);
   const [activeTags, setActiveTags] = useState<number[]>([]);
@@ -36,7 +38,7 @@ const ArticlePage: FC = () => {
   return (
     <div className={styles.root}>
       <Typography weight="semibold" size="3xl" lineHeight="s">
-        База знаний
+        {t('articles.list.title')}
       </Typography>
       <div className={styles.tags}>
         <Tags

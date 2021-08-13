@@ -7,6 +7,11 @@
     "signUp": "Записаться",
     "speakers": "Спикеры"
   },
+  "articles": {
+    "list": {
+      "title": "База знаний"
+    }
+  },
   "menu": {
     "profile": "Профиль",
     "courses": "Курсы",
