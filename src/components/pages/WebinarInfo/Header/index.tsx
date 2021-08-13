@@ -11,14 +11,18 @@ const Header = () => {
 
   return (
     <div className={styles.root}>
-      <Flex padding={'52px 20px'} margin={'0 auto 36px'} align={'center'}>
+      <Flex padding={'52px 40px'} margin={'0 auto 36px'} align={'center'}>
         <div>
           <Button
             form={'round'}
             label={'Маркетинг'}
             className={styles.signUp}
           />
-          <Typography margin={'24px 24px 36px 0'} size={'4xl'} weight={'bold'}>
+          <Typography
+            margin={'24px 24px 36px 0'}
+            weight={'semibold'}
+            className={styles.title}
+          >
             Формулы и функции Excel, которые упростят вам жизнь
           </Typography>
           <Button

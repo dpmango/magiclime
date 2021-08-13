@@ -15,6 +15,7 @@ import { ComponentType } from '../../../../../types/common';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+import Members from '../../../../Common/Members';
 
 interface IProps {
   item: IWebinar;
@@ -48,7 +49,7 @@ const Webinar: FC<IProps> = ({ item }) => {
         />
       </div>
 
-      <Flex justify={'space-between'} align={'center'} margin={'10px 0 16px'}>
+      <Flex justify={'space-between'} align={'center'} margin={'6px 0'}>
         <Flex className={styles.tagsContainer} wrap={'wrap'}>
           {item.tags.map((tag) => (
             <Badge label={tag} status="warning" key={uuid()} />
@@ -80,13 +81,13 @@ const Webinar: FC<IProps> = ({ item }) => {
         className={styles.content}
       >
         <div>
-          <Typography weight="semibold" size="xl">
+          <Typography className={styles.title} weight="semibold" size="xl">
             {item.title}
           </Typography>
-          <Typography margin="8px 0 0" view="brand" weight="semibold">
+          <Typography className={styles.date} margin="8px 0 0" view="brand" weight="semibold">
             {'10 августа, 12:00'}
           </Typography>
-          <Typography margin="8px 0 0">
+          <Typography size={'s'} margin="8px 0 0">
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
             Елена Анатольевна, Анна Ахматова
           </Typography>
@@ -101,25 +102,12 @@ const Webinar: FC<IProps> = ({ item }) => {
           />
 
           <Flex align="center" className={styles.referalWrapper}>
-            <Flex className={styles.referalUsers}>
-              {item.referals &&
-                item.referals.map((u) => (
-                  <Avatar
-                    key={u.id}
-                    url={u.avatar}
-                    size="s"
-                    className={styles.referalUser}
-                  />
-                ))}
-
-              {item.referalsTotal > 5 && (
-                <div
-                  className={cns(styles.referalUser, styles.referalUserCount)}
-                >
-                  <span>+{item.referalsTotal - 5}</span>
-                </div>
-              )}
-            </Flex>
+            {item.referals && (
+              <Members
+                members={item.referals}
+                className={styles.referalUsers}
+              />
+            )}
             <Avatar
               className={styles.author}
               name={item.author.name}

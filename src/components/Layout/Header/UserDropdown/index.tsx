@@ -20,6 +20,7 @@ import useStyles from '../styles';
 import { Language } from '../../../../types/common';
 import { setLanguage } from '../../../../store/reducers/settings';
 import { useTranslation } from 'react-i18next';
+import { logoutFunc } from '../../../../utils/helpers/logout';
 
 const UserDropdown: FC<IUserDropdownProps> = ({
   clickOutside,
@@ -133,11 +134,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
   const onItemClick = useCallback((item: UserDropdownItem) => {
     return (e: MouseEvent<HTMLDivElement>) => {
       if (item.name === 'Выход') {
-        Cookies.remove('access');
-        Cookies.remove('refresh');
-        deleteAuthHeader();
-        dispatch(logout());
-        history.push('/landing');
+        logoutFunc();
       } else if (item.path) {
         history.push(item.path);
       } else if (item.clickCallback) {

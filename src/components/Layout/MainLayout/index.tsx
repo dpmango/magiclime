@@ -10,6 +10,7 @@ import Courses from '../../pages/CoursesPage';
 import Articles from '../../pages/Articles';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
+import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
 
@@ -33,7 +34,20 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Menu isFull={isFullMenu} />
         <Container className={styles.content}>
           <Switch>
-            <Route exact path="/" render={() => <Redirect to="profile" />} />
+            <Route
+              exact={true}
+              path={'/'}
+              render={() => <Redirect to={'profile'} />}
+            />
+            <Route exact={true} path={'/courses'} component={Courses} />
+            <Route
+              path={'/chats/:id?'}
+              render={(props) => (
+                <ChatContextProvider>
+                  <Chats {...props} />
+                </ChatContextProvider>
+              )}
+            />
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/faq" component={Articles} />
             <Route path="/chats/:id?" component={Chats} />

@@ -5,6 +5,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: '24px 0 0',
     flex: 1,
+    width: '200px',
     height: 'calc(100vh - 64px)',
   },
   header: {
@@ -28,6 +29,23 @@ const useStyles = makeStyles(() => ({
     overflowY: 'auto',
     width: '100%',
     padding: '28px 0 0 24px',
+  },
+  replyAnimation: {
+    animation: '$effect 3s ease-out',
+  },
+  '@keyframes effect': {
+    '0%': {
+      background: 'transparent',
+      // borderRight: '5px solid transparent',
+    },
+    '20%': {
+      background: 'var(--color-bg-system)',
+      // borderRight: '5px solid var(--color-typo-brand)',
+    },
+    '100%': {
+      transform: 'transparent',
+      // borderRight: '5px solid transparent',
+    },
   },
 }));
 

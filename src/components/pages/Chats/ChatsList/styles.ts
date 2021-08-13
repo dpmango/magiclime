@@ -10,20 +10,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  search: {
-    width: '100%',
-    padding: '2px 0',
-    borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    // marginBottom: '7px',
-    background: 'var(--color-bg-secondary)',
-    height: 'min-content',
-    '& > div': {
-      width: '100%',
-      padding: '0 16px',
-      background: 'var(--color-bg-secondary)',
-      border: 'none',
-    },
-  },
   list: {
     flex: 1,
     overflowY: 'auto',

@@ -1,50 +1,71 @@
-import React, { FC, useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import { IChat, IMessage } from '../types';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
-import useStyles from './style';
+import useStyles from './styles';
 import { Avatar } from '@consta/uikit/Avatar';
 import Typography from '../../../Common/Typography';
 import Message from './Message';
 import Panel from './Panel';
+import { getChat } from '../../../../utils/api/routes/chat';
 
-const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
-  const [messages, setMessages] = useState<IMessage[]>([
-    {
-      id: '1',
-      text: 'Hello!',
-      user_name: 'Roman Avdeev',
-      user_avatar: '',
-      date: '2021-08-03 16:09',
-    },
-    {
-      id: '2',
-      text: 'С учётом сложившейся международной обстановки, современная методология разработки не оставляет шанса для распределения внутренних резервов и ресурсов. Но независимые государства смешаны с не уникальными данными до степени совершенной неузнаваемости, из-за чего возрастает их статус бесполезности. Ясность нашей позиции очевидна: современная методология разработки является качественно новой ступенью первоочередных требований!',
-      user_name: 'Roman Avdeev',
-      user_avatar: '',
-      date: '2021-08-03 16:09',
-    },
-  ]);
+interface IProps {
+  chatId: number | null;
+  socket: WebSocket;
+}
+
+const Chat: FC<IProps> = ({ chatId, socket }) => {
+  const [chat, setChat] = useState<IChatDetail | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
-  //const socket = io('');
-  useEffect(() => {}, []);
 
-  // Скроллим окно сообщений вниз
-  // useEffect(() => {
-  //     if (ref.current) {
-  //         const elem = ref.current
-  //         elem.scrollTop = elem.scrollHeight - elem.clientHeight;
-  //     }
-  // }, [ref.current, messages.length])
+  useEffect(() => {
+    if (chatId) {
+      getChat(chatId).then((res) =>
+        setChat((prev) => ({ ...prev, ...res.data }))
+      );
+    }
+  }, [chatId]);
+
+  const onReplyClick = useCallback((id: number) => {
+    const message = document.getElementById(`message_${id}`);
+    message?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    message?.classList.add(styles.replyAnimation);
+    setTimeout(() => {
+      message?.classList.remove(styles.replyAnimation);
+    }, 3000);
+  }, []);
+
+  socket.onmessage = (event) => {
+    // Пока от бэка приходят дубли, нужна такая проверка
+    if (
+      chat &&
+      !chat.messages.find(
+        (item) => item.id === (JSON.parse(event.data) as IMessage).id
+      )
+    ) {
+      setChat((prev) => ({
+        ...prev!,
+        messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
+      }));
+    }
+  };
+
+  //Скроллим окно сообщений вниз
+  useEffect(() => {
+    if (ref.current) {
+      const elem = ref.current;
+      elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+    }
+  }, [ref.current, chat]);
 
   return (
     <Flex
       direction={'column'}
       className={styles.root}
       align={'center'}
-      justify={!!chat ? 'flex-start' : 'center'}
+      justify={chatId && chat ? 'flex-start' : 'center'}
     >
-      {!chat ? (
+      {!chatId || !chat ? (
         <Typography size={'xl'}>
           Выберите чат, чтобы начать переписку
         </Typography>
@@ -52,23 +73,31 @@ const Chat: FC<{ chat: IChat | null }> = ({ chat }) => {
         <>
           <Flex className={styles.header}>
             <div className={styles.avatarWrapper}>
-              <Avatar form={'round'} name={chat.name} url={chat.image} />
+              <Avatar
+                form={'round'}
+                name={chat.title}
+                url={chat.avatar && chat.avatar.image}
+              />
             </div>
             <div>
               <Typography size={'xl'} weight={'bold'}>
-                {chat.name}
+                {chat.title}
               </Typography>
               <Typography view={'secondary'}>
-                {chat.members_count} members
+                {chat.participants_count} members
               </Typography>
             </div>
           </Flex>
-          <div className={styles.body}>
-            {messages.map((message) => (
-              <Message message={message} key={message.id} />
+          <div className={styles.body} ref={ref}>
+            {chat.messages.map((message) => (
+              <Message
+                message={message}
+                onReplyClick={onReplyClick}
+                key={message.id}
+              />
             ))}
           </div>
-          <Panel />
+          <Panel chatId={chat.id} />
         </>
       )}
     </Flex>
