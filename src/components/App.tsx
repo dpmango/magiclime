@@ -10,7 +10,7 @@ import Landing from './pages/Landing';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
-import { logout, setLogged } from '../store/reducers/user';
+import { setLogged } from '../store/reducers/user';
 
 const App = () => {
   const [theme, setTheme] = useState<'default' | 'dark'>('default');
@@ -21,9 +21,6 @@ const App = () => {
     setAuthToken(Cookies.get('access') as string);
     dispatch(setLogged());
   }
-  // else if (!Cookies.get('refresh')) {
-  //   dispatch(logout());
-  // }
 
   return (
     <Suspense fallback="Загрузка...">

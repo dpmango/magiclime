@@ -24,13 +24,95 @@ export const mockWebinars: IWebinar[] = [
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
     tags: ['Дизайн'],
     referals: [
-      { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-      { id: 3, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 4, avatar: 'https://randomuser.me/api/portraits/men/19.jpg' },
-      { id: 5, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+      {
+        id: 1,
+        avatar: {
+          id: 1,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 2,
+        avatar: {
+          id: 2,
+          image: 'https://randomuser.me/api/portraits/men/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 3,
+        avatar: {
+          id: 3,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 4,
+        avatar: {
+          id: 4,
+          image: 'https://randomuser.me/api/portraits/men/19.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 5,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 6,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 7,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 8,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 9,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 11,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 51,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
     ],
-    referalsTotal: 17,
     author: {
       name: 'A B',
     },
@@ -42,13 +124,63 @@ export const mockWebinars: IWebinar[] = [
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
     tags: ['Дизайн', 'Разработка', 'Прочее'],
     referals: [
-      { id: 1, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 2, avatar: 'https://randomuser.me/api/portraits/men/15.jpg' },
-      { id: 3, avatar: 'https://randomuser.me/api/portraits/women/15.jpg' },
-      { id: 4, avatar: 'https://randomuser.me/api/portraits/men/19.jpg' },
-      { id: 5, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+      {
+        id: 1,
+        avatar: {
+          id: 1,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 2,
+        avatar: {
+          id: 2,
+          image: 'https://randomuser.me/api/portraits/men/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 3,
+        avatar: {
+          id: 3,
+          image: 'https://randomuser.me/api/portraits/women/15.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 8,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 9,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 11,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
+      {
+        id: 51,
+        avatar: {
+          id: 5,
+          image: 'https://randomuser.me/api/portraits/men/1.jpg',
+        },
+        name: 'R A',
+      },
     ],
-    referalsTotal: 7,
     author: {
       name: 'A B',
     },

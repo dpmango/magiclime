@@ -1,81 +1,55 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Flex from '../../../Common/Flex';
-import useStyles from './style';
+import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { TextField } from '@consta/uikit/TextField';
-import { IconSearch } from '@consta/uikit/IconSearch';
 import { IChat } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
-import { IconMeatball } from '@consta/uikit/IconMeatball';
+import Header from './Header';
+import { getChatsList } from '../../../../utils/api/routes/chat';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../store/reducers/rootReducer';
 
 interface IProps {
   chatId?: string;
-  setActiveChat: SetStateType<IChat | null>;
+  setActiveChatId: SetStateType<number | null>;
 }
 
-const ChatsList: FC<IProps> = ({ chatId, setActiveChat }) => {
+const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
   const [search, setSearch] = useState('');
-  const [chats, setChats] = useState<IChat[]>([
-    {
-      id: '1',
-      name: 'Беседа проекта',
-      image: '',
-      last_message: 'Во сколько встреча?',
-      last_message_time: '2021-08-03 13:30',
-      unread_count: 8,
-      members_count: 6,
-    },
-    {
-      id: '2',
-      name: 'Эксперты',
-      image: '',
-      last_message: 'Вам стоит закупить TAL',
-      last_message_time: '2021-08-03 13:30',
-      unread_count: 112,
-      members_count: 3,
-    },
-    {
-      id: '3',
-      name: 'Лидеры мнений',
-      image:
-        'https://dogcatdog.ru/wp-content/uploads/a/2/8/a28fbb088c1313f7c04ce868eb9ce10d.jpg',
-      last_message: 'Собрание в 18:30!!!',
-      last_message_time: '2021-08-03 13:30',
-      unread_count: 8,
-      members_count: 6,
-    },
-  ]);
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const { id } = useSelector((state: RootState) => state.user.profile);
+  const [chats, setChats] = useState<IChat[]>([]);
   const styles = useStyles();
   const history = useHistory();
 
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    //Api request
-  }, [debouncedSearch]);
+    getChatsList(id, search).then((res) => {
+      setChats(res.data.chats);
+    });
+  }, [debouncedSearch, selectedGroup]);
 
   useEffect(() => {
-    const activeChat = chats.find((chat) => chat.id === chatId);
-    if (activeChat) setActiveChat(activeChat);
-    else {
-      history.push('/chats');
+    if (chatId) {
+      const activeChat = chats.find((chat) => chat.id === +chatId);
+      if (activeChat) setActiveChatId(activeChat.id);
+      else {
+        history.push('/chats');
+      }
     }
   }, [chatId]);
 
   return (
     <div className={styles.root}>
-      <div className={styles.search}>
-        <TextField
-          form={'brick'}
-          placeholder="Поиск по сообщениям"
-          value={search}
-          // leftSide={IconSearch}
-          rightSide={IconMeatball}
-          onChange={({ value }) => setSearch(value as string)}
-        />
-      </div>
+      <Header
+        search={search}
+        setSearch={setSearch}
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
+      />
       <Flex direction={'column'} className={styles.list}>
         {chats.map((chat) => (
           <ChatCard chat={chat} key={chat.id} />

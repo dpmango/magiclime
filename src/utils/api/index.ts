@@ -1,9 +1,10 @@
-import Axios, { AxiosError, AxiosResponse } from 'axios';
+import Axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { refreshAuthToken } from './routes/auth';
+import { logoutFunc } from '../helpers/logout';
 
 export const instance = Axios.create({
-  baseURL: ' http://178.154.196.41:8081/api/v1',
+  baseURL: 'http://178.154.196.41:8081/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -28,11 +29,7 @@ instance.interceptors.response.use(
     const originalRequest: typeof error.config & { _retry?: boolean } =
       error.config;
 
-    if (
-      error?.response?.status === 401 &&
-      !originalRequest._retry &&
-      originalRequest.headers.Authorization
-    ) {
+    if (error?.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       const refreshToken = Cookies.get('refresh') || '';
@@ -40,9 +37,11 @@ instance.interceptors.response.use(
       const response = await refreshAuthToken(refreshToken);
       if (response.status === 200) {
         const { access } = response.data;
-        Cookies.set('access', access);
+        Cookies.set('access', access, { expires: 10 / 24 });
         originalRequest.headers['Authorization'] = 'Bearer ' + access;
         return Axios(originalRequest);
+      } else {
+        logoutFunc();
       }
     }
 

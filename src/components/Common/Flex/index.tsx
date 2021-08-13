@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, HTMLProps } from 'react';
+import React, { FC, CSSProperties, HTMLProps, RefObject } from 'react';
 import { makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
@@ -10,6 +10,7 @@ interface IProps extends HTMLProps<HTMLDivElement> {
   justify?: CSSProperties['justifyContent'];
   wrap?: CSSProperties['flexWrap'];
   className?: string;
+  elRef?: RefObject<HTMLDivElement>;
 }
 
 const useStyles = makeStyles<null, Omit<IProps, 'className'>>(() => ({
@@ -25,9 +26,32 @@ const useStyles = makeStyles<null, Omit<IProps, 'className'>>(() => ({
   }),
 }));
 
-const Flex: FC<IProps> = ({ children, className, ...props }) => {
-  const styles = useStyles(props);
-  return <div className={classNames(styles.flex, className)}>{children}</div>;
+const Flex: FC<IProps> = ({
+  children,
+  className,
+  elRef,
+  align,
+  justify,
+  direction,
+  wrap,
+  margin,
+  padding,
+  ...props
+}) => {
+  const styles = useStyles({
+    align,
+    justify,
+    direction,
+    wrap,
+    margin,
+    padding,
+  });
+
+  return (
+    <div className={classNames(styles.flex, className)} ref={elRef} {...props}>
+      {children}
+    </div>
+  );
 };
 
 export default Flex;

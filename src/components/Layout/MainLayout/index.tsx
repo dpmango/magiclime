@@ -11,6 +11,7 @@ import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/ProfilePage';
+import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
 
@@ -52,7 +53,14 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
           <Switch>
             <Route exact path="/" render={() => <Redirect to="profile" />} />
             <Route path="/chats/:id?" component={Chats} />
-            {/* <Route path="/profile" component={Profile} /> */}
+            <Route
+              path="/chats/:id?"
+              render={(props) => (
+                <ChatContextProvider>
+                  <Chats {...props} />
+                </ChatContextProvider>
+              )}
+            />
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/courses/:course" component={Course} />
             <Route exact path="/courses/:course/:id" component={CourseTask} />
