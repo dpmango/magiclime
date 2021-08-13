@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { IChat } from '../../types';
 import { Avatar } from '@consta/uikit/Avatar';
-import useStyles from './style';
+import useStyles from './styles';
 import Typography from '../../../../Common/Typography';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { useCheckDefaultTheme } from '../../../../../hooks/useCheckDefaultTheme'
 
 const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
   const isDefault = useCheckDefaultTheme();
-  const styles = useStyles({ isDefault });
+  const styles = useStyles({ isDefault, haveLastMessage: !!chat.last_message });
 
   return (
     <NavLink
@@ -20,8 +20,8 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
     >
       <Avatar
         form={'round'}
-        name={chat.name}
-        url={chat.image}
+        name={chat.title}
+        url={chat.avatar && chat.avatar.image}
         className={styles.avatar}
       />
       <div className={styles.nameWrapper}>
@@ -31,22 +31,27 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           margin={'0 0 2px'}
           className={styles.text}
         >
-          {chat.name}
+          {chat.title}
         </Typography>
-        <Typography size={'s'} view={'ghost'} className={styles.text}>
-          {chat.last_message}
-        </Typography>
+        {chat.last_message && (
+          <Typography size={'s'} view={'ghost'} className={styles.text}>
+            {chat.last_message.text}
+          </Typography>
+        )}
       </div>
       <div className={styles.timeWrapper}>
         <Typography size={'xs'} view={'ghost'} margin={'0 0 4px'}>
-          {moment(chat.last_message_time).format('HH:mm')}
+          {chat.last_message &&
+            moment(chat.last_message.created_at).format('HH:mm')}
         </Typography>
-        <Badge
-          size={'s'}
-          status={'normal'}
-          form={'round'}
-          label={`${chat.unread_count}`}
-        />
+        {chat.unread_count && (
+          <Badge
+            size={'s'}
+            status={'normal'}
+            form={'round'}
+            label={`${chat.unread_count}`}
+          />
+        )}
       </div>
     </NavLink>
   );

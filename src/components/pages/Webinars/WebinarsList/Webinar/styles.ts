@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    padding: 24,
+    padding: 22,
     borderRadius: 16,
     height: '100%',
     background: 'var(--color-bg-defaul)',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     marginRight: '5px',
   },
   cta: {
-    marginTop: 40,
+    marginTop: 32,
   },
   referalWrapper: {
     flex: '0 0 auto',
@@ -37,40 +37,25 @@ const useStyles = makeStyles({
     paddingLeft: 12,
   },
   referalUsers: {
-    paddingRight: 16,
+    paddingRight: 12,
   },
-  referalUser: {
-    border: '1px solid var(--color-bg-secondary)',
-    marginLeft: -12,
-    '&:first-child': {
-      marginLeft: 0,
-    },
-  },
-  referalUserCount: {
-    width: 24,
-    height: 24,
-    borderRadius: '50%',
-    backgroundColor: '#ECF1F4',
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    '& span': {
-      fontSize: 9,
-      fontWeight: 600,
-      color: 'var(--color-typo-secondary)',
-    },
+  date: {
+    fontSize: '14px',
   },
   author: {
     flex: '0 0 auto',
   },
+  title: {
+    fontSize: 20,
+  },
   tagsContainer: {
     flex: 1,
     '& > div': {
-      marginRight: '15px',
-      marginTop: '8px',
+      marginRight: '12px',
+      // marginTop: '8px',
       background: 'rgba(255, 108, 71, .2)',
       color: '#FF6C47',
+      textTransform: 'none',
     },
   },
 });

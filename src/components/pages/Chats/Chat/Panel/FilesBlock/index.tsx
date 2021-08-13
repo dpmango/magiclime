@@ -1,12 +1,14 @@
 import React, { FC, useState } from 'react';
 import { SetStateType } from '../../../../../../types/common';
-import { File } from '@consta/uikit/File';
 import Flex from '../../../../../Common/Flex';
 import useStyles from './style';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
 import Container from '../../../../../Common/Container';
 import { v4 as uuid } from 'uuid';
+import { Attach } from '@consta/uikit/Attach';
+import moment from 'moment';
+import cn from 'classnames';
 
 interface IProps {
   files: File[];
@@ -24,22 +26,36 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
     ]);
   };
 
-  const getExtension = (file: File): string =>
-    file.name.split('.').pop() as string;
+  const getExt = (file: File): string => file.name.split('.').pop() as string;
+
+  const isImage = (file: File): boolean =>
+    /(png|jpe?g|gif|ico)/.test(getExt(file));
 
   return (
     <Container className={styles.root}>
-      <Flex>
+      <Flex align={'center'}>
         {files.map((file) => (
-          <div className={styles.file} key={uuid()}>
-            {/(png|jpe?g|gif|ico)/.test(getExtension(file)) ? (
+          <div
+            className={cn(
+              styles.file,
+              isImage(file) ? styles.image : styles.doc
+            )}
+            key={uuid()}
+          >
+            {isImage(file) ? (
               <img
                 src={
                   'https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg'
                 }
               />
             ) : (
-              <File extension={getExtension(file)} />
+              <Attach
+                fileName={file.name}
+                fileExtension={getExt(file)}
+                fileDescription={`${(file.size / 1024 / 1024).toFixed(
+                  1
+                )} МБ, ${moment(file.lastModified).format('DD.MM.YY, HH:mm')}`}
+              />
             )}
             <Button
               iconLeft={IconClose}

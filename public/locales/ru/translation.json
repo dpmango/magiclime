@@ -177,7 +177,18 @@
   },
   "webinar": {
     "signUp": "Записаться",
-    "speakers": "Спикеры"
+    "speakers": "Спикеры",
+    "dateTime": "Дата и время",
+    "eventType": "Тип мероприятия",
+    "city": "Город",
+    "aboutEvent": "О мероприятии",
+    "members": "Участники",
+    "youLearn": "Вы узнаете",
+    "aboutFormat": "Пару слов о формате",
+    "aboutSpeakers": "О спикерах"
+  },
+  "chats": {
+    "toAnswer": "Ответить"
   },
   "menu": {
     "profile": "Профиль",

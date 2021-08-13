@@ -6,27 +6,32 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
     overflowX: 'auto',
-    padding: '15px',
+    padding: '12px 16px 11px',
   },
   file: {
     position: 'relative',
-    width: '60px',
-    height: '60px',
     '&:not(:last-of-type)': {
       marginRight: '20px',
     },
+  },
+  image: {
+    width: '60px',
+    height: '60px',
     '& > img': {
       width: '100%',
       height: '100%',
       objectFit: 'cover',
     },
   },
+  doc: {
+    //maxWidth: '100px',
+  },
   delete: {
     position: 'absolute',
     background: 'var(--color-bg-default)',
-    right: '-5px',
+    right: '-8px',
     border: '1px solid var(--color-typo-alert)',
-    top: '-5px',
+    top: '-8px',
     width: '18px',
     height: '18px',
     '& path': {
