@@ -3,6 +3,178 @@
     "moreDetails": "More",
     "complain": "Complain"
   },
+  "profile": {
+    "tabs": {
+      "main": "Main",
+      "balance": "Balance",
+      "referrals": "Referrals",
+      "settings": "Settings"
+    },
+    "head": {
+      "copyRefLink": "Copy referral link"
+    },
+    "referalPlural": {
+      "one": "referral",
+      "two": "referrals",
+      "five": "referrals"
+    },
+    "programCard": {
+      "matrixLevel": "matrix level",
+      "level": "level",
+      "league": "league",
+      "noReferals": "No referals",
+      "blocked": {
+        "title": "Unavailable",
+        "cta": "Open access"
+      } 
+    },
+    "achivements": {
+      "title": "Achivements",
+      "empty": "Achivements are not opened yet"
+    },
+    "events": {
+      "title": "Events",
+      "empty": "No events",
+      "more": "Watch all"
+    },
+    "courses": {
+      "title": "My courses",
+      "process": "Process",
+      "rate": "Rate",
+      "rateFrom": "from"
+    },
+    "balance": {
+      "refill": {
+        "title": "Refill balance",
+        "inputLabel": "Incoming currenct",
+        "pamentLabel": "Payment type",
+        "paymentAmount": "Сумма пополнения",
+        "amount": {
+          "label": "Refill amount",
+          "placeholder": "Enter amount in BTL"
+        },
+        "cta": "Refill balance"
+      },
+      "withdrawal": {
+        "title": "Withdrawal",
+        "credentials": {
+          "label": "Withdrawal type",
+          "placeholder": "Enter wallet credentials"
+        },
+        "amount": {
+          "label": "Ask withdrawal",
+          "placeholder": "Enter amount"
+        },
+        "cta": "Ask withdrawal"
+      },
+      "history": {
+        "title": "Withdrawal history",
+        "date": {
+          "label": "Date",
+          "placeholder": "Select date"
+        },
+        "pare": {
+          "label": "Pare"
+        },
+        "actions": {
+          "reset": "Reset",
+          "search": "Search"
+        },
+        "empty": "No data yet"
+      }
+    },
+    "referal": {
+      "stats": {
+        "link": "Referral link",
+        "gain": "Gain",
+        "invited": "Invited",
+        "matrix": "Matrix",
+        "level": "Level",
+        "invitee": "Invitee"
+      },
+      "list": {
+        "title": "My referrals"
+      },
+      "card": {
+        "extraInfo": "Extra info",
+        "gain": "Gain",
+        "level": "Level",
+        "referals": "referrals"
+      },
+      "filter": {
+        "search": "Search referrals",
+        "level": "Select level",
+        "matrix": "Matrix level:"
+      }
+    },
+    "settings": {
+      "navigation": {
+        "sectionMain": "General informaation",
+        "sectionActivity": "My activity",
+        "account": "Account",
+        "profile": "Profile",
+        "notifications": "Notifications",
+        "security": "Security",
+        "achivements": "My achivements"
+      },
+      "account": {
+        "login": {
+          "label": "Login",
+          "placeholder": "Enter login"
+        },
+        "sponsor": {
+          "label": "Information sponsor",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter email"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+7 (___) ___ ____"
+        },
+        "export": "Export my data",
+        "logout": "Logout"
+      },
+      "profile": {
+        "name": {
+          "label": "Name",
+          "placeholder": ""
+        },
+        "birthday": {
+          "label": "Date of birth",
+          "placeholder": "DD.MM.YYYY"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": ""
+        },
+        "city": {
+          "label": "City",
+          "placeholder": ""
+        }
+      },
+      "notifications": {
+        "mainGroup": "Main",
+        "payments": "Payment notifications",
+        "courses": "Information about new courses, webinars and programs",
+        "events": "Reminders of upcoming events in the calendar",
+        "news": "Service news",
+        "promo": "Promotions and discounts from Lime",
+        "materials": "Recommended Materials"
+      },
+      "security": {
+        "passwordCurrent": "Current Password",
+        "passwordNew": "New Passoword",
+        "passwordRepeat": "New Password repeat"
+      },
+      "cta": {
+        "save": "Save changes",
+        "open": "Open"
+      }
+    }
+  },
   "webinar": {
     "signUp": "Записаться",
     "speakers": "Спикеры",

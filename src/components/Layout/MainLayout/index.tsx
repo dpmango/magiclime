@@ -8,7 +8,7 @@ import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
 import Chats from '../../pages/Chats';
-import Profile from '../../pages/ProfilePage';
+import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
@@ -33,14 +33,10 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         <Menu isFull={isFullMenu} />
         <Container className={styles.content}>
           <Switch>
+            <Route exact path="/" render={() => <Redirect to="profile" />} />
+            <Route exact path="/courses" component={Courses} />
             <Route
-              exact={true}
-              path={'/'}
-              render={() => <Redirect to={'profile'} />}
-            />
-            <Route exact={true} path={'/courses'} component={Courses} />
-            <Route
-              path={'/chats/:id?'}
+              path="/chats/:id?"
               render={(props) => (
                 <ChatContextProvider>
                   <Chats {...props} />

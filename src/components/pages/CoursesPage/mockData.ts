@@ -7,7 +7,7 @@ export const mockCourses: ICourse[] = [
     title: 'Интернет-маркетолог',
     type: 'Онлайн-курс',
     duration: 12,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const mockCourses: ICourse[] = [
     title: 'SMM специалист',
     type: 'Онлайн-курс',
     duration: 9,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ export const mockCourses: ICourse[] = [
     title: 'Таргетолог с нуля до PRO',
     type: 'Онлайн-курс',
     duration: 5,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ export const mockCourses: ICourse[] = [
     title: 'SEO-специалист с нуля до PRO',
     type: 'Онлайн-курс',
     duration: 7,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 5,
@@ -39,7 +39,7 @@ export const mockCourses: ICourse[] = [
     title: 'Редактор с нуля до PRO',
     type: 'Онлайн-курс',
     duration: 9,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 6,
@@ -47,7 +47,7 @@ export const mockCourses: ICourse[] = [
     title: 'Копирайтер с нуля до PRO',
     type: 'Онлайн-курс',
     duration: 10,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 7,
@@ -55,7 +55,7 @@ export const mockCourses: ICourse[] = [
     title: 'Instagram-маркетолог',
     type: 'Онлайн-курс',
     duration: 14,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 8,
@@ -63,7 +63,7 @@ export const mockCourses: ICourse[] = [
     title: 'PR-менеджер',
     type: 'Онлайн-курс',
     duration: 9,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 9,
@@ -71,7 +71,7 @@ export const mockCourses: ICourse[] = [
     title: 'Event-менеджер',
     type: 'Онлайн-курс',
     duration: 12,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
   {
     id: 10,
@@ -79,7 +79,7 @@ export const mockCourses: ICourse[] = [
     title: 'Fullstack маркетолог',
     type: 'Онлайн-курс',
     duration: 24,
-    image: 'images/category-image.svg',
+    image: '/images/category-image.svg',
   },
 ];
 

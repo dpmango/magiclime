@@ -12,11 +12,14 @@ import {
   UpdateProfileType,
   LoginPayloadType,
   RegistrationPayloadType,
+  ChangePasswordType,
 } from './types';
 import {
   getUserProfile,
   loginUser,
   registrationUser,
+  updateUser,
+  changeUserPassword,
 } from '../../../utils/api/routes/auth';
 
 const initialState = {
@@ -104,24 +107,54 @@ export const getProfile = createAsyncThunk(
   }
 );
 
-// export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
-//   'user/updateProfile',
-//   async (payload, { dispatch, rejectWithValue }) => {
-//     const { profile, successCallback, errorCallback } = payload;
-//     try {
-//       const response = await updateUser(profile);
-//       if (response?.status === 200) {
-//         dispatch(setUserProfile(response.data));
-//         successCallback && successCallback();
-//       }
-//     } catch (err) {
-//       if (errorCallback) {
-//         errorCallback('Что-то пошло не так...');
-//       }
-//       return rejectWithValue(err.response.data);
-//     }
-//   }
-// );
+export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
+  'user/updateProfile',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { profile, successCallback, errorCallback } = payload;
+    try {
+      const response = await updateUser(profile);
+      if (response?.status === 200) {
+        dispatch(setUserProfile(response.data));
+        successCallback && successCallback();
+      }
+    } catch (err) {
+      if (errorCallback) {
+        if (err.data) {
+          Object.keys(err.data).forEach((key) => {
+            errorCallback(`${key}: ${err.data[key][0]}`);
+          });
+        } else {
+          errorCallback('Что-то пошло не так...');
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const changePassword = createAsyncThunk<object, ChangePasswordType>(
+  'user/changePassword',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { data, successCallback, errorCallback } = payload;
+    try {
+      const response = await changeUserPassword(data);
+      if (response?.status === 204) {
+        successCallback && successCallback();
+      }
+    } catch (err) {
+      if (errorCallback) {
+        if (err.data) {
+          Object.keys(err.data).forEach((key) => {
+            errorCallback(`${key}: ${err.data[key][0]}`);
+          });
+        } else {
+          errorCallback('Что-то пошло не так...');
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',

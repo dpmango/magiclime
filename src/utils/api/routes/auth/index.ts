@@ -24,3 +24,14 @@ export const registrationUser = (
 ): AxiosPromise<IUser & { refresh: string; access: string }> => {
   return instance.post('/auth/users/', data);
 };
+
+export const updateUser = (data: Partial<IUser>): AxiosPromise<IUser> => {
+  return instance.patch('/auth/users/me/', data);
+};
+
+export const changeUserPassword = (data: {
+  current_password: string;
+  new_password: string;
+}): AxiosPromise => {
+  return instance.post('/auth/users/set_password/', data);
+};
