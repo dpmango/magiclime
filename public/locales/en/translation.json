@@ -190,6 +190,11 @@
   "chats": {
     "toAnswer": "Ответить"
   },
+  "articles": {
+    "list": {
+      "title": "Knowledge base"
+    }
+  },
   "menu": {
     "profile": "Profile",
     "courses": "Courses",

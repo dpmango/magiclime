@@ -7,6 +7,7 @@ import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/CoursesPage';
+import Articles from '../../pages/Articles';
 import Chats from '../../pages/Chats';
 import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
@@ -44,6 +45,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               )}
             />
             <Route exact path="/courses" component={Courses} />
+            <Route exact path="/faq" component={Articles} />
             <Route path="/chats/:id?" component={Chats} />
             <Route path="/profile" component={Profile} />
             <Route exact path="/webinars" component={Webinars} />
