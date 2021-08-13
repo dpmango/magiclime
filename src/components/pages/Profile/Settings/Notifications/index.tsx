@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -11,6 +12,7 @@ import useStyles from './styles';
 
 const Notifications: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const initialValues = {
     payments: true,
@@ -47,46 +49,55 @@ const Notifications: FC = () => {
                 lineHeight="s"
                 size="2xl"
               >
-                Уведомления
+                {t('profile.settings.navigation.notifications')}
               </Typography>
 
               <Button
                 view="primary"
                 type="submit"
                 disabled={Object.keys(touched).length === 0}
-                label="Сохранить изменения"
+                label={t('profile.settings.cta.save')}
               />
             </Flex>
 
             <div className={styles.section}>
               <Typography weight="semibold" lineHeight="s" size="m">
-                Общие
+                {t('profile.settings.notifications.mainGroup')}
               </Typography>
 
               <div className={styles.uiGroup}>
-                <FormikCheckbox label="Платежные уведомления" name="payments" />
+                <FormikCheckbox
+                  label={t('profile.settings.notifications.payments')}
+                  name="payments"
+                />
               </div>
               <div className={styles.uiGroup}>
                 <FormikCheckbox
-                  label="Информация о новых курсах, вебинарах и программах"
+                  label={t('profile.settings.notifications.courses')}
                   name="courses"
                 />
               </div>
               <div className={styles.uiGroup}>
                 <FormikCheckbox
-                  label="Напоминания о предстоящих событиях в календаре"
+                  label={t('profile.settings.notifications.events')}
                   name="events"
                 />
               </div>
               <div className={styles.uiGroup}>
-                <FormikCheckbox label="Новости сервиса" name="news" />
-              </div>
-              <div className={styles.uiGroup}>
-                <FormikCheckbox label="Акции и скидки от Lime" name="promo" />
+                <FormikCheckbox
+                  label={t('profile.settings.notifications.news')}
+                  name="news"
+                />
               </div>
               <div className={styles.uiGroup}>
                 <FormikCheckbox
-                  label="Рекомендованные материалы"
+                  label={t('profile.settings.notifications.promo')}
+                  name="promo"
+                />
+              </div>
+              <div className={styles.uiGroup}>
+                <FormikCheckbox
+                  label={t('profile.settings.notifications.materials')}
                   name="materials"
                 />
               </div>

@@ -106,6 +106,73 @@
         "level": "Выберите уровень",
         "matrix": "Уровень матрицы:"
       }
+    },
+    "settings": {
+      "navigation": {
+        "sectionMain": "Основная информация",
+        "sectionActivity": "моя активность",
+        "account": "Аккаунт",
+        "profile": "Профиль",
+        "notifications": "Уведомления",
+        "security": "Безопасность",
+        "achivements": "Мои достижения"
+      },
+      "account": {
+        "login": {
+          "label": "Логин",
+          "placeholder": "Введите логин"
+        },
+        "sponsor": {
+          "label": "Информационный спонсор",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Введите email"
+        },
+        "phone": {
+          "label": "Телефон",
+          "placeholder": "+7 (___) ___ ____"
+        },
+        "export": "Экспортировать мои данные",
+        "logout": "Выйти"
+      },
+      "profile": {
+        "name": {
+          "label": "Имя",
+          "placeholder": ""
+        },
+        "birthday": {
+          "label": "Дата рождения",
+          "placeholder": "DD.MM.YYYY"
+        },
+        "country": {
+          "label": "Страна",
+          "placeholder": ""
+        },
+        "city": {
+          "label": "Город",
+          "placeholder": ""
+        }
+      },
+      "notifications": {
+        "mainGroup": "Общее",
+        "payments": "Платежные уведомления",
+        "courses": "Информация о новых курсах, вебинарах и программах",
+        "events": "Напоминания о предстоящих событиях в календаре",
+        "news": "Новости сервиса",
+        "promo": "Акции и скидки от Lime",
+        "materials": "Рекомендованные материалы"
+      },
+      "security": {
+        "passwordCurrent": "Текущий Пароль",
+        "passwordNew": "Новый Пароль",
+        "passwordRepeat": "Новый Пароль еще раз"
+      },
+      "cta": {
+        "save": "Сохранить изминения",
+        "open": "Открыть"
+      }
     }
   },
   "webinar": {

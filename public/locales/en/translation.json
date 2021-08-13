@@ -106,6 +106,73 @@
         "level": "Select level",
         "matrix": "Matrix level:"
       }
+    },
+    "settings": {
+      "navigation": {
+        "sectionMain": "General informaation",
+        "sectionActivity": "My activity",
+        "account": "Account",
+        "profile": "Profile",
+        "notifications": "Notifications",
+        "security": "Security",
+        "achivements": "My achivements"
+      },
+      "account": {
+        "login": {
+          "label": "Login",
+          "placeholder": "Enter login"
+        },
+        "sponsor": {
+          "label": "Information sponsor",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Enter email"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+7 (___) ___ ____"
+        },
+        "export": "Export my data",
+        "logout": "Logout"
+      },
+      "profile": {
+        "name": {
+          "label": "Name",
+          "placeholder": ""
+        },
+        "birthday": {
+          "label": "Date of birth",
+          "placeholder": "DD.MM.YYYY"
+        },
+        "country": {
+          "label": "Country",
+          "placeholder": ""
+        },
+        "city": {
+          "label": "City",
+          "placeholder": ""
+        }
+      },
+      "notifications": {
+        "mainGroup": "Main",
+        "payments": "Payment notifications",
+        "courses": "Information about new courses, webinars and programs",
+        "events": "Reminders of upcoming events in the calendar",
+        "news": "Service news",
+        "promo": "Promotions and discounts from Lime",
+        "materials": "Recommended Materials"
+      },
+      "security": {
+        "passwordCurrent": "Current Password",
+        "passwordNew": "New Passoword",
+        "passwordRepeat": "New Password repeat"
+      },
+      "cta": {
+        "save": "Save changes",
+        "open": "Open"
+      }
     }
   },
   "webinar": {

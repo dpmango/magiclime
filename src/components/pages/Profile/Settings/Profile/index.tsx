@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -16,6 +17,7 @@ import useStyles from './styles';
 const Profile: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
   const { profile } = useSelector((state: RootState) => state.user);
@@ -65,14 +67,14 @@ const Profile: FC = () => {
                 lineHeight="s"
                 size="2xl"
               >
-                Профиль
+                {t('profile.settings.navigation.profile')}
               </Typography>
 
               <Button
                 view="primary"
                 type="submit"
                 disabled={Object.keys(touched).length === 0}
-                label="Сохранить изменения"
+                label={t('profile.settings.cta.save')}
               />
             </Flex>
 
@@ -96,25 +98,39 @@ const Profile: FC = () => {
                 className={styles.inputs}
               >
                 <GridItem>
-                  <FormikInput label="Имя" name="name" />
+                  <FormikInput
+                    label={t('profile.settings.profile.name.label')}
+                    name="name"
+                    placeholder={t('profile.settings.profile.name.placeholder')}
+                  />
                 </GridItem>
                 <GridItem>
                   <FormikInput
-                    label="Дата рождения"
+                    label={t('profile.settings.profile.birthday.label')}
                     name="date_of_birth"
-                    placeholder="DD.MM.YYYY"
+                    placeholder={t(
+                      'profile.settings.profile.birthday.placeholder'
+                    )}
                     isRequired={false}
                   />
                 </GridItem>
                 <GridItem>
                   <FormikInput
-                    label="Страна"
+                    label={t('profile.settings.profile.country.label')}
                     name="country"
+                    placeholder={t(
+                      'profile.settings.profile.country.placeholder'
+                    )}
                     isRequired={false}
                   />
                 </GridItem>
                 <GridItem>
-                  <FormikInput label="Город" name="city" isRequired={false} />
+                  <FormikInput
+                    label={t('profile.settings.profile.city.label')}
+                    name="city"
+                    placeholder={t('profile.settings.profile.city.placeholder')}
+                    isRequired={false}
+                  />
                 </GridItem>
               </Grid>
             </div>

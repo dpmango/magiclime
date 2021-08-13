@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -14,6 +15,7 @@ import useStyles from './styles';
 const Profile: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -68,14 +70,14 @@ const Profile: FC = () => {
                 lineHeight="s"
                 size="2xl"
               >
-                Безопасность
+                {t('profile.settings.navigation.security')}
               </Typography>
 
               <Button
                 view="primary"
                 type="submit"
                 disabled={Object.keys(touched).length === 0}
-                label="Сохранить изменения"
+                label={t('profile.settings.cta.save')}
               />
             </Flex>
 
@@ -95,21 +97,21 @@ const Profile: FC = () => {
               <div className={styles.inputs}>
                 <div className={styles.uiGroup}>
                   <FormikInput
-                    label="Пароль"
+                    label={t('profile.settings.security.passwordCurrent')}
                     name="current_password"
                     isPassword
                   />
                 </div>
                 <div className={styles.uiGroup}>
                   <FormikInput
-                    label="Новый Пароль"
+                    label={t('profile.settings.security.passwordNew')}
                     name="new_password"
                     isPassword
                   />
                 </div>
                 <div className={styles.uiGroup}>
                   <FormikInput
-                    label="Новый Пароль еще раз"
+                    label={t('profile.settings.security.passwordRepeat')}
                     name="repeatPassword"
                     isPassword
                   />

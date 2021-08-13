@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
@@ -22,6 +23,7 @@ const Account: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
   const { profile } = useSelector((state: RootState) => state.user);
@@ -79,14 +81,14 @@ const Account: FC = () => {
                 lineHeight="s"
                 size="2xl"
               >
-                Аккаунт
+                {t('profile.settings.navigation.account')}
               </Typography>
 
               <Button
                 view="primary"
                 type="submit"
                 disabled={Object.keys(touched).length === 0}
-                label="Сохранить изменения"
+                label={t('profile.settings.cta.save')}
               />
             </Flex>
 
@@ -111,31 +113,39 @@ const Account: FC = () => {
               >
                 <GridItem>
                   <FormikInput
-                    label="Логин"
+                    label={t('profile.settings.account.login.label')}
                     name="login"
-                    placeholder="Введите логин"
+                    placeholder={t(
+                      'profile.settings.account.login.placeholder'
+                    )}
                   />
                 </GridItem>
                 <GridItem>
                   <FormikInput
-                    label="Информационный спонсор"
+                    label={t('profile.settings.account.sponsor.label')}
                     name="sponsor"
-                    placeholder=""
+                    placeholder={t(
+                      'profile.settings.account.sponsor.placeholder'
+                    )}
                     isRequired={false}
                   />
                 </GridItem>
                 <GridItem>
                   <FormikInput
-                    label="Email"
+                    label={t('profile.settings.account.email.label')}
                     name="email"
-                    placeholder="Введите email"
+                    placeholder={t(
+                      'profile.settings.account.email.placeholder'
+                    )}
                   />
                 </GridItem>
                 <GridItem>
                   <FormikInput
-                    label="Телефон"
+                    label={t('profile.settings.account.phone.label')}
                     name="phone"
-                    placeholder="+7 (___) ___ ____"
+                    placeholder={t(
+                      'profile.settings.account.phone.placeholder'
+                    )}
                   />
                 </GridItem>
               </Grid>
@@ -158,14 +168,14 @@ const Account: FC = () => {
                 <Button
                   view="clear"
                   size="s"
-                  label="Экспортировать мои данные"
+                  label={t('profile.settings.account.export')}
                 />
               </div>
               <div className={styles.uiButton}>
                 <Button
                   view="clear"
                   size="s"
-                  label="Выйти"
+                  label={t('profile.settings.account.logout')}
                   className={styles.dangerBtn}
                   onClick={handleLogoutClick}
                 />

@@ -3,6 +3,7 @@ import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { useTranslation } from 'react-i18next';
 
 import Account from './Account';
 import Profile from './Profile';
@@ -17,15 +18,37 @@ interface ITab {
   label: string;
 }
 
-const tabs: ITab[] = [
-  { id: 1, slug: '/profile/settings', label: 'Аккаунт' },
-  { id: 2, slug: '/profile/settings/profile', label: 'Профиль' },
-  { id: 3, slug: '/profile/settings/notifications', label: 'Уведомления' },
-  { id: 4, slug: '/profile/settings/security', label: 'Безопасность' },
-  { id: 5, slug: '/profile/settings/achivements', label: 'Мои достижения' },
-];
-
 const Settings: FC = () => {
+  const { t } = useTranslation();
+
+  const tabs: ITab[] = [
+    {
+      id: 1,
+      slug: '/profile/settings',
+      label: t('profile.settings.navigation.account'),
+    },
+    {
+      id: 2,
+      slug: '/profile/settings/profile',
+      label: t('profile.settings.navigation.profile'),
+    },
+    {
+      id: 3,
+      slug: '/profile/settings/notifications',
+      label: t('profile.settings.navigation.notifications'),
+    },
+    {
+      id: 4,
+      slug: '/profile/settings/security',
+      label: t('profile.settings.navigation.security'),
+    },
+    {
+      id: 5,
+      slug: '/profile/settings/achivements',
+      label: t('profile.settings.navigation.achivements'),
+    },
+  ];
+
   const getTabWithRouter = useMemo((): ITab => {
     const cTab = tabs.find((x) => x.slug === window.location.pathname);
 
@@ -65,7 +88,7 @@ const Settings: FC = () => {
             size="xs"
             transform="uppercase"
           >
-            Основная информация
+            {t('profile.settings.navigation.sectionMain')}
           </Typography>
           <ul className={styles.navList}>
             {tabs.slice(0, 4).map((t) => (
@@ -92,7 +115,7 @@ const Settings: FC = () => {
             size="xs"
             transform="uppercase"
           >
-            моя активность
+            {t('profile.settings.navigation.sectionActivity')}
           </Typography>
           <ul className={styles.navList}>
             {tabs.slice(4, 5).map((t) => (

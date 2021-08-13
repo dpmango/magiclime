@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
@@ -7,11 +8,12 @@ import useStyles from './styles';
 
 const MyAchivements: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        Мои достижения
+        {t('profile.settings.navigation.achivements')}
       </Typography>
 
       <Grid cols="3" gap="2xl" className={styles.section}>
@@ -37,7 +39,10 @@ const MyAchivements: FC = () => {
             <Typography margin="8px 0 16px" view="ghost">
               Всероссийский чемпионат сочинений для школьников 9-11 классов.
             </Typography>
-            <Button label="Открыть" className={styles.achivementCta} />
+            <Button
+              label={t('profile.settings.cta.open')}
+              className={styles.achivementCta}
+            />
           </Flex>
         </GridItem>
       </Grid>
