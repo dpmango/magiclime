@@ -82,6 +82,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
   relative: {
     position: 'relative',
   },
+  icon: {
+    color: '#C7CFCE',
+  },
   line: {
     position: 'absolute',
     left: 0,
