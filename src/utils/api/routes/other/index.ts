@@ -4,7 +4,7 @@ import { AxiosPromise } from '../../../../types/common';
 
 export const uploadImage = (img: File): AxiosPromise<IPhoto> => {
   const fakeForm = new FormData();
-  fakeForm.append('image', img);
+  fakeForm.append('/image', img);
   return instance.post('/images/', fakeForm, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });

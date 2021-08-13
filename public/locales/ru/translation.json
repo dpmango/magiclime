@@ -59,6 +59,178 @@
     "moreDetails": "Подробнее",
     "complain": "Пожаловаться"
   },
+  "profile": {
+    "tabs": {
+      "main": "Основное",
+      "balance": "Баланс",
+      "referrals": "Рефералы",
+      "settings": "Настройки"
+    },
+    "referalPlural": {
+      "one": "реферал",
+      "two": "реферала",
+      "five": "рефералов"
+    },
+    "head": {
+      "copyRefLink": "Скопировать рефферальную ссылку"
+    },
+    "programCard": {
+      "matrixLevel": "уровень матрицы",
+      "level": "уровень",
+      "league": "лига",
+      "noReferals": "Нет рефералов",
+      "blocked": {
+        "title": "Недоступно",
+        "cta": "Открыть доступ"
+      } 
+    },
+    "achivements": {
+      "title": "Достижения",
+      "empty": "Достижения еще не открыты"
+    },
+    "events": {
+      "title": "События",
+      "empty": "Нет событий",
+      "more": "Смотреть все"
+    },
+    "courses": {
+      "title": "Мои курсы",
+      "process": "Прогресс",
+      "rate": "Оценка",
+      "rateFrom": "из"
+    },
+    "balance": {
+      "refill": {
+        "title": "Пополнение счёта",
+        "inputLabel": "Валюта ввода",
+        "pamentLabel": "Способ оплаты",
+        "paymentAmount": "Сумма пополнения",
+        "amount": {
+          "label": "Сумма пополнения",
+          "placeholder": "Введите сумму в BTL"
+        },
+        "cta": "Пополнить баланс"
+      },
+      "withdrawal": {
+        "title": "Вывод средств",
+        "credentials": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите адрес кошелька"
+        },
+        "amount": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите сумму"
+        },
+        "cta": "Запросить вывод"
+      },
+      "history": {
+        "title": "История пополнений",
+        "date": {
+          "label": "Дата",
+          "placeholder": "Выберите дату"
+        },
+        "pare": {
+          "label": "Пара"
+        },
+        "actions": {
+          "reset": "Сброс",
+          "search": "Поиск"
+        },
+        "empty": "Здесь пока нет данных"
+      }
+    },
+    "referal": {
+      "stats": {
+        "link": "Реферальная ссылка",
+        "gain": "Заработано",
+        "invited": "Приглашено",
+        "matrix": "Матрица",
+        "level": "Уровень",
+        "invitee": "Пригласивший"
+      },
+      "list": {
+        "title": "Мои рефералы"
+      },
+      "card": {
+        "extraInfo": "Доп информация",
+        "gain": "Заработано",
+        "level": "Уровень",
+        "referals": "Рефералов"
+      },
+      "filter": {
+        "search": "Поиск по рефералам",
+        "level": "Выберите уровень",
+        "matrix": "Уровень матрицы:"
+      }
+    },
+    "settings": {
+      "navigation": {
+        "sectionMain": "Основная информация",
+        "sectionActivity": "моя активность",
+        "account": "Аккаунт",
+        "profile": "Профиль",
+        "notifications": "Уведомления",
+        "security": "Безопасность",
+        "achivements": "Мои достижения"
+      },
+      "account": {
+        "login": {
+          "label": "Логин",
+          "placeholder": "Введите логин"
+        },
+        "sponsor": {
+          "label": "Информационный спонсор",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Введите email"
+        },
+        "phone": {
+          "label": "Телефон",
+          "placeholder": "+7 (___) ___ ____"
+        },
+        "export": "Экспортировать мои данные",
+        "logout": "Выйти"
+      },
+      "profile": {
+        "name": {
+          "label": "Имя",
+          "placeholder": ""
+        },
+        "birthday": {
+          "label": "Дата рождения",
+          "placeholder": "DD.MM.YYYY"
+        },
+        "country": {
+          "label": "Страна",
+          "placeholder": ""
+        },
+        "city": {
+          "label": "Город",
+          "placeholder": ""
+        }
+      },
+      "notifications": {
+        "mainGroup": "Общее",
+        "payments": "Платежные уведомления",
+        "courses": "Информация о новых курсах, вебинарах и программах",
+        "events": "Напоминания о предстоящих событиях в календаре",
+        "news": "Новости сервиса",
+        "promo": "Акции и скидки от Lime",
+        "materials": "Рекомендованные материалы"
+      },
+      "security": {
+        "passwordCurrent": "Текущий Пароль",
+        "passwordNew": "Новый Пароль",
+        "passwordRepeat": "Новый Пароль еще раз"
+      },
+      "cta": {
+        "save": "Сохранить изминения",
+        "open": "Открыть"
+      }
+    }
+  },
   "webinar": {
     "signUp": "Записаться",
     "speakers": "Спикеры",
@@ -73,6 +245,11 @@
   },
   "chats": {
     "toAnswer": "Ответить"
+  },
+  "articles": {
+    "list": {
+      "title": "База знаний"
+    }
   },
   "menu": {
     "profile": "Профиль",

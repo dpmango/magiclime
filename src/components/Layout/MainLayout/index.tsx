@@ -9,8 +9,9 @@ import Container from '../../Common/Container';
 import Courses from '../../pages/Courses';
 import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
+import Articles from '../../pages/Articles';
 import Chats from '../../pages/Chats';
-import Profile from '../../pages/ProfilePage';
+import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
@@ -63,6 +64,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/courses/:course" component={Course} />
             <Route exact path="/courses/:course/:id" component={CourseTask} />
+            <Route exact path="/faq" component={Articles} />
             <Route path="/profile" component={Profile} />
             <Route exact path="/webinars" component={Webinars} />
             <Route path="/webinars/:id" component={WebinarInfo} />
