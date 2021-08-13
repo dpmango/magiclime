@@ -1,0 +1,23 @@
+{
+  "common": {
+    "moreDetails": "More",
+    "complain": "Complain"
+  },
+  "webinar": {
+  },
+  "menu": {
+    "profile": "Profile",
+    "courses": "Courses",
+    "chats": "Chats",
+    "calendar": "Calendar",
+    "education": "EDUCATION",
+    "marketplace": "Marketplace",
+    "webinars": "Webinars",
+    "forum": "Forum",
+    "programs": "Programs",
+    "extra": "EXTRA",
+    "faq": "Articles",
+    "rating": "Users rating",
+    "games": "Games"
+  }
+}
