@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import { useTranslation } from 'react-i18next';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import { ITab } from 'components/pages/Course/types';
 import Tab from 'components/pages/Course/Program/Tab';
@@ -59,7 +60,8 @@ const tabs: ITab[] = [
 ];
 
 const CourseProgram: FC = () => {
-  const styles = useStyles();
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({ darkmode: !isDefaultTheme });
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 

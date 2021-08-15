@@ -4,12 +4,14 @@ import { Button } from '@consta/uikit/Button';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import { useTranslation } from 'react-i18next';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
 const CourseHero: FC = () => {
-  const styles = useStyles();
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({ darkmode: !isDefaultTheme });
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 

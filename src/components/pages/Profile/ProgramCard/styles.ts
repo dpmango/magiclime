@@ -114,7 +114,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%,-50%)',
-    background: 'white',
+    background: 'var(--color-bg-default)',
     maxWidth: '200px',
     textAlign: 'center',
     padding: 12,

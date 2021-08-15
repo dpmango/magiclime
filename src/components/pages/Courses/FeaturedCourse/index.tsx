@@ -2,11 +2,13 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import { Button } from '@consta/uikit/Button';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 
 const FeaturedCourse: FC = () => {
-  const styles = useStyles();
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({ darkmode: !isDefaultTheme });
   const { t } = useTranslation();
 
   return (

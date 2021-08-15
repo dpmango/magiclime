@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   root: {
     position: 'relative',
     padding: '70px 0',
@@ -26,8 +26,9 @@ const useStyles = makeStyles({
     borderRadius: '200px',
   },
   description: {
-    color: '#474D57 !important',
+    color: ({ darkmode }) =>
+      !darkmode ? '#474d57!important' : '#b8b2a8!important',
   },
-});
+}));
 
 export default useStyles;

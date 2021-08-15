@@ -5,6 +5,7 @@ import Flex from 'components/Common/Flex';
 import { Tag } from '@consta/uikit/Tag';
 import { IconCheck } from '@consta/uikit/IconCheck';
 import { IArticle } from 'types/interfaces/article';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import useStyles from './styles';
 
@@ -13,7 +14,8 @@ interface IProps {
 }
 
 const ArticleCard: FC<IProps> = ({ data }) => {
-  const styles = useStyles();
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({ darkmode: !isDefaultTheme });
   const history = useHistory();
 
   return (

@@ -1,6 +1,7 @@
 import React, { FC, useMemo, useState, useEffect } from 'react';
 import groupBy from 'lodash/groupBy';
 import { Collapse } from '@consta/uikit/Collapse';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import cns from 'classnames';
 import Typography from 'components/Common/Typography';
 import { ISection } from 'components/pages/CourseTask/types';
@@ -42,6 +43,12 @@ const CourseNavigation: FC<IProps> = ({
     return indexInGroup;
   }, [activeSectionId, groupedSections]);
 
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({
+    activeTab: activeSectionInGroup,
+    darkmode: !isDefaultTheme,
+  });
+
   // useEffect(() => {
   //   const groupIndex
   // }, [activeSectionId])
@@ -65,8 +72,6 @@ const CourseNavigation: FC<IProps> = ({
       [key]: !collapseState[key],
     });
   };
-
-  const styles = useStyles({ activeTab: activeSectionInGroup });
 
   return (
     <div className={styles.nav}>

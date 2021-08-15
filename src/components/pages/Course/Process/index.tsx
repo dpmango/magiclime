@@ -3,6 +3,7 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { useTranslation } from 'react-i18next';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
@@ -31,7 +32,8 @@ const content = [
 ];
 
 const CourseProcess: FC = () => {
-  const styles = useStyles();
+  const isDefaultTheme = useCheckDefaultTheme();
+  const styles = useStyles({ darkmode: !isDefaultTheme });
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   root: {
     position: 'relative',
     padding: '70px 0',
@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     borderRadius: 10,
   },
   description: {
-    color: '#474D57 !important',
+    color: ({ darkmode }) =>
+      !darkmode ? '#474d57!important' : '#b8b2a8!important',
     maxWidth: '552px',
   },
   quote: {
@@ -29,6 +30,6 @@ const useStyles = makeStyles({
     border: '2px dashed var(--color-bg-brand)',
     borderRadius: 10,
   },
-});
+}));
 
 export default useStyles;

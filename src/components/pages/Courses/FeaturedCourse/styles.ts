@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   left: {
     marginTop: '95px',
   },
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
       bottom: 0,
       height: '2px',
       width: '56px',
-      background: '#14151A',
+      background: 'currentColor',
     },
     '@media screen and (max-width: 1439px)': {
       fontSize: '40px',
@@ -50,7 +50,8 @@ const useStyles = makeStyles({
     },
   },
   description: {
-    color: '#474d57!important',
+    color: ({ darkmode }) =>
+      !darkmode ? '#474d57!important' : '#b8b2a8!important',
     marginBottom: '24px',
   },
   panel: {
@@ -78,6 +79,6 @@ const useStyles = makeStyles({
       },
     },
   },
-});
+}));
 
 export default useStyles;
