@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   root: {
     display: 'block',
     marginBottom: 24,
@@ -27,12 +27,17 @@ const useStyles = makeStyles({
     marginTop: '12px',
   },
   tag: {
-    // TODO - conflicts with --color-control-bg-ghost
-    background: 'rgba(0, 66, 105, 0.07)',
-    color: 'rgba(0, 57, 92, 0.8) !important',
+    background: ({ darkmode }) =>
+      !darkmode
+        ? 'rgba(0, 66, 105, 0.07) !important'
+        : 'rgba(255, 189, 150, 0.07) !important',
+    color: ({ darkmode }) =>
+      !darkmode
+        ? 'rgba(0, 57, 92, 0.8) !important'
+        : 'rgba(255, 198, 163, 0.8) !important',
     marginRight: '16px',
     marginBottom: '12px',
   },
-});
+}));
 
 export default useStyles;

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 interface IProps {
   isOpened: boolean;
   height?: string;
+  darkmode?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
@@ -51,7 +52,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
     transition: 'all .3s ease-in-out',
   },
   description: {
-    color: '#474d57!important',
+    color: ({ darkmode }) =>
+      !darkmode ? '#474d57!important' : '#b8b2a8!important',
   },
 }));
 

@@ -7,19 +7,19 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Switch } from '@consta/uikit/Switch';
 import { IconMoon } from '@consta/uikit/IconMoon';
-import { IUserDropdownProps, UserDropdownItem } from './types';
-import { logout } from '../../../../store/reducers/user';
 import Cookies from 'js-cookie';
-import { deleteAuthHeader } from '../../../../utils/api';
 import { IconSettings } from '@consta/uikit/IconSettings';
 import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { IconRouble } from '@consta/uikit/IconRouble';
 import { IconEye } from '@consta/uikit/IconEye';
 import { IconWorld } from '@consta/uikit/IconWorld';
+import { useTranslation } from 'react-i18next';
 import useStyles from '../styles';
 import { Language } from '../../../../types/common';
 import { setLanguage } from '../../../../store/reducers/settings';
-import { useTranslation } from 'react-i18next';
+import { deleteAuthHeader } from '../../../../utils/api';
+import { logout } from '../../../../store/reducers/user';
+import { IUserDropdownProps, UserDropdownItem } from './types';
 import { logoutFunc } from '../../../../utils/helpers/logout';
 
 const UserDropdown: FC<IUserDropdownProps> = ({
@@ -113,9 +113,11 @@ const UserDropdown: FC<IUserDropdownProps> = ({
     if (item.icon) {
       const Icon = item.icon;
       return <Icon size="s" />;
-    } else if (item.image) {
+    }
+    if (item.image) {
       return <img src={item.image} className={styles.dropdownImage} />;
-    } else return '';
+    }
+    return '';
   }, []);
 
   const renderRightSide = useCallback((item: UserDropdownItem) => {

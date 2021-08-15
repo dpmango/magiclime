@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { ScrollTo } from 'utils/helpers/scroll';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
@@ -38,6 +39,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
     if (shouldCollapseRoute) {
       setIsFullMenu(false);
     }
+
+    ScrollTo(0, 300);
   }, [location.pathname]);
 
   return (

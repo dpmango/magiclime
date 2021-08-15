@@ -1,8 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   root: {
     position: 'relative',
+    padding: '52px 0',
     background:
       'linear-gradient(41.87deg, rgba(88, 204, 1, .2) 0%, rgba(87, 212, 246, .2) 102.92%)',
   },
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
       bottom: 0,
       height: '2px',
       width: '56px',
-      background: '#14151A',
+      background: 'currentColor',
     },
     '@media screen and (max-width: 1439px)': {
       fontSize: '40px',
@@ -41,9 +42,10 @@ const useStyles = makeStyles({
     },
   },
   description: {
-    color: '#474d57!important',
+    color: ({ darkmode }) =>
+      !darkmode ? '#474d57!important' : '#b8b2a8!important',
     marginBottom: '24px',
   },
-});
+}));
 
 export default useStyles;

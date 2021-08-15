@@ -2,6 +2,7 @@ import React, { FC, useState, useCallback, useRef } from 'react';
 import { Badge } from '@consta/uikit/Badge';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import { ITab } from 'components/pages/Course/types';
 import icons from 'components/pages/Course/icons';
@@ -12,12 +13,14 @@ interface IProps {
 }
 
 const Tab: FC<IProps> = ({ data }) => {
+  const isDefaultTheme = useCheckDefaultTheme();
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const contentRef = useRef(null);
 
   const styles = useStyles({
     isOpened,
     height: '100%', // todo get initial height
+    darkmode: !isDefaultTheme,
   });
 
   const handleToggle = useCallback(() => {
