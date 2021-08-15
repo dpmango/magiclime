@@ -96,13 +96,5 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.svg',
     }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: './src/assets/images',
-          to: '/images',
-        },
-      ],
-    }),
   ],
 };

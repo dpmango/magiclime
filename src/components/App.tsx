@@ -23,19 +23,17 @@ const App = () => {
   }
 
   return (
-    <Suspense fallback="Загрузка...">
-      <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
-        <Switch>
-          <Route exact path="/home" component={Landing} />
-          <PrivateRoute
-            path="/"
-            component={() => <MainLayout theme={theme} setTheme={setTheme} />}
-            redirect="/home"
-            access={isLogged}
-          />
-        </Switch>
-      </Theme>
-    </Suspense>
+    <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
+      <Switch>
+        <Route exact path="/home" component={Landing} />
+        <PrivateRoute
+          path="/"
+          component={() => <MainLayout theme={theme} setTheme={setTheme} />}
+          redirect="/home"
+          access={isLogged}
+        />
+      </Switch>
+    </Theme>
   );
 };
 

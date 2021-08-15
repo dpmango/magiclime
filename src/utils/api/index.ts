@@ -34,13 +34,13 @@ instance.interceptors.response.use(
 
       const refreshToken = Cookies.get('refresh') || '';
 
-      const response = await refreshAuthToken(refreshToken);
-      if (response.status === 200) {
+      try {
+        const response = await refreshAuthToken(refreshToken);
         const { access } = response.data;
         Cookies.set('access', access, { expires: 10 / 24 });
         originalRequest.headers['Authorization'] = 'Bearer ' + access;
         return Axios(originalRequest);
-      } else {
+      } catch (err) {
         logoutFunc();
       }
     }
