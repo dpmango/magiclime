@@ -22,21 +22,28 @@ export interface IProgram {
   referalsTotal: number;
 }
 
+// achivements
+export interface IAchivementGroup {
+  readonly id: number;
+  title: string;
+  image?: string;
+}
 export interface IAchivement {
   readonly id: number;
   title: string;
-  compleated: boolean;
+  opened: boolean;
+  group: IAchivementGroup;
 }
 
-export interface IActivementsGroups {
+export interface IActivementsGrouped {
   readonly id: number;
-  image: string;
   title: string;
+  image?: string;
+  list: IAchivement[];
   stats: {
     compleated: number;
     total: number;
   };
-  list: IAchivement[];
 }
 
 export interface IEvent {

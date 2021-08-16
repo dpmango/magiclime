@@ -1,4 +1,4 @@
-import { IProgram, IActivementsGroups, IEvent, ICourse } from './types';
+import { IProgram, IActivementsGroup, IEvent, ICourse } from './types';
 
 export const mockPrograms: IProgram[] = [
   {
@@ -169,7 +169,7 @@ export const mockPrograms: IProgram[] = [
   },
 ];
 
-export const mockAchivements: IActivementsGroups[] = [
+export const mockAchivements: IActivementsGroup[] = [
   {
     id: 1,
     image: '/images/achivement-1.svg',

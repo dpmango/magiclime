@@ -1,21 +1,59 @@
-import React, { FC } from 'react';
-import cns from 'classnames';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { FC, ReactElement, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { Button } from '@consta/uikit/Button';
 import { IconCheck } from '@consta/uikit/IconCheck';
-import { IconArrowRight } from '@consta/uikit/IconArrowRight';
-import { IActivementsGroups } from 'components/pages/Profile/types';
-import { useTranslation } from 'react-i18next';
+// import { IconArrowRight } from '@consta/uikit/IconArrowRight';
+import { RootState } from 'store/reducers/rootReducer';
+import groupBy from 'lodash/groupBy';
+import cns from 'classnames';
+import {
+  IAchivementGroup,
+  IActivementsGrouped,
+  IAchivement,
+} from 'components/pages/Profile/types';
+
 import useStyles from './styles';
 
-interface IProps {
-  groups: IActivementsGroups[];
-}
-
-const Achivements: FC<IProps> = ({ groups }) => {
+const Achivements: FC = () => {
   const styles = useStyles();
+  // const dispatch = useDispatch();
+  const { profile } = useSelector((state: RootState) => state.user);
   const { t } = useTranslation();
+
+  const groups: IActivementsGrouped[] = useMemo(() => {
+    const grouped = groupBy(
+      profile.achievements as IAchivement[],
+      (x: any) => x.group.id
+    );
+
+    if (grouped) {
+      return Object.keys(grouped)
+        .slice(0, 3)
+        .map((key) => {
+          const groupIn: IAchivementGroup = grouped[key][0].group;
+
+          const compleatedIds = grouped[key]
+            .filter((x) => x.opened)
+            .map((x) => x.id);
+
+          return {
+            id: groupIn.id,
+            title: groupIn.title,
+            image: groupIn.image,
+            list: grouped[key].slice(0, 3),
+            stats: {
+              compleated: compleatedIds.length,
+              total: grouped[key].length,
+            },
+          };
+        });
+    }
+
+    return [];
+  }, [profile.achievements]);
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -23,14 +61,14 @@ const Achivements: FC<IProps> = ({ groups }) => {
         {t('profile.achivements.title')}
       </Typography>
 
-      <Flex direction="column" className={styles.box}>
+      <Flex direction="column" align="stretch" className={styles.box}>
         {groups && groups.length ? (
           <>
             <div className={styles.boxList}>
               {groups.map((group) => (
                 <Flex className={styles.group} key={group.id}>
                   <div className={styles.groupImage}>
-                    <img src={group.image} alt={group.title} />
+                    {group.image && <img src={group.image} alt={group.title} />}
                   </div>
                   <div className={styles.groupContent}>
                     <Flex align="center">
@@ -51,25 +89,31 @@ const Achivements: FC<IProps> = ({ groups }) => {
                     </Flex>
 
                     {group.list &&
-                      group.list.map((achivement) => (
-                        <Flex
-                          align="center"
-                          className={styles.achivement}
-                          key={achivement.id}
-                        >
-                          <div
-                            className={cns(
-                              styles.achivementIcon,
-                              achivement.compleated && 'compleated'
-                            )}
+                      group.list.map(
+                        (achivement: IAchivement): ReactElement => (
+                          <Flex
+                            align="center"
+                            className={styles.achivement}
+                            key={achivement.id}
                           >
-                            <IconCheck />
-                          </div>
-                          <Typography view="secondary" lineHeight="s" size="s">
-                            {achivement.title}
-                          </Typography>
-                        </Flex>
-                      ))}
+                            <div
+                              className={cns(
+                                styles.achivementIcon,
+                                achivement.opened && 'compleated'
+                              )}
+                            >
+                              <IconCheck />
+                            </div>
+                            <Typography
+                              view="secondary"
+                              lineHeight="s"
+                              size="s"
+                            >
+                              {achivement.title}
+                            </Typography>
+                          </Flex>
+                        )
+                      )}
                   </div>
                 </Flex>
               ))}

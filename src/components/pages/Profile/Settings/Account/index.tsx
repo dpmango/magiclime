@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -13,16 +12,14 @@ import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
 import cns from 'classnames';
 import { RootState } from 'store/reducers/rootReducer';
-import { updateProfile, logout } from 'store/reducers/user';
-import Cookies from 'js-cookie';
-import { deleteAuthHeader } from 'utils/api';
+import { updateProfile } from 'store/reducers/user';
+import { logoutFunc } from 'utils/helpers/logout';
 
 import useStyles from './styles';
 
 const Account: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
   const { t } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -58,11 +55,7 @@ const Account: FC = () => {
   });
 
   const handleLogoutClick = () => {
-    Cookies.remove('access');
-    Cookies.remove('refresh');
-    deleteAuthHeader();
-    dispatch(logout());
-    history.push('/landing');
+    logoutFunc();
   };
 
   return (

@@ -1,3 +1,4 @@
+import { IAchivement } from 'components/pages/Profile/types';
 import { IPhoto } from './common';
 
 export interface IUser {
@@ -8,14 +9,8 @@ export interface IUser {
   phone: string;
   date_of_birth: string;
   referral_number: string;
-  country: {
-    readonly id: number;
-    title: string;
-  };
-  city: {
-    readonly id: number;
-    title: string;
-  };
+  country: string;
+  city: string;
   faculty: string;
   educational_program: string;
   education_level: string;
@@ -25,7 +20,7 @@ export interface IUser {
   listening: boolean;
   motivating_tips: boolean;
   courses: string;
-  achievements: string;
+  achievements: IAchivement[];
   level: number;
   experience: number;
 }
