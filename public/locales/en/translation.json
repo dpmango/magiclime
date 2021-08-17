@@ -82,7 +82,7 @@
       "blocked": {
         "title": "Unavailable",
         "cta": "Open access"
-      } 
+      }
     },
     "achivements": {
       "title": "Achivements",
@@ -245,6 +245,22 @@
   },
   "chats": {
     "toAnswer": "Ответить"
+  },
+  "forum": {
+    "page": {
+      "title": "Forum"
+    },
+    "filter": {
+      "searchPlaceholder": "Search forums",
+      "categories": "By themes"
+    },
+    "tabs": {
+      "popular": "Popular",
+      "new": "New"
+    },
+    "card": {
+      "from": "from"
+    }
   },
   "articles": {
     "list": {

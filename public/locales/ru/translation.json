@@ -246,6 +246,25 @@
   "chats": {
     "toAnswer": "Ответить"
   },
+  "forum": {
+    "page": {
+      "title": "Форум"
+    },
+    "filter": {
+      "searchPlaceholder": "Поиск по форуму",
+      "categories": "По темам"
+    },
+    "tabs": {
+      "popular": "Популярные",
+      "new": "Новые"
+    },
+    "card": {
+      "from": "от"
+    },
+    "create": {
+      "title": "Задать вопрос"
+    }
+  },
   "articles": {
     "list": {
       "title": "База знаний"
