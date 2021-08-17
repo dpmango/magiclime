@@ -6,9 +6,9 @@ const useStyles = makeStyles({
     padding: '36px 40px 80px',
     marginLeft: 'auto',
     marginRight: 'auto',
-    // '@media screen and (max-width: 768px)': {
-    //   padding: '36px 20px 60px',
-    // },
+    '@media screen and (max-width: 768px)': {
+      padding: '36px 20px 60px',
+    },
   },
   tabs: {
     marginTop: 36,

@@ -16,7 +16,15 @@ const Referrals: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Grid cols="6" gap="xl">
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{
+          s: { cols: 2 },
+          l: { сols: 4 },
+          xl: { cols: 6 },
+        }}
+      >
         <GridItem col="2">
           <div className={styles.box}>
             <Typography

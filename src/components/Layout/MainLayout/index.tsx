@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { ScrollTo } from 'utils/helpers/scroll';
+import useResolution from 'hooks/useResolution';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType } from '../../../types/common';
@@ -25,6 +26,8 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const location = useLocation();
+  const size = useResolution();
+  const isCollapsedMenuBreakpoint = size.width <= 992;
 
   const getFullMenuState = () => {
     const shouldCollapseRoute = location.pathname.includes('/courses/');
@@ -42,6 +45,10 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
 
     ScrollTo(0, 300);
   }, [location.pathname]);
+
+  useEffect(() => {
+    setIsFullMenu(!isCollapsedMenuBreakpoint);
+  }, [isCollapsedMenuBreakpoint]);
 
   return (
     <Flex direction="column" className={styles.root}>
