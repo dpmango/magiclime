@@ -18,12 +18,7 @@ import ReferralList from './ReferralList';
 import Settings from './Settings';
 
 import useStyles from './styles';
-import {
-  mockPrograms,
-  mockAchivements,
-  mockEvents,
-  mockCourses,
-} from './mockData';
+import { mockPrograms, mockEvents, mockCourses } from './mockData';
 
 interface ITab {
   id: number;
@@ -92,7 +87,7 @@ const ProfilePage: FC = () => {
               <div className={styles.section}>
                 <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>
-                    <Achivements groups={mockAchivements} />
+                    <Achivements />
                   </GridItem>
                   <GridItem>
                     <Events list={mockEvents} />

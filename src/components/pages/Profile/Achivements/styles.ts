@@ -35,8 +35,12 @@ const useStyles = makeStyles({
   },
   groupImage: {
     flex: '0 0 80px',
+    minHeight: 80,
+    background: 'var(--color-bg-secondary)',
     fontSize: 0,
     '& img': {
+      height: '100%',
+      objectFit: 'cover',
       width: '100%',
     },
   },

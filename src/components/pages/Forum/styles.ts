@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     maxWidth: '1208px',
-    padding: '36px 40px 80px',
+    padding: '48px 40px 80px',
     marginLeft: 'auto',
     marginRight: 'auto',
     '@media screen and (max-width: 768px)': {
@@ -11,16 +11,10 @@ const useStyles = makeStyles({
     },
   },
   tabs: {
-    marginTop: 36,
+    marginTop: 44,
   },
-
-  section: {
+  content: {
     marginTop: 36,
-    paddingBottom: 36,
-    borderBottom: '1px solid var(--color-bg-border)',
-    '&:last-child': {
-      borderBottom: 0,
-    },
   },
 });
 

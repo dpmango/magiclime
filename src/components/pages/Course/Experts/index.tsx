@@ -4,13 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Tooltip } from '@consta/uikit/Tooltip';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import SvgIcon from 'components/Common/SvgIcon';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
-import icons from '../icons';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -117,7 +117,7 @@ const CourseExperts: FC = () => {
               <SwiperSlide key={x.id} className={styles.slide}>
                 <Flex direction="column" className={styles.item}>
                   <div className={styles.info}>
-                    <icons.Info view="brand" />
+                    <SvgIcon.Info view="brand" />
                   </div>
 
                   <div className={styles.image}>
@@ -150,7 +150,7 @@ const CourseExperts: FC = () => {
             tabIndex={0}
             onClick={handlePrevClick}
           >
-            <icons.ChevronLeft size="s" />
+            <SvgIcon.ChevronLeft size="s" />
           </div>
           <div
             className={cns(styles.navIcon, 'right')}
@@ -158,7 +158,7 @@ const CourseExperts: FC = () => {
             tabIndex={0}
             onClick={handleNextClick}
           >
-            <icons.ChevronRight size="s" />
+            <SvgIcon.ChevronRight size="s" />
           </div>
         </div>
       </div>

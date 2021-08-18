@@ -28,7 +28,8 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
   const [isOpen, setOpen] = useState(false);
   const { isLogged, profile } = useSelector((state: RootState) => state.user);
   const ref = useRef<HTMLDivElement>(null);
-  const isMobile = useResolution();
+  const size = useResolution();
+  const isMobile = size.width <= 480;
 
   return (
     <div className={styles.root}>
@@ -76,11 +77,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   personInfo="8 уровень"
                   className={styles.clickBlock}
                 />
-                <a
-                  id="specialButton"
-                  href="#"
-                  className={styles.poorVision}
-                ></a>
+                <a id="specialButton" href="#" className={styles.poorVision} />
               </div>
               {isOpen && (
                 <UserDropdown

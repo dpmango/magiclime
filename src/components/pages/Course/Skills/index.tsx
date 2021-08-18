@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import SvgIcon from 'components/Common/SvgIcon';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
-import icons from '../icons';
 
 const content = [
   {
@@ -74,7 +74,7 @@ const CourseSkills: FC = () => {
             <GridItem key={x.title}>
               <Flex className={styles.item}>
                 <div className={styles.icon}>
-                  <icons.ServicesOutline size="l" />
+                  <SvgIcon.ServicesOutline size="l" />
                 </div>
                 <div className={styles.content}>
                   <Typography size="2xl" weight="semibold" lineHeight="s">

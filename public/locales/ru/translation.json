@@ -246,6 +246,34 @@
   "chats": {
     "toAnswer": "Ответить"
   },
+  "forum": {
+    "page": {
+      "title": "Форум"
+    },
+    "filter": {
+      "searchPlaceholder": "Поиск по форуму",
+      "categories": "По темам"
+    },
+    "tabs": {
+      "popular": "Популярные",
+      "new": "Новые"
+    },
+    "card": {
+      "from": "от"
+    },
+    "create": {
+      "openModal": "Задать вопрос",
+      "title": "Задать вопрос",
+      "question": {
+        "label": "Ваш вопрос",
+        "placeholder": "Начните свой вопрос с “почему”, “как” и т.п."
+      },
+      "theme": {
+        "placeholder": "Тема форума"
+      },
+      "cta": "Отправить"
+    }
+  },
   "articles": {
     "list": {
       "title": "База знаний"

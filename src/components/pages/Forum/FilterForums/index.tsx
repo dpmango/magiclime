@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
-import FormikSelect from 'components/Common/Controls/Formik/Select';
 import SvgIcon from 'components/Common/SvgIcon';
 
 import useStyles from './styles';
@@ -12,15 +12,11 @@ interface ICategory {
   name: string;
 }
 
-type SelectItem = {
-  label: string;
-  id: number;
-};
-
 const Filters: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
 
-  const categories: ICategory[] = [
+  const categories = [
     { id: 1, name: 'Маркетинг' },
     { id: 2, name: 'Финансы' },
     { id: 3, name: 'Управление' },
@@ -30,27 +26,15 @@ const Filters: FC = () => {
     { id: 7, name: 'Маркетинг32' },
     { id: 8, name: 'Маркетинг4' },
     { id: 9, name: 'Маркетинг5' },
-  ];
-
-  const citySelectList: SelectItem[] = [
-    {
-      label: 'Город 1',
-      id: 1,
-    },
-    {
-      label: 'Город 2',
-      id: 2,
-    },
-  ];
+  ] as ICategory[];
 
   return (
     <>
       <Formik
         validateOnChange
         initialValues={{
-          categories: [],
           search: '',
-          city: [],
+          categories: [],
         }}
         enableReinitialize
         onSubmit={(data) => {
@@ -62,7 +46,7 @@ const Filters: FC = () => {
           <Form>
             <div className={styles.formBlock}>
               <Field
-                placeholder="Поиск по вебинарам"
+                placeholder={t('forum.filter.searchPlaceholder')}
                 name="search"
                 component={TextField}
                 rightSide={SvgIcon.Search}
@@ -75,22 +59,12 @@ const Filters: FC = () => {
 
             <div className={styles.formBlock}>
               <FormikCheckboxGroup
-                label="Категории"
+                label={t('forum.filter.categories')}
                 name="categories"
                 items={categories}
                 direction="column"
                 getLabel={(item) => (item as ICategory).name}
                 className={styles.group}
-              />
-            </div>
-
-            <div className={styles.formBlock}>
-              <FormikSelect
-                items={citySelectList}
-                label="Город"
-                name="city"
-                placeholder="Любой"
-                isRequired={false}
               />
             </div>
           </Form>
