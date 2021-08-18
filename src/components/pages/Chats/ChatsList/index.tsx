@@ -28,7 +28,7 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
 
   useEffect(() => {
     getChatsList(id, search).then((res) => {
-      setChats(res.data.chats);
+      setChats(res.data);
     });
   }, [debouncedSearch, selectedGroup]);
 
