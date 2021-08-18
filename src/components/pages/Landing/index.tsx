@@ -1,21 +1,18 @@
 import React, { FC, useCallback, useState } from 'react';
-import { Button } from '@consta/uikit/Button';
-import { Modal } from '@consta/uikit/Modal';
-import Auth from '../../Auth';
+
+import Header from './Header';
+import Hero from './Hero';
+
+import useStyles from './styles';
 
 const Landing: FC = () => {
-  const [isAuthOpen, setAuthOpen] = useState(false);
-
-  const closeModal = useCallback(() => {
-    setAuthOpen(false);
-  }, []);
+  const styles = useStyles();
 
   return (
-    <div>
-      <Button label="Войти" onClick={() => setAuthOpen(true)} />
-      <Modal isOpen={isAuthOpen} hasOverlay onOverlayClick={closeModal}>
-        <Auth closeModal={closeModal} />
-      </Modal>
+    <div className={styles.root}>
+      <Header />
+
+      <Hero />
     </div>
   );
 };

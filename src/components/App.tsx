@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { FC, useState, Suspense } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -12,7 +12,7 @@ import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
 import { setLogged } from '../store/reducers/user';
 
-const App = () => {
+const App: FC = () => {
   const [theme, setTheme] = useState<'default' | 'dark'>('default');
   const { isLogged } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();

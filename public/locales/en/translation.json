@@ -1,4 +1,14 @@
 {
+  "landing": {
+    "header": {
+      "menu": {
+        "courses": "Courses",
+        "webinar": "Webinars",
+        "articles": "Articles"
+      },
+      "login": "Login"
+    }
+  },
   "course": {
     "featured": {
       "tag": "recommended",
