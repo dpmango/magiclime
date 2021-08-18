@@ -286,6 +286,15 @@
     "status": "Статус",
     "check": "Проверить",
     "accrue": "Начислить",
-    "address": "Адрес"
+    "address": "Адрес",
+    "addWebinar": "Добавить вебинар",
+    "createWebinar": "Создать вебинар",
+    "deployWebinar": "Опубликовать вебинар",
+    "webinarsList": "Список вебинаров",
+    "searchWebinars": "Поиск по вебинарам",
+    "webinarName": "Название вебинара",
+    "dateTime": "Дата и время",
+    "link": "Ссылка",
+    "speaker": "Спикер"
   }
 }

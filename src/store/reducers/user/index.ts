@@ -48,7 +48,7 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
     } catch (err) {
       if (errorCallback) {
         switch (err.status) {
-          case 401:
+          case 403:
             errorCallback('Неверный логин или пароль!');
             break;
           default:
@@ -79,7 +79,7 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
     } catch (err) {
       if (errorCallback) {
         switch (err.status) {
-          case 401:
+          case 403:
             errorCallback('Данный email уже используется!');
             break;
           default:

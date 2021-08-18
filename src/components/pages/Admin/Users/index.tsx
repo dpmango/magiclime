@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import useStyles from './styles';
 import Typography from '../../../Common/Typography';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { Button } from '@consta/uikit/Button';
 import UsersTable from './UsersTable';
 import { IUserListItem } from './types';
+import { exportUsersList, getUsers } from '../../../../utils/api/routes/admin';
 
 const Users: FC = () => {
   const [search, setSearch] = useState('');
@@ -43,8 +44,13 @@ const Users: FC = () => {
 
   const debouncedSearch = useDebounce(search, 300);
 
+  const exportList = useCallback(() => {
+    exportUsersList().then(() => {});
+  }, []);
+
   useEffect(() => {
-    //Api request
+    // getUsers(debouncedSearch)
+    //     .then(res => setUsers(res.data))
   }, [debouncedSearch]);
 
   return (
@@ -60,7 +66,12 @@ const Users: FC = () => {
           placeholder={t('admin.loginSearch')}
           rightSide={IconSearch}
         />
-        <Button label={t('admin.csvExport')} size={'s'} view={'primary'} />
+        <Button
+          label={t('admin.csvExport')}
+          size={'s'}
+          view={'primary'}
+          onClick={exportList}
+        />
       </Flex>
       <UsersTable data={users} />
     </div>

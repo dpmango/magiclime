@@ -3,7 +3,6 @@ import { Table } from '@consta/uikit/Table';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Button } from '@consta/uikit/Button';
-import { IconCancel } from '@consta/uikit/IconCancel';
 import Flex from '../../../../Common/Flex';
 import useStyles from '../styles';
 import { ITransaction } from '../types';

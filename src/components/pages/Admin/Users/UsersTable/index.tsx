@@ -7,12 +7,16 @@ import { Button } from '@consta/uikit/Button';
 import { IconCancel } from '@consta/uikit/IconCancel';
 import Flex from '../../../../Common/Flex';
 import useStyles from '../styles';
+import { blockUser } from '../../../../../utils/api/routes/admin';
 
 const UsersTable: FC<{ data: IUserListItem[] }> = ({ data }) => {
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const banUser = (id: string) => {};
+  const banUser = (id: string) => {
+    // blockUser(id)
+    //     .then(() => {})
+  };
 
   const columns = [
     {
