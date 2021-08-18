@@ -36,7 +36,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
     return !shouldCollapseRoute;
   };
 
-  const [isFullMenu, setIsFullMenu] = useState(getFullMenuState());
+  const [isFullMenu, setIsFullMenu] = useState<boolean>(getFullMenuState());
 
   useEffect(() => {
     const shouldCollapseRoute = location.pathname.includes('/courses/');

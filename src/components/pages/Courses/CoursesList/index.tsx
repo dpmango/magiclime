@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core';
 import { ICourse } from 'types/interfaces/courses';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
+import SvgIcon from 'components/Common/SvgIcon';
 // import { SkeletonBrick } from '@consta/uikit/Skeleton';
 import { useTranslation } from 'react-i18next';
 import Course from './Course';
-import icons from '../icons';
 
 const useStyles = makeStyles({
   root: {
@@ -45,7 +45,7 @@ const CoursesList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
           view="secondary"
           onClick={getMore}
           className={styles.button}
-          iconLeft={icons.RefreshIcon}
+          iconLeft={SvgIcon.Refresh}
         />
       )}
     </div>

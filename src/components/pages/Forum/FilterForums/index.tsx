@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
-import icons from '../icons';
+import SvgIcon from 'components/Common/SvgIcon';
 
 import useStyles from './styles';
 
@@ -49,7 +49,7 @@ const Filters: FC = () => {
                 placeholder={t('forum.filter.searchPlaceholder')}
                 name="search"
                 component={TextField}
-                rightSide={icons.SearchIcon}
+                rightSide={SvgIcon.Search}
                 value={values.search}
                 onChange={({ value }: { value: string }) =>
                   setFieldValue('search', value)

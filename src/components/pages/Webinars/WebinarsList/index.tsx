@@ -4,7 +4,7 @@ import { IWebinar } from 'components/pages/Webinars/types';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 // import { SkeletonBrick } from '@consta/uikit/Skeleton';
-import icons from '../icons';
+import SvgIcon from 'components/Common/SvgIcon';
 import Webinar from './Webinar';
 
 const useStyles = makeStyles({
@@ -43,7 +43,7 @@ const WebinarsList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
           view="secondary"
           onClick={getMore}
           className={styles.button}
-          iconLeft={icons.RefreshIcon}
+          iconLeft={SvgIcon.Refresh}
         />
       )}
     </div>

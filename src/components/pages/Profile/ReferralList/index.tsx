@@ -1,6 +1,7 @@
 import React, { FC, useState, useCallback, MouseEvent } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import SvgIcon from 'components/Common/SvgIcon';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
 import { TextField } from '@consta/uikit/TextField';
@@ -12,7 +13,6 @@ import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { useTranslation } from 'react-i18next';
 
 import { referalRoot, referalsList } from './mockData';
-import icons from './icons';
 import useStyles from './styles';
 
 interface IProgram {
@@ -33,7 +33,7 @@ const Referrals: FC = () => {
 
   const breadcrumbs: IPage[] = [
     {
-      icon: icons.LimeIcon,
+      icon: SvgIcon.Lime,
       label: 'Home',
       link: '#',
     },

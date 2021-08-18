@@ -3,7 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { useTranslation } from 'react-i18next';
-
+import SvgIcon from 'components/Common/SvgIcon';
 import { IForum } from './types';
 import useStyles from './styles';
 import { list } from './mockData';
@@ -40,9 +40,12 @@ const ForumList: FC<IProps> = ({ sort }) => {
                 </Flex>
               </div>
               <div className={styles.cardMeta}>
-                <Typography size="m" view="ghost">
-                  {x.unread}
-                </Typography>
+                <Flex align="baseline">
+                  <SvgIcon.Comment size="s" />
+                  <Typography margin="0 0 0 6px" size="m" view="ghost">
+                    {x.unread}
+                  </Typography>
+                </Flex>
               </div>
             </Flex>
           )
