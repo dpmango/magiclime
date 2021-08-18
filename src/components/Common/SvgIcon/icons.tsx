@@ -47,6 +47,16 @@ const Done: FC<SVGProps<SVGSVGElement>> = (props) => (
   </SvgIconBuilder>
 );
 
+const Close: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <SvgIconBuilder size={[14, 14]} {...props}>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+    />
+  </SvgIconBuilder>
+);
+
 const Blocked: FC<SVGProps<SVGSVGElement>> = (props) => (
   <SvgIconBuilder size={[16, 16]} {...props}>
     <path d="M8.00001 1.3335C4.32001 1.3335 1.33334 4.32016 1.33334 8.00016C1.33334 11.6802 4.32001 14.6668 8.00001 14.6668C11.68 14.6668 14.6667 11.6802 14.6667 8.00016C14.6667 4.32016 11.68 1.3335 8.00001 1.3335ZM8.00001 13.3335C5.05334 13.3335 2.66668 10.9468 2.66668 8.00016C2.66668 6.76683 3.08668 5.6335 3.79334 4.7335L11.2667 12.2068C10.3667 12.9135 9.23334 13.3335 8.00001 13.3335ZM12.2067 11.2668L4.73334 3.7935C5.63334 3.08683 6.76668 2.66683 8.00001 2.66683C10.9467 2.66683 13.3333 5.0535 13.3333 8.00016C13.3333 9.2335 12.9133 10.3668 12.2067 11.2668Z" />
@@ -154,6 +164,7 @@ const icons = {
   ...createIcon('ChevronRight', ChevronRight),
   ...createIcon('Info', Info),
   ...createIcon('Done', Done),
+  ...createIcon('Close', Close),
   ...createIcon('Blocked', Blocked),
   ...createIcon('Search', Search),
   ...createIcon('Refresh', Refresh),
