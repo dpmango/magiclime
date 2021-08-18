@@ -8,7 +8,7 @@ import SvgIcon from 'components/Common/SvgIcon';
 import useStyles from './styles';
 import { list } from './mockData';
 
-const ForumList: FC = () => {
+const RatingList: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ const ForumList: FC = () => {
 
               <Flex align="center" className={styles.cardUser}>
                 <Avatar
-                  url={x.avatar.image}
+                  url={x.avatar && x.avatar.image}
                   name={x.name}
                   className={styles.cardAvatar}
                 />
@@ -68,4 +68,4 @@ const ForumList: FC = () => {
   );
 };
 
-export default ForumList;
+export default RatingList;
