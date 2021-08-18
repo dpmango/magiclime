@@ -28,4 +28,5 @@ export interface IUser {
   achievements: string;
   level: number;
   experience: number;
+  is_admin: boolean;
 }

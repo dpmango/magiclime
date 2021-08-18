@@ -44,12 +44,12 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'relative',
     height: '48px',
     width: '100%',
-    padding: ({ isFull }) =>
-      isFull ? '14px 0 12px 24px' : '13px 0 13px 23.5px',
+    padding: '14px 0 12px 24px',
     transition: 'all .235s linear',
     '& > span': {
       flex: 'none',
       transition: 'all .235s linear',
+      transform: ({ isFull }) => (isFull ? 'translateX(0)' : 'translateX(45%)'),
     },
     '&:hover': {
       color: 'var(--color-typo-brand)',

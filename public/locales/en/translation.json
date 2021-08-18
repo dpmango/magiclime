@@ -265,5 +265,27 @@
     "faq": "Articles",
     "rating": "Users rating",
     "games": "Games"
+  },
+  "admin": {
+    "users": "Пользователи",
+    "transactions": "Транзакции",
+    "userManagement": "Управление пользователями",
+    "csvExport": "Экспортировать в csv",
+    "loginSearch": "Поиск по логину",
+    "userName": "Имя пользователя",
+    "login": "Логин",
+    "registrationDate": "Дата регистрации",
+    "phone": "Телефон",
+    "email": "Почта",
+    "referralCode": "Реферальный код",
+    "inviting": "Пригласивший",
+    "receiptsHistory": "История поступлений",
+    "outputRequest": "Заявки на вывод",
+    "userId": "ID пользователя",
+    "transactionTime": "Время транзакции",
+    "status": "Статус",
+    "check": "Проверить",
+    "accrue": "Начислить",
+    "address": "Адрес"
   }
 }

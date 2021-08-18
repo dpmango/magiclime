@@ -16,6 +16,10 @@ import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
+import PrivateRoute from '../../PrivateRoute';
+import Admin from '../../pages/Admin';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers/rootReducer';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -23,25 +27,27 @@ interface IProps {
 }
 
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
+  const [isFullMenu, setIsFullMenu] = useState(false);
   const styles = useStyles();
-  const location = useLocation();
+  //const location = useLocation();
+  const { is_admin } = useSelector((state: RootState) => state.user.profile);
 
-  const getFullMenuState = () => {
-    const shouldCollapseRoute = location.pathname.includes('/courses/');
-    return !shouldCollapseRoute;
-  };
+  // const getFullMenuState = () => {
+  //   const shouldCollapseRoute = location.pathname.includes('/courses/');
+  //   return !shouldCollapseRoute;
+  // };
+  //
+  // useEffect(() => {
+  //   const shouldCollapseRoute = location.pathname.includes('/courses/');
+  //
+  //   if (shouldCollapseRoute) {
+  //     setIsFullMenu(false);
+  //   }
+  //
+  //   ScrollTo(0, 300);
+  // }, [location.pathname]);
 
-  const [isFullMenu, setIsFullMenu] = useState(getFullMenuState());
-
-  useEffect(() => {
-    const shouldCollapseRoute = location.pathname.includes('/courses/');
-
-    if (shouldCollapseRoute) {
-      setIsFullMenu(false);
-    }
-
-    ScrollTo(0, 300);
-  }, [location.pathname]);
+  const fakeAdmin = true;
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -51,27 +57,31 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         toggleMenu={() => setIsFullMenu(!isFullMenu)}
       />
       <Flex className={styles.container}>
-        <Menu isFull={isFullMenu} />
+        <Menu isFull={isFullMenu} isAdmin={fakeAdmin} />
 
         <Container className={styles.content}>
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="profile" />} />
-            <Route
-              path="/chats/:id?"
-              render={(props) => (
-                <ChatContextProvider>
-                  <Chats {...props} />
-                </ChatContextProvider>
-              )}
-            />
-            <Route exact path="/courses" component={Courses} />
-            <Route exact path="/courses/:course" component={Course} />
-            <Route exact path="/courses/:course/:id" component={CourseTask} />
-            <Route exact path="/faq" component={Articles} />
-            <Route path="/profile" component={Profile} />
-            <Route exact path="/webinars" component={Webinars} />
-            <Route path="/webinars/:id" component={WebinarInfo} />
-          </Switch>
+          {is_admin ? (
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="profile" />} />
+              <Route
+                path="/chats/:id?"
+                render={(props) => (
+                  <ChatContextProvider>
+                    <Chats {...props} />
+                  </ChatContextProvider>
+                )}
+              />
+              <Route exact path="/courses" component={Courses} />
+              <Route exact path="/courses/:course" component={Course} />
+              <Route exact path="/courses/:course/:id" component={CourseTask} />
+              <Route exact path="/faq" component={Articles} />
+              <Route path="/profile" component={Profile} />
+              <Route exact path="/webinars" component={Webinars} />
+              <Route path="/webinars/:id" component={WebinarInfo} />
+            </Switch>
+          ) : (
+            <Admin />
+          )}
         </Container>
       </Flex>
       {/* FOOTER */}
