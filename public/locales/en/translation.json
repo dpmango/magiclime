@@ -260,11 +260,32 @@
     },
     "card": {
       "from": "from"
+    },
+    "create": {
+      "openModal": "Ask question",
+      "title": "Ask question",
+      "question": {
+        "label": "Your question",
+        "placeholder": "Start with why, how, etc..."
+      },
+      "theme": {
+        "placeholder": "Forum theme"
+      },
+      "cta": "Send"
     }
   },
   "articles": {
     "list": {
       "title": "Knowledge base"
+    }
+  },
+  "rating": {
+    "page": {
+      "title": "User rating"
+    },
+    "filter": {
+      "searchPlaceholder": "Search users",
+      "leagues": "By League"
     }
   },
   "menu": {

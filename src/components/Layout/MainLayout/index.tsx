@@ -15,6 +15,7 @@ import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
 import Chats from '../../pages/Chats';
 import Forum from '../../pages/Forum';
+import Rating from '../../pages/Rating';
 import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
@@ -80,6 +81,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route path="/profile" component={Profile} />
             <Route path="/forum" component={Forum} />
             <Route exact path="/webinars" component={Webinars} />
+            <Route path="/rating" component={Rating} />
             <Route path="/webinars/:id" component={WebinarInfo} />
           </Switch>
         </Container>
