@@ -1,13 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { view?: string }>(() => ({
   root: {
     position: 'relative',
     height: '100%',
+    marginTop: ({ view }) => (view === 'compact' ? 36 : 0),
   },
   course: {
     flex: '1 0 auto',
-    width: '100%',
+    width: ({ view }) => (view === 'compact' ? '50%' : '100%'),
     position: 'relative',
     zIndex: 1,
     marginTop: 24,
@@ -38,6 +39,6 @@ const useStyles = makeStyles({
     color: 'var(--color-bg-secondary)',
     textTransform: 'none',
   },
-});
+}));
 
 export default useStyles;
