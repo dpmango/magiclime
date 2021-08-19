@@ -9,6 +9,8 @@ import { IWebinar } from './types';
 
 import { tags, mockWebinars } from './mockData';
 import useStyles from './styles';
+import Flex from '../../Common/Flex';
+import { Button } from '@consta/uikit/Button';
 
 const WebinarsPage: FC = () => {
   const styles = useStyles();
@@ -39,7 +41,43 @@ const WebinarsPage: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" size="3xl" lineHeight="l">
+      <Flex margin={'0 0 48px'} align={'stretch'}>
+        <div>
+          <img
+            className={styles.banner}
+            src={
+              'http://itd3.mycdn.me/image?id=903284457182&t=20&plc=MOBILE&tkn=*9rxsfuK2y4uAiBu_q9UfjJjZVn0'
+            }
+            alt={'Webinars banner'}
+          />
+        </div>
+        <Flex
+          margin={'0 0 0 48px'}
+          direction={'column'}
+          align={'center'}
+          justify={'space-between'}
+        >
+          <Typography size={'xs'} transform={'uppercase'} view={'secondary'}>
+            Мероприятие
+          </Typography>
+          <div>
+            <Typography
+              size={'2xl'}
+              weight={'semibold'}
+              margin={'0 0 16px'}
+              align={'center'}
+            >
+              В Третьяковке открывается выставка немецкого и русского романтизма
+            </Typography>
+            <Typography size={'s'} view={'secondary'} align={'center'}>
+              В Новой Третьяковке открывается выставка немецкого и русского
+              искусства "Мечты о свободе.
+            </Typography>
+          </div>
+          <Button label={'Смотреть'} form={'round'} view={'primary'} />
+        </Flex>
+      </Flex>
+      <Typography weight={'semibold'} size={'3xl'} lineHeight={'l'}>
         Все вебинары
       </Typography>
       <div className={styles.tags}>
