@@ -10,9 +10,6 @@ const useStyles = makeStyles({
       padding: '36px 20px 60px',
     },
   },
-  tabs: {
-    marginTop: 44,
-  },
   content: {
     marginTop: 36,
   },

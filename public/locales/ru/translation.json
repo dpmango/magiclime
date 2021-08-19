@@ -248,7 +248,8 @@
   },
   "forum": {
     "page": {
-      "title": "Форум"
+      "title": "Форум",
+      "view": "Читать форум"
     },
     "filter": {
       "searchPlaceholder": "Поиск по форуму",
