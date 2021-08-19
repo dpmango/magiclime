@@ -7,14 +7,14 @@ import { IArticle } from 'types/interfaces/article';
 import { ArticlesPayloadType } from './types';
 
 const initialState = {
-  articles: [],
+  articles: [] as IArticle[],
 };
 
 export const getArticles = createAsyncThunk<object, ArticlesPayloadType>(
   'article/getArticles',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getArticlesService(payload);
+      const response = await getArticlesService(payload.page);
       if (response?.status === 200) {
         dispatch(setArticles(response.data.results));
       }

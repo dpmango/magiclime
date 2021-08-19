@@ -98,7 +98,7 @@ const WebinarInfo: FC = () => {
             <Typography weight="semibold" margin="0 0 12px">
               {t('webinar.members')}
             </Typography>
-            <Members members={mockWebinars[0].referals} itemSize={44} />
+            <Members members={mockWebinars[0].referrals} itemSize={44} />
             <Typography weight="semibold" margin="44px 0 12px">
               {t('webinar.speakers')}
             </Typography>

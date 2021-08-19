@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Tooltip } from '@consta/uikit/Tooltip';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import cns from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
@@ -58,17 +58,17 @@ const CourseExperts: FC = () => {
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 
-  const swiperRef = useRef(null);
+  const swiperRef = useRef<any>(null);
 
   const handlePrevClick = useCallback(() => {
     if (swiperRef && swiperRef.current) {
-      swiperRef.current.swiper.slidePrev();
+      swiperRef.current!.swiper.slidePrev();
     }
   }, [swiperRef]);
 
   const handleNextClick = useCallback(() => {
     if (swiperRef && swiperRef.current) {
-      swiperRef.current.swiper.slideNext();
+      swiperRef.current!.swiper.slideNext();
     }
   }, [swiperRef]);
 
@@ -111,13 +111,14 @@ const CourseExperts: FC = () => {
                 slidesPerView: 4,
               },
             }}
+            //@ts-ignore
             ref={swiperRef}
           >
             {slides.map((x) => (
               <SwiperSlide key={x.id} className={styles.slide}>
                 <Flex direction="column" className={styles.item}>
                   <div className={styles.info}>
-                    <SvgIcon.Info view="brand" />
+                    <ConstaIcons.Info view="brand" />
                   </div>
 
                   <div className={styles.image}>
@@ -150,7 +151,7 @@ const CourseExperts: FC = () => {
             tabIndex={0}
             onClick={handlePrevClick}
           >
-            <SvgIcon.ChevronLeft size="s" />
+            <ConstaIcons.ChevronLeft size="s" />
           </div>
           <div
             className={cns(styles.navIcon, 'right')}
@@ -158,7 +159,7 @@ const CourseExperts: FC = () => {
             tabIndex={0}
             onClick={handleNextClick}
           >
-            <SvgIcon.ChevronRight size="s" />
+            <ConstaIcons.ChevronRight size="s" />
           </div>
         </div>
       </div>

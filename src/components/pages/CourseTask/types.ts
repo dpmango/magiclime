@@ -7,7 +7,7 @@ export interface ISection {
   label: string;
 }
 
-export interface IMutipleSelect {
+export interface IMultipleSelect {
   id: number;
   label: string;
   options: {
@@ -20,5 +20,5 @@ export interface ITask {
   id: number;
   text?: string;
   empty?: boolean;
-  multipleSelect?: IMutipleSelect[];
+  multipleSelect?: IMultipleSelect[];
 }

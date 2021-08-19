@@ -6,29 +6,29 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 import useStyles from './styles';
 
-const MyAchivements: FC = () => {
+const Achievements: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.settings.navigation.achivements')}
+        {t('profile.settings.navigation.achievements')}
       </Typography>
 
       <Grid cols="3" gap="2xl" className={styles.section}>
         <GridItem>
-          <Flex direction="column" className={styles.achivement}>
+          <Flex direction="column" className={styles.achievement}>
             <Flex align="center">
-              <div className={styles.achivementImage}>
-                <img src="/images/achivement-image.png" alt="" />
+              <div className={styles.achievementImage}>
+                <img src="/images/achievement-image.png" alt="" />
               </div>
               <Typography margin="0 0 0 16px" view="ghost" lineHeight="xs">
                 15 января <br />
                 11:00
               </Typography>
             </Flex>
-            <div className={styles.achivementRating}>
+            <div className={styles.achievementRating}>
               <Typography view="brand" size="xs" lineHeight="2xs">
                 +25 рейтинга
               </Typography>
@@ -41,7 +41,7 @@ const MyAchivements: FC = () => {
             </Typography>
             <Button
               label={t('profile.settings.cta.open')}
-              className={styles.achivementCta}
+              className={styles.achievementCta}
             />
           </Flex>
         </GridItem>
@@ -50,4 +50,4 @@ const MyAchivements: FC = () => {
   );
 };
 
-export default MyAchivements;
+export default Achievements;

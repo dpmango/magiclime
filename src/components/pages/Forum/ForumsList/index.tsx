@@ -3,8 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { useTranslation } from 'react-i18next';
-import SvgIcon from 'components/Common/SvgIcon';
-import { IForum } from './types';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import useStyles from './styles';
 import { list } from './mockData';
 
@@ -23,7 +22,7 @@ const ForumList: FC<IProps> = ({ sort }) => {
           (x): ReactElement => (
             <Flex className={styles.card} key={x.id}>
               <div className={styles.cardAvatar}>
-                <Avatar url={x.author.avatar} name={x.author.name} />
+                <Avatar url={x.author.avatar || ''} name={x.author.name} />
               </div>
               <div className={styles.cardContent}>
                 <Typography size="xl" weight="semibold">
@@ -41,7 +40,7 @@ const ForumList: FC<IProps> = ({ sort }) => {
               </div>
               <div className={styles.cardMeta}>
                 <Flex align="baseline">
-                  <SvgIcon.Comment size="s" />
+                  <ConstaIcons.Comment size="s" />
                   <Typography margin="0 0 0 6px" size="m" view="ghost">
                     {x.unread}
                   </Typography>

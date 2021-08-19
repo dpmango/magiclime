@@ -84,7 +84,12 @@ const Webinar: FC<IProps> = ({ item }) => {
           <Typography className={styles.title} weight="semibold" size="xl">
             {item.title}
           </Typography>
-          <Typography className={styles.date} margin="8px 0 0" view="brand" weight="semibold">
+          <Typography
+            className={styles.date}
+            margin="8px 0 0"
+            view="brand"
+            weight="semibold"
+          >
             {'10 августа, 12:00'}
           </Typography>
           <Typography size={'s'} margin="8px 0 0">
@@ -101,11 +106,11 @@ const Webinar: FC<IProps> = ({ item }) => {
             label={t('common.moreDetails')}
           />
 
-          <Flex align="center" className={styles.referalWrapper}>
-            {item.referals && (
+          <Flex align="center" className={styles.referralWrapper}>
+            {item.referrals && (
               <Members
-                members={item.referals}
-                className={styles.referalUsers}
+                members={item.referrals}
+                className={styles.referralUsers}
               />
             )}
             <Avatar

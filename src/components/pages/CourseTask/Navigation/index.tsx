@@ -4,7 +4,7 @@ import { Collapse } from '@consta/uikit/Collapse';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import cns from 'classnames';
 import Typography from 'components/Common/Typography';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { ISection } from 'components/pages/CourseTask/types';
 
 import useStyles from './styles';
@@ -106,8 +106,8 @@ const CourseNavigation: FC<IProps> = ({
                     onClick={() => onSectionClick(section)}
                   >
                     <Typography>{section.label}</Typography>
-                    {section.compleated && <SvgIcon.Done view="brand" />}
-                    {!section.available && <SvgIcon.Blocked view="ghost" />}
+                    {section.compleated && <ConstaIcons.Done view="brand" />}
+                    {!section.available && <ConstaIcons.Blocked view="ghost" />}
                   </span>
                 </li>
               ))}

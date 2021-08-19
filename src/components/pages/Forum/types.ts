@@ -26,11 +26,11 @@ export interface ICourse {
   rate: [number, number];
 }
 
-export interface IReferal {
+export interface IReferral {
   readonly id: number;
   avatar?: string;
   username: string;
   btl: number;
   level: number;
-  referalsCount: number;
+  referralsCount: number;
 }

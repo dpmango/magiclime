@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
-  referal: {
+  referral: {
     position: 'relative',
     background: ({ nested, root }) =>
       nested || root ? 'var(--color-bg-default)' : 'var(--color-bg-stripe)',
@@ -38,7 +38,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referalUser: ({ root, nested }) => ({
+  referralUser: {
     flex: '0 0 50%',
     minWidth: 1,
     paddingRight: 12,
@@ -48,7 +48,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
     },
-    '&': (() => {
+    '&': ({ root, nested }) => {
       if (nested) {
         return {
           paddingLeft: 30,
@@ -71,27 +71,27 @@ const useStyles = makeStyles<null, IProps>(() => ({
       }
 
       return {};
-    })(),
-  }),
-  referalUserWrapper: {
+    },
+  },
+  referralUserWrapper: {
     marginLeft: ({ root }) => (root ? 12 : 8),
     minWidth: 1,
   },
-  referalAvatar: ({ root }) => ({
+  referralAvatar: ({ root }) => ({
     flexShrink: 0,
     '& ': (() => {
       return root ? { width: 72, height: 72 } : {};
     })(),
   }),
-  referalBtl: {
+  referralBtl: {
     flex: '0 0 23%',
     paddingRight: 12,
   },
-  referalLevel: {
+  referralLevel: {
     flex: '0 0 12%',
     paddingRight: 12,
   },
-  referalCount: {
+  referralCount: {
     flex: '0 0 15%',
     textAlign: 'left',
   },

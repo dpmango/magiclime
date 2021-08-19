@@ -117,6 +117,7 @@ export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
         dispatch(setUserProfile(response.data));
         successCallback && successCallback();
       }
+      return response.data;
     } catch (err) {
       if (errorCallback) {
         if (err.data) {
@@ -141,6 +142,7 @@ export const changePassword = createAsyncThunk<object, ChangePasswordType>(
       if (response?.status === 204) {
         successCallback && successCallback();
       }
+      return response.data;
     } catch (err) {
       if (errorCallback) {
         if (err.data) {

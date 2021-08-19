@@ -66,7 +66,7 @@
       "referrals": "Рефералы",
       "settings": "Настройки"
     },
-    "referalPlural": {
+    "referralPlural": {
       "one": "реферал",
       "two": "реферала",
       "five": "рефералов"
@@ -78,13 +78,13 @@
       "matrixLevel": "уровень матрицы",
       "level": "уровень",
       "league": "лига",
-      "noReferals": "Нет рефералов",
+      "noReferrals": "Нет рефералов",
       "blocked": {
         "title": "Недоступно",
         "cta": "Открыть доступ"
       }
     },
-    "achivements": {
+    "achievements": {
       "title": "Достижения",
       "empty": "Достижения еще не открыты"
     },
@@ -139,7 +139,7 @@
         "empty": "Здесь пока нет данных"
       }
     },
-    "referal": {
+    "referral": {
       "stats": {
         "link": "Реферальная ссылка",
         "gain": "Заработано",
@@ -155,7 +155,7 @@
         "extraInfo": "Доп информация",
         "gain": "Заработано",
         "level": "Уровень",
-        "referals": "Рефералов"
+        "referrals": "Рефералов"
       },
       "filter": {
         "search": "Поиск по рефералам",
@@ -171,7 +171,7 @@
         "profile": "Профиль",
         "notifications": "Уведомления",
         "security": "Безопасность",
-        "achivements": "Мои достижения"
+        "achievements": "Мои достижения"
       },
       "account": {
         "login": {

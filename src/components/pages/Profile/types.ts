@@ -1,9 +1,8 @@
-export interface IProgramReferal {
+import { IPhoto } from '../../../types/interfaces/common';
+
+export interface IProgramReferral {
   readonly id: number;
-  avatar: {
-    id: number;
-    image?: string;
-  };
+  avatar: IPhoto;
   name?: string;
 }
 
@@ -18,30 +17,30 @@ export interface IProgram {
   level: number;
   league: string;
   progress: [number, number];
-  referals: IProgramReferal[];
-  referalsTotal: number;
+  referrals: IProgramReferral[];
+  referralsTotal: number;
 }
 
-// achivements
-export interface IAchivementGroup {
+// achievements
+export interface IAchievementGroup {
   readonly id: number;
   title: string;
   image?: string;
 }
-export interface IAchivement {
+export interface IAchievement {
   readonly id: number;
   title: string;
   opened: boolean;
-  group: IAchivementGroup;
+  group?: IAchievementGroup;
 }
 
 export interface IActivementsGrouped {
   readonly id: number;
   title: string;
   image?: string;
-  list: IAchivement[];
+  list: IAchievement[];
   stats: {
-    compleated: number;
+    completed: number;
     total: number;
   };
 }
@@ -61,17 +60,17 @@ export interface ICourse {
   rate: [number, number];
 }
 
-export interface IReferalGroup {
+export interface IReferralGroup {
   readonly id: number;
-  referal: IReferal;
-  referals: IReferal[];
+  referral: IReferral;
+  referrals: IReferral[];
 }
 
-export interface IReferal {
+export interface IReferral {
   readonly id: number;
   avatar?: string;
   username: string;
   btl: number;
   level: number;
-  referalsCount: number;
+  referralsCount: number;
 }

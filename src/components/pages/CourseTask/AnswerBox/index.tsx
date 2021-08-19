@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@consta/uikit/Button';
 import Typography from 'components/Common/Typography';
@@ -10,7 +10,7 @@ import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
 
-import { ITask } from '../types';
+import { IMultipleSelect, ITask } from '../types';
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
@@ -66,7 +66,10 @@ const AnswerBox: FC<IProps> = ({ activeSectionId, onContinue }) => {
     answer: '',
   };
 
-  const handleSubmit = (values: typeof initialValues, { resetForm }) => {
+  const handleSubmit = (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
     // TODO - api things
 
     onContinue();
@@ -112,8 +115,8 @@ const AnswerBox: FC<IProps> = ({ activeSectionId, onContinue }) => {
                           name={`multipleSelect_${cbx.id}`}
                           items={cbx.options}
                           direction="column"
-                          getLabel={(item) => item.label}
-                          className={styles.checboxGroup}
+                          getLabel={(item) => (item as IMultipleSelect).label}
+                          className={styles.checkboxGroup}
                           showAllValues
                           showCollapse={false}
                         />

@@ -10,14 +10,14 @@ import { RootState } from 'store/reducers/rootReducer';
 import groupBy from 'lodash/groupBy';
 import cns from 'classnames';
 import {
-  IAchivementGroup,
+  IAchievementGroup,
   IActivementsGrouped,
-  IAchivement,
+  IAchievement,
 } from 'components/pages/Profile/types';
 
 import useStyles from './styles';
 
-const Achivements: FC = () => {
+const Achievements: FC = () => {
   const styles = useStyles();
   // const dispatch = useDispatch();
   const { profile } = useSelector((state: RootState) => state.user);
@@ -25,7 +25,7 @@ const Achivements: FC = () => {
 
   const groups: IActivementsGrouped[] = useMemo(() => {
     const grouped = groupBy(
-      profile.achievements as IAchivement[],
+      profile.achievements as IAchievement[],
       (x: any) => x.group.id
     );
 
@@ -33,7 +33,8 @@ const Achivements: FC = () => {
       return Object.keys(grouped)
         .slice(0, 3)
         .map((key) => {
-          const groupIn: IAchivementGroup = grouped[key][0].group;
+          const groupIn: IAchievementGroup = grouped[key][0]
+            .group as IAchievementGroup;
 
           const compleatedIds = grouped[key]
             .filter((x) => x.opened)
@@ -45,7 +46,7 @@ const Achivements: FC = () => {
             image: groupIn.image,
             list: grouped[key].slice(0, 3),
             stats: {
-              compleated: compleatedIds.length,
+              completed: compleatedIds.length,
               total: grouped[key].length,
             },
           };
@@ -58,7 +59,7 @@ const Achivements: FC = () => {
   return (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.achivements.title')}
+        {t('profile.achievements.title')}
       </Typography>
 
       <Flex direction="column" align="stretch" className={styles.box}>
@@ -83,23 +84,23 @@ const Achivements: FC = () => {
                           lineHeight="2xs"
                           size="2xs"
                         >
-                          {group.stats.compleated}/{group.stats.total}
+                          {group.stats.completed}/{group.stats.total}
                         </Typography>
                       </div>
                     </Flex>
 
                     {group.list &&
                       group.list.map(
-                        (achivement: IAchivement): ReactElement => (
+                        (achievement: IAchievement): ReactElement => (
                           <Flex
                             align="center"
-                            className={styles.achivement}
-                            key={achivement.id}
+                            className={styles.achievement}
+                            key={achievement.id}
                           >
                             <div
                               className={cns(
-                                styles.achivementIcon,
-                                achivement.opened && 'compleated'
+                                styles.achievementIcon,
+                                achievement.opened && 'compleated'
                               )}
                             >
                               <IconCheck />
@@ -109,7 +110,7 @@ const Achivements: FC = () => {
                               lineHeight="s"
                               size="s"
                             >
-                              {achivement.title}
+                              {achievement.title}
                             </Typography>
                           </Flex>
                         )
@@ -143,4 +144,4 @@ const Achivements: FC = () => {
   );
 };
 
-export default Achivements;
+export default Achievements;

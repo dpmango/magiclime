@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 
@@ -74,7 +74,7 @@ const CourseSkills: FC = () => {
             <GridItem key={x.title}>
               <Flex className={styles.item}>
                 <div className={styles.icon}>
-                  <SvgIcon.ServicesOutline size="l" />
+                  <ConstaIcons.ServicesOutline size="m" />
                 </div>
                 <div className={styles.content}>
                   <Typography size="2xl" weight="semibold" lineHeight="s">

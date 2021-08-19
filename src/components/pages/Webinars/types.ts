@@ -1,6 +1,6 @@
 import { IPhoto } from '../../../types/interfaces/common';
 
-interface IWebinarReferal {
+interface IWebinarReferral {
   readonly id: number;
   avatar: IPhoto | null;
   name: string;
@@ -17,6 +17,6 @@ export interface IWebinar {
   description: string;
   tags: string[];
   image?: string;
-  referals: IWebinarReferal[];
+  referrals: IWebinarReferral[];
   author: IWebinarAuthor;
 }

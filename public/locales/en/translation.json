@@ -69,7 +69,7 @@
     "head": {
       "copyRefLink": "Copy referral link"
     },
-    "referalPlural": {
+    "referralPlural": {
       "one": "referral",
       "two": "referrals",
       "five": "referrals"
@@ -78,15 +78,15 @@
       "matrixLevel": "matrix level",
       "level": "level",
       "league": "league",
-      "noReferals": "No referals",
+      "noReferrals": "No referrals",
       "blocked": {
         "title": "Unavailable",
         "cta": "Open access"
       }
     },
-    "achivements": {
-      "title": "Achivements",
-      "empty": "Achivements are not opened yet"
+    "achievements": {
+      "title": "Achievements",
+      "empty": "Achievements are not opened yet"
     },
     "events": {
       "title": "Events",
@@ -139,7 +139,7 @@
         "empty": "No data yet"
       }
     },
-    "referal": {
+    "referral": {
       "stats": {
         "link": "Referral link",
         "gain": "Gain",
@@ -155,7 +155,7 @@
         "extraInfo": "Extra info",
         "gain": "Gain",
         "level": "Level",
-        "referals": "referrals"
+        "referrals": "referrals"
       },
       "filter": {
         "search": "Search referrals",
@@ -171,7 +171,7 @@
         "profile": "Profile",
         "notifications": "Notifications",
         "security": "Security",
-        "achivements": "My achivements"
+        "achievements": "My achievements"
       },
       "account": {
         "login": {

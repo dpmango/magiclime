@@ -1,8 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
-
+import React, { FC, useState, useEffect, ReactNode } from 'react';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
 
@@ -11,15 +10,15 @@ import useStyles from './styles';
 interface IProps {
   title: string;
   isOpen: boolean;
-  children?: ReactElement;
+  children?: ReactNode;
   setModalOpen: (x: boolean) => void;
 }
 
-const ConstaModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
+const BaseModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
   const styles = useStyles();
 
   return (
-    <div className={styles.root}>
+    <div className={styles.modal}>
       <Modal
         isOpen={isOpen}
         hasOverlay
@@ -41,7 +40,7 @@ const ConstaModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
             tabIndex={0}
             onClick={(): void => setModalOpen(false)}
           >
-            <SvgIcon.Close size="2xs" />
+            <ConstaIcons.Close />
           </div>
 
           {children}
@@ -51,4 +50,4 @@ const ConstaModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
   );
 };
 
-export default ConstaModal;
+export default BaseModal;
