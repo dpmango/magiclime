@@ -36,10 +36,25 @@ const useStyles = makeStyles({
     flex: '0 0 33.33%',
     maxWidth: '33.33%',
   },
+  cardMembers: {
+    marginTop: 8,
+  },
   cardLast: {
-    paddingTop: 24,
-    marginTop: 24,
+    paddingTop: 16,
+    marginTop: 16,
     borderTop: '1px solid var(--color-bg-border)',
+  },
+  cardLastAvatar: {
+    flex: '0 0 auto',
+    width: 'auto',
+  },
+  cardLastContent: {
+    position: 'relative',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '100%',
+    minWidth: 1,
   },
 });
 
