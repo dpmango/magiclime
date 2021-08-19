@@ -6,11 +6,12 @@ import Typography from 'components/Common/Typography';
 import { useTranslation } from 'react-i18next';
 
 import Tags from 'components/Common/Tags';
+import ProfileCourses from 'components/pages/Profile/Courses';
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
 
-import { tags, mockCourses } from './mockData';
+import { tags, mockCourses, mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
@@ -44,6 +45,8 @@ const CoursesPage: FC = () => {
   return (
     <div className={styles.root}>
       <FeaturedCourse />
+
+      <ProfileCourses view="compact" list={mockProfileCourses} />
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">

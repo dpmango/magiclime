@@ -9,10 +9,11 @@ import useStyles from './styles';
 
 interface IProps {
   list: ICourse[];
+  view?: string;
 }
 
-const Courses: FC<IProps> = ({ list }) => {
-  const styles = useStyles();
+const Courses: FC<IProps> = ({ list, view }) => {
+  const styles = useStyles({ view });
   const { t } = useTranslation();
 
   return (
@@ -23,9 +24,11 @@ const Courses: FC<IProps> = ({ list }) => {
 
       {list.map((course) => (
         <Flex align="stretch" className={styles.course} key={course.id}>
-          <div className={styles.courseImage}>
-            <img src={course.image} alt={course.title} />
-          </div>
+          {view !== 'compact' && (
+            <div className={styles.courseImage}>
+              <img src={course.image} alt={course.title} />
+            </div>
+          )}
           <Flex direction="column" className={styles.courseContent}>
             <Badge view="stroked" label={course.tag} />
             <Typography margin="18px 0 0 0" weight="semibold" size="xl">
@@ -72,7 +75,8 @@ const Courses: FC<IProps> = ({ list }) => {
                   view="link"
                   weight="semibold"
                 >
-                  {course.rate[0]} {t('profile.courses.rateFrom')} {course.rate[1]}
+                  {course.rate[0]} {t('profile.courses.rateFrom')}{' '}
+                  {course.rate[1]}
                 </Typography>
               </Flex>
             </Flex>
