@@ -15,7 +15,7 @@ const useStyles = makeStyles<null, { view?: string }>(() => ({
     overflow: 'hidden',
     borderRadius: 10,
     background: 'var(--color-bg-default)',
-    padding: 24,
+    padding: ({ view }) => (view === 'compact' ? '24px 24px 24px 0' : '24px'),
     border: '1px solid var(--color-bg-border)',
   },
   courseImage: {
