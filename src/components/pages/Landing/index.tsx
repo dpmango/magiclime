@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Hero from './Hero';
 import Steps from './Steps';
+import How from './How';
 
 import useStyles from './styles';
 
@@ -16,6 +17,7 @@ const Landing: FC = () => {
 
       <Hero />
       <Steps />
+      <How />
 
       <Footer />
     </div>
