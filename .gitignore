@@ -4,6 +4,7 @@
 /.chache
 /build
 /dist
+/.husky
 
 .DS_Store
 .env.local
