@@ -10,7 +10,7 @@ const initialState = {
   articles: [] as IArticle[],
 };
 
-export const getArticles = createAsyncThunk<object, ArticlesPayloadType>(
+export const getArticles = createAsyncThunk<Object, ArticlesPayloadType>(
   'article/getArticles',
   async (payload, { dispatch, rejectWithValue }) => {
     try {

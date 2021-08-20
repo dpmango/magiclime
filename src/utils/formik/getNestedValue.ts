@@ -7,7 +7,7 @@ export const getNestedValue = <T extends object = {}>(
   let val: typeof values | string | null | undefined = values;
 
   if (/\./.test(name)) {
-    for (let level of name.split('.')) {
+    for (const level of name.split('.')) {
       if (val!.hasOwnProperty(level)) {
         val = val![level as keyof typeof values] as FormikErrors<T>;
       } else {

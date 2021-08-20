@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Typography from 'components/Common/Typography';
@@ -60,7 +62,7 @@ const ForumDetails: FC = () => {
                 label={t('forum.details.cta')}
                 width="full"
                 size="l"
-                onClick={(): void => alert('TODO')}
+                onClick={(): void => null}
                 className={styles.createBtn}
               />
             </div>

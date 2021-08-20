@@ -1,3 +1,3 @@
-import { default as ConstaIcons } from './icons';
+import ConstaIcons from './icons';
 
 export default ConstaIcons;
