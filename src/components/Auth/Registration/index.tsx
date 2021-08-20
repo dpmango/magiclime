@@ -1,11 +1,16 @@
 import React, { FC, useState } from 'react';
-import { IBaseAuthProps } from '../types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import Typography from '../../Common/Typography';
-import useStyles from './styles';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
+import { Grid, GridItem } from '@consta/uikit/Grid';
+import { IconForward } from '@consta/uikit/IconForward';
+import { IconBackward } from '@consta/uikit/IconBackward';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { IBaseAuthProps } from '../types';
+import Typography from '../../Common/Typography';
+import useStyles from './styles';
 import { StepType } from './types';
 import Stepper from './Stepper';
 import ProfileStep from './Steps/Profile';
@@ -18,15 +23,10 @@ import {
   REQUIRED_STRING,
 } from '../../../utils/formik/validation';
 import UserType from './Steps/UserType';
-import { Grid, GridItem } from '@consta/uikit/Grid';
-import { IconForward } from '@consta/uikit/IconForward';
-import { IconBackward } from '@consta/uikit/IconBackward';
 import Additional from './Steps/Additional';
 import Preferences from './Steps/Preferences';
 import { registrationUser } from '../../../utils/api/routes/auth';
-import { useDispatch } from 'react-redux';
 import { registration } from '../../../store/reducers/user';
-import { useHistory } from 'react-router-dom';
 
 const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   const [step, setStep] = useState<StepType>(1);
@@ -93,7 +93,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
     if (step !== 4) {
       setStep((step + 1) as StepType);
     } else {
-      const avatar = !!values.avatar_id.id ? +values.avatar_id.id : null;
+      const avatar = values.avatar_id.id ? +values.avatar_id.id : null;
       const data = { ...values, avatar_id: avatar };
       dispatch(
         registration({
@@ -110,27 +110,22 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       <Button
         className={styles.closeBtn}
         onClick={closeModal}
-        label={'Закрыть'}
-        size={'s'}
-        view={'clear'}
+        label="Закрыть"
+        size="s"
+        view="clear"
         iconLeft={IconClose}
         onlyIcon
       />
-      <Typography
-        size={'3xl'}
-        align={'center'}
-        margin={'0 0 24px'}
-        weight={'semibold'}
-      >
+      <Typography size="3xl" align="center" margin="0 0 24px" weight="semibold">
         Регистрация
       </Typography>
       {errorMessage && (
         <Typography
-          view={'alert'}
-          margin={'0 0 25px'}
-          align={'center'}
-          weight={'semibold'}
-          size={'l'}
+          view="alert"
+          margin="0 0 25px"
+          align="center"
+          weight="semibold"
+          size="l"
         >
           {errorMessage}
         </Typography>
@@ -144,21 +139,21 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
         <Form>
           {renderStep()}
           {step !== 1 && (
-            <Grid cols={'2'} gap={'m'}>
+            <Grid cols="2" gap="m">
               <GridItem>
                 <Button
-                  view={'secondary'}
-                  label={'Назад'}
+                  view="secondary"
+                  label="Назад"
                   iconLeft={IconBackward}
-                  type={'button'}
-                  width={'full'}
+                  type="button"
+                  width="full"
                   onClick={() => setStep((step - 1) as StepType)}
                 />
               </GridItem>
               <GridItem>
                 <Button
-                  width={'full'}
-                  type={'submit'}
+                  width="full"
+                  type="submit"
                   label={step === 4 ? 'Завершить' : 'Дальше'}
                   iconRight={step !== 4 ? IconForward : undefined}
                 />

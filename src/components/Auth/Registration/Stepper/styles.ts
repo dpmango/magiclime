@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     height: '16px',
     borderRadius: '50%',
     flex: 'none',
-    //cursor: 'pointer',
+    // cursor: 'pointer',
   },
   disableStep: {
     background: 'rgba(0, 65, 102, .2)',

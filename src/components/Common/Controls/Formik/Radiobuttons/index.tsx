@@ -2,9 +2,8 @@ import React, { Component, ComponentProps } from 'react';
 import { Field, FieldProps, FieldHookConfig } from 'formik';
 import { RadioGroup } from '@consta/uikit/RadioGroup';
 import { getNestedValue } from 'utils/formik/getNestedValue';
-import { ErrorMessage } from '../components';
+import { ErrorMessage, StyledTitle } from '../components';
 import MemoWrapper from '../MemoWrapper';
-import { StyledTitle } from '../components';
 
 type RadiobuttonsProps = Omit<
   ComponentProps<typeof RadioGroup>,

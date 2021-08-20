@@ -1,9 +1,9 @@
 import { Field, FieldProps } from 'formik';
 import React, { useCallback } from 'react';
+import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import MemoWrapper from '../MemoWrapper';
 import Flex from '../../../Flex';
 import Typography from '../../../Typography';
-import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import useStyles from '../Input/styles';
 import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
@@ -31,14 +31,14 @@ const FormikTextareaComponent = MemoWrapper(
     }, []);
 
     return (
-      <Flex direction={'column'}>
+      <Flex direction="column">
         {label && (
-          <Typography margin={'0 0 6px'} view={'secondary'}>
+          <Typography margin="0 0 6px" view="secondary">
             {label}
           </Typography>
         )}
         <TextField
-          type={'textarea'}
+          type="textarea"
           rows={3}
           className={styles.input}
           value={value}
@@ -48,7 +48,7 @@ const FormikTextareaComponent = MemoWrapper(
           {...props}
         />
         {fieldError && fieldTouched && (
-          <Typography margin={'5px 0 0'} size={'xs'} view={'alert'}>
+          <Typography margin="5px 0 0" size="xs" view="alert">
             {fieldError}
           </Typography>
         )}

@@ -111,7 +111,7 @@ const CourseExperts: FC = () => {
                 slidesPerView: 4,
               },
             }}
-            //@ts-ignore
+            // @ts-ignore
             ref={swiperRef}
           >
             {slides.map((x) => (

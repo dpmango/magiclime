@@ -43,7 +43,6 @@ const CheckboxGroupComponent = ({
           value={value}
           items={array}
           onChange={({ value }) => {
-
             setFieldValue(name, value);
             setFieldTouched(name, true);
           }}

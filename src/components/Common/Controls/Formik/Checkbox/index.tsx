@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import MemoWrapper from '../MemoWrapper';
 import { Field, FieldProps } from 'formik';
 import { Checkbox, CheckboxProps } from '@consta/uikit/Checkbox';
-import Flex from '../../../Flex';
 import { makeStyles } from '@material-ui/core';
+import Flex from '../../../Flex';
+import MemoWrapper from '../MemoWrapper';
 import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
 const useStyles = makeStyles(() => ({
