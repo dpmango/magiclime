@@ -12,14 +12,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run lint"
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "npm run lint",
-      "git add"
-    ]
+    "*.{js,jsx,ts,tsx}": ["npm run lint"]
   },
   "dependencies": {
     "@bem-react/classname": "^1.5.11",
