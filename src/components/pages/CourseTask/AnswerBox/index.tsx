@@ -10,9 +10,9 @@ import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
 
+import useSharedStyles from 'assets/styles/Shared';
 import { IMultipleSelect, ITask } from '../types';
 import useStyles from './styles';
-import useRootStyles from '../styles';
 
 import {
   taskSchema1,
@@ -33,7 +33,7 @@ interface IProps {
 
 const AnswerBox: FC<IProps> = ({ activeSectionId, onContinue }) => {
   const styles = useStyles();
-  const rootStyles = useRootStyles();
+  const sharedStyles = useSharedStyles();
   const { t } = useTranslation();
 
   // getter for dummy content (temp)
@@ -90,13 +90,13 @@ const AnswerBox: FC<IProps> = ({ activeSectionId, onContinue }) => {
       ) : (
         <div className={styles.taskBox}>
           {/* Title and wysiwg content (as description) */}
-          <div className={rootStyles.wysiwyg}>
+          <div className={sharedStyles.wysiwyg}>
             <h3>{t('course.task.answer.header')}</h3>
           </div>
 
           {taskSchema.text && (
             <div
-              className={rootStyles.wysiwyg}
+              className={sharedStyles.wysiwyg}
               dangerouslySetInnerHTML={{ __html: taskSchema.text }}
             />
           )}

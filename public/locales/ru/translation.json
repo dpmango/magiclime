@@ -248,7 +248,8 @@
   },
   "forum": {
     "page": {
-      "title": "Форум"
+      "title": "Форум",
+      "view": "Читать форум"
     },
     "filter": {
       "searchPlaceholder": "Поиск по форуму",
@@ -272,6 +273,17 @@
         "placeholder": "Тема форума"
       },
       "cta": "Отправить"
+    },
+    "details": {
+      "stats": {
+        "author": "Автор вопроса",
+        "answers": "Всего ответов",
+        "created": "Создан"
+      },
+      "answers": {
+        "title": "Ответы"
+      },
+      "cta": "Ответить"
     }
   },
   "articles": {

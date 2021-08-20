@@ -272,6 +272,17 @@
         "placeholder": "Forum theme"
       },
       "cta": "Send"
+    },
+    "details": {
+      "stats": {
+        "author": "Author",
+        "answers": "Total answers",
+        "created": "Created"
+      },
+      "answers": {
+        "title": "Answers"
+      },
+      "cta": "Reply"
     }
   },
   "articles": {
