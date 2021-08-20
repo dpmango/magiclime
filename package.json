@@ -8,18 +8,16 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "lint": "eslint ./src --fix --color",
-    "prepare": "husky install"
+    "lint": "eslint ./src --fix --color && node ./scripts/deploy.ts"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "echo \"[Husky] pre-commit\""
     }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "npm run lint",
-      "node ./scripts/deploy.ts",
       "git add"
     ]
   },
