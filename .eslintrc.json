@@ -43,6 +43,7 @@
     "no-prototype-builtins": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off",
+    "@typescript-eslint/no-unused-express": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/require-default-props": "off",
     "no-underscore-dangle": ["error", {
