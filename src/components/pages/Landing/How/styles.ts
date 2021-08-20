@@ -19,6 +19,7 @@ const useStyles = makeStyles({
       background: 'var(--color-bg-secondary)',
     },
     '&.active': {
+      background: 'var(--color-bg-secondary)',
       '& $tabContent': {
         display: 'block',
       },
