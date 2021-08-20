@@ -1,6 +1,7 @@
 node_modules/*
 bin/*
 public/*
+scripts/*
 dist/*
 __mocks__/*
 webpack*.js
