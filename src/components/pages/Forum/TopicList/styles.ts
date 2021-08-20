@@ -4,6 +4,9 @@ const useStyles = makeStyles({
   root: {
     position: 'relative',
   },
+  content: {
+    marginTop: 36,
+  },
   card: {
     background: 'var(--color-bg-default)',
     border: '1px solid var(--color-bg-border)',

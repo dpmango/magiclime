@@ -1,4 +1,4 @@
-import { IForum } from '../types';
+import { IForum } from '../../types';
 
 export const list: IForum[] = [
   {

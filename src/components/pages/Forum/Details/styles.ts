@@ -1,0 +1,26 @@
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  root: {
+    position: 'relative',
+    marginTop: 36,
+  },
+  content: {
+    margin: '36px 0',
+  },
+  answers: {
+    borderTop: '1px solid var(--color-bg-border)',
+    paddingTop: 36,
+  },
+  stickySidebar: {
+    alignSelf: 'flex-start',
+    width: '100%',
+    position: 'sticky',
+    top: 64,
+  },
+  createBtn: {
+    marginTop: 36,
+  },
+});
+
+export default useStyles;

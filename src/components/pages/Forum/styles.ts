@@ -10,9 +10,6 @@ const useStyles = makeStyles({
       padding: '36px 20px 60px',
     },
   },
-  content: {
-    marginTop: 36,
-  },
 });
 
 export default useStyles;
