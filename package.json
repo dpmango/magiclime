@@ -18,8 +18,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npm run lint",
-      "git add"
+      "echo package_lint",
+      "npm run lint"
     ]
   },
   "dependencies": {
