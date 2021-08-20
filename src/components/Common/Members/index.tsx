@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import Flex from '../Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import cn from 'classnames';
+import Flex from '../Flex';
 import useStyles from './style';
 import { IPhoto } from '../../../types/interfaces/common';
 

@@ -1,7 +1,7 @@
 import React, { FC, SyntheticEvent, useCallback } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
-import Typography from '../../../Typography';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
+import Typography from '../../../Typography';
 import PasswordInput from '../../PasswordInput';
 import Flex from '../../../Flex';
 import MemoWrapper from '../MemoWrapper';
@@ -37,9 +37,9 @@ const FormikInputComponent = MemoWrapper(
     const fieldTouched = getNestedValue(touched, field.name);
 
     return (
-      <Flex direction={'column'}>
+      <Flex direction="column">
         {label && (
-          <Typography size={'s'} margin={'0 0 6px'} view={'secondary'}>
+          <Typography size="s" margin="0 0 6px" view="secondary">
             {label}
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>
@@ -64,7 +64,7 @@ const FormikInputComponent = MemoWrapper(
           />
         )}
         {fieldError && fieldTouched && (
-          <Typography margin={'5px 0 0'} size={'xs'} view={'alert'}>
+          <Typography margin="5px 0 0" size="xs" view="alert">
             {fieldError}
           </Typography>
         )}

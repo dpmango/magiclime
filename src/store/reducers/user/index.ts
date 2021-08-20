@@ -28,6 +28,39 @@ const initialState = {
   profile: {} as IUser,
 };
 
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setLogged: (state) => {
+      state.isLogged = true;
+    },
+    userRegistration: (state, action: PayloadAction<IUser>) => {
+      state.isLogged = true;
+      state.isFirstTime = true;
+      state.profile = action.payload;
+    },
+    setUserProfile: (state, action: PayloadAction<IUser>) => {
+      state.profile = action.payload;
+    },
+    logout: (state) => {
+      state.isLogged = false;
+      state.profile = {} as IUser;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      getProfile.fulfilled,
+      (state, action: PayloadAction<IUser>) => {
+        state.profile = action.payload;
+      }
+    );
+  },
+});
+
+export const { setUserProfile, logout, setLogged, userRegistration } =
+  userSlice.actions;
+
 export const login = createAsyncThunk<object, LoginPayloadType>(
   'user/login',
   async (payload, { dispatch, rejectWithValue }) => {
@@ -157,38 +190,5 @@ export const changePassword = createAsyncThunk<object, ChangePasswordType>(
     }
   }
 );
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {
-    setLogged: (state) => {
-      state.isLogged = true;
-    },
-    userRegistration: (state, action: PayloadAction<IUser>) => {
-      state.isLogged = true;
-      state.isFirstTime = true;
-      state.profile = action.payload;
-    },
-    setUserProfile: (state, action: PayloadAction<IUser>) => {
-      state.profile = action.payload;
-    },
-    logout: (state) => {
-      state.isLogged = false;
-      state.profile = {} as IUser;
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(
-      getProfile.fulfilled,
-      (state, action: PayloadAction<IUser>) => {
-        state.profile = action.payload;
-      }
-    );
-  },
-});
-
-export const { setUserProfile, logout, setLogged, userRegistration } =
-  userSlice.actions;
 
 export default userSlice.reducer;

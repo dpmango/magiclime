@@ -65,11 +65,11 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         </Typography>
         {errorMessage && (
           <Typography
-            view={'alert'}
-            margin={'0 0 15px'}
-            align={'center'}
-            weight={'semibold'}
-            size={'l'}
+            view="alert"
+            margin="0 0 15px"
+            align="center"
+            weight="semibold"
+            size="l"
           >
             {errorMessage}
           </Typography>

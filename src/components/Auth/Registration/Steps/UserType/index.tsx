@@ -3,11 +3,11 @@ import { Field, FieldProps } from 'formik';
 
 const UserType = () => {
   return (
-    <Field name={'user_type'}>
+    <Field name="user_type">
       {({
         field: { value, ...field },
         form: { touched, errors, setFieldValue },
-      }: FieldProps) => <div></div>}
+      }: FieldProps) => <div />}
     </Field>
   );
 };

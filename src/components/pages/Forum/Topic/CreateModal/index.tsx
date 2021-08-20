@@ -89,7 +89,7 @@ const CreateForum: FC = () => {
                   <div className={styles.formSelect}>
                     <FormikSelect
                       items={themeSelectList}
-                      placeholder={'Выберите тему'}
+                      placeholder="Выберите тему"
                       name="theme"
                       isRequired={false}
                     />

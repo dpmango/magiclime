@@ -134,7 +134,7 @@ const BalanceHistory: FC = () => {
       <Table
         borderBetweenColumns
         borderBetweenRows
-        //@ts-ignore
+        // @ts-ignore
         columns={columns}
         rows={content}
         className={styles.table}
