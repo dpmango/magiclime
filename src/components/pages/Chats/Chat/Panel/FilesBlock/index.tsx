@@ -43,7 +43,10 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
             key={uuid()}
           >
             {isImage(file) ? (
-              <img src="https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg" />
+              <img
+                src="https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg"
+                alt={''}
+              />
             ) : (
               <Attach
                 fileName={file.name}
