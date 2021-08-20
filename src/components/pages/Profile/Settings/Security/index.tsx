@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -25,7 +25,10 @@ const Profile: FC = () => {
     repeatPassword: '',
   };
 
-  const handleSubmit = (values: typeof initialValues, { resetForm }) => {
+  const handleSubmit = (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
     const { current_password, new_password } = values;
 
     dispatch(

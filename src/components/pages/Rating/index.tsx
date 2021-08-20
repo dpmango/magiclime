@@ -8,8 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 import UserList from './UserList';
 import FilterList from './FilterList';
-
-import { ITab } from './types';
 import useStyles from './styles';
 
 const RatingPage: FC = () => {

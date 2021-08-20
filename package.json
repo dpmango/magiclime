@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@bem-react/classname": "^1.5.11",
-    "@consta/uikit": "^2.2.0",
+    "@consta/uikit": "^3.0.0",
     "@material-ui/core": "4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",

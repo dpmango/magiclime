@@ -53,13 +53,13 @@ const useStyles = makeStyles({
     marginLeft: 12,
     padding: '4px 8px',
   },
-  achivement: {
+  achievement: {
     marginTop: 12,
     '& .Text': {
       fontSize: 14,
     },
   },
-  achivementIcon: {
+  achievementIcon: {
     flex: '0 0 auto',
     width: 16,
     height: 16,

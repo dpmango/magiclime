@@ -1,18 +1,18 @@
 import React, { FC, useState, useCallback, MouseEvent } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
 import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import { IReferalGroup, IReferal } from 'components/pages/Profile/types';
+import { IReferralGroup, IReferral } from 'components/pages/Profile/types';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { useTranslation } from 'react-i18next';
 
-import { referalRoot, referalsList } from './mockData';
+import { referralRoot, referralsList } from './mockData';
 import useStyles from './styles';
 
 interface IProgram {
@@ -33,7 +33,7 @@ const Referrals: FC = () => {
 
   const breadcrumbs: IPage[] = [
     {
-      icon: SvgIcon.Lime,
+      icon: ConstaIcons.Lime,
       label: 'Home',
       link: '#',
     },
@@ -93,7 +93,7 @@ const Referrals: FC = () => {
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.referal.list.title')}
+        {t('profile.referral.list.title')}
       </Typography>
 
       <Grid cols="4" gap="xl" className={styles.grid}>
@@ -110,15 +110,15 @@ const Referrals: FC = () => {
             onClick={handleBreadcrumbClick}
           />
 
-          <div className={styles.referals}>
-            <ReferralUser data={referalRoot} root />
+          <div className={styles.referrals}>
+            <ReferralUser data={referralRoot} root />
 
-            {referalsList.map((group: IReferalGroup) => (
-              <div key={group.id} className={styles.referalGroup}>
-                <ReferralUser key={group.referal.id} data={group.referal} />
-                {group.referals &&
-                  group.referals.map((referal: IReferal) => (
-                    <ReferralUser key={referal.id} data={referal} nested />
+            {referralsList.map((group: IReferralGroup) => (
+              <div key={group.id} className={styles.referralGroup}>
+                <ReferralUser key={group.referral.id} data={group.referral} />
+                {group.referrals &&
+                  group.referrals.map((referral: IReferral) => (
+                    <ReferralUser key={referral.id} data={referral} nested />
                   ))}
               </div>
             ))}
@@ -131,7 +131,7 @@ const Referrals: FC = () => {
             <div className={styles.filtersGroup}>
               <TextField
                 value={filterSearch}
-                placeholder={t('profile.referal.filter.search')}
+                placeholder={t('profile.referral.filter.search')}
                 rightSide={IconSearch}
                 onChange={({ value }) => setFilterSearch(value)}
               />
@@ -140,13 +140,13 @@ const Referrals: FC = () => {
               <Select
                 items={programOptions}
                 value={filterProgram}
-                placeholder={t('profile.referal.filter.level')}
+                placeholder={t('profile.referral.filter.level')}
                 onChange={({ value }) => setFilterProgram(value)}
               />
             </div>
             <div className={styles.filtersGroup}>
               <Typography weight="semibold" margin="0 0 12px" lineHeight="s">
-                {t('profile.referal.filter.matrix')}
+                {t('profile.referral.filter.matrix')}
               </Typography>
               <Flex wrap="wrap" justify="center">
                 {matrixLevels.map((lvl) => (

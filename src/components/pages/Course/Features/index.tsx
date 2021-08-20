@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
@@ -58,7 +58,7 @@ const CourseFeatures: FC = () => {
                 list.map((x) => (
                   <Flex margin="24px 0 0" align="center" key={x.id}>
                     <div className={styles.icon}>
-                      <SvgIcon.Done view="brand" />
+                      <ConstaIcons.Done view="brand" />
                     </div>
                     <Typography lineHeight="xs">{x.content}</Typography>
                   </Flex>

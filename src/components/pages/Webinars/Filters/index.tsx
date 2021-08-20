@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 
 import useStyles from './styles';
 
@@ -65,7 +65,7 @@ const Filters: FC = () => {
                 placeholder="Поиск по вебинарам"
                 name="search"
                 component={TextField}
-                rightSide={SvgIcon.Search}
+                rightSide={ConstaIcons.Search}
                 value={values.search}
                 onChange={({ value }: { value: string }) =>
                   setFieldValue('search', value)

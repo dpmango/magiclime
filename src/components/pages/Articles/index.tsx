@@ -32,7 +32,7 @@ const ArticlePage: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getArticles());
+    dispatch(getArticles({}));
   }, []);
 
   return (

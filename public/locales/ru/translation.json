@@ -84,7 +84,7 @@
       "referrals": "Рефералы",
       "settings": "Настройки"
     },
-    "referalPlural": {
+    "referralPlural": {
       "one": "реферал",
       "two": "реферала",
       "five": "рефералов"
@@ -96,13 +96,13 @@
       "matrixLevel": "уровень матрицы",
       "level": "уровень",
       "league": "лига",
-      "noReferals": "Нет рефералов",
+      "noReferrals": "Нет рефералов",
       "blocked": {
         "title": "Недоступно",
         "cta": "Открыть доступ"
       }
     },
-    "achivements": {
+    "achievements": {
       "title": "Достижения",
       "empty": "Достижения еще не открыты"
     },
@@ -157,7 +157,7 @@
         "empty": "Здесь пока нет данных"
       }
     },
-    "referal": {
+    "referral": {
       "stats": {
         "link": "Реферальная ссылка",
         "gain": "Заработано",
@@ -173,7 +173,7 @@
         "extraInfo": "Доп информация",
         "gain": "Заработано",
         "level": "Уровень",
-        "referals": "Рефералов"
+        "referrals": "Рефералов"
       },
       "filter": {
         "search": "Поиск по рефералам",
@@ -189,7 +189,7 @@
         "profile": "Профиль",
         "notifications": "Уведомления",
         "security": "Безопасность",
-        "achivements": "Мои достижения"
+        "achievements": "Мои достижения"
       },
       "account": {
         "login": {
@@ -266,7 +266,8 @@
   },
   "forum": {
     "page": {
-      "title": "Форум"
+      "title": "Форум",
+      "view": "Читать форум"
     },
     "filter": {
       "searchPlaceholder": "Поиск по форуму",
@@ -290,6 +291,17 @@
         "placeholder": "Тема форума"
       },
       "cta": "Отправить"
+    },
+    "details": {
+      "stats": {
+        "author": "Автор вопроса",
+        "answers": "Всего ответов",
+        "created": "Создан"
+      },
+      "answers": {
+        "title": "Ответы"
+      },
+      "cta": "Ответить"
     }
   },
   "articles": {

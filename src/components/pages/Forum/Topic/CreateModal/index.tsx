@@ -1,14 +1,14 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Typography from 'components/Common/Typography';
-import SvgIcon from 'components/Common/SvgIcon';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { Avatar } from '@consta/uikit/Avatar';
-import ConstaModal from 'components/Common/ConstaModal';
+import BaseModal from 'components/Common/BaseModal';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
@@ -46,7 +46,10 @@ const CreateForum: FC = () => {
     theme: themeSelectList[0],
   };
 
-  const handleSubmit = (values: typeof initialValues, { resetForm }) => {
+  const handleSubmit = (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
     // TODO - api things
     resetForm();
   };
@@ -63,7 +66,7 @@ const CreateForum: FC = () => {
         onClick={(): void => setModalOpen(true)}
       />
 
-      <ConstaModal
+      <BaseModal
         isOpen={modalOpen}
         setModalOpen={(x: boolean) => setModalOpen(x)}
         title={t('forum.create.title')}
@@ -86,7 +89,7 @@ const CreateForum: FC = () => {
                   <div className={styles.formSelect}>
                     <FormikSelect
                       items={themeSelectList}
-                      placeholder={themeSelectList}
+                      placeholder={'Выберите тему'}
                       name="theme"
                       isRequired={false}
                     />
@@ -98,7 +101,7 @@ const CreateForum: FC = () => {
                     label={t('forum.create.question.label')}
                     placeholder={t('forum.create.question.placeholder')}
                     name="question"
-                    rows="5"
+                    rows={5}
                   />
                   <Flex margin="24px 0 0" justify="flex-end">
                     <Button
@@ -112,7 +115,7 @@ const CreateForum: FC = () => {
             )}
           </Formik>
         </div>
-      </ConstaModal>
+      </BaseModal>
     </div>
   );
 };

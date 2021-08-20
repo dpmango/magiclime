@@ -23,7 +23,7 @@ export const mockWebinars: IWebinar[] = [
     description:
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
     tags: ['Дизайн'],
-    referals: [
+    referrals: [
       {
         id: 1,
         avatar: {
@@ -123,7 +123,7 @@ export const mockWebinars: IWebinar[] = [
     description:
       'В курсе есть всё, что нужно для дистанционного обучения: видеоуроки, домашние задания....',
     tags: ['Дизайн', 'Разработка', 'Прочее'],
-    referals: [
+    referrals: [
       {
         id: 1,
         avatar: {

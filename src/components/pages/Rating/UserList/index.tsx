@@ -3,7 +3,6 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { useTranslation } from 'react-i18next';
-import SvgIcon from 'components/Common/SvgIcon';
 
 import useStyles from './styles';
 import { list } from './mockData';
@@ -29,7 +28,7 @@ const RatingList: FC = () => {
 
               <Flex align="center" className={styles.cardUser}>
                 <Avatar
-                  url={x.avatar && x.avatar.image}
+                  url={x.avatar ? x.avatar.image : ''}
                   name={x.name}
                   className={styles.cardAvatar}
                 />

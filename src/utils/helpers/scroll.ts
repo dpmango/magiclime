@@ -6,6 +6,7 @@ export const ScrollTo = (to: number, duration = 800): void => {
   const start = element.scrollTop;
   const change = to - start;
   const startDate = +new Date();
+
   const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
     t /= d / 2;
     if (t < 1) {
@@ -20,7 +21,7 @@ export const ScrollTo = (to: number, duration = 800): void => {
     const currentTime = currentDate - startDate;
 
     element.scrollTop = parseInt(
-      easeInOutQuad(currentTime, start, change, duration),
+      easeInOutQuad(currentTime, start, change, duration).toString(),
       10
     );
     if (currentTime < duration!) {

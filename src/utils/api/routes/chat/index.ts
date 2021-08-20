@@ -12,7 +12,7 @@ export const getChatsList = (
 ): AxiosPromise<IChat[]> => {
   return instance.get(`/auth/users/${id}/chats/`, {
     params: {
-      title,
+      title: title || null,
     },
   });
 };

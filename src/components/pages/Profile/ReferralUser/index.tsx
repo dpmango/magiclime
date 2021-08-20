@@ -5,11 +5,11 @@ import { Avatar } from '@consta/uikit/Avatar';
 import { Plurize } from 'utils/helpers/plurize';
 import { useTranslation } from 'react-i18next';
 
-import { IReferal } from 'components/pages/Profile/types';
+import { IReferral } from 'components/pages/Profile/types';
 import useStyles from './styles';
 
 interface IProps {
-  data: IReferal;
+  data: IReferral;
   nested?: boolean;
   root?: boolean;
 }
@@ -18,26 +18,26 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
   const styles = useStyles({ nested, root });
   const { t } = useTranslation();
 
-  const referalsPlural = useMemo(() => {
+  const referralsPlural = useMemo(() => {
     const plural = Plurize(
-      data.referalsCount,
-      t('profile.referalPlural.one'),
-      t('profile.referalPlural.two'),
-      t('profile.referalPlural.five')
+      data.referralsCount,
+      t('profile.referralPlural.one'),
+      t('profile.referralPlural.two'),
+      t('profile.referralPlural.five')
     );
 
-    return root ? data.referalsCount : `${data.referalsCount} ${plural}`;
-  }, [data.referalsCount]);
+    return root ? data.referralsCount : `${data.referralsCount} ${plural}`;
+  }, [data.referralsCount]);
 
   return (
-    <Flex key={data.id} align="center" className={styles.referal}>
-      <Flex align="center" className={styles.referalUser}>
+    <Flex key={data.id} align="center" className={styles.referral}>
+      <Flex align="center" className={styles.referralUser}>
         <Avatar
           url={data.avatar}
           name={data.username}
-          className={styles.referalAvatar}
+          className={styles.referralAvatar}
         />
-        <div className={styles.referalUserWrapper}>
+        <div className={styles.referralUserWrapper}>
           <Typography weight="semibold" lineHeight="s" size={root ? 'xl' : 'm'}>
             {data.username}
           </Typography>
@@ -48,12 +48,12 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
               weight="semibold"
               view="ghost"
             >
-              {t('profile.referal.card.extraInfo')}
+              {t('profile.referral.card.extraInfo')}
             </Typography>
           )}
         </div>
       </Flex>
-      <div className={styles.referalBtl}>
+      <div className={styles.referralBtl}>
         <Typography
           size={root ? 'l' : 's'}
           view={root ? 'brand' : 'primary'}
@@ -63,25 +63,25 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            {t('profile.referal.card.gain')}
+            {t('profile.referral.card.gain')}
           </Typography>
         )}
       </div>
-      <div className={styles.referalLevel}>
+      <div className={styles.referralLevel}>
         <Typography size={root ? 'l' : 's'}>{data.level}</Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            {t('profile.referal.card.level')}
+            {t('profile.referral.card.level')}
           </Typography>
         )}
       </div>
-      <div className={styles.referalCount}>
+      <div className={styles.referralCount}>
         <Typography size={root ? 'l' : 's'} view="secondary">
-          {referalsPlural}
+          {referralsPlural}
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            {t('profile.referal.card.referals')}
+            {t('profile.referral.card.referrals')}
           </Typography>
         )}
       </div>

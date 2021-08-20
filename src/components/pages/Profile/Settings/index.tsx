@@ -10,7 +10,7 @@ import Profile from './Profile';
 import Notifications from './Notifications';
 import Security from './Security';
 import useStyles from './styles';
-import Achivements from './Achivements';
+import Achievements from './Achievements';
 
 interface ITab {
   id: number;
@@ -44,8 +44,8 @@ const Settings: FC = () => {
     },
     {
       id: 5,
-      slug: '/profile/settings/achivements',
-      label: t('profile.settings.navigation.achivements'),
+      slug: '/profile/settings/achievements',
+      label: t('profile.settings.navigation.achievements'),
     },
   ];
 
@@ -77,7 +77,7 @@ const Settings: FC = () => {
             <Route path={`${path}/profile`} component={Profile} />
             <Route path={`${path}/notifications`} component={Notifications} />
             <Route path={`${path}/security`} component={Security} />
-            <Route path={`${path}/achivements`} component={Achivements} />
+            <Route path={`${path}/achievements`} component={Achievements} />
           </Switch>
         </div>
 
