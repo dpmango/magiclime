@@ -9,6 +9,9 @@ import App from './components/App';
 import GlobalStyles from './assets/globalStyles';
 import { getMomentLocale } from './utils/helpers/getMomentLocale';
 
+const x = 1;
+x = 2;
+
 getMomentLocale();
 
 ReactDOM.render(
