@@ -2,6 +2,7 @@ import React, { FC, useCallback, useState } from 'react';
 
 import Header from './Header';
 import Hero from './Hero';
+import Steps from './Steps';
 
 import useStyles from './styles';
 
@@ -13,6 +14,7 @@ const Landing: FC = () => {
       <Header />
 
       <Hero />
+      <Steps />
     </div>
   );
 };

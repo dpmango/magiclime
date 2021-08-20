@@ -4,7 +4,7 @@ import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
 import Typography from 'components/Common/Typography';
-import SvgIcon from 'components/Common/SvgIcon';
+import SvgIcon from 'assets/icons/ConstaIcons';
 import { useTranslation } from 'react-i18next';
 import Auth from 'components/Auth';
 
