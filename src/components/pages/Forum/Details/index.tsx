@@ -62,7 +62,7 @@ const ForumDetails: FC = () => {
                 label={t('forum.details.cta')}
                 width="full"
                 size="l"
-                onClick={(): void => null}
+                onClick={() => {}}
                 className={styles.createBtn}
               />
             </div>

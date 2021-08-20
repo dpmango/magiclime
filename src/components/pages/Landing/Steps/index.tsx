@@ -56,7 +56,13 @@ const Hero: FC = () => {
                   <Typography size="xl" margin="16px 0 0" weight="semibold">
                     {x.step}
                   </Typography>
-                  <Typography as="p" margin="16px 0 0" size="xl" lineHeight="m">
+                  <Typography
+                    as="p"
+                    view="secondary"
+                    margin="16px 0 0"
+                    size="m"
+                    lineHeight="m"
+                  >
                     {x.description}
                   </Typography>
                 </Flex>
