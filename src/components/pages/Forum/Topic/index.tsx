@@ -54,6 +54,10 @@ const ForumTopicPage: FC = () => {
 
   return (
     <div className={styles.root}>
+      <Typography size="3xl" weight="semibold" lineHeight="m">
+        {t('forum.page.title')}
+      </Typography>
+
       <div className={styles.content}>
         <Tabs
           value={tab}

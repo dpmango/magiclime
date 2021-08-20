@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    marginTop: 36,
+  },
+  head: {
+    maxWidth: '75%',
+    paddingRight: 24,
   },
   content: {
     margin: '36px 0',
@@ -16,7 +19,11 @@ const useStyles = makeStyles({
     alignSelf: 'flex-start',
     width: '100%',
     position: 'sticky',
-    top: 64,
+    top: 80,
+  },
+  sidebar: {
+    maxWidth: 264,
+    marginLeft: 'auto',
   },
   createBtn: {
     marginTop: 36,

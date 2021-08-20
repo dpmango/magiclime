@@ -21,22 +21,24 @@ const ForumDetails: FC = () => {
 
   return (
     <div className={styles.root}>
+      <div className={styles.head}>
+        <Typography view="brand" size="s" transform="uppercase">
+          ЛИЧНЫЙ РОСТ
+        </Typography>
+        <Typography
+          as="h1"
+          margin="12px 0"
+          size="3xl"
+          lineHeight="m"
+          weight="semibold"
+          transform="uppercase"
+        >
+          Сгорел на работе - как выйти из эмоционального выгорания?
+        </Typography>
+      </div>
+
       <Grid cols="3" gap="xl">
         <GridItem col="2">
-          <Typography view="brand" size="s" transform="uppercase">
-            ЛИЧНЫЙ РОСТ
-          </Typography>
-          <Typography
-            as="h1"
-            margin="12px 0"
-            size="3xl"
-            lineHeight="m"
-            weight="semibold"
-            transform="uppercase"
-          >
-            Сгорел на работе - как выйти из эмоционального выгорания?
-          </Typography>
-
           <div className={styles.content}>
             <div
               className={sharedStyles.wysiwyg}
@@ -51,15 +53,17 @@ const ForumDetails: FC = () => {
 
         <GridItem col="1">
           <div className={styles.stickySidebar}>
-            <Stats />
+            <div className={styles.sidebar}>
+              <Stats />
 
-            <Button
-              label={t('forum.details.cta')}
-              width="full"
-              size="l"
-              onClick={(): void => alert('TODO')}
-              className={styles.createBtn}
-            />
+              <Button
+                label={t('forum.details.cta')}
+                width="full"
+                size="l"
+                onClick={(): void => alert('TODO')}
+                className={styles.createBtn}
+              />
+            </div>
           </div>
         </GridItem>
       </Grid>

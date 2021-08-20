@@ -1,3 +1,5 @@
+import { IPhoto } from 'types/interfaces/common';
+
 export interface ITab {
   id: number;
   slug: string;
@@ -16,21 +18,13 @@ export interface IForum {
   };
 }
 
-export interface ICourse {
-  readonly id: number;
-  image: string;
-  tag: string;
-  title: string;
-  description: string;
-  progress: string;
-  rate: [number, number];
-}
-
-export interface IReferral {
-  readonly id: number;
-  avatar?: string;
-  username: string;
-  btl: number;
-  level: number;
-  referralsCount: number;
+export interface IAnswer {
+  id: number;
+  timestamp: string;
+  author: {
+    id: number;
+    name: string;
+    avatar: IPhoto | null;
+  };
+  content: string;
 }

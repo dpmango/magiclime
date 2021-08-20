@@ -115,11 +115,9 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
         margin: 0,
       },
     },
-    'h1, h2, h3, h4, h5, h6, p, ul, ol': {
+    '& h1, & h2, & h3, & h4, & h5, & h6, & p, & ul, & ol': {
       color: ({ wysiwyg }) =>
-        wysiwyg !== 'muted'
-          ? 'var(--color-typo-secondary)'
-          : 'var(--color-typo-secondary)',
+        wysiwyg !== 'muted' ? 'currentColor' : 'var(--color-typo-secondary)',
     },
   },
 });
