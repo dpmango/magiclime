@@ -6,6 +6,7 @@ import { Button } from '@consta/uikit/Button';
 // import { SkeletonBrick } from '@consta/uikit/Skeleton';
 import ConstaIcons from 'assets/icons/ConstaIcons';
 import Webinar from './Webinar';
+import Flex from '../../../Common/Flex';
 
 const useStyles = makeStyles({
   root: {
