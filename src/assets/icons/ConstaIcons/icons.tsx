@@ -152,6 +152,23 @@ const Lime: FC<SVGProps<SVGSVGElement>> = (props) => (
   </ConstaIconsBuilder>
 );
 
+const Expand: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <ConstaIconsBuilder size={[24, 24]} {...props}>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15 1.35C15 0.604416 15.6044 0 16.35 0H22.65C23.3956 0 24 0.604416 24 1.35V7.65001C24 8.39559 23.3956 9.00001 22.65 9.00001C21.9044 9.00001 21.3 8.39559 21.3 7.65001V4.60919L15.8046 10.1046C15.2774 10.6318 14.4226 10.6318 13.8954 10.1046C13.3682 9.5774 13.3682 8.72262 13.8954 8.19542L19.3908 2.7H16.35C15.6044 2.7 15 2.09558 15 1.35Z"
+      fill="#97B2C4"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M10.1046 13.8954C10.6318 14.4226 10.6318 15.2774 10.1046 15.8046L4.60919 21.3H7.64727C8.39285 21.3 8.99727 21.9044 8.99727 22.65C8.99727 23.3956 8.39285 24 7.64727 24H1.35C0.604416 24 0 23.3956 0 22.65V16.35C0 15.6044 0.604416 15 1.35 15C2.09558 15 2.7 15.6044 2.7 16.35V19.3908L8.19542 13.8954C8.72262 13.3682 9.5774 13.3682 10.1046 13.8954Z"
+      fill="#97B2C4"
+    />
+  </ConstaIconsBuilder>
+);
+
 const createIcon = (name: string, component: FC) => {
   return {
     [name]: createConstaIcon(component, name),
@@ -170,6 +187,7 @@ const icons = {
   ...createIcon('Refresh', Refresh),
   ...createIcon('Comment', Comment),
   ...createIcon('Lime', Lime),
+  ...createIcon('Expand', Expand),
 };
 
 export default icons;

@@ -87,6 +87,7 @@ const WebinarChat = () => {
           onKeyDown={(e) => handleKeyDown(e)}
           placeholder="Новое сообщение"
           type={'textarea'}
+          form={'brick'}
           maxRows={7}
         />
         <Button

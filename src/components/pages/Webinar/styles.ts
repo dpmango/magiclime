@@ -15,18 +15,23 @@ const useStyles = makeStyles<null, { isFull: boolean }>(() => ({
       marginRight: '9px',
     },
   },
-  stream: {
-    position: 'relative',
-    borderRadius: ({ isFull }) => (!isFull ? '10px' : 0),
-    border: ({ isFull }) =>
-      !isFull ? `1px solid ${COLORS.layoutBorderColor}` : 'none',
-    height: ({ isFull }) => (!isFull ? '700px' : '100vh'),
-    zIndex: ({ isFull }) => (!isFull ? 1 : 1000),
-  },
+  stream: ({ isFull }) => ({
+    position: isFull ? 'fixed' : 'relative',
+    borderRadius: !isFull ? '10px' : 0,
+    border: !isFull ? `1px solid ${COLORS.layoutBorderColor}` : 'none',
+    height: !isFull ? '700px' : '100vh',
+    width: !isFull ? 'auto' : '100vw',
+    zIndex: !isFull ? 1 : 1000,
+    top: !isFull ? 'auto' : 0,
+    bottom: !isFull ? 'auto' : 0,
+    left: !isFull ? 'auto' : 0,
+    right: !isFull ? 'auto' : 0,
+  }),
   container: {
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
+    borderRadius: 'inherit',
+    background: 'var(--color-bg-default)',
   },
   chatContainer: {
     height: '100%',
@@ -36,7 +41,17 @@ const useStyles = makeStyles<null, { isFull: boolean }>(() => ({
     width: '100%',
     height: '190px',
     objectFit: 'cover',
-    borderTopLeftRadius: '10px',
+    borderTopLeftRadius: ({ isFull }) => (!isFull ? '10px' : 0),
+  },
+  videoContainer: {
+    position: 'relative',
+    flex: 1,
+    height: '100%',
+  },
+  expandBtn: {
+    position: 'absolute',
+    bottom: '18px',
+    right: '18px',
   },
 }));
 

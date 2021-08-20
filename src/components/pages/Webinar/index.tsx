@@ -4,6 +4,8 @@ import Flex from '../../Common/Flex';
 import Typography from '../../Common/Typography';
 import { IconWatch } from '@consta/uikit/IconWatch';
 import WebinarChat from './WebinarChat';
+import { Button } from '@consta/uikit/Button';
+import ConstaIcons from '../../../assets/icons/ConstaIcons';
 
 const Webinar: FC = () => {
   const [isFull, setFull] = useState(false);
@@ -32,6 +34,16 @@ const Webinar: FC = () => {
             />
             <WebinarChat />
           </Flex>
+          <div className={styles.videoContainer}>
+            <Button
+              onlyIcon
+              className={styles.expandBtn}
+              view={'clear'}
+              size={'l'}
+              iconLeft={isFull ? ConstaIcons.Close : ConstaIcons.Expand}
+              onClick={() => setFull(!isFull)}
+            />
+          </div>
         </Flex>
       </div>
     </div>

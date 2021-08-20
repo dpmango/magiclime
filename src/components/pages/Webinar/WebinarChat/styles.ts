@@ -15,12 +15,14 @@ const useStyles = makeStyles(() => ({
   inputWrapper: {
     background: 'var(--color-bg-default)',
     borderBottomLeftRadius: '10px',
+    borderRight: '1px solid var(--color-bg-secondary)',
   },
   input: {
     border: 'none',
     flex: 1,
     borderBottomLeftRadius: '10px',
     marginRight: '10px',
+    background: 'none !important',
   },
   message: {
     background: 'var(--color-bg-default)',
