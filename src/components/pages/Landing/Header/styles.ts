@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     margin: '0 0 0 auto',
     width: 'auto',
     padding: '0 42px 0 0',
+    '@media screen and (max-width: 992px)': {
+      display: 'none',
+    },
     '& li': {
       flex: '0 0 auto',
       marginRight: 80,
@@ -40,6 +43,12 @@ const useStyles = makeStyles({
     paddingLeft: 24,
     marginRight: -60, // why ?
     width: 'auto',
+    '@media screen and (max-width: 1440px)': {
+      marginRight: 0,
+    },
+    '@media screen and (max-width: 992px)': {
+      marginLeft: 'auto',
+    },
   },
   global: {
     padding: 16,

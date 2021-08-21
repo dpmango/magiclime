@@ -50,7 +50,7 @@ const Events: FC = () => {
               </div>
             </div>
           </GridItem>
-          <GridItem>
+          <GridItem className={styles.cardGridImage}>
             <div className={styles.image} />
           </GridItem>
         </Grid>
@@ -58,7 +58,7 @@ const Events: FC = () => {
         {/* next card */}
 
         <Grid gap="xl" className={cns(styles.card, 'reverse')}>
-          <GridItem>
+          <GridItem className={styles.cardGridImage}>
             <div className={styles.image} />
           </GridItem>
           <GridItem className={styles.event}>

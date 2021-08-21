@@ -52,7 +52,12 @@ const Hero: FC = () => {
           {t('landing.steps.title')}
         </Typography>
 
-        <Grid cols="4" gap="xl" yAlign="center">
+        <Grid
+          cols="1"
+          breakpoints={{ s: { cols: 2 }, l: { cols: 4 } }}
+          gap="xl"
+          yAlign="center"
+        >
           {content.map((x) => (
             <GridItem col="1" key={x.id}>
               <div className={styles.card}>
@@ -67,6 +72,7 @@ const Hero: FC = () => {
                     margin="16px 0 0"
                     size="m"
                     lineHeight="m"
+                    className={styles.cardDescription}
                   >
                     {x.description}
                   </Typography>

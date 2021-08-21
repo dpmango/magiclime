@@ -12,11 +12,24 @@ const useStyles = makeStyles({
     margin: '64px 0 40px',
     '&.reverse': {
       gridTemplateColumns: '57fr 43fr',
+      '@media screen and (max-width: 992px)': {
+        gridTemplateColumns: '1fr',
+      },
       '& $cardContent': {
         marginLeft: 'auto',
+        '@media screen and (max-width: 992px)': {
+          marginLeft: 0,
+        },
+      },
+    },
+    '@media screen and (max-width: 992px)': {
+      gridTemplateColumns: '1fr',
+      '& $cardGridImage': {
+        order: -1,
       },
     },
   },
+  cardGridImage: {},
   event: {
     height: '100%',
     display: 'flex',
@@ -41,6 +54,9 @@ const useStyles = makeStyles({
     zIndex: 1,
     background: 'var(--color-bg-secondary)',
     borderRadius: 16,
+    // '@media screen and (max-width: 992px)': {
+    //   maxWidth: 400,
+    // },
   },
 });
 

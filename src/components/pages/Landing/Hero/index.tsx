@@ -18,7 +18,16 @@ const Hero: FC = () => {
   return (
     <div className={styles.root}>
       <div className={rootStyles.container}>
-        <Grid cols="3" gap="xl" yAlign="center">
+        <Grid
+          cols="1"
+          breakpoints={{
+            l: {
+              cols: 3,
+            },
+          }}
+          gap="xl"
+          yAlign="center"
+        >
           <GridItem col="2">
             <div className={styles.content}>
               <Typography

@@ -8,10 +8,16 @@ const useStyles = makeStyles({
   },
   wrapper: {
     marginRight: -80,
+    '@media screen and (max-width: 1440px)': {
+      marginRight: 0,
+    },
   },
   mainGrid: {
     display: 'grid',
     gridTemplateColumns: '30fr 70fr',
+    '@media screen and (max-width: 992px)': {
+      gridTemplateColumns: '1fr',
+    },
   },
   first: {
     maxWidth: 340,
@@ -24,11 +30,14 @@ const useStyles = makeStyles({
     '& a': {
       display: 'block',
     },
+    '@media screen and (max-width: 640px)': {
+      display: 'none',
+    },
   },
   link: {
     color: 'var(--color-typo-secondary)',
     transition: 'color .25s ease-in-out',
-    '&: hover': {
+    '&:hover': {
       color: 'var(--color-typo-link)',
     },
   },

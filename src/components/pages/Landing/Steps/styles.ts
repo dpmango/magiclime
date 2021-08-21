@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     borderRadius: 10,
   },
   cardContent: {},
+  cardDescription: {
+    maxWidth: 256,
+  },
 });
 
 export default useStyles;

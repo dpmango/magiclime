@@ -9,6 +9,10 @@ const useStyles = makeStyles({
   },
   content: {
     paddingRight: 140,
+    '@media screen and (max-width: 1280px)': {
+      maxWidth: 640,
+      paddingRight: 0,
+    },
   },
   title: {
     fontSize: 48,
@@ -47,10 +51,12 @@ const useStyles = makeStyles({
     background: 'var(--color-bg-secondary)',
     minHeight: 530,
     marginLeft: 60,
-    '@media screen and (max-width: 1023px)': {
-      paddingTop: '32px',
+    '@media screen and (max-width: 1280px)': {
+      marginTop: '32px',
       paddingRight: '32px',
       marginRight: '0',
+      maxWidth: 600,
+      marginLeft: 132,
     },
   },
   frame: {

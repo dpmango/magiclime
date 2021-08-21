@@ -10,6 +10,9 @@ const useStyles = makeStyles({
     display: 'grid',
     gridGap: '24px',
     gridTemplateColumns: '43fr 57fr',
+    '@media screen and (max-width: 992px)': {
+      display: 'block',
+    },
   },
   tabList: {},
   tab: {
