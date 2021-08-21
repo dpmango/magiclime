@@ -21,9 +21,7 @@ const Hero: FC = () => {
         <Grid
           cols="1"
           breakpoints={{
-            l: {
-              cols: 3,
-            },
+            l: { cols: 3 },
           }}
           gap="xl"
           yAlign="center"
@@ -31,7 +29,7 @@ const Hero: FC = () => {
           <GridItem col="2">
             <div className={styles.content}>
               <Typography
-                size="4xl"
+                size="2xl l:4xl"
                 weight="semibold"
                 lineHeight="m"
                 className={styles.title}

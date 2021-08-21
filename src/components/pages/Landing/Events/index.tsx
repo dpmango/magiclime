@@ -29,11 +29,11 @@ const Events: FC = () => {
               <Typography view="ghost" margin="0 0 12px" size="l">
                 Finance
               </Typography>
-              <Typography size="3xl" lineHeight="m" weight="semibold">
+              <Typography size="2xl m:3xl" lineHeight="m" weight="semibold">
                 СБЕР АРТМаркет
               </Typography>
               <Typography
-                size="l"
+                size="s m:l"
                 margin="16px 0 0"
                 className={styles.cardDescription}
               >
@@ -66,11 +66,11 @@ const Events: FC = () => {
               <Typography view="ghost" margin="0 0 12px" size="l">
                 Finance
               </Typography>
-              <Typography size="3xl" lineHeight="m" weight="semibold">
+              <Typography size="2xl m:3xl" lineHeight="m" weight="semibold">
                 СБЕР АРТМаркет
               </Typography>
               <Typography
-                size="l"
+                size="s m:l"
                 margin="16px 0 0"
                 className={styles.cardDescription}
               >

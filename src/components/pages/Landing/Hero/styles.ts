@@ -15,7 +15,9 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    fontSize: 48,
+    '@media screen and (min-width: 1280px)': {
+      fontSize: 48,
+    },
   },
   blockquote: {
     position: 'relative',
