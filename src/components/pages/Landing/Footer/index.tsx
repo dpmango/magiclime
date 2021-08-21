@@ -69,19 +69,22 @@ const Footer: FC = () => {
   return (
     <div className={styles.root}>
       <div className={rootStyles.container}>
-        <Grid cols="3" gap="2xl">
-          <GridItem col="1">
+        <div className={styles.wrapper}>
+          <Grid gap="2xl" className={styles.mainGrid}>
             <div className={styles.first}>
-              <Typography size="3xl" view="brand" weight="semibold">
+              <Typography
+                size="3xl"
+                view="brand"
+                weight="semibold"
+                className={styles.logo}
+              >
                 {t('landing.footer.logo')}
               </Typography>
 
               <Subscribe />
             </div>
-          </GridItem>
 
-          <GridItem col="2">
-            <Grid cols="3" gap="xl">
+            <Grid cols="3" gap="4xl">
               {menu.map((g) => (
                 <GridItem col="1" key={g.id} className={styles.menu}>
                   <Typography margin="0 0 16px" size="s" weight="semibold">
@@ -89,7 +92,11 @@ const Footer: FC = () => {
                   </Typography>
                   {g.list.map((link) => (
                     <Link key={link.id} to={link.href}>
-                      <Typography margin="8px 0" size="s" view="link">
+                      <Typography
+                        margin="14px 0"
+                        size="xs"
+                        className={styles.link}
+                      >
                         {link.title}
                       </Typography>
                     </Link>
@@ -97,10 +104,10 @@ const Footer: FC = () => {
                 </GridItem>
               ))}
             </Grid>
-          </GridItem>
-        </Grid>
+          </Grid>
 
-        <Apps />
+          <Apps />
+        </div>
       </div>
     </div>
   );

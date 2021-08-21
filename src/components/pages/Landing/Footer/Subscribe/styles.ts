@@ -2,14 +2,20 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    marginTop: 24,
+    marginTop: 8,
+  },
+  title: {
+    fontSize: 14,
   },
   form: {
-    margin: '16px 0',
+    margin: '12px 0',
     '& .TextField': {
       width: 'auto',
       marginRight: 16,
     },
+  },
+  agreement: {
+    fontSize: 14,
   },
 });
 

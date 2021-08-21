@@ -44,15 +44,15 @@ const Hero: FC = () => {
     <div className={styles.root}>
       <div className={rootStyles.container}>
         <Typography
-          margin="0 0 32px"
+          margin="0 0 36px"
           size="3xl"
-          lienHeight="xs"
+          lineHeight="m"
           weight="semibold"
         >
           {t('landing.steps.title')}
         </Typography>
 
-        <Grid cols="4" gap="xl" yAlign="center" className={styles.grid}>
+        <Grid cols="4" gap="xl" yAlign="center">
           {content.map((x) => (
             <GridItem col="1" key={x.id}>
               <div className={styles.card}>

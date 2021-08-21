@@ -14,9 +14,9 @@ const Apps: FC = () => {
 
   return (
     <div className={styles.apps}>
-      <Grid gap="2xl" cols="3">
-        <GridItem col="1" />
-        <GridItem col="2">
+      <Grid gap="2xl" className={styles.mainGrid}>
+        <div />
+        <div>
           <Typography size="m" margin="0 0 12px">
             {t('landing.footer.apps')}
           </Typography>
@@ -47,7 +47,7 @@ const Apps: FC = () => {
               />
             </a>
           </Flex>
-        </GridItem>
+        </div>
       </Grid>
     </div>
   );

@@ -2,7 +2,12 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   apps: {
-    marginTop: 60,
+    marginTop: 84,
+  },
+
+  mainGrid: {
+    display: 'grid',
+    gridTemplateColumns: '30fr 70fr',
   },
   appLink: {
     marginRight: 16,

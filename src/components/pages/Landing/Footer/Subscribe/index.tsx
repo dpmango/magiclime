@@ -36,7 +36,7 @@ const Subscribe: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography size="s" lineHeight="m">
+      <Typography size="s" lineHeight="m" className={styles.title}>
         Будьте в курсе новостей платформы и обновлений системы
       </Typography>
 
@@ -50,12 +50,14 @@ const Subscribe: FC = () => {
             <Flex align="center">
               <FormikInput
                 name="email"
+                size="s"
                 placeholder={t('landing.footer.subscribe.email')}
                 isRequired={false}
               />
               <Button
                 view="primary"
                 type="submit"
+                size="s"
                 disabled={Object.keys(touched).length === 0}
                 label={t('landing.footer.subscribe.cta')}
               />
@@ -64,7 +66,12 @@ const Subscribe: FC = () => {
         )}
       </Formik>
 
-      <Typography size="s" lineHeight="m" view="ghost">
+      <Typography
+        size="s"
+        lineHeight="m"
+        view="ghost"
+        className={styles.agreement}
+      >
         Я соглашаюсь получать рекламные и иные сообщения от СБЕР на условиях{' '}
         <a href="http://google.com/" target="_blank" rel="noreferrer">
           Политики конфиденциальности СБЕР
