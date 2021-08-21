@@ -23,8 +23,8 @@ const Events: FC = () => {
           {t('landing.events.title')}
         </Typography>
 
-        <Grid cols="100" gap="xl" className={styles.card}>
-          <GridItem col="45" className={styles.event}>
+        <Grid gap="xl" className={styles.card}>
+          <GridItem className={styles.event}>
             <div className={styles.cardContent}>
               <Typography view="ghost" margin="0 0 12px" size="l">
                 Finance
@@ -32,7 +32,11 @@ const Events: FC = () => {
               <Typography size="3xl" lineHeight="m" weight="semibold">
                 СБЕР АРТМаркет
               </Typography>
-              <Typography size="l" margin="16px 0 0">
+              <Typography
+                size="l"
+                margin="16px 0 0"
+                className={styles.cardDescription}
+              >
                 The unique platform that combines strong technology with
                 intricate operational abilities. Complex marketplace with all
                 the necessary products for tourists: tickets, tours,
@@ -46,26 +50,30 @@ const Events: FC = () => {
               </div>
             </div>
           </GridItem>
-          <GridItem col="55">
+          <GridItem>
             <div className={styles.image} />
           </GridItem>
         </Grid>
 
         {/* next card */}
 
-        <Grid cols="100" gap="xl" className={styles.card}>
-          <GridItem col="55">
+        <Grid gap="xl" className={cns(styles.card, 'reverse')}>
+          <GridItem>
             <div className={styles.image} />
           </GridItem>
-          <GridItem col="45" className={styles.event}>
-            <div className={cns(styles.cardContent, 'reverse')}>
+          <GridItem className={styles.event}>
+            <div className={styles.cardContent}>
               <Typography view="ghost" margin="0 0 12px" size="l">
                 Finance
               </Typography>
               <Typography size="3xl" lineHeight="m" weight="semibold">
                 СБЕР АРТМаркет
               </Typography>
-              <Typography size="l" margin="16px 0 0">
+              <Typography
+                size="l"
+                margin="16px 0 0"
+                className={styles.cardDescription}
+              >
                 The unique platform that combines strong technology with
                 intricate operational abilities. Complex marketplace with all
                 the necessary products for tourists: tickets, tours,

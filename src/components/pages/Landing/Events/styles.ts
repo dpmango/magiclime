@@ -8,8 +8,14 @@ const useStyles = makeStyles({
   card: {
     display: 'grid',
     gridGap: '24px',
-    gridTemplateColumns: '55fr 45fr',
+    gridTemplateColumns: '43fr 57fr',
     margin: '64px 0 40px',
+    '&.reverse': {
+      gridTemplateColumns: '57fr 43fr',
+      '& $cardContent': {
+        marginLeft: 'auto',
+      },
+    },
   },
   event: {
     height: '100%',
@@ -25,12 +31,12 @@ const useStyles = makeStyles({
     flex: '1 0 auto',
     display: 'flex',
     flexDirection: 'column',
-    '&.reverse': {
-      marginLeft: 'auto',
-    },
+  },
+  cardDescription: {
+    fontSize: 19,
   },
   image: {
-    paddingBottom: '56.25%',
+    paddingBottom: '50%',
     position: 'relative',
     zIndex: 1,
     background: 'var(--color-bg-secondary)',

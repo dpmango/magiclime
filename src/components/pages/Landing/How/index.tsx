@@ -1,8 +1,5 @@
 import React, { FC, useEffect, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@consta/uikit/Button';
-import { Grid, GridItem } from '@consta/uikit/Grid';
 import cns from 'classnames';
 
 import Flex from 'components/Common/Flex';
@@ -11,10 +8,39 @@ import Typography from 'components/Common/Typography';
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
+interface Itab {
+  id: number;
+  title: string;
+  description: string;
+}
+
 const How: FC = () => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
   const { t } = useTranslation();
+
+  const tabs: Itab[] = [
+    {
+      id: 1,
+      title: 'Specialisation 1',
+      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+    },
+    {
+      id: 2,
+      title: 'Specialisation 2',
+      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+    },
+    {
+      id: 3,
+      title: 'Specialisation 3',
+      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+    },
+    {
+      id: 4,
+      title: 'Specialisation 4',
+      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+    },
+  ];
 
   const [tab, setTab] = useState<number>(1);
 
@@ -28,165 +54,98 @@ const How: FC = () => {
           {t('landing.how.description')}
         </Typography>
 
-        <Grid cols="3" gap="xl" className={styles.tabs}>
-          <GridItem col="1">
-            <div className={styles.tabList}>
+        <div className={styles.grid}>
+          <div className={styles.tabList}>
+            {tabs.map((tb) => (
               <div
-                className={cns(styles.tab, tab === 1 && 'active')}
+                className={cns(styles.tab, tb.id === tab && 'active')}
                 role="button"
                 tabIndex={0}
-                onClick={() => setTab(1)}
+                key={tb.id}
+                onClick={() => setTab(tb.id)}
               >
-                <Typography size="xl" weight="semibold">
-                  Specialisation 1
+                <Typography size="xl" className={styles.tabTitle}>
+                  {tb.title}
                 </Typography>
                 <Typography
                   margin="8px 0 0"
                   size="s"
                   lineHeight="m"
-                  className={styles.tabContent}
+                  className={styles.tabDescription}
                 >
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
+                  {tb.description}
                 </Typography>
               </div>
+            ))}
+          </div>
 
-              <div
-                className={cns(styles.tab, tab === 2 && 'active')}
-                role="button"
-                tabIndex={0}
-                onClick={() => setTab(2)}
-              >
-                <Typography size="xl" weight="semibold">
-                  Specialisation 2
-                </Typography>
-                <Typography
-                  margin="8px 0 0"
-                  size="s"
-                  lineHeight="m"
-                  className={styles.tabContent}
-                >
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
-                </Typography>
-              </div>
+          {/* tab view */}
 
-              <div
-                className={cns(styles.tab, tab === 3 && 'active')}
-                role="button"
-                tabIndex={0}
-                onClick={() => setTab(3)}
+          {tab === 1 && (
+            <div className={styles.tabContent}>
+              <Typography
+                view="brand"
+                size="xl"
+                weight="semibold"
+                lineHeight="m"
               >
-                <Typography size="xl" weight="semibold">
-                  Specialisation 3
-                </Typography>
-                <Typography
-                  margin="8px 0 0"
-                  size="s"
-                  lineHeight="m"
-                  className={styles.tabContent}
-                >
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
-                </Typography>
-              </div>
+                Tab 1
+              </Typography>
 
-              <div
-                className={cns(styles.tab, tab === 4 && 'active')}
-                role="button"
-                tabIndex={0}
-                onClick={() => setTab(4)}
-              >
-                <Typography size="xl" weight="semibold">
-                  Specialisation 4
-                </Typography>
-                <Typography
-                  margin="8px 0 0"
-                  size="s"
-                  lineHeight="m"
-                  className={styles.tabContent}
-                >
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
-                </Typography>
-              </div>
+              <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
+                All information about projects, tasks, financial transactions
+                and team progress is available in a single workspace. This
+                allows you to better navigate the processes, faster make
+                decisions and complete work on time.
+              </Typography>
+              <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
+                All information about projects, tasks, financial transactions
+                and team progress is available in a single workspace. This
+                allows you to better navigate the processes, faster make
+                decisions and complete work on time.
+              </Typography>
             </div>
-          </GridItem>
-          <GridItem col="2">
-            {tab === 1 && (
-              <div className={styles.tabView}>
-                <Typography
-                  view="brand"
-                  size="xl"
-                  weight="semibold"
-                  lineHeight="m"
-                >
-                  Tab 1
-                </Typography>
+          )}
 
-                <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
-                </Typography>
-                <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
-                  All information about projects, tasks, financial transactions
-                  and team progress is available in a single workspace. This
-                  allows you to better navigate the processes, faster make
-                  decisions and complete work on time.
-                </Typography>
-              </div>
-            )}
+          {tab === 2 && (
+            <div className={styles.tabContent}>
+              <Typography
+                view="brand"
+                size="xl"
+                weight="semibold"
+                lineHeight="m"
+              >
+                Tab 2:: All information abou
+              </Typography>
+            </div>
+          )}
 
-            {tab === 2 && (
-              <div className={styles.tabView}>
-                <Typography
-                  view="brand"
-                  size="xl"
-                  weight="semibold"
-                  lineHeight="m"
-                >
-                  Tab 2:: All information abou
-                </Typography>
-              </div>
-            )}
+          {tab === 3 && (
+            <div className={styles.tabContent}>
+              <Typography
+                view="brand"
+                size="xl"
+                weight="semibold"
+                lineHeight="m"
+              >
+                Tab 3:: All information abou
+              </Typography>
+            </div>
+          )}
 
-            {tab === 3 && (
-              <div className={styles.tabView}>
-                <Typography
-                  view="brand"
-                  size="xl"
-                  weight="semibold"
-                  lineHeight="m"
-                >
-                  Tab 3:: All information abou
-                </Typography>
-              </div>
-            )}
-
-            {tab === 4 && (
-              <div className={styles.tabView}>
-                <Typography
-                  view="brand"
-                  size="xl"
-                  weight="semibold"
-                  lineHeight="m"
-                >
-                  Tab 4:: All information abou
-                </Typography>
-              </div>
-            )}
-          </GridItem>
-        </Grid>
+          {tab === 4 && (
+            <div className={styles.tabContent}>
+              <Typography
+                view="brand"
+                size="xl"
+                weight="semibold"
+                lineHeight="m"
+              >
+                Tab 4:: All information abou
+              </Typography>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

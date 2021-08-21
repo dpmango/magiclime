@@ -5,13 +5,16 @@ const useStyles = makeStyles({
     position: 'relative',
     margin: '80px 0',
   },
-  tabs: {
+  grid: {
     marginTop: 48,
+    display: 'grid',
+    gridGap: '24px',
+    gridTemplateColumns: '43fr 57fr',
   },
   tabList: {},
   tab: {
     display: 'block',
-    padding: 24,
+    padding: '24px 40px 24px 24px',
     borderRadius: 4,
     cursor: 'pointer',
     transition: 'background .25s ease-in-out',
@@ -20,15 +23,21 @@ const useStyles = makeStyles({
     },
     '&.active': {
       background: 'var(--color-bg-secondary)',
-      '& $tabContent': {
+      '& $tabDescription': {
         display: 'block',
       },
     },
   },
-  tabContent: {
-    display: 'none',
+  tabTitle: {
+    fontSize: 20,
+    fontWeight: 300,
   },
-  tabView: {
+  tabDescription: {
+    display: 'none',
+    fontSize: 14,
+    fontWeight: 300,
+  },
+  tabContent: {
     padding: '32px 0',
   },
 });

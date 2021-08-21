@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
     position: 'relative',
     padding: '0px 0 60px',
-    marginBottom: 130,
+    marginBottom: 135,
   },
   content: {
     paddingRight: 140,
@@ -32,7 +33,12 @@ const useStyles = makeStyles({
     marginBottom: -16,
     '& .Button': {
       marginRight: 16,
+      minWidth: 255,
       marginBottom: 16,
+      '&.Button_view_primary': {
+        backgroundImage:
+          'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
+      },
     },
   },
   panel: {

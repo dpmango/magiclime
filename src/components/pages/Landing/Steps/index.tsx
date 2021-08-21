@@ -43,17 +43,22 @@ const Hero: FC = () => {
   return (
     <div className={styles.root}>
       <div className={rootStyles.container}>
-        <Typography margin="0 0 32px" size="3xl" weight="semibold">
+        <Typography
+          margin="0 0 32px"
+          size="3xl"
+          lienHeight="xs"
+          weight="semibold"
+        >
           {t('landing.steps.title')}
         </Typography>
 
-        <Grid cols="4" gap="xl" yAlign="center">
+        <Grid cols="4" gap="xl" yAlign="center" className={styles.grid}>
           {content.map((x) => (
             <GridItem col="1" key={x.id}>
               <div className={styles.card}>
                 <div className={styles.cardImage} />
                 <Flex direction="column">
-                  <Typography size="xl" margin="16px 0 0" weight="semibold">
+                  <Typography size="m" margin="16px 0 0" weight="semibold">
                     {x.step}
                   </Typography>
                   <Typography
