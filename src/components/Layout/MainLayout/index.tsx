@@ -20,6 +20,7 @@ import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
+import Webinar from '../../pages/Webinar';
 
 interface IProps {
   theme: 'default' | 'dark';
@@ -82,7 +83,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
             <Route path="/forum" component={Forum} />
             <Route exact path="/webinars" component={Webinars} />
             <Route path="/rating" component={Rating} />
-            <Route path="/webinars/:id" component={WebinarInfo} />
+            <Route exact path="/webinars/:id" component={WebinarInfo} />
+            <Route path="/webinars/:id/stream" component={Webinar} />
           </Switch>
         </Container>
       </Flex>

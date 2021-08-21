@@ -2,12 +2,12 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { Select } from '@consta/uikit/Select';
 import { TextField } from '@consta/uikit/TextField';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import useStyles from './styles';
 import { IconMeatball } from '@consta/uikit/IconMeatball';
+import { Button } from '@consta/uikit/Button';
+import useStyles from './styles';
 import { SetStateType } from '../../../../../types/common';
 import Dropdown from './Dropdown';
 import Flex from '../../../../Common/Flex';
-import { Button } from '@consta/uikit/Button';
 
 interface IProps {
   search: string;
@@ -29,7 +29,7 @@ const Header: FC<IProps> = ({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    //Get user chat groups
+    // Get user chat groups
   }, []);
 
   const toggleSearch = () => {
@@ -39,7 +39,7 @@ const Header: FC<IProps> = ({
 
   return (
     <>
-      <Flex justify={'space-between'} className={styles.root} align={'center'}>
+      <Flex justify="space-between" className={styles.root} align="center">
         <Select
           placeholder="Все"
           view="clear"
@@ -54,15 +54,15 @@ const Header: FC<IProps> = ({
         <div ref={ref}>
           <Button
             onlyIcon
-            view={'clear'}
-            size={'s'}
+            view="clear"
+            size="s"
             iconLeft={IconSearch}
             onClick={toggleSearch}
           />
           <Button
             onlyIcon
-            size={'s'}
-            view={'clear'}
+            size="s"
+            view="clear"
             className={styles.meatball}
             iconLeft={IconMeatball}
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -77,7 +77,7 @@ const Header: FC<IProps> = ({
       </Flex>
       <div className={styles.search}>
         <TextField
-          form={'brick'}
+          form="brick"
           className={styles.search}
           placeholder="Поиск по сообщениям"
           value={search}

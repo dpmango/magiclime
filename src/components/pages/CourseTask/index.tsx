@@ -163,7 +163,7 @@ const CoursePage: FC = () => {
 
       ScrollTo(0);
     } else {
-      alert('you are done here - moving to next course');
+      console.log('you are done here - moving to next course');
       history.push('/courses');
     }
   }, [nextSectionId, activeSectionId, sections]);

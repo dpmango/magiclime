@@ -5,6 +5,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { useTranslation } from 'react-i18next';
 
+import { tagBasePropGroup } from '@consta/uikit/__internal__/src/components/TagBase/TagBase';
 import Account from './Account';
 import Profile from './Profile';
 import Notifications from './Notifications';
@@ -91,16 +92,16 @@ const Settings: FC = () => {
             {t('profile.settings.navigation.sectionMain')}
           </Typography>
           <ul className={styles.navList}>
-            {tabs.slice(0, 4).map((t) => (
-              <li key={t.id}>
+            {tabs.slice(0, 4).map((tb) => (
+              <li key={tb.id}>
                 <span
                   className={styles.navLink}
                   role="link"
                   tabIndex={0}
-                  onClick={() => setTab(t)}
+                  onClick={() => setTab(tb)}
                 >
-                  <Typography view={tab.id === t.id ? 'primary' : 'secondary'}>
-                    {t.label}
+                  <Typography view={tab.id === tb.id ? 'primary' : 'secondary'}>
+                    {tb.label}
                   </Typography>
                 </span>
               </li>
@@ -118,16 +119,16 @@ const Settings: FC = () => {
             {t('profile.settings.navigation.sectionActivity')}
           </Typography>
           <ul className={styles.navList}>
-            {tabs.slice(4, 5).map((t) => (
-              <li key={t.id}>
+            {tabs.slice(4, 5).map((tb) => (
+              <li key={tb.id}>
                 <span
                   className={styles.navLink}
                   role="link"
                   tabIndex={0}
-                  onClick={() => setTab(t)}
+                  onClick={() => setTab(tb)}
                 >
-                  <Typography view={tab.id === t.id ? 'primary' : 'secondary'}>
-                    {t.label}
+                  <Typography view={tab.id === tb.id ? 'primary' : 'secondary'}>
+                    {tb.label}
                   </Typography>
                 </span>
               </li>

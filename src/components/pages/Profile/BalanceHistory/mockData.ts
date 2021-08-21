@@ -1,4 +1,10 @@
-export const columns = [
+interface IColumn {
+  title: string;
+  accessor: string;
+  sortable?: boolean;
+}
+
+export const columns: IColumn[] = [
   {
     title: 'ID',
     accessor: 'id',
@@ -41,7 +47,18 @@ export const columns = [
   },
 ];
 
-export const content = [
+interface IContent {
+  id: string;
+  date: string;
+  from: string;
+  fromSum: string;
+  in: string;
+  inSum: string;
+  price: string;
+  status: string;
+}
+
+export const content: IContent[] = [
   {
     id: '1',
     date: '07.05.2021',

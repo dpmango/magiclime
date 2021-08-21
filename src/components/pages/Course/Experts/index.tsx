@@ -58,17 +58,17 @@ const CourseExperts: FC = () => {
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef(null);
 
   const handlePrevClick = useCallback(() => {
     if (swiperRef && swiperRef.current) {
-      swiperRef.current!.swiper.slidePrev();
+      swiperRef.current.swiper.slidePrev();
     }
   }, [swiperRef]);
 
   const handleNextClick = useCallback(() => {
     if (swiperRef && swiperRef.current) {
-      swiperRef.current!.swiper.slideNext();
+      swiperRef.current.swiper.slideNext();
     }
   }, [swiperRef]);
 
@@ -111,7 +111,6 @@ const CourseExperts: FC = () => {
                 slidesPerView: 4,
               },
             }}
-            //@ts-ignore
             ref={swiperRef}
           >
             {slides.map((x) => (

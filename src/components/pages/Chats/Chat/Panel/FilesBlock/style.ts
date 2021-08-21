@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     },
   },
   doc: {
-    //maxWidth: '100px',
+    // maxWidth: '100px',
   },
   delete: {
     position: 'absolute',

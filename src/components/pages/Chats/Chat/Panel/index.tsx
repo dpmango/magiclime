@@ -5,12 +5,12 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import Flex from '../../../../Common/Flex';
 import { TextField } from '@consta/uikit/TextField';
-import useStyles from './styles';
 import { Button } from '@consta/uikit/Button';
 import { IconAttach } from '@consta/uikit/IconAttach';
 import { FileField } from '@consta/uikit/FileField';
+import useStyles from './styles';
+import Flex from '../../../../Common/Flex';
 import icons from './icons';
 import FilesBlock from './FilesBlock';
 import { ChatContext } from '../../context';
@@ -50,7 +50,7 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
   }, [chatContext]);
 
   return (
-    <Flex className={styles.root} align={'center'} direction={'column'}>
+    <Flex className={styles.root} align="center" direction="column">
       {chatContext.replyMessage && (
         <ReplyBlock
           message={chatContext.replyMessage}
@@ -64,7 +64,7 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
             <Button
               iconRight={IconAttach}
               onlyIcon
-              view={'clear'}
+              view="clear"
               className={styles.addFile}
               {...props}
             />
@@ -75,14 +75,14 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
           maxRows={15}
           onKeyDown={(e) => handleKeyDown(e)}
           onChange={({ value }) => setMessage(value as string)}
-          type={'textarea'}
-          placeholder={'Новое сообщение'}
+          type="textarea"
+          placeholder="Новое сообщение"
           className={styles.input}
         />
         <Button
           iconRight={icons.SendIcon}
           onlyIcon
-          view={'clear'}
+          view="clear"
           onClick={submitMessage}
         />
       </Flex>

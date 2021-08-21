@@ -17,6 +17,12 @@ const useStyles = makeStyles({
   main: {
     marginTop: 32,
   },
+  banner: {
+    width: '565px',
+    height: '345px',
+    objectFit: 'cover',
+    borderRadius: '7.5px',
+  },
 });
 
 export default useStyles;

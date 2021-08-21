@@ -7,7 +7,7 @@ const SocialNetworks = () => {
   const styles = useStyles();
 
   return (
-    <Flex justify={'center'}>
+    <Flex justify="center">
       <div className={styles.service}>
         <VKLogo />
       </div>

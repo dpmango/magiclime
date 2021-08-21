@@ -10,7 +10,19 @@ const initialState = {
   articles: [] as IArticle[],
 };
 
-export const getArticles = createAsyncThunk<object, ArticlesPayloadType>(
+const articleSlice = createSlice({
+  name: 'article',
+  initialState,
+  reducers: {
+    setArticles: (state, action: PayloadAction<IArticle[]>) => {
+      state.articles = action.payload;
+    },
+  },
+});
+
+export const { setArticles } = articleSlice.actions;
+
+export const getArticles = createAsyncThunk<unknown, ArticlesPayloadType>(
   'article/getArticles',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
@@ -24,17 +36,5 @@ export const getArticles = createAsyncThunk<object, ArticlesPayloadType>(
     }
   }
 );
-
-const articleSlice = createSlice({
-  name: 'article',
-  initialState,
-  reducers: {
-    setArticles: (state, action: PayloadAction<IArticle[]>) => {
-      state.articles = action.payload;
-    },
-  },
-});
-
-export const { setArticles } = articleSlice.actions;
 
 export default articleSlice.reducer;

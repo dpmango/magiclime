@@ -1,4 +1,41 @@
 {
+  "landing": {
+    "header": {
+      "menu": {
+        "courses": "Courses",
+        "webinar": "Webinars",
+        "articles": "Articles"
+      },
+      "login": "Login"
+    },
+    "footer": {
+      "logo": "Academy",
+      "subscribe": {
+        "email": "Enter Email",
+        "cta": "Subscribe"
+      },
+      "apps": "Mobile apps:"
+    },
+    "hero": {
+      "title": "Digital University",
+      "text": "At the Academy, you can acquire knowledge and skills that are necessary both in online activities and in life in general!",
+      "cta": {
+        "login": "Enter platform",
+        "more": "Learn more"
+      }
+    },
+    "steps": {
+      "title": "Beginner's Guide"
+    },
+    "how": {
+      "title": "How it works",
+      "description": "Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works"
+    },
+    "events": {
+      "title": "Upcoming Events",
+      "cta": "Discover more"
+    }
+  },
   "course": {
     "featured": {
       "tag": "recommended",

@@ -35,16 +35,43 @@
       }
     ],
     "linebreak-style": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off", // temp off
+    "@typescript-eslint/no-unused-vars": "off", // tmp off
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/no-cycle": "off",
+    "no-console": "off",
+    "no-shadow": "off",
+    "no-prototype-builtins": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
     "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-use-before-define": "warn",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
     "react/require-default-props": "off",
-    "@typescript-eslint/naming-convention": ["error", {
-      "selector": "default",
-      "format": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"]
-    }],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": ["_retry"]
+      }
+    ],
+    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "default",
+        "format": ["snake_case", "camelCase", "UPPER_CASE", "PascalCase"],
+        "leadingUnderscore": "allow"
+      }
+    ],
     "prettier/prettier": [
       "error",
       {
