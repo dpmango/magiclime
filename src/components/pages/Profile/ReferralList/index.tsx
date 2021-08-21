@@ -60,7 +60,7 @@ const Referrals: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { referralsTree, loading } = useSelector(
+  const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
   );
   const { profile } = useSelector((state: RootState) => state.user);
@@ -164,41 +164,54 @@ const Referrals: FC = () => {
 
       <Grid cols="4" gap="xl" className={styles.grid}>
         <GridItem col="3" className={styles.gridColMain}>
-          <Breadcrumbs
-            className={styles.breadcrumbs}
-            pages={mappedData.crumbs}
-            maxCount={5}
-            getLabel={(x) => x.label}
-            getLink={(x) => x.link}
-            getIcon={(x) => x.icon}
-            getIsActive={(x) => !!x.isActive}
-            onlyIconRoot
-            onClick={handleBreadcrumbClick}
-          />
+          {!error ? (
+            <>
+              {' '}
+              <Breadcrumbs
+                className={styles.breadcrumbs}
+                pages={mappedData.crumbs}
+                maxCount={5}
+                getLabel={(x) => x.label}
+                getLink={(x) => x.link}
+                getIcon={(x) => x.icon}
+                getIsActive={(x) => !!x.isActive}
+                onlyIconRoot
+                onClick={handleBreadcrumbClick}
+              />
+              <div className={styles.referrals}>
+                <ReferralUser data={mappedData.root} root />
 
-          <div className={styles.referrals}>
-            <ReferralUser data={mappedData.root} root />
-
-            {mappedData.childrens &&
-              mappedData.childrens.map((group: IReferralTree) => (
-                <div key={group.id} className={styles.referralGroup}>
-                  <ReferralUser
-                    onReferralClick={handleReferralClick}
-                    key={group.id}
-                    data={group}
-                  />
-                  {group.children &&
-                    group.children.map((referral: IReferralTree) => (
+                {mappedData.childrens &&
+                  mappedData.childrens.map((group: IReferralTree) => (
+                    <div key={group.id} className={styles.referralGroup}>
                       <ReferralUser
-                        key={referral.id}
                         onReferralClick={handleReferralClick}
-                        data={referral}
-                        nested
+                        key={group.id}
+                        data={group}
                       />
-                    ))}
-                </div>
-              ))}
-          </div>
+                      {group.children &&
+                        group.children.map((referral: IReferralTree) => (
+                          <ReferralUser
+                            key={referral.id}
+                            onReferralClick={handleReferralClick}
+                            data={referral}
+                            nested
+                          />
+                        ))}
+                    </div>
+                  ))}
+              </div>
+            </>
+          ) : (
+            <Typography
+              view="alert"
+              align="center"
+              weight="semibold"
+              margin="0 0 12px"
+            >
+              {error}
+            </Typography>
+          )}
 
           {loading && (
             <div className={sharedStyles.loader}>

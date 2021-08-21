@@ -12,7 +12,7 @@ interface IProps {
   data: IReferralTree;
   nested?: boolean;
   root?: boolean;
-  onReferralClick?: () => void;
+  onReferralClick?: (id: number) => void;
 }
 
 const ReferralUser: FC<IProps> = ({

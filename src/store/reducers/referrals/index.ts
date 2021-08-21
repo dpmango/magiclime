@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getReferralsService } from 'utils/api/routes/referrals';
@@ -6,6 +7,7 @@ import { ReferralsPayloadType } from './types';
 
 const initialState = {
   loading: true,
+  error: '',
   referralsTree: {} as IReferralTree,
 };
 
@@ -20,6 +22,7 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
       }
       return response.data;
     } catch (err) {
+      dispatch(setError(err.data[0]));
       return rejectWithValue(err.response.data);
     }
   }
@@ -32,9 +35,14 @@ const referralsSlice = createSlice({
     setReferralsTree: (state, action: PayloadAction<IReferralTree>) => {
       state.referralsTree = action.payload;
     },
+    setError: (state, action: PayloadAction<string>) => {
+      console.log('setting error', action);
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getReferrals.pending, (state) => {
+      state.error = '';
       state.loading = true;
     });
     builder.addCase(getReferrals.fulfilled, (state) => {
@@ -46,6 +54,6 @@ const referralsSlice = createSlice({
   },
 });
 
-export const { setReferralsTree } = referralsSlice.actions;
+export const { setReferralsTree, setError } = referralsSlice.actions;
 
 export default referralsSlice.reducer;
