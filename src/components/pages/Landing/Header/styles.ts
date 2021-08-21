@@ -3,29 +3,33 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    padding: '24px 0',
-    borderBottom: '1px solid var(--color-bg-border)',
+    padding: '22px 0 64px',
+    // borderBottom: '1px solid var(--color-bg-border)',
   },
-
   logo: {
     textTransform: 'uppercase',
     fontWeight: 600,
-    fontSize: 20,
+    fontSize: 18,
     paddingRight: 24,
   },
   menu: {
     listStyle: 'none',
-    margin: '0 auto',
+    margin: '0 0 0 auto',
     width: 'auto',
-    padding: 0,
+    padding: '0 42px 0 0',
     '& li': {
       flex: '0 0 auto',
-      marginRight: 24,
+      marginRight: 80,
+      '&:last-child': {
+        marginRight: 0,
+      },
     },
   },
   menuLink: {
     display: 'inline-block',
     padding: 10,
+    fontSize: 18,
+    fontWeight: 300,
     transition: 'color .25s ease',
     '&:hover': {
       color: 'var(--color-typo-brand)',
@@ -34,8 +38,8 @@ const useStyles = makeStyles({
   cta: {
     flex: '0 0 auto',
     paddingLeft: 24,
+    marginRight: -60, // why ?
     width: 'auto',
-    marginLeft: 'auto',
   },
   global: {
     padding: 16,

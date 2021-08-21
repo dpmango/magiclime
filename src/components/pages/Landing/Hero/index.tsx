@@ -21,19 +21,29 @@ const Hero: FC = () => {
         <Grid cols="3" gap="xl" yAlign="center">
           <GridItem col="2">
             <div className={styles.content}>
-              <Typography size="3xl" weight="semibold" lineHeight="m">
+              <Typography
+                size="4xl"
+                weight="semibold"
+                lineHeight="m"
+                className={styles.title}
+              >
                 {t('landing.hero.title')}
               </Typography>
               <Typography
                 margin="16px 0"
                 size="xl"
+                lineHeight="l"
                 className={styles.blockquote}
               >
                 {t('landing.hero.text')}
               </Typography>
               <Flex wrap="wrap" className={styles.cta}>
-                <Button label={t('landing.hero.cta.login')} />
-                <Button view="secondary" label={t('landing.hero.cta.more')} />
+                <Button size="l" label={t('landing.hero.cta.login')} />
+                <Button
+                  size="l"
+                  view="secondary"
+                  label={t('landing.hero.cta.more')}
+                />
               </Flex>
             </div>
           </GridItem>

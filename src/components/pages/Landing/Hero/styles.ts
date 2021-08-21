@@ -3,13 +3,18 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    padding: '0px 0',
+    padding: '0px 0 60px',
+    marginBottom: 130,
   },
   content: {
     paddingRight: 140,
   },
+  title: {
+    fontSize: 48,
+  },
   blockquote: {
     position: 'relative',
+    fontSize: 20,
     padding: '0px 0 0px 24px',
     '&::after': {
       display: 'block',
@@ -35,6 +40,7 @@ const useStyles = makeStyles({
     marginRight: 'calc(((-100vw + 1208px) / 2) - 274px - 40px)',
     background: 'var(--color-bg-secondary)',
     minHeight: 530,
+    marginLeft: 60,
     '@media screen and (max-width: 1023px)': {
       paddingTop: '32px',
       paddingRight: '32px',
@@ -43,7 +49,7 @@ const useStyles = makeStyles({
   },
   frame: {
     width: '100%',
-    transform: 'translate(-140px, 60px)',
+    transform: 'translate(-132px, 60px)',
     maxWidth: 264,
     height: 530,
     background: 'var(--color-bg-stripe)',
