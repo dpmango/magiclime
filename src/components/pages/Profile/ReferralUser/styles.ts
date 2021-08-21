@@ -41,8 +41,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralUser: {
     flex: '0 0 50%',
     minWidth: 1,
+    paddingLeft: ({ nested }) => (nested ? 30 : 0),
     paddingRight: 12,
-    // paddingLeft: ({ nested }) => (nested ? 30 : 0),
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
@@ -59,7 +59,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
           '&::after': {
             display: 'block',
             content: "' '",
-            position: 'absolute', // TODO absolute breaking TS validation
+            position: 'absolute',
             zIndex: 1,
             top: 36,
             left: -52,
@@ -80,7 +80,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralAvatar: ({ root }) => ({
     flexShrink: 0,
     '& ': (() => {
-      return root ? { width: 72, height: 72 } : {};
+      return root ? { width: 72, height: 72, lineHeight: '72px' } : {};
     })(),
   }),
   referralBtl: {

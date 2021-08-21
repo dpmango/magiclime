@@ -1,4 +1,12 @@
-import React, { FC, useState, useCallback, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  MouseEvent,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import ConstaIcons from 'assets/icons/ConstaIcons';
@@ -7,12 +15,14 @@ import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
 import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
+import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import { IReferralGroup, IReferral } from 'components/pages/Profile/types';
+import { IReferralTree } from 'types/interfaces/referrals';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { useTranslation } from 'react-i18next';
+import { RootState } from 'store/reducers/rootReducer';
+import { getReferrals } from 'store/reducers/referrals';
 
-import { referralRoot, referralsList } from './mockData';
 import useStyles from './styles';
 
 interface IProgram {
@@ -29,6 +39,7 @@ interface IPage {
 
 const Referrals: FC = () => {
   const styles = useStyles();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const breadcrumbs: IPage[] = [
@@ -90,6 +101,21 @@ const Referrals: FC = () => {
     [selectedLeveles]
   );
 
+  const { referralsTree } = useSelector((state: RootState) => state.referrals);
+
+  useEffect(() => {
+    dispatch(getReferrals({ id: 1, program: 1, level: 1 }));
+  }, []);
+
+  const mappedData = useMemo(() => {
+    return {
+      root: referralsTree,
+      childrens: referralsTree.children,
+    };
+  }, [referralsTree]);
+
+  console.log(referralsTree);
+
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
@@ -110,19 +136,28 @@ const Referrals: FC = () => {
             onClick={handleBreadcrumbClick}
           />
 
-          <div className={styles.referrals}>
-            <ReferralUser data={referralRoot} root />
+          {mappedData.childrens ? (
+            <div className={styles.referrals}>
+              <ReferralUser data={mappedData.root} root />
 
-            {referralsList.map((group: IReferralGroup) => (
-              <div key={group.id} className={styles.referralGroup}>
-                <ReferralUser key={group.referral.id} data={group.referral} />
-                {group.referrals &&
-                  group.referrals.map((referral: IReferral) => (
-                    <ReferralUser key={referral.id} data={referral} nested />
-                  ))}
-              </div>
-            ))}
-          </div>
+              {mappedData.childrens &&
+                mappedData.childrens.map((group: IReferralTree) => (
+                  <div key={group.id} className={styles.referralGroup}>
+                    <ReferralUser key={group.id} data={group} />
+                    {group.children &&
+                      group.children.map((referral: IReferralTree) => (
+                        <ReferralUser
+                          key={referral.id}
+                          data={referral}
+                          nested
+                        />
+                      ))}
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <Loader />
+          )}
         </GridItem>
 
         {/* Filters */}
