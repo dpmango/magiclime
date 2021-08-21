@@ -12,12 +12,14 @@ interface IProps {
   data: IReferralTree;
   nested?: boolean;
   root?: boolean;
+  onReferralClick?: () => void;
 }
 
 const ReferralUser: FC<IProps> = ({
   data: { id, username, avatar, referrals_count },
   nested,
   root,
+  onReferralClick,
 }) => {
   const styles = useStyles({ nested, root });
   const { t } = useTranslation();
@@ -34,7 +36,12 @@ const ReferralUser: FC<IProps> = ({
   }, [referrals_count]);
 
   return (
-    <Flex key={id} align="center" className={styles.referral}>
+    <Flex
+      key={id}
+      align="center"
+      className={styles.referral}
+      onClick={() => onReferralClick && onReferralClick(id)}
+    >
       <Flex align="center" className={styles.referralUser}>
         <Avatar
           url={avatar && avatar.image ? avatar.image : ''}

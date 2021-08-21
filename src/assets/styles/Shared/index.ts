@@ -13,6 +13,20 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
     },
   },
 
+  loader: {
+    position: 'absolute',
+    zIndex: 3,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'var(--color-bg-default)',
+    opacity: 0.5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   wysiwyg: {
     '& > :first-child': {
       marginTop: 0,

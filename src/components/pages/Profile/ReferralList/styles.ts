@@ -5,7 +5,11 @@ const useStyles = makeStyles({
     marginTop: 34,
   },
   grid: {
+    position: 'relative',
     marginTop: 24,
+  },
+  gridColMain: {
+    position: 'relative',
   },
   breadcrumbs: {
     '& .LimeIcon': {
@@ -26,6 +30,7 @@ const useStyles = makeStyles({
     marginTop: 28,
     paddingLeft: 52,
   },
+
   referralGroup: {
     position: 'relative',
     borderTop: '1px solid var(--color-bg-border)',
