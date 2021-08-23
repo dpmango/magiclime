@@ -8,7 +8,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
-    "lint": "eslint ./src --fix --color"
+    "lint": "eslint ./src --fix --color",
+    "deploy": "node scripts/deploy.js"
   },
   "husky": {
     "hooks": {
@@ -16,9 +17,10 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{ts,tsx}": [
       "prettier --write",
       "npm run lint",
+      "bash -c 'tsc --noEmit --noEmitOnError --pretty'",
       "git add"
     ]
   },
@@ -101,6 +103,7 @@
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
     "source-map-loader": "^3.0.0",
+    "ssh2-sftp-client": "^7.0.3",
     "style-loader": "^3.2.1",
     "svg-url-loader": "^7.1.1",
     "terser-webpack-plugin": "^5.1.4",

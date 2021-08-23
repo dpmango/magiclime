@@ -77,7 +77,9 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   personInfo="8 уровень"
                   className={styles.clickBlock}
                 />
-                <a id="specialButton" href="/" className={styles.poorVision} />
+                <a id="specialButton" href="/" className={styles.poorVision}>
+                  {' '}
+                </a>
               </div>
               {isOpen && (
                 <UserDropdown

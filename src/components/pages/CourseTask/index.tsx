@@ -143,7 +143,7 @@ const CoursePage: FC = () => {
   }, [activeSectionId]);
 
   const styles = useStyles();
-  const sharedStyles = useSharedStyles();
+  const sharedStyles = useSharedStyles({});
   // const { course, id } = useParams();
   const history = useHistory();
 
