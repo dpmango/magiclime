@@ -20,8 +20,7 @@
     "*.{ts,tsx}": [
       "prettier --write",
       "npm run lint",
-      "bash -c 'tsc --noEmit --noEmitOnError --pretty'",
-      "git add"
+      "bash -c 'tsc --noEmit --noEmitOnError --pretty'"
     ]
   },
   "dependencies": {
