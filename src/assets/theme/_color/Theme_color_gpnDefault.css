@@ -6,7 +6,7 @@
   // Цвета фонов /////////////// */
   --color-bg-default: rgb(255, 255, 255); /* Цвет дефолта */
   --color-bg-secondary: #fafafa; /* Цвет дефолта */
-  --color-bg-brand: #197553; /* Цвет фона брендированый */
+  --color-bg-brand: #0AC36A; /* Цвет фона брендированый */
   --color-bg-link: rgb(0, 120, 210); /* Цвет фона ссылки */
   --color-bg-border: #e5e8eb; /* Цвет границ */
   --color-bg-stripe: rgba(0, 32, 51, 0.05); /* Цвет зебры */
@@ -26,7 +26,7 @@
   --color-typo-primary: #1e2329; /* Цвет основного текста */
   --color-typo-secondary: #99a2ad; /* Цвет второстепенного текста */
   --color-typo-ghost: #8e8e8e; /* Цвет дополнительного текста */
-  --color-typo-brand: #109062; /* Цвет брендового текста */
+  --color-typo-brand: #0AC36A; /* Цвет брендового текста */
   --color-typo-system: rgb(132, 167, 189); /* Цвет фона системнный */
   --color-typo-normal: rgb(51, 180, 255); /* Цвет фона нейтральный */
   --color-typo-success: rgb(9, 179, 123); /* Цвет текста успеха */
@@ -34,9 +34,9 @@
   --color-typo-warning: rgb(235, 109, 0); /* Цвет текста предупреждения */
   --color-typo-alert: #eb5d56; /* Цвет текста ошибки */
   --color-typo-critical: rgb(51, 0, 15); /* Цвет фона системнный */
-  --color-typo-link: #109062; /* Цвет основной ссылки */
-  --color-typo-link-minor: #197553; /* Цвет второстепенной ссылки */
-  --color-typo-link-hover: #197553; /* Цвет ховера ссылки */
+  --color-typo-link: #0AC36A; /* Цвет основной ссылки */
+  --color-typo-link-minor: #0AC36A; /* Цвет второстепенной ссылки */
+  --color-typo-link-hover: #0AC36A; /* Цвет ховера ссылки */
   --color-nums-shadow: 0, 32, 51; /* Значения RGB для указания теней в конструкции rgba(R,G,B, alpha) */
 
   /* //////////////////////////////
@@ -89,8 +89,8 @@
   ); /* Цвет тени в состонии нажатия  */
 
   /* Primary */
-  --color-control-bg-primary: #109062; /* Цвет фона активного контрола */
-  --color-control-bg-primary-hover: #109061c4; /* Цвет фона активного контрола по ховеру */
+  --color-control-bg-primary: #0AC36A; /* Цвет фона активного контрола */
+  --color-control-bg-primary-hover: #00D36D; /* Цвет фона активного контрола по ховеру */
 
   --color-control-typo-primary: rgb(255, 255, 255); /* Цвет акцентного текста */
   --color-control-typo-primary-hover: rgb(
@@ -146,7 +146,7 @@
     41
   ); /* Цвет дополнительного текста контрола */
 
-  --color-control-typo-ghost-hover: #197553; /* Цвет акцентного текста */
+  --color-control-typo-ghost-hover: #0AC36A; /* Цвет акцентного текста */
 
   --color-control-bg-border-ghost: #dbdbdbbd; /* Цвет фона бордеров котрола */
 
@@ -158,7 +158,7 @@
 
   --color-control-typo-clear: #1e2329; /* Цвет акцентного текста */
 
-  --color-control-typo-clear-hover: #109062; /* Цвет акцентного текста */
+  --color-control-typo-clear-hover: #0AC36A; /* Цвет акцентного текста */
 
   /* Disable */
   --color-control-bg-disable: rgba(

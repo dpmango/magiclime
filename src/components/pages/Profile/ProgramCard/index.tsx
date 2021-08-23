@@ -142,7 +142,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
           >
             {t('profile.programCard.blocked.title')}
           </Typography>
-          <Button size="s" label={t('profile.programCard.blocked.cta')} />
+          <Button size="m" label={t('profile.programCard.blocked.cta')} />
         </div>
       )}
     </Flex>
