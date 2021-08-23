@@ -19,7 +19,8 @@ const useStyles = makeStyles({
   },
   blockquote: {
     position: 'relative',
-    fontSize: 20,
+    fontSize: 19,
+    maxWidth: 620,
     padding: '0px 0 0px 24px',
     '&::after': {
       display: 'block',
@@ -37,12 +38,16 @@ const useStyles = makeStyles({
     marginBottom: -16,
     '& .Button': {
       marginRight: 16,
-      minWidth: 255,
-      height: 55,
+      minWidth: 245,
       marginBottom: 16,
       '&.Button_view_primary': {
         backgroundImage:
           'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
+        textShadow: '0 0 #b3b3b3',
+      },
+      '&.Button_view_secondary': {
+       color:'var(--color-typo-primary)',
+       border: '1px solid #6e6e6e',
       },
     },
   },

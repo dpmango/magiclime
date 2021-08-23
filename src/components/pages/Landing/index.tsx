@@ -18,8 +18,8 @@ const Landing: FC = () => {
       <Header />
 
       <Hero />
-      <Steps />
       <How />
+      <Steps />
       <FeaturedEvent />
       <Events />
 

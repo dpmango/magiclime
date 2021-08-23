@@ -39,7 +39,7 @@ const Hero: FC = () => {
                 {t('landing.hero.title')}
               </Typography>
               <Typography
-                margin="16px 0"
+                margin="12px 0 16px"
                 size="xl"
                 lineHeight="l"
                 className={styles.blockquote}
