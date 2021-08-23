@@ -25,23 +25,25 @@ const useStyles = makeStyles({
       background: 'var(--color-bg-secondary)',
     },
     '&.active': {
-      background: 'var(--color-bg-secondary)',
+      border: '1px solid #6E6E6E',
+      background: 'var(--color-bg-default) !important',
       '& $tabDescription': {
         display: 'block',
       },
     },
   },
   tabTitle: {
-    fontSize: 20,
-    fontWeight: 300,
+    fontSize: 19,
+    // fontWeight: 300,
   },
   tabDescription: {
     display: 'none',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 300,
   },
   tabContent: {
-    padding: '32px 0',
+    border: '1px solid #6E6E6E',
+    padding: '32px 24px',
   },
 });
 

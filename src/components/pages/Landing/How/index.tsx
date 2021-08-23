@@ -50,7 +50,7 @@ const How: FC = () => {
         <Typography size="3xl" weight="semibold">
           {t('landing.how.title')}
         </Typography>
-        <Typography as="p" margin="24px 0 0px" size="xl">
+        <Typography as="p" margin="24px 0 0px" size="l">
           {t('landing.how.description')}
         </Typography>
 

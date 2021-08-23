@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   card: {
     position: 'relative',
     padding: 24,
-    border: '1px solid var(--color-bg-border)',
+    // border: '1px solid var(--color-bg-border)',
     borderRadius: 10,
   },
   cardImage: {
