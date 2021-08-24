@@ -22,11 +22,11 @@ const useStyles = makeStyles({
       },
     },
   },
-  referals: {
+  referrals: {
     marginTop: 28,
     paddingLeft: 52,
   },
-  referalGroup: {
+  referralGroup: {
     position: 'relative',
     borderTop: '1px solid var(--color-bg-border)',
     '&::after, &::before': {

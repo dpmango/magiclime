@@ -1,4 +1,4 @@
-import { IProgram, IActivementsGroups, IEvent, ICourse } from './types';
+import { IProgram, IActivementsGrouped, IEvent, ICourse } from './types';
 
 export const mockPrograms: IProgram[] = [
   {
@@ -11,7 +11,7 @@ export const mockPrograms: IProgram[] = [
     level: 3,
     league: 'Серебрянная',
     progress: [3, 17],
-    referals: [
+    referrals: [
       {
         id: 1,
         avatar: {
@@ -19,7 +19,7 @@ export const mockPrograms: IProgram[] = [
           image: 'https://randomuser.me/api/portraits/women/15.jpg',
         },
       },
-      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      { id: 2, avatar: { id: 2, image: '' }, name: 'A B ' },
       {
         id: 3,
         avatar: {
@@ -49,7 +49,7 @@ export const mockPrograms: IProgram[] = [
         },
       },
     ],
-    referalsTotal: 17,
+    referralsTotal: 17,
   },
   {
     disabled: true,
@@ -62,7 +62,7 @@ export const mockPrograms: IProgram[] = [
     level: 8,
     league: 'Золотая',
     progress: [8, 15],
-    referals: [
+    referrals: [
       {
         id: 1,
         avatar: {
@@ -70,7 +70,7 @@ export const mockPrograms: IProgram[] = [
           image: 'https://randomuser.me/api/portraits/women/15.jpg',
         },
       },
-      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      { id: 2, avatar: { id: 2, image: '' }, name: 'A B ' },
       {
         id: 3,
         avatar: {
@@ -107,7 +107,7 @@ export const mockPrograms: IProgram[] = [
         },
       },
     ],
-    referalsTotal: 12,
+    referralsTotal: 12,
   },
   {
     disabled: true,
@@ -120,7 +120,7 @@ export const mockPrograms: IProgram[] = [
     level: 3,
     league: 'Серебрянная',
     progress: [5, 10],
-    referals: [
+    referrals: [
       {
         id: 1,
         avatar: {
@@ -128,7 +128,7 @@ export const mockPrograms: IProgram[] = [
           image: 'https://randomuser.me/api/portraits/women/15.jpg',
         },
       },
-      { id: 2, avatar: { id: 2, image: undefined }, name: 'A B ' },
+      { id: 2, avatar: { id: 2, image: '' }, name: 'A B ' },
       {
         id: 3,
         avatar: {
@@ -151,7 +151,7 @@ export const mockPrograms: IProgram[] = [
         },
       },
     ],
-    referalsTotal: 7,
+    referralsTotal: 7,
   },
   {
     disabled: true,
@@ -164,72 +164,72 @@ export const mockPrograms: IProgram[] = [
     level: 1,
     league: 'Серебрянная',
     progress: [5, 17],
-    referals: [],
-    referalsTotal: 0,
+    referrals: [],
+    referralsTotal: 0,
   },
 ];
 
-export const mockAchivements: IActivementsGroups[] = [
+export const mockAchievements: IActivementsGrouped[] = [
   {
     id: 1,
-    image: '/images/achivement-1.svg',
+    image: '/images/achievement-1.svg',
     title: 'Заголовок группы достижений',
     stats: {
-      compleated: 2,
+      completed: 2,
       total: 10,
     },
     list: [
       {
         id: 1,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: true,
+        opened: true,
       },
       {
         id: 2,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: false,
+        opened: false,
       },
     ],
   },
   {
     id: 2,
-    image: '/images/achivement-2.svg',
+    image: '/images/achievement-2.svg',
     title: 'Заголовок группы достижений',
     stats: {
-      compleated: 1,
+      completed: 1,
       total: 35,
     },
     list: [
       {
         id: 3,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: true,
+        opened: true,
       },
       {
         id: 4,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: true,
+        opened: true,
       },
     ],
   },
   {
     id: 3,
-    image: '/images/achivement-2.svg',
+    image: '/images/achievement-2.svg',
     title: 'Заголовок группы достижений',
     stats: {
-      compleated: 1,
+      completed: 1,
       total: 35,
     },
     list: [
       {
         id: 3,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: true,
+        opened: true,
       },
       {
         id: 4,
         title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        compleated: true,
+        opened: true,
       },
     ],
   },

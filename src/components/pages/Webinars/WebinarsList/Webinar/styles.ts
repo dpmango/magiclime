@@ -30,13 +30,13 @@ const useStyles = makeStyles({
   cta: {
     marginTop: 32,
   },
-  referalWrapper: {
+  referralWrapper: {
     flex: '0 0 auto',
     width: 'auto',
     marginLeft: 'auto',
     paddingLeft: 12,
   },
-  referalUsers: {
+  referralUsers: {
     paddingRight: 12,
   },
   date: {

@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent, useCallback, useContext } from 'react';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
-import { DropdownItem, IProps } from './types';
 import { IconEdit } from '@consta/uikit/IconEdit';
+import { DropdownItem, IProps } from './types';
 import { ChatContext } from '../../../context';
 
 const Dropdown: FC<IProps> = ({ clickOutside, targetRef }) => {
@@ -25,7 +25,7 @@ const Dropdown: FC<IProps> = ({ clickOutside, targetRef }) => {
   return (
     <ContextMenu
       items={items}
-      size={'s'}
+      size="s"
       getLabel={(item: DropdownItem) => item.name}
       getOnClick={onItemClick}
       anchorRef={targetRef}

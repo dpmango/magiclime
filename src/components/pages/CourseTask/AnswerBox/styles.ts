@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   uiGroup: {
     marginTop: 24,
   },
-  checboxGroup: {
+  checkboxGroup: {
     '& .RadioGroup-Item:not(:last-child), & .CheckboxGroup-Item:not(:last-child)':
       {
         marginBottom: '14px',

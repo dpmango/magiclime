@@ -100,10 +100,10 @@ const useStyles = makeStyles<null, IProps>(() => ({
   metaInfo: {
     marginTop: 8,
   },
-  referal: {
+  referral: {
     marginTop: 14,
   },
-  referalCount: {
+  referralCount: {
     flex: '0 0 auto',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -113,6 +113,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
+    border: '1px solid var(--color-bg-border)',
     transform: 'translate(-50%,-50%)',
     background: 'var(--color-bg-default)',
     maxWidth: '200px',

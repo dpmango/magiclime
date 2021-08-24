@@ -1,25 +1,40 @@
 import React, { useState, useEffect } from 'react';
+import debounce from 'lodash/debounce';
 
-const useResolution = (resolution = 480) => {
-  const [isMobile, setIsMobile] = useState(false);
+interface IProps {
+  width: number;
+  height: number;
+}
+
+const debounceRate = 150;
+
+const useResolution = (): IProps => {
+  const [windowSize, setWindowSize] = useState<IProps>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
     };
+
+    const debouncedFunction = debounce(handleResize, debounceRate, {
+      leading: false,
+      trailing: true,
+    });
+
+    window.addEventListener('resize', debouncedFunction, false);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', debouncedFunction, false);
   }, []);
 
-  const handleResize = () => {
-    // let isMobileDevice = !!navigator.userAgent.match(/Mobile/) || false
-    const width = window.innerWidth;
-
-    if (width <= resolution) setIsMobile(true);
-    else setIsMobile(false);
-  };
-
-  return isMobile;
+  return windowSize;
 };
 
 export default useResolution;

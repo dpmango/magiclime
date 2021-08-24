@@ -7,14 +7,14 @@ import { Avatar } from '@consta/uikit/Avatar';
 import { useHistory } from 'react-router-dom';
 import cns from 'classnames';
 import { v4 as uuid } from 'uuid';
-import useStyles from './styles';
 import { IconKebab } from '@consta/uikit/IconKebab';
 import { Badge } from '@consta/uikit/Badge';
 import { IconWarning } from '@consta/uikit/IconWarning';
-import { ComponentType } from '../../../../../types/common';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+import { ComponentType } from '../../../../../types/common';
+import useStyles from './styles';
 import Members from '../../../../Common/Members';
 
 interface IProps {
@@ -49,8 +49,8 @@ const Webinar: FC<IProps> = ({ item }) => {
         />
       </div>
 
-      <Flex justify={'space-between'} align={'center'} margin={'6px 0'}>
-        <Flex className={styles.tagsContainer} wrap={'wrap'}>
+      <Flex justify="space-between" align="center" margin="6px 0">
+        <Flex className={styles.tagsContainer} wrap="wrap">
           {item.tags.map((tag) => (
             <Badge label={tag} status="warning" key={uuid()} />
           ))}
@@ -58,7 +58,7 @@ const Webinar: FC<IProps> = ({ item }) => {
         <Button
           onlyIcon
           ref={ref}
-          view={'clear'}
+          view="clear"
           iconLeft={IconKebab}
           onClick={() => setOpen(!open)}
         />
@@ -67,7 +67,7 @@ const Webinar: FC<IProps> = ({ item }) => {
             items={items}
             getLabel={(item: DropdownItem) => item.name}
             anchorRef={ref}
-            size={'s'}
+            size="s"
             getLeftSideBar={renderLeftSide}
             direction="downStartRight"
             onClickOutside={() => setOpen(false)}
@@ -84,10 +84,15 @@ const Webinar: FC<IProps> = ({ item }) => {
           <Typography className={styles.title} weight="semibold" size="xl">
             {item.title}
           </Typography>
-          <Typography className={styles.date} margin="8px 0 0" view="brand" weight="semibold">
-            {'10 августа, 12:00'}
+          <Typography
+            className={styles.date}
+            margin="8px 0 0"
+            view="brand"
+            weight="semibold"
+          >
+            10 августа, 12:00
           </Typography>
-          <Typography size={'s'} margin="8px 0 0">
+          <Typography size="s" margin="8px 0 0">
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
             Елена Анатольевна, Анна Ахматова
           </Typography>
@@ -101,11 +106,11 @@ const Webinar: FC<IProps> = ({ item }) => {
             label={t('common.moreDetails')}
           />
 
-          <Flex align="center" className={styles.referalWrapper}>
-            {item.referals && (
+          <Flex align="center" className={styles.referralWrapper}>
+            {item.referrals && (
               <Members
-                members={item.referals}
-                className={styles.referalUsers}
+                members={item.referrals}
+                className={styles.referralUsers}
               />
             )}
             <Avatar

@@ -8,6 +8,7 @@ import Flex from 'components/Common/Flex';
 import { ScrollTo } from 'utils/helpers/scroll';
 import { ISection } from 'components/pages/CourseTask/types';
 
+import useSharedStyles from 'assets/styles/Shared';
 import Navigation from './Navigation';
 import AnswerBox from './AnswerBox';
 
@@ -142,6 +143,7 @@ const CoursePage: FC = () => {
   }, [activeSectionId]);
 
   const styles = useStyles();
+  const sharedStyles = useSharedStyles({});
   // const { course, id } = useParams();
   const history = useHistory();
 
@@ -161,7 +163,7 @@ const CoursePage: FC = () => {
 
       ScrollTo(0);
     } else {
-      alert('you are done here - moving to next course');
+      console.log('you are done here - moving to next course');
       history.push('/courses');
     }
   }, [nextSectionId, activeSectionId, sections]);
@@ -191,7 +193,7 @@ const CoursePage: FC = () => {
       <Flex>
         <div className={styles.content}>
           <div
-            className={styles.wysiwyg}
+            className={sharedStyles.wysiwyg}
             dangerouslySetInnerHTML={{ __html: getContent }}
           />
 

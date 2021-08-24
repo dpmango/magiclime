@@ -3,6 +3,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
+import BalanceWidget from './BalanceWidget';
 import MyBalance from './MyBalance';
 import BalanceRefill from './Refill';
 import BalanceWidthdrawal from './Withdrawal';
@@ -16,6 +17,10 @@ const Events: FC = () => {
       {/* <Typography weight="semibold" lineHeight="s" size="2xl">
         Операции с балансом
       </Typography> */}
+
+      <div className={styles.balanceWidget}>
+        <BalanceWidget />
+      </div>
 
       <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 4 } }}>
         {/* <GridItem col="1">

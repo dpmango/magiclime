@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
-import Flex from '../Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import cn from 'classnames';
+import Flex from '../Flex';
 import useStyles from './style';
 import { IPhoto } from '../../../types/interfaces/common';
 
 type DefaultMember = {
   readonly id: number;
   avatar: IPhoto | null;
-  name: string;
+  name?: string;
 };
 
 interface IProps<T> {
@@ -32,6 +32,7 @@ const Members = <T extends DefaultMember>({
           key={member.id}
           url={member.avatar ? member.avatar.image : ''}
           className={styles.member}
+          name={member.name || ''}
         />
       ))}
       {members.length > 5 && (

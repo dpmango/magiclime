@@ -1,4 +1,41 @@
 {
+  "landing": {
+    "header": {
+      "menu": {
+        "courses": "Courses",
+        "webinar": "Webinars",
+        "articles": "Articles"
+      },
+      "login": "Login"
+    },
+    "footer": {
+      "logo": "Academy",
+      "subscribe": {
+        "email": "Enter Email",
+        "cta": "Subscribe"
+      },
+      "apps": "Mobile apps:"
+    },
+    "hero": {
+      "title": "Digital University",
+      "text": "At the Academy, you can acquire knowledge and skills that are necessary both in online activities and in life in general!",
+      "cta": {
+        "login": "Enter platform",
+        "more": "Learn more"
+      }
+    },
+    "steps": {
+      "title": "Beginner's Guide"
+    },
+    "how": {
+      "title": "How it works",
+      "description": "Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works Description of how the service works"
+    },
+    "events": {
+      "title": "Upcoming Events",
+      "cta": "Discover more"
+    }
+  },
   "course": {
     "featured": {
       "tag": "recommended",
@@ -69,7 +106,7 @@
     "head": {
       "copyRefLink": "Copy referral link"
     },
-    "referalPlural": {
+    "referralPlural": {
       "one": "referral",
       "two": "referrals",
       "five": "referrals"
@@ -78,15 +115,15 @@
       "matrixLevel": "matrix level",
       "level": "level",
       "league": "league",
-      "noReferals": "No referals",
+      "noReferrals": "No referrals",
       "blocked": {
         "title": "Unavailable",
         "cta": "Open access"
-      } 
+      }
     },
-    "achivements": {
-      "title": "Achivements",
-      "empty": "Achivements are not opened yet"
+    "achievements": {
+      "title": "Achievements",
+      "empty": "Achievements are not opened yet"
     },
     "events": {
       "title": "Events",
@@ -139,7 +176,7 @@
         "empty": "No data yet"
       }
     },
-    "referal": {
+    "referral": {
       "stats": {
         "link": "Referral link",
         "gain": "Gain",
@@ -155,7 +192,7 @@
         "extraInfo": "Extra info",
         "gain": "Gain",
         "level": "Level",
-        "referals": "referrals"
+        "referrals": "referrals"
       },
       "filter": {
         "search": "Search referrals",
@@ -171,7 +208,7 @@
         "profile": "Profile",
         "notifications": "Notifications",
         "security": "Security",
-        "achivements": "My achivements"
+        "achievements": "My achievements"
       },
       "account": {
         "login": {
@@ -246,9 +283,57 @@
   "chats": {
     "toAnswer": "Ответить"
   },
+  "forum": {
+    "page": {
+      "title": "Forum"
+    },
+    "filter": {
+      "searchPlaceholder": "Search forums",
+      "categories": "By themes"
+    },
+    "tabs": {
+      "popular": "Popular",
+      "new": "New"
+    },
+    "card": {
+      "from": "from"
+    },
+    "create": {
+      "openModal": "Ask question",
+      "title": "Ask question",
+      "question": {
+        "label": "Your question",
+        "placeholder": "Start with why, how, etc..."
+      },
+      "theme": {
+        "placeholder": "Forum theme"
+      },
+      "cta": "Send"
+    },
+    "details": {
+      "stats": {
+        "author": "Author",
+        "answers": "Total answers",
+        "created": "Created"
+      },
+      "answers": {
+        "title": "Answers"
+      },
+      "cta": "Reply"
+    }
+  },
   "articles": {
     "list": {
       "title": "Knowledge base"
+    }
+  },
+  "rating": {
+    "page": {
+      "title": "User rating"
+    },
+    "filter": {
+      "searchPlaceholder": "Search users",
+      "leagues": "By League"
     }
   },
   "menu": {

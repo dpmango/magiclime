@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
+import { Field, FieldProps } from 'formik';
+import { IconCamera } from '@consta/uikit/IconCamera';
 import FormikInput from '../../../../Common/Controls/Formik/Input';
 import FormikTextarea from '../../../../Common/Controls/Formik/Textarea';
 import Flex from '../../../../Common/Flex';
 import useStyles from './styles';
-import { Field, FieldProps } from 'formik';
-import { IconCamera } from '@consta/uikit/IconCamera';
 import { UserIcon } from '../../../../../assets/icons';
 import { ChangeType, SetStateType } from '../../../../../types/common';
 import { uploadImage } from '../../../../../utils/api/routes/other';
@@ -22,23 +22,19 @@ const Additional: FC = () => {
   };
 
   return (
-    <Flex margin={'0 0 40px'}>
+    <Flex margin="0 0 40px">
       <div className={styles.photoField}>
-        <Field name={'avatar_id'}>
+        <Field name="avatar_id">
           {({ field: { value }, form: { setFieldValue } }: FieldProps) => (
             <>
-              {!!value.id ? (
-                <img src={value.image} alt={'avatar'} />
-              ) : (
-                <UserIcon />
-              )}
+              {value.id ? <img src={value.image} alt="avatar" /> : <UserIcon />}
               <input
-                type={'file'}
-                id={'user_photo_field'}
+                type="file"
+                id="user_photo_field"
                 onChange={(e) => handleChange(e, setFieldValue)}
                 className={styles.hiddenInput}
               />
-              <label htmlFor={'user_photo_field'} className={styles.addPhoto}>
+              <label htmlFor="user_photo_field" className={styles.addPhoto}>
                 <IconCamera />
                 Загрузить фото
               </label>
@@ -47,8 +43,8 @@ const Additional: FC = () => {
         </Field>
       </div>
       <div className={styles.inputsWrapper}>
-        <FormikInput label={'Имя'} name={'name'} placeholder={'Ваше имя'} />
-        <FormikTextarea label={'О себе'} name={'about'} />
+        <FormikInput label="Имя" name="name" placeholder="Ваше имя" />
+        <FormikTextarea label="О себе" name="about" />
       </div>
     </Flex>
   );

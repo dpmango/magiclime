@@ -31,14 +31,19 @@ const Profile: FC = () => {
 
   const handleSubmit = (values: typeof initialValues) => {
     const { name, date_of_birth, country, city } = values;
-
+    console.log({
+      name: name || '',
+      date_of_birth,
+      country: country || '',
+      city: city || '',
+    });
     dispatch(
       updateProfile({
         profile: {
           name: name || '',
           date_of_birth,
-          // country,
-          // city: city || '',
+          country: country || '',
+          city: city || '',
         },
         successCallback: () => setErrorMessage(''),
         errorCallback: (message: string) => setErrorMessage(message),
@@ -48,7 +53,8 @@ const Profile: FC = () => {
 
   const schema = Yup.object({
     name: REQUIRED_STRING,
-    surname: REQUIRED_STRING,
+    country: REQUIRED_STRING,
+    city: REQUIRED_STRING,
   });
 
   return (
@@ -121,7 +127,7 @@ const Profile: FC = () => {
                     placeholder={t(
                       'profile.settings.profile.country.placeholder'
                     )}
-                    isRequired={false}
+                    isRequired
                   />
                 </GridItem>
                 <GridItem>
@@ -129,7 +135,7 @@ const Profile: FC = () => {
                     label={t('profile.settings.profile.city.label')}
                     name="city"
                     placeholder={t('profile.settings.profile.city.placeholder')}
-                    isRequired={false}
+                    isRequired
                   />
                 </GridItem>
               </Grid>

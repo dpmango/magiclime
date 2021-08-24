@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
-import Achivements from './Achivements';
+import Achievements from './Achievements';
 import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
@@ -18,12 +18,7 @@ import ReferralList from './ReferralList';
 import Settings from './Settings';
 
 import useStyles from './styles';
-import {
-  mockPrograms,
-  mockAchivements,
-  mockEvents,
-  mockCourses,
-} from './mockData';
+import { mockPrograms, mockEvents, mockCourses } from './mockData';
 
 interface ITab {
   id: number;
@@ -91,7 +86,7 @@ const ProfilePage: FC = () => {
               <div className={styles.section}>
                 <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>
-                    <Achivements groups={mockAchivements} />
+                    <Achievements />
                   </GridItem>
                   <GridItem>
                     <Events list={mockEvents} />

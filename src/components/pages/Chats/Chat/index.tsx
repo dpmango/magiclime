@@ -1,8 +1,8 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { Avatar } from '@consta/uikit/Avatar';
 import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
-import { Avatar } from '@consta/uikit/Avatar';
 import Typography from '../../../Common/Typography';
 import Message from './Message';
 import Panel from './Panel';
@@ -50,7 +50,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
     }
   };
 
-  //Скроллим окно сообщений вниз
+  // Скроллим окно сообщений вниз
   useEffect(() => {
     if (ref.current) {
       const elem = ref.current;
@@ -60,30 +60,28 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
 
   return (
     <Flex
-      direction={'column'}
+      direction="column"
       className={styles.root}
-      align={'center'}
+      align="center"
       justify={chatId && chat ? 'flex-start' : 'center'}
     >
       {!chatId || !chat ? (
-        <Typography size={'xl'}>
-          Выберите чат, чтобы начать переписку
-        </Typography>
+        <Typography size="xl">Выберите чат, чтобы начать переписку</Typography>
       ) : (
         <>
           <Flex className={styles.header}>
             <div className={styles.avatarWrapper}>
               <Avatar
-                form={'round'}
+                form="round"
                 name={chat.title}
                 url={chat.avatar && chat.avatar.image}
               />
             </div>
             <div>
-              <Typography size={'xl'} weight={'bold'}>
+              <Typography size="xl" weight="bold">
                 {chat.title}
               </Typography>
-              <Typography view={'secondary'}>
+              <Typography view="secondary">
                 {chat.participants_count} members
               </Typography>
             </div>

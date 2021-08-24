@@ -16,7 +16,15 @@ const Referrals: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Grid cols="6" gap="xl">
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{
+          s: { cols: 2 },
+          l: { cols: 4 },
+          xl: { cols: 6 },
+        }}
+      >
         <GridItem col="2">
           <div className={styles.box}>
             <Typography
@@ -25,7 +33,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referal.stats.link')}
+              {t('profile.referral.stats.link')}
             </Typography>
             <TextField
               name="name"
@@ -45,7 +53,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referal.stats.gain')}
+              {t('profile.referral.stats.gain')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
@@ -65,7 +73,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referal.stats.invited')}
+              {t('profile.referral.stats.invited')}
             </Typography>
 
             <Typography size="xl" weight="semibold">
@@ -81,14 +89,14 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referal.stats.matrix')}
+              {t('profile.referral.stats.matrix')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold">
                 5
               </Typography>
               <Typography size="xl">
-                &nbsp;{t('profile.referal.stats.level')}
+                &nbsp;{t('profile.referral.stats.level')}
               </Typography>
             </Flex>
           </div>
@@ -101,7 +109,7 @@ const Referrals: FC = () => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referal.stats.invitee')}
+              {t('profile.referral.stats.invitee')}
             </Typography>
             <Typography size="xl" weight="light" view="brand">
               UserLogin

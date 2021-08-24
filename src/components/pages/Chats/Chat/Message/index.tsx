@@ -6,20 +6,20 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { IMessage } from '../../types';
-import Flex from '../../../../Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
-import useStyles from './styles';
-import Typography from '../../../../Common/Typography';
 import moment from 'moment';
-import { ChatContext } from '../../context';
 import { Button } from '@consta/uikit/Button';
 import { IconChat } from '@consta/uikit/IconChat';
 import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconWarning } from '@consta/uikit/IconWarning';
-import { ComponentType } from '../../../../../types/common';
 import { useTranslation } from 'react-i18next';
+import { ComponentType } from '../../../../../types/common';
+import { ChatContext } from '../../context';
+import Typography from '../../../../Common/Typography';
+import useStyles from './styles';
+import Flex from '../../../../Common/Flex';
+import { IMessage } from '../../types';
 
 type DropdownItem = {
   name: string;
@@ -51,26 +51,26 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
 
   const format = useMemo(() => {
     if (moment().isAfter(moment(message.created_at), 'day')) return 'DD MMMM';
-    else return 'HH:mm';
+    return 'HH:mm';
   }, []);
 
   return (
     <Flex
-      margin={'0 0 36px'}
+      margin="0 0 36px"
       onDoubleClick={replyMessage}
       id={`message_${message.id}`}
     >
       <Avatar
-        form={'round'}
+        form="round"
         name={message.creator.name}
-        url={!!message.creator.avatar ? message.creator.avatar.image : ''}
+        url={message.creator.avatar ? message.creator.avatar.image : ''}
         className={styles.avatar}
       />
       <div className={styles.w100}>
-        <Flex align={'center'} margin={'0 0 4px'}>
-          <Typography weight={'semibold'}>{message.creator.name}</Typography>
-          <div className={styles.dot}></div>
-          <Typography className={styles.date} view={'secondary'}>
+        <Flex align="center" margin="0 0 4px">
+          <Typography weight="semibold">{message.creator.name}</Typography>
+          <div className={styles.dot} />
+          <Typography className={styles.date} view="secondary">
             {moment(message.created_at).format(format)}
           </Typography>
         </Flex>
@@ -80,27 +80,27 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             onClick={() => onReplyClick(message.reply_to?.id as number)}
           >
             <Typography
-              weight={'semibold'}
-              margin={'0 0 4px'}
+              weight="semibold"
+              margin="0 0 4px"
               className={styles.replyCreator}
-              view={'brand'}
+              view="brand"
             >
               {message.reply_to.creator.name}
             </Typography>
-            <Typography className={styles.text} size={'s'}>
+            <Typography className={styles.text} size="s">
               {message.reply_to.text}
             </Typography>
           </div>
         )}
-        <Flex margin={'0 0 6px'} className={styles.container}>
+        <Flex margin="0 0 6px" className={styles.container}>
           <Typography className={styles.text}>{message.text}</Typography>
         </Flex>
         <Flex className={styles.buttons}>
           <Button
             label={t('chats.toAnswer')}
             iconLeft={IconChat}
-            view={'clear'}
-            size={'xs'}
+            view="clear"
+            size="xs"
             onClick={replyMessage}
             className={styles.reply}
           />
@@ -108,8 +108,8 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             iconLeft={IconMeatball}
             ref={ref}
             onClick={() => setIsOpen(!isOpen)}
-            view={'clear'}
-            size={'xs'}
+            view="clear"
+            size="xs"
             onlyIcon
           />
           {isOpen && (
@@ -117,7 +117,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
               items={items}
               getLabel={(item: DropdownItem) => item.name}
               anchorRef={ref}
-              size={'s'}
+              size="s"
               getLeftSideBar={renderLeftSide}
               direction="downStartLeft"
               onClickOutside={() => setIsOpen(false)}

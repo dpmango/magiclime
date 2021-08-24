@@ -9,10 +9,10 @@ import {
 export const getChatsList = (
   id: number,
   title: string
-): AxiosPromise<{ chats: IChat[] }> => {
+): AxiosPromise<IChat[]> => {
   return instance.get(`/auth/users/${id}/chats/`, {
     params: {
-      title,
+      title: title || null,
     },
   });
 };

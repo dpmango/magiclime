@@ -3,18 +3,13 @@ import { Table } from '@consta/uikit/Table';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Button } from '@consta/uikit/Button';
-import Flex from '../../../../Common/Flex';
-import useStyles from '../styles';
-import { ITransaction } from '../types';
 import { TextField } from '@consta/uikit/TextField';
+import Flex from '../../../../Common/Flex';
+import { ITransaction } from '../types';
+import { Accrue, Status } from './customCells';
 
 const TransactionsTable: FC<{ data: ITransaction[] }> = ({ data }) => {
   const { t } = useTranslation();
-  const styles = useStyles();
-
-  const checkTransactionStatus = (id: string) => {};
-
-  const accrueMoney = (money: string, id: string) => {};
 
   const columns = [
     {
@@ -48,18 +43,7 @@ const TransactionsTable: FC<{ data: ITransaction[] }> = ({ data }) => {
       id: '5',
       title: t('admin.status'),
       accessor: 'status',
-      renderCell: (row: ITransaction) => (
-        <Flex align={'center'} justify={'space-between'} padding={'0 10px'}>
-          {row.status}
-          <Button
-            view={'primary'}
-            size={'s'}
-            onClick={() => checkTransactionStatus(row.id)}
-            label={t('admin.check')}
-            className={styles.checkButton}
-          />
-        </Flex>
-      ),
+      renderCell: (row: ITransaction) => <Status row={row} />,
       align: 'center',
     },
     {
@@ -68,33 +52,18 @@ const TransactionsTable: FC<{ data: ITransaction[] }> = ({ data }) => {
       accessor: 'id',
       align: 'center',
       width: 300,
-      renderCell: (row: ITransaction) => {
-        const [value, setValue] = useState('');
-        return (
-          <Flex align={'center'}>
-            <TextField
-              value={value}
-              type={'number'}
-              onChange={({ value }) => setValue(value || '')}
-              placeholder="000.00"
-              form={'roundClear'}
-              size={'s'}
-            />
-            <Button form="brickRound" size={'s'} label={t('admin.accrue')} />
-          </Flex>
-        );
-      },
+      renderCell: (row: ITransaction) => <Accrue row={row} />,
     },
   ];
 
   return (
     <Table
-      //@ts-ignore
+      // @ts-ignore
       columns={columns}
-      borderBetweenColumns={true}
-      borderBetweenRows={true}
-      isResizable={true}
-      verticalAlign={'center'}
+      borderBetweenColumns
+      borderBetweenRows
+      isResizable
+      verticalAlign="center"
       rows={data}
     />
   );

@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { useTranslation } from 'react-i18next';
 
 import useStyles from './styles';
 import useStylesRoot from '../styles';
-import icons from '../icons';
 
 const list = [
   {
@@ -58,7 +58,7 @@ const CourseFeatures: FC = () => {
                 list.map((x) => (
                   <Flex margin="24px 0 0" align="center" key={x.id}>
                     <div className={styles.icon}>
-                      <icons.Done view="brand" />
+                      <ConstaIcons.Done view="brand" />
                     </div>
                     <Typography lineHeight="xs">{x.content}</Typography>
                   </Flex>

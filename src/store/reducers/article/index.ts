@@ -7,23 +7,8 @@ import { IArticle } from 'types/interfaces/article';
 import { ArticlesPayloadType } from './types';
 
 const initialState = {
-  articles: [],
+  articles: [] as IArticle[],
 };
-
-export const getArticles = createAsyncThunk<object, ArticlesPayloadType>(
-  'article/getArticles',
-  async (payload, { dispatch, rejectWithValue }) => {
-    try {
-      const response = await getArticlesService(payload);
-      if (response?.status === 200) {
-        dispatch(setArticles(response.data.results));
-      }
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
 
 const articleSlice = createSlice({
   name: 'article',
@@ -36,5 +21,20 @@ const articleSlice = createSlice({
 });
 
 export const { setArticles } = articleSlice.actions;
+
+export const getArticles = createAsyncThunk<unknown, ArticlesPayloadType>(
+  'article/getArticles',
+  async (payload, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await getArticlesService(payload.page);
+      if (response?.status === 200) {
+        dispatch(setArticles(response.data.results));
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export default articleSlice.reducer;

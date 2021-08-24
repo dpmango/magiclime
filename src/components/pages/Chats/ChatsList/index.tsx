@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
@@ -8,7 +9,6 @@ import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
 import Header from './Header';
 import { getChatsList } from '../../../../utils/api/routes/chat';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../../../store/reducers/rootReducer';
 
 interface IProps {
@@ -28,7 +28,7 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
 
   useEffect(() => {
     getChatsList(id, search).then((res) => {
-      setChats(res.data.chats);
+      setChats(res.data);
     });
   }, [debouncedSearch, selectedGroup]);
 
@@ -50,7 +50,7 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
         selectedGroup={selectedGroup}
         setSelectedGroup={setSelectedGroup}
       />
-      <Flex direction={'column'} className={styles.list}>
+      <Flex direction="column" className={styles.list}>
         {chats.map((chat) => (
           <ChatCard chat={chat} key={chat.id} />
         ))}

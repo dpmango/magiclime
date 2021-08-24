@@ -29,16 +29,16 @@ const ProgramCard: FC<IProps> = ({ data }) => {
   });
   const { t } = useTranslation();
 
-  const referalsTotalPlural = useMemo(() => {
+  const referralsTotalPlural = useMemo(() => {
     const plural = Plurize(
-      data.referalsTotal,
-      t('profile.referalPlural.one'),
-      t('profile.referalPlural.two'),
-      t('profile.referalPlural.five')
+      data.referralsTotal,
+      t('profile.referralPlural.one'),
+      t('profile.referralPlural.two'),
+      t('profile.referralPlural.five')
     );
 
-    return `${data.referalsTotal} ${plural}`;
-  }, [data.referalsTotal]);
+    return `${data.referralsTotal} ${plural}`;
+  }, [data.referralsTotal]);
 
   return (
     <Flex direction="column" className={styles.card}>
@@ -103,18 +103,18 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             </Flex>
           </div>
 
-          <div className={styles.referal}>
-            {data.referalsTotal ? (
+          <div className={styles.referral}>
+            {data.referralsTotal ? (
               <Flex align="center" justify="space-between">
-                <Members members={data.referals} />
+                <Members members={data.referrals} />
                 <Typography
                   view="secondary"
                   size="xs"
                   lineHeight="s"
                   weight="semibold"
-                  className={styles.referalCount}
+                  className={styles.referralCount}
                 >
-                  {referalsTotalPlural}
+                  {referralsTotalPlural}
                 </Typography>
               </Flex>
             ) : (
@@ -125,7 +125,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
                 lineHeight="s"
                 weight="semibold"
               >
-                {t('profile.programCard.noReferals')}
+                {t('profile.programCard.noReferrals')}
               </Typography>
             )}
           </div>
@@ -142,7 +142,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
           >
             {t('profile.programCard.blocked.title')}
           </Typography>
-          <Button size="s" label={t('profile.programCard.blocked.cta')} />
+          <Button size="m" label={t('profile.programCard.blocked.cta')} />
         </div>
       )}
     </Flex>

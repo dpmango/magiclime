@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
+import { Avatar } from '@consta/uikit/Avatar';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import { ISpeaker } from '../types';
-import { Avatar } from '@consta/uikit/Avatar';
 
 interface IProps {
   speaker: ISpeaker;
@@ -15,7 +15,7 @@ const Speaker: FC<IProps> = ({ speaker, short }) => {
 
   return (
     <div className={styles.root}>
-      <Flex align={'center'}>
+      <Flex align="center">
         <Avatar
           name={speaker.name}
           url={speaker.avatar ? speaker.avatar.image : ''}
@@ -29,13 +29,13 @@ const Speaker: FC<IProps> = ({ speaker, short }) => {
           >
             {speaker.name}
           </Typography>
-          <Typography view={'secondary'} size={short ? 'xs' : 'm'}>
+          <Typography view="secondary" size={short ? 'xs' : 'm'}>
             {speaker.position}
           </Typography>
         </div>
       </Flex>
       {!short && (
-        <Typography margin={'18px 0 0'} className={styles.description}>
+        <Typography margin="18px 0 0" className={styles.description}>
           {speaker.description}
         </Typography>
       )}

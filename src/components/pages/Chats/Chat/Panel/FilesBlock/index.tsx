@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react';
-import { SetStateType } from '../../../../../../types/common';
-import Flex from '../../../../../Common/Flex';
-import useStyles from './style';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
-import Container from '../../../../../Common/Container';
 import { v4 as uuid } from 'uuid';
 import { Attach } from '@consta/uikit/Attach';
 import moment from 'moment';
 import cn from 'classnames';
+import Container from '../../../../../Common/Container';
+import useStyles from './style';
+import Flex from '../../../../../Common/Flex';
+import { SetStateType } from '../../../../../../types/common';
 
 interface IProps {
   files: File[];
@@ -33,7 +33,7 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
 
   return (
     <Container className={styles.root}>
-      <Flex align={'center'}>
+      <Flex align="center">
         {files.map((file) => (
           <div
             className={cn(
@@ -44,9 +44,8 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
           >
             {isImage(file) ? (
               <img
-                src={
-                  'https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg'
-                }
+                src="https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg"
+                alt="file"
               />
             ) : (
               <Attach
@@ -59,9 +58,9 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
             )}
             <Button
               iconLeft={IconClose}
-              view={'clear'}
-              size={'xs'}
-              form={'round'}
+              view="clear"
+              size="xs"
+              form="round"
               className={styles.delete}
               onClick={() => removeFile(file)}
             />

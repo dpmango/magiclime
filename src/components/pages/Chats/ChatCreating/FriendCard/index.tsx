@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import Flex from '../../../../Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
-import Typography from '../../../../Common/Typography';
 import { Switch } from '@consta/uikit/Switch';
+import Flex from '../../../../Common/Flex';
+import Typography from '../../../../Common/Typography';
 import { IFriend } from '../../types';
 import { IPhoto } from '../../../../../types/interfaces/common';
 import { SetStateType } from '../../../../../types/common';
@@ -17,7 +17,7 @@ interface IProps {
 const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
   const styles = useStyles();
   const handleChange = (checked: boolean) => {
-    //Сюда приходит следующее состояние, поэтому условия нужно делать наоборот
+    // Сюда приходит следующее состояние, поэтому условия нужно делать наоборот
     if (checked) setForm({ ...form, users: [...form.users, friend.id] });
     else
       setForm({
@@ -28,14 +28,14 @@ const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
 
   return (
     <Flex
-      justify={'space-between'}
-      align={'center'}
-      padding={'13px 16px'}
+      justify="space-between"
+      align="center"
+      padding="13px 16px"
       className={styles.friend}
     >
-      <Flex align={'center'}>
-        <Avatar form={'round'} name={friend.name} url={friend.image} />
-        <Typography size={'s'} weight={'semibold'} margin={'0 0 0 15px'}>
+      <Flex align="center">
+        <Avatar form="round" name={friend.name} url={friend.image} />
+        <Typography size="s" weight="semibold" margin="0 0 0 15px">
           {friend.name}
         </Typography>
       </Flex>
