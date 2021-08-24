@@ -19,7 +19,6 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
-      "git add",
       "npm run lint",
       "bash -c 'tsc --noEmit --noEmitOnError --pretty'"
     ]
