@@ -2,7 +2,7 @@
 import React, { FC, SyntheticEvent, useCallback } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
-import InputMask from 'react-input-mask';
+import MaskedInput from 'react-text-mask';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -15,7 +15,7 @@ import useStyles from './styles';
 
 interface IProps extends TextFieldProps {
   label?: string;
-  mask?: string | null;
+  mask?: RegExp[];
   isRequired?: boolean;
   isPassword?: boolean;
   onlyNumbers?: boolean;
@@ -30,7 +30,7 @@ const FormikInputComponent = MemoWrapper(
     field: { value, onChange, ...field },
     form: { setFieldValue, errors, touched },
     label,
-    mask = null,
+    mask = [],
     isRequired = true,
     isPassword = false,
     onlyNumbers = false,
@@ -39,16 +39,31 @@ const FormikInputComponent = MemoWrapper(
     const styles = useStyles();
 
     const handleChange = useCallback(({ value }: { value: string | null }) => {
-      console.log('onchange event');
       setFieldValue(field.name, value || '');
     }, []);
 
     const handleKeyDown = (event: ChangeType) => {
+      const isAllowedKey = [8, 13, 32].includes(event.keyCode); // backspace, enter, space
+
       if (onlyNumbers) {
         const isNumber = !Number.isNaN(parseFloat(event.key));
-        const isAllowedCharacter = [8, 13, 32].includes(event.keyCode); // backspace, enter, space
-        if (!isNumber && !isAllowedCharacter) {
+        if (!isNumber && !isAllowedKey) {
           event.preventDefault();
+        }
+      } else if (mask && mask.length) {
+        if (!isAllowedKey) {
+          const cursorPosition = event.nativeEvent.target.selectionStart;
+          const regex = new RegExp(mask[cursorPosition], 'g');
+
+          // limit input by mask length first
+          if (cursorPosition >= mask.length) {
+            event.preventDefault();
+          }
+
+          // test regex by letter position
+          if (!regex.test(event.key)) {
+            event.preventDefault();
+          }
         }
       }
     };
@@ -65,7 +80,7 @@ const FormikInputComponent = MemoWrapper(
           </Typography>
         )}
 
-        {isPassword && (
+        {isPassword ? (
           <PasswordInput
             className={styles.input}
             state={fieldError && fieldTouched ? 'alert' : undefined}
@@ -74,25 +89,6 @@ const FormikInputComponent = MemoWrapper(
             {...field}
             {...props}
           />
-        )}
-
-        {mask ? (
-          <InputMask
-            mask={mask}
-            value={value}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            {...field}
-            {...props}
-          >
-            {(inputProps) => {
-              <TextField
-                className={styles.input}
-                state={fieldError && fieldTouched ? 'alert' : undefined}
-                {...inputProps}
-              />;
-            }}
-          </InputMask>
         ) : (
           <TextField
             className={styles.input}

@@ -11,7 +11,7 @@ import FormikInput from 'components/Common/Controls/Formik/Input';
 import { REQUIRED_STRING } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
-
+import { dateMask } from 'utils/helpers/mask';
 import useStyles from './styles';
 
 const Profile: FC = () => {
@@ -118,6 +118,7 @@ const Profile: FC = () => {
                       'profile.settings.profile.birthday.placeholder'
                     )}
                     isRequired={false}
+                    mask={dateMask}
                   />
                 </GridItem>
                 <GridItem>
