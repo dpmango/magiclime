@@ -168,7 +168,7 @@ const ForumTopics: FC = () => {
                   <Flex align="center" margin="12px 0 0">
                     <div className={styles.cardLastAvatar}>
                       <Avatar
-                        url={x.last_message.avatar}
+                        url={x.last_message.avatar || ''}
                         name="x.last_message.name"
                       />
                     </div>

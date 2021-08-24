@@ -13,10 +13,11 @@ interface IProps {
   socket: WebSocket;
 }
 
-const Chat: FC<IProps> = ({ chatId, socket }) => {
+const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
   const [chat, setChat] = useState<IChatDetail | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
+  const socket = { ...parentSocket };
 
   useEffect(() => {
     if (chatId) {

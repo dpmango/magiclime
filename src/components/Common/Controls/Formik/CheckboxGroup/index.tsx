@@ -50,7 +50,7 @@ const CheckboxGroupComponent = ({
         />
       </div>
       {showCollapse && (items.length > 5 || showAllValues !== false) && (
-        <button onClick={() => setShow(!showAllItems)}>
+        <button onClick={() => setShow(!showAllItems)} type="button">
           <StyledDetailsText>
             {showAllItems ? 'Скрыть' : 'Ещё'}
           </StyledDetailsText>

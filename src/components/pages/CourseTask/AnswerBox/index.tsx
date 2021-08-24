@@ -33,7 +33,7 @@ interface IProps {
 
 const AnswerBox: FC<IProps> = ({ activeSectionId, onContinue }) => {
   const styles = useStyles();
-  const sharedStyles = useSharedStyles();
+  const sharedStyles = useSharedStyles({});
   const { t } = useTranslation();
 
   // getter for dummy content (temp)
