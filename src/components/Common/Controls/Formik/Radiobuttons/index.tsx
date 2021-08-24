@@ -33,7 +33,7 @@ const FormikRadiobuttonsBase = MemoWrapper((props: PropsType & FieldProps) => {
 
   const fieldError = getNestedValue(errors, field.name);
   const fieldTouched = getNestedValue(touched, field.name);
-  const isCorrectValue = value != null && value != undefined && value !== '';
+  const isCorrectValue = value !== null && value !== '';
 
   return (
     <div>

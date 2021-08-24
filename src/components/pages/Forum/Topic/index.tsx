@@ -22,7 +22,7 @@ import useStyles from './styles';
 const ForumTopicPage: FC = () => {
   const styles = useStyles();
   const { path } = useRouteMatch();
-  const { topic } = useParams();
+  const { topic } = useParams<{ topic: string }>();
   const history = useHistory();
   const firstRender = useFirstRender();
   const { t } = useTranslation();
