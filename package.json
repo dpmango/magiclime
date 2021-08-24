@@ -13,12 +13,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npx lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.{ts,tsx}": [
       "prettier --write",
+      "git add",
       "npm run lint",
       "bash -c 'tsc --noEmit --noEmitOnError --pretty'"
     ]
