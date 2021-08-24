@@ -1,16 +1,21 @@
-import React, { FC, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useCallback, ChangeEvent, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { updateProfileAvatar } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
-import { useTranslation } from 'react-i18next';
+import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
+import Uploader from './Uploader';
 import useStyles from './styles';
 
 const ProfileHead: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -37,11 +42,15 @@ const ProfileHead: FC = () => {
 
   return (
     <Flex align="center" className={styles.root} margin="0 0px">
-      <Avatar
-        url={profile.avatar?.image}
-        name={profile.name}
-        className={styles.avatar}
-      />
+      <div className={styles.avatarWrapper}>
+        <Avatar
+          url={profile.avatar?.image}
+          name={profile.name}
+          className={styles.avatar}
+        />
+        <Uploader />
+      </div>
+
       <div className={styles.content}>
         <Typography weight="semibold" lineHeight="s" size="4xl">
           {profile.name}

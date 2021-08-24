@@ -2,7 +2,6 @@
 import React, { FC, SyntheticEvent, useCallback } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
-import MaskedInput from 'react-text-mask';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -20,10 +19,6 @@ interface IProps extends TextFieldProps {
   isPassword?: boolean;
   onlyNumbers?: boolean;
 }
-
-const FormikInput = (props: IProps) => {
-  return <Field {...props} component={FormikInputComponent} />;
-};
 
 const FormikInputComponent = MemoWrapper(
   ({
@@ -110,5 +105,9 @@ const FormikInputComponent = MemoWrapper(
     );
   }
 );
+
+const FormikInput = (props: IProps) => {
+  return <Field {...props} component={FormikInputComponent} />;
+};
 
 export default FormikInput;
