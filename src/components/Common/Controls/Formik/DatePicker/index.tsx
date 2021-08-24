@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldProps } from 'formik';
-import MemoWrapper from '../MemoWrapper';
-import useStyles from './styles';
-import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
-import Flex from '../../../Flex';
-import Typography from '../../../Typography';
 import moment from 'moment';
-import { useClickOutside } from '../../../../../hooks/useClickOutside';
 import { Calendar } from '@consta/uikit/Calendar';
 import { IconCalendar } from '@consta/uikit/IconCalendar';
 import ruLocale from 'date-fns/locale/ru';
 import enLocale from 'date-fns/locale/en-GB';
 import { useSelector } from 'react-redux';
+import MemoWrapper from '../MemoWrapper';
+import useStyles from './styles';
+import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
+import Flex from '../../../Flex';
+import Typography from '../../../Typography';
+import { useClickOutside } from '../../../../../hooks/useClickOutside';
 import { RootState } from '../../../../../store/reducers/rootReducer';
 import { Language } from '../../../../../types/common';
 
@@ -87,9 +87,9 @@ const FormikDatePickerComponent = MemoWrapper(
     const fieldTouched = getNestedValue(touched, field.name);
 
     return (
-      <Flex direction={'column'}>
+      <Flex direction="column">
         {label && (
-          <Typography size={'s'} margin={'0 0 6px'} view={'secondary'}>
+          <Typography size="s" margin="0 0 6px" view="secondary">
             {label}
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>
@@ -115,7 +115,7 @@ const FormikDatePickerComponent = MemoWrapper(
           )}
         </div>
         {fieldError && fieldTouched && (
-          <Typography margin={'5px 0 0'} size={'xs'} view={'alert'}>
+          <Typography margin="5px 0 0" size="xs" view="alert">
             {fieldError}
           </Typography>
         )}

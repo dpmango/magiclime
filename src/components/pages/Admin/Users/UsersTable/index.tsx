@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Table } from '@consta/uikit/Table';
 import { useTranslation } from 'react-i18next';
-import { IUserListItem } from '../types';
 import moment from 'moment';
 import { Button } from '@consta/uikit/Button';
 import { IconCancel } from '@consta/uikit/IconCancel';
+import { IUserListItem } from '../types';
 import Flex from '../../../../Common/Flex';
 import useStyles from '../styles';
 import { blockUser } from '../../../../../utils/api/routes/admin';
@@ -64,12 +64,12 @@ const UsersTable: FC<{ data: IUserListItem[] }> = ({ data }) => {
       accessor: 'parent_username',
       align: 'center',
       renderCell: (row: IUserListItem) => (
-        <Flex align={'center'} justify={'space-between'}>
+        <Flex align="center" justify="space-between">
           {row.parent_username}
           <Button
-            view={'clear'}
+            view="clear"
             className={styles.cancelButton}
-            size={'s'}
+            size="s"
             onClick={() => banUser(row.id)}
             iconLeft={IconCancel}
           />
@@ -80,12 +80,12 @@ const UsersTable: FC<{ data: IUserListItem[] }> = ({ data }) => {
 
   return (
     <Table
-      //@ts-ignore
+      // @ts-ignore
       columns={columns}
-      borderBetweenColumns={true}
-      borderBetweenRows={true}
-      //isResizable={true}
-      verticalAlign={'center'}
+      borderBetweenColumns
+      borderBetweenRows
+      // isResizable={true}
+      verticalAlign="center"
       rows={data}
     />
   );

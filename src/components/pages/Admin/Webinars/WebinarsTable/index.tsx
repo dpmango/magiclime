@@ -40,8 +40,8 @@ const WebinarsTable: FC<{ data: any[] }> = ({ data }) => {
       title: t('admin.link'),
       accessor: 'link',
       renderCell: (row: any) => (
-        <a target={'_blank'} href={row.link}>
-          <Typography view={'link'} size={'s'}>
+        <a target="_blank" href={row.link} rel="noreferrer">
+          <Typography view="link" size="s">
             {t('admin.link')}
           </Typography>
         </a>
@@ -52,12 +52,12 @@ const WebinarsTable: FC<{ data: any[] }> = ({ data }) => {
 
   return (
     <Table
-      //@ts-ignore
+      // @ts-ignore
       columns={columns}
-      borderBetweenColumns={true}
-      borderBetweenRows={true}
-      isResizable={true}
-      verticalAlign={'center'}
+      borderBetweenColumns
+      borderBetweenRows
+      isResizable
+      verticalAlign="center"
       rows={data}
     />
   );

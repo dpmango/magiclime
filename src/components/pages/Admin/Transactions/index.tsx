@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import useStyles from './styles';
 import { useTranslation } from 'react-i18next';
-import Typography from '../../../Common/Typography';
 import { Tabs } from '@consta/uikit/Tabs';
+import useStyles from './styles';
+import Typography from '../../../Common/Typography';
 import { ITransaction } from './types';
 import TransactionsTable from './TransactionsTable';
 
@@ -36,7 +36,7 @@ const Transactions: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight={'semibold'} size={'3xl'} margin={'0 0 24px'}>
+      <Typography weight="semibold" size="3xl" margin="0 0 24px">
         {t('admin.transactions')}
       </Typography>
       <Tabs

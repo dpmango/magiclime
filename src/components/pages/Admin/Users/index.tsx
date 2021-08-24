@@ -1,12 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import useStyles from './styles';
-import Typography from '../../../Common/Typography';
 import { useTranslation } from 'react-i18next';
-import Flex from '../../../Common/Flex';
-import { useDebounce } from '../../../../hooks/useDebounce';
 import { TextField } from '@consta/uikit/TextField';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { Button } from '@consta/uikit/Button';
+import useStyles from './styles';
+import Typography from '../../../Common/Typography';
+import Flex from '../../../Common/Flex';
+import { useDebounce } from '../../../../hooks/useDebounce';
 import UsersTable from './UsersTable';
 import { IUserListItem } from './types';
 import { exportUsersList, getUsers } from '../../../../utils/api/routes/admin';
@@ -55,21 +55,21 @@ const Users: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight={'semibold'} size={'3xl'} margin={'0 0 24px'}>
+      <Typography weight="semibold" size="3xl" margin="0 0 24px">
         {t('admin.userManagement')}
       </Typography>
-      <Flex justify={'space-between'} align={'center'} margin={'0 0 36px'}>
+      <Flex justify="space-between" align="center" margin="0 0 36px">
         <TextField
           value={search}
           onChange={({ value }) => setSearch(value || '')}
-          size={'s'}
+          size="s"
           placeholder={t('admin.loginSearch')}
           rightSide={IconSearch}
         />
         <Button
           label={t('admin.csvExport')}
-          size={'s'}
-          view={'primary'}
+          size="s"
+          view="primary"
           onClick={exportList}
         />
       </Flex>

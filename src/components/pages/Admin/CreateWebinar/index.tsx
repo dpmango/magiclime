@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@consta/uikit/Button';
 import useStyles from './styles';
 import Typography from '../../../Common/Typography';
-import { useTranslation } from 'react-i18next';
 import FormikSelect from '../../../Common/Controls/Formik/Select';
 import FormikInput from '../../../Common/Controls/Formik/Input';
-import { Button } from '@consta/uikit/Button';
 import { createWebinar } from '../../../../utils/api/routes/admin';
 import { REQUIRED_STRING } from '../../../../utils/formik/validation';
 import FormikDatePicker from '../../../Common/Controls/Formik/DatePicker';
@@ -43,7 +43,7 @@ const CreateWebinar: FC = () => {
 
   return (
     <div className={styles.root}>
-      <Typography weight={'semibold'} size={'3xl'} margin={'0 0 24px'}>
+      <Typography weight="semibold" size="3xl" margin="0 0 24px">
         {t('admin.createWebinar')}
       </Typography>
       <Formik
@@ -57,39 +57,39 @@ const CreateWebinar: FC = () => {
               items={[]}
               name="type"
               placeholder="Выбрать тип вебинара"
-              label={'Тип вебинара'}
+              label="Тип вебинара"
             />
             <FormikInput
               name="title"
-              label={'Введите заголовок'}
+              label="Введите заголовок"
               placeholder="Заголовок вебинара"
             />
             <FormikDatePicker
               name="date"
-              label={'Дата'}
+              label="Дата"
               placeholder="Выберите дату"
             />
             <FormikInput
               name="zoom_url"
-              label={'Ссылка'}
+              label="Ссылка"
               placeholder="Вставьте ссылку"
             />
             <FormikInput
               name="speaker"
-              label={'Спикер'}
+              label="Спикер"
               placeholder="Имя и фамилия спикера"
             />
             <FormikSelect
               items={[]}
               name="city.title"
-              label={'Город'}
+              label="Город"
               placeholder="Выбрать город"
             />
           </div>
           <Button
             label={t('admin.deployWebinar')}
             type="submit"
-            view={'secondary'}
+            view="secondary"
           />
         </Form>
       </Formik>
