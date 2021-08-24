@@ -52,7 +52,7 @@ const WebinarChat = () => {
   }, [ref.current]);
 
   return (
-    <Flex direction={'column'} className={styles.root}>
+    <Flex direction="column" className={styles.root}>
       <div className={styles.body} ref={ref}>
         {messages.map((message) => (
           <div key={message.id} className={styles.message}>
