@@ -63,13 +63,13 @@ const Hero: FC = () => {
               <div className={styles.card}>
                 <div className={styles.cardImage} />
                 <Flex direction="column">
-                  <Typography size="l" margin="24px 0 0" weight="semibold">
+                  <Typography size="m" margin="24px 0 0" weight="semibold">
                     {x.step}
                   </Typography>
                   <Typography
                     as="p"
                     view="secondary"
-                    margin="20px 0 0"
+                    margin="16px 0 0"
                     size="s"
                     lineHeight="m"
                     className={styles.cardDescription}
