@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
-import { FC, useEffect, useState } from 'react';
-import { AxiosPromise } from '../types/common';
+import React, { useMemo, FC, useEffect, useState } from 'react';
+
 import { AxiosError } from 'axios';
 import { Button } from '@consta/uikit/Button';
-import ConstaIcons from '../assets/icons/ConstaIcons';
 import { Loader } from '@consta/uikit/Loader';
+import ConstaIcons from '../assets/icons/ConstaIcons';
+import { AxiosPromise } from '../types/common';
 
 interface IProps<T> {
   getList: (page: number) => AxiosPromise<{ count: number; results: T[] }>;
@@ -48,14 +48,14 @@ export const usePagination = <T extends object>({
 
   const residue = useMemo(() => {
     if (state.count - state.data.length >= limit) return limit;
-    else return state.count - state.data.length;
+    return state.count - state.data.length;
   }, [state.data.length]);
 
   const PaginationButton = loading ? (
     <Loader />
   ) : residue > 0 ? (
     <Button
-      view={'secondary'}
+      view="secondary"
       label={`Показать ещё ${residue} ${elName}`}
       onClick={() => setPage(page + 1)}
       iconLeft={ConstaIcons.Refresh}

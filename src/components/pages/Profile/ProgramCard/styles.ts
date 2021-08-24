@@ -113,7 +113,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    border:'1px solid var(--color-bg-border)',
+    border: '1px solid var(--color-bg-border)',
     transform: 'translate(-50%,-50%)',
     background: 'var(--color-bg-default)',
     maxWidth: '200px',
