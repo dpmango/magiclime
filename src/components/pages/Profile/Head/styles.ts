@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     width: 84,
     height: 84,
     lineHeight: '84px',
+    fontSize: 24,
   },
   avatarWrapper: {
     position: 'relative',
