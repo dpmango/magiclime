@@ -7,9 +7,11 @@ export const getReferralsService = (data: {
   level: number;
   program: number;
 }): AxiosPromise<IReferralTree> => {
-  return instance.get(`/auth/users/${data.id}/referrals/`, {
+  return instance.get(`/auth/users/me/referrals/`, {
     params: {
-      ...data,
+      matrixUserId: data.id,
+      level: data.level,
+      program: data.program,
     },
   });
 };

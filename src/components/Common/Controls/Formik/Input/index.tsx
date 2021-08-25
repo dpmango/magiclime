@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, { FC, SyntheticEvent, useCallback } from 'react';
+import React, { FC, KeyboardEvent, useCallback } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
 
@@ -37,7 +37,7 @@ const FormikInputComponent = MemoWrapper(
       setFieldValue(field.name, value || '');
     }, []);
 
-    const handleKeyDown = (event: ChangeType) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
       const isAllowedKey = [8, 13, 32].includes(event.keyCode); // backspace, enter, space
 
       if (onlyNumbers) {
@@ -47,7 +47,11 @@ const FormikInputComponent = MemoWrapper(
         }
       } else if (mask && mask.length) {
         if (!isAllowedKey) {
-          const cursorPosition = event.nativeEvent.target.selectionStart;
+          let cursorPosition = 0;
+          if (event.target instanceof HTMLInputElement) {
+            cursorPosition = event.target.selectionStart || 0;
+          }
+
           const regex = new RegExp(mask[cursorPosition], 'g');
 
           // limit input by mask length first

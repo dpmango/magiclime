@@ -79,13 +79,13 @@ const Referrals: FC = () => {
       program,
       level,
     }: {
-      id: string | number;
+      id: number;
       program: number;
       level: number;
     }) => {
       dispatch(
         getReferrals({
-          id: parseInt(id, 10),
+          id,
           program,
           level,
         })
@@ -99,7 +99,7 @@ const Referrals: FC = () => {
       e.preventDefault();
 
       requestReferrals({
-        id: page.link,
+        id: parseInt(page.link, 10),
         program: filterProgram.id,
         level: selectedLevel,
       });
@@ -141,8 +141,8 @@ const Referrals: FC = () => {
         ...defaultCrumbs,
         ...(referralsTree.ancestors
           ? referralsTree.ancestors.map((a) => ({
-              label: a.user.username,
-              link: `${a.user.id}`,
+              label: a.username,
+              link: `${a.id}`,
             }))
           : []),
         ...[
@@ -236,7 +236,9 @@ const Referrals: FC = () => {
                 items={programOptions}
                 value={filterProgram}
                 placeholder={t('profile.referral.filter.level')}
-                onChange={({ value }) => setFilterProgram(value)}
+                onChange={({ value }) =>
+                  setFilterProgram(value || programOptions[0])
+                }
               />
             </div>
             <div className={styles.filtersGroup}>

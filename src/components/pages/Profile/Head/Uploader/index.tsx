@@ -1,4 +1,11 @@
-import React, { FC, useCallback, ChangeEvent, useState, useRef } from 'react';
+import React, {
+  FC,
+  useCallback,
+  ChangeEvent,
+  useState,
+  useRef,
+  SyntheticEvent,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
@@ -17,7 +24,9 @@ const uploader = {
 };
 
 const PorifleHeadUploader: FC = () => {
-  const [avatarReader, setAvatarReader] = useState();
+  const [avatarReader, setAvatarReader] = useState<
+    string | ArrayBuffer | null
+  >();
 
   const styles = useStyles();
   const { t } = useTranslation();
@@ -27,7 +36,12 @@ const PorifleHeadUploader: FC = () => {
 
   const { profile } = useSelector((state: RootState) => state.user);
 
-  const handleFileChange = useCallback(async (e: ChangeEvent): null => {
+  const clearInput = (target: any) => {
+    // eslint-disable-next-line no-param-reassign
+    target.value = '';
+  };
+
+  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
 
     if (files && files[0]) {
@@ -41,8 +55,8 @@ const PorifleHeadUploader: FC = () => {
           // });
 
           console.log(t('profile.head.uploader.mimeLocked'));
-          e.target.value = '';
-          return null;
+          clearInput(e.target);
+          return false;
         }
       }
 
@@ -55,20 +69,20 @@ const PorifleHeadUploader: FC = () => {
           //   message: `Размер файла превышает ${this.maxSize}Мб`,
           // });
           console.log(`Размер файла превышает ${uploader.maxSize}Мб`);
-          e.target.value = '';
-          return null;
+          clearInput(e.target);
+          return false;
         }
       }
 
       if (uploader.includeReader) {
         const reader = new FileReader();
-        reader.onload = (ev) => {
-          setAvatarReader(ev.target.result);
+        reader.onload = (ev: ProgressEvent<FileReader>): void => {
+          setAvatarReader(ev.target!.result);
         };
         reader.readAsDataURL(file);
       }
 
-      await dispatch(
+      dispatch(
         updateProfileAvatar({
           file,
           successCallback: () => {},
@@ -76,10 +90,10 @@ const PorifleHeadUploader: FC = () => {
         })
       );
 
-      e.target.value = '';
-
-      return null;
+      clearInput(e.target);
     }
+
+    return true;
   }, []);
 
   return (
@@ -95,13 +109,13 @@ const PorifleHeadUploader: FC = () => {
         htmlFor="avatarUploader"
         className={styles.avatarUploader}
         ref={uploadLabelRef}
-        alt={t('profile.head.uploader.ctaAlt')}
+        aria-label={t('profile.head.uploader.ctaAlt')}
       >
         <Button
           iconLeft={SvgIcon.Camera}
           form="round"
           size="xs"
-          onClick={() => uploadLabelRef.current.click()}
+          onClick={() => uploadLabelRef!.current!.click()}
         />
       </label>
     </>

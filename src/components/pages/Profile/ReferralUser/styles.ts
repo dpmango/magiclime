@@ -39,41 +39,35 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: {
+  referralUser: ({ root }) => ({
     flex: '0 0 50%',
     minWidth: 1,
-    paddingLeft: ({ nested }) => (nested ? 30 : 0),
     paddingRight: 12,
+    // paddingLeft: ({ nested }) => (nested ? 0 : 30),
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
     },
-    '&': ({ root, nested }) => {
-      if (nested) {
-        return {
-          paddingLeft: 30,
-        };
-      }
-      if (root) {
-        return {
-          '&::after': {
-            display: 'block',
-            content: "' '",
-            position: 'absolute',
-            zIndex: 1,
-            top: 36,
-            left: -52,
-            bottom: -62,
-            width: 1,
-            borderLeft: '1px dashed var(--color-bg-border)',
-          },
-        };
-      }
+    '& ': (() => {
+      return root
+        ? {
+            '&::after': {
+              display: 'block',
+              content: "' '",
+              // position: 'absolute',
+              zIndex: 1,
+              top: 36,
+              left: -52,
+              bottom: -62,
+              width: 1,
+              borderLeft: '1px dashed var(--color-bg-border)',
+            },
+          }
+        : {};
+    })(),
+  }),
 
-      return {};
-    },
-  },
   referralUserWrapper: {
     marginLeft: ({ root }) => (root ? 12 : 8),
     minWidth: 1,

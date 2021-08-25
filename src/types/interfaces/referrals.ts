@@ -1,9 +1,6 @@
 export interface IAncestor {
   readonly id: number;
-  user: {
-    id: number;
-    username: string;
-  };
+  username: string;
 }
 export interface IReferralTree {
   readonly id: number;
