@@ -101,18 +101,19 @@ const ForumTopics: FC = () => {
 
       <div className={styles.content}>
         {list.map((x) => (
-          <Flex align="center" className={styles.card}>
-            <div className={styles.cardAvatar}>
-              <img src={x.cover} alt={x.title} />
-            </div>
+          <div className={styles.card}>
             <Flex className={styles.cardContent}>
+              <div className={styles.cardAvatar}>
+                <img src={x.cover} alt={x.title} />
+              </div>
+
               <div className={styles.cardMain}>
-                <Typography size="2xl" weight="semibold">
+                <Typography size="xl s:2xl" weight="semibold">
                   {x.title}
                 </Typography>
                 <Typography
                   margin="8px 0 16px"
-                  size="l"
+                  size="m s:l"
                   view="secondary"
                   lineHeight="s"
                 >
@@ -127,9 +128,13 @@ const ForumTopics: FC = () => {
               <Flex
                 align="stretch"
                 direction="column"
-                className={styles.cardStats}
+                className={styles.cardMeta}
               >
-                <Flex align="flex-start">
+                <Flex
+                  align="flex-start"
+                  wrap="wrap"
+                  className={styles.cardStats}
+                >
                   <div className={styles.cardStatsCol}>
                     <Typography size="xs" view="ghost" lineHeight="m">
                       Тем на форуме
@@ -168,6 +173,7 @@ const ForumTopics: FC = () => {
                   <Flex align="center" margin="12px 0 0">
                     <div className={styles.cardLastAvatar}>
                       <Avatar
+                        size="xs"
                         url={x.last_message.avatar || ''}
                         name="x.last_message.name"
                       />
@@ -184,7 +190,7 @@ const ForumTopics: FC = () => {
                 </div>
               </Flex>
             </Flex>
-          </Flex>
+          </div>
         ))}
       </div>
     </div>
