@@ -5,15 +5,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { TextField } from '@consta/uikit/TextField';
+import { Button } from '@consta/uikit/Button';
+import moment from 'moment';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Message from '../../Chats/Chat/Message';
 import { IMessage } from '../../Chats/types';
-import { TextField } from '@consta/uikit/TextField';
-import { Button } from '@consta/uikit/Button';
 import icons from '../../Chats/Chat/Panel/icons';
 import Typography from '../../../Common/Typography';
-import moment from 'moment';
 
 const WebinarChat = () => {
   const styles = useStyles();
@@ -43,7 +43,7 @@ const WebinarChat = () => {
     }
   };
 
-  //Скроллим окно сообщений вниз
+  // Скроллим окно сообщений вниз
   useEffect(() => {
     if (ref.current) {
       const elem = ref.current;
@@ -52,49 +52,45 @@ const WebinarChat = () => {
   }, [ref.current]);
 
   return (
-    <Flex direction={'column'} className={styles.root}>
+    <Flex direction="column" className={styles.root}>
       <div className={styles.body} ref={ref}>
         {messages.map((message) => (
           <div key={message.id} className={styles.message}>
             <Typography
-              size={'s'}
-              weight={'semibold'}
-              margin={'0 0 4px'}
+              size="s"
+              weight="semibold"
+              margin="0 0 4px"
               className={styles.text}
             >
               {message.text}
             </Typography>
-            <Flex justify={'space-between'}>
-              <Typography view={'ghost'} size={'2xs'}>
+            <Flex justify="space-between">
+              <Typography view="ghost" size="2xs">
                 {message.creator.name}
               </Typography>
-              <Typography view={'ghost'} size={'2xs'} margin={'0 0 0 12px'}>
+              <Typography view="ghost" size="2xs" margin="0 0 0 12px">
                 {moment(message.created_at).format('HH:mm')}
               </Typography>
             </Flex>
           </div>
         ))}
       </div>
-      <Flex
-        align={'center'}
-        className={styles.inputWrapper}
-        padding={'0 4px 0 0'}
-      >
+      <Flex align="center" className={styles.inputWrapper} padding="0 4px 0 0">
         <TextField
           className={styles.input}
           value={value}
           onChange={({ value }) => setValue(value || '')}
           onKeyDown={(e) => handleKeyDown(e)}
           placeholder="Новое сообщение"
-          type={'textarea'}
-          form={'brick'}
+          type="textarea"
+          form="brick"
           maxRows={7}
         />
         <Button
           iconRight={icons.SendIcon}
           onlyIcon
-          view={'clear'}
-          size={'s'}
+          view="clear"
+          size="s"
           onClick={submitMessage}
         />
       </Flex>

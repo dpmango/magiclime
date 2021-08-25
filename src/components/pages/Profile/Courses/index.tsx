@@ -18,7 +18,7 @@ const Courses: FC<IProps> = ({ list, view }) => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
+      <Typography weight="semibold" lineHeight="s" size="3xl">
         {t('profile.courses.title')}
       </Typography>
 
@@ -30,7 +30,7 @@ const Courses: FC<IProps> = ({ list, view }) => {
             </div>
           )}
           <Flex direction="column" className={styles.courseContent}>
-            <Badge view="stroked" label={course.tag} />
+            <Badge view="filled" label={course.tag} />
             <Typography margin="18px 0 0 0" weight="semibold" size="xl">
               {course.title}
             </Typography>
