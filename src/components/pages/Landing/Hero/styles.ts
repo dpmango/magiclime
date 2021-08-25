@@ -47,12 +47,14 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 52,
+    mixBlendMode: 'color-burn',
   },
   blockquote: {
     position: 'relative',
     fontSize: 19,
     maxWidth: 620,
     padding: '0px 0 0px 24px',
+    mixBlendMode: 'color-burn',
     '&::after': {
       display: 'block',
       content: "''",
