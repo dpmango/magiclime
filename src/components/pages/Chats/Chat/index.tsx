@@ -7,6 +7,7 @@ import Typography from '../../../Common/Typography';
 import Message from './Message';
 import Panel from './Panel';
 import { getChat } from '../../../../utils/api/routes/chat';
+import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
   chatId: number | null;
@@ -67,7 +68,12 @@ const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
       justify={chatId && chat ? 'flex-start' : 'center'}
     >
       {!chatId || !chat ? (
-        <Typography size="xl">Выберите чат, чтобы начать переписку</Typography>
+        <>
+          <EmptyChat />
+          <Typography size="xl" margin="30px 0 0">
+            Выберите чат, чтобы начать переписку
+          </Typography>
+        </>
       ) : (
         <>
           <Flex className={styles.header}>
