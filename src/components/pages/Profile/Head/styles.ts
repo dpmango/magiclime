@@ -8,6 +8,8 @@ const useStyles = makeStyles({
     flex: '0 0 auto',
     width: 84,
     height: 84,
+    lineHeight: '84px',
+    fontSize: 24,
   },
   avatarWrapper: {
     position: 'relative',
