@@ -66,7 +66,7 @@ const CourseProcess: FC = () => {
                   <img src="/images/course-process.svg" alt="course-process" />
                 </div>
                 <div className={styles.content}>
-                  <Typography size="2xl" weight="semibold" lineHeight="s">
+                  <Typography size="3xl" weight="semibold" lineHeight="s">
                     {x.title}
                   </Typography>
                   <Typography

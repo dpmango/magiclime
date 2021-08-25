@@ -34,7 +34,7 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const [isFullMenu, setIsFullMenu] = useState(false);
   const styles = useStyles();
-  const { is_admin } = useSelector((state: RootState) => state.user.profile);
+  const { is_stuff } = useSelector((state: RootState) => state.user.profile);
 
   // const location = useLocation();
   // const size = useResolution();
@@ -67,9 +67,9 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
         toggleMenu={() => setIsFullMenu(!isFullMenu)}
       />
       <Flex className={styles.container}>
-        <Menu isFull={isFullMenu} isAdmin={!is_admin} />
+        <Menu isFull={isFullMenu} isAdmin={is_stuff} />
         <Container className={styles.content}>
-          {is_admin ? (
+          {!is_stuff ? (
             <Switch>
               <Route exact path="/" render={() => <Redirect to="profile" />} />
               <Route

@@ -4,7 +4,7 @@ import { refreshAuthToken } from './routes/auth';
 import { logoutFunc } from '../helpers/logout';
 
 export const instance = Axios.create({
-  baseURL: 'http://178.154.196.41:8081/api/v1',
+  baseURL: 'https://magiclime.academy/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
