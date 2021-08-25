@@ -9,6 +9,9 @@ const useStyles = makeStyles({
     width: 84,
     height: 84,
   },
+  avatarWrapper: {
+    position: 'relative',
+  },
   content: {
     paddingLeft: 26,
   },
