@@ -4,10 +4,13 @@ import classNames from 'classnames';
 import useResolution from 'hooks/useResolution';
 import { Text } from '@consta/uikit/Text';
 import { useResponsiveSize } from 'hooks/useResponsiveSize';
+import { SizeType } from 'types/common';
 
-interface IProps extends React.ComponentProps<typeof Text> {
+type CustomText = Omit<React.ComponentProps<typeof Text>, 'size'>;
+
+interface IProps extends CustomText {
   margin?: string;
-  size?: string;
+  size?: string | SizeType;
 }
 
 const useStyle = makeStyles<null, IProps>(() => ({
@@ -34,7 +37,7 @@ const Typography: FC<IProps> = ({
   const { width } = useResolution();
   const styles = useStyle({ margin });
 
-  const responsiveSize = useResponsiveSize(size, width);
+  const responsiveSize = useResponsiveSize(width, size);
 
   return (
     <Text

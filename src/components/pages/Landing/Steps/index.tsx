@@ -55,7 +55,7 @@ const Hero: FC = () => {
         <Grid
           cols="1"
           breakpoints={{ s: { cols: 2 }, l: { cols: 4 } }}
-          gap="xl"
+          gap="0"
           yAlign="center"
         >
           {content.map((x) => (
@@ -63,14 +63,14 @@ const Hero: FC = () => {
               <div className={styles.card}>
                 <div className={styles.cardImage} />
                 <Flex direction="column">
-                  <Typography size="m" margin="16px 0 0" weight="semibold">
+                  <Typography size="m" margin="24px 0 0" weight="semibold">
                     {x.step}
                   </Typography>
                   <Typography
                     as="p"
                     view="secondary"
                     margin="16px 0 0"
-                    size="m"
+                    size="s"
                     lineHeight="m"
                     className={styles.cardDescription}
                   >

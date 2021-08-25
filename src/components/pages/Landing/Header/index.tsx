@@ -55,6 +55,14 @@ const Header: FC = () => {
             >
               <SvgIcon.Globe size="s" />
             </div>
+            <div
+              className={styles.global}
+              role="button"
+              tabIndex={0}
+              onClick={() => changeLocale()}
+            >
+              <SvgIcon.Moon size="s" />
+            </div>
             <Button
               form="round"
               size="s"

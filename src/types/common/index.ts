@@ -16,3 +16,18 @@ export enum Language {
   RU = 'ru',
   EN = 'en',
 }
+
+// размеры шрифтов consta
+export type SizeType =
+  | 's'
+  | 'm'
+  | '2xs'
+  | 'xs'
+  | 'l'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+  | '6xl'
+  | undefined;

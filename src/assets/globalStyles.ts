@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
         minHeight: '100vh',
         overflowX: 'hidden',
         overflowY: 'auto',
-        letterSpacing: '-0.137px',
+        // letterSpacing: '-0.137px',
         lineHeight: 1,
       },
       '#root': {

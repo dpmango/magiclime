@@ -6,10 +6,10 @@ const useStyles = makeStyles({
     margin: '80px 0',
   },
   grid: {
-    marginTop: 48,
+    marginTop: 36,
     display: 'grid',
     gridGap: '24px',
-    gridTemplateColumns: '43fr 57fr',
+    gridTemplateColumns: '4fr 6fr',
     '@media screen and (max-width: 992px)': {
       display: 'block',
     },
@@ -17,31 +17,33 @@ const useStyles = makeStyles({
   tabList: {},
   tab: {
     display: 'block',
-    padding: '24px 40px 24px 24px',
+    padding: '24px',
     borderRadius: 4,
     cursor: 'pointer',
     transition: 'background .25s ease-in-out',
     '&:hover': {
-      background: 'var(--color-bg-secondary)',
+      // background: 'var(--color-bg-secondary)',
     },
     '&.active': {
-      background: 'var(--color-bg-secondary)',
+      border: '1px solid #6E6E6E',
+      background: 'var(--color-bg-default) !important',
       '& $tabDescription': {
         display: 'block',
       },
     },
   },
   tabTitle: {
-    fontSize: 20,
-    fontWeight: 300,
+    fontSize: 19,
+    // fontWeight: 300,
   },
   tabDescription: {
     display: 'none',
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 300,
   },
   tabContent: {
-    padding: '32px 0',
+    border: '1px solid #6E6E6E',
+    padding: '32px 24px',
   },
 });
 

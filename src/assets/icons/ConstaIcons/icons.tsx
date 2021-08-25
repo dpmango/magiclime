@@ -96,10 +96,14 @@ const Globe: FC<SVGProps<SVGSVGElement>> = (props) => (
 
 const Comment: FC<SVGProps<SVGSVGElement>> = (props) => (
   <ConstaIconsBuilder size={[20, 20]} {...props}>
-    <path d="M5.49995 15.9H3.99995C2.01514 15.9 0.699951 14.5919 0.699951 12.6V4.20002C0.699951 2.20813 2.01514 0.900024 3.99995 0.900024H16C17.9848 0.900024 19.2999 2.20813 19.2999 4.20002V12.6C19.2999 14.5919 17.9848 15.9 16 15.9H11.5869L8.5225 19.1327C7.78939 19.8746 6.92199 20.0575 6.22641 19.5295C5.75913 19.1748 5.49995 18.5519 5.49995 18V15.9ZM10.3693 14.5681C10.6525 14.2693 11.0462 14.1 11.4579 14.1H16C16.9928 14.1 17.5 13.5956 17.5 12.6V4.20002C17.5 3.20443 16.9928 2.70002 16 2.70002H3.99995C3.00708 2.70002 2.49995 3.20443 2.49995 4.20002V12.6C2.49995 13.5956 3.00708 14.1 3.99995 14.1H6.39875C6.63745 14.1 6.86636 14.1948 7.03515 14.3636L7.12857 14.4729C7.23927 14.6256 7.29995 14.8103 7.29995 15.0012V17.8062L10.3693 14.5681Z" />
+    <path d="M21.874 13.593a7.5 7.5 0 01-9.481-11.586C12.263 2.004 12.132 2 12 2 6.477 2 2 6.477 2 12s4.477 10 10 10c4.98 0 9.11-3.641 9.874-8.407z" />{' '}
   </ConstaIconsBuilder>
 );
-
+const Moon: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <ConstaIconsBuilder size={[24, 24]} {...props}>
+    <path d="M21.874 13.593a7.5 7.5 0 01-9.481-11.586C12.263 2.004 12.132 2 12 2 6.477 2 2 6.477 2 12s4.477 10 10 10c4.98 0 9.11-3.641 9.874-8.407z" />{' '}
+  </ConstaIconsBuilder>
+);
 const Lime: FC<SVGProps<SVGSVGElement>> = (props) => (
   <ConstaIconsBuilder size={[24, 24]} {...props}>
     <path
@@ -191,6 +195,7 @@ const icons = {
   ...createIcon('Blocked', Blocked),
   ...createIcon('Search', Search),
   ...createIcon('Refresh', Refresh),
+  ...createIcon('Moon', Moon),
   ...createIcon('Globe', Globe),
   ...createIcon('Comment', Comment),
   ...createIcon('Lime', Lime),
