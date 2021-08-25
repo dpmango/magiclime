@@ -64,13 +64,14 @@ const Hero: FC<IProps> = ({ setAuthOpen }) => {
               </Typography>
               <Flex wrap="wrap" className={styles.cta}>
                 <Button
-                  size="l"
+                  size="m"
+                  form="round"
                   label={t('landing.hero.cta.login')}
                   onClick={() => setAuthOpen(true)}
                 />
                 <Button
-                  size="l"
-                  view="secondary"
+                  size="m"
+                  view="clear"
                   label={t('landing.hero.cta.more')}
                 />
               </Flex>

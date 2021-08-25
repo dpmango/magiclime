@@ -89,7 +89,7 @@
   ); /* Цвет тени в состонии нажатия  */
 
   /* Primary */
-  --color-control-bg-primary: #24ae8f; /* Цвет фона активного контрола */
+  --color-control-bg-primary: #0AC36A; /* Цвет фона активного контрола */
   --color-control-bg-primary-hover: #00D36D; /* Цвет фона активного контрола по ховеру */
 
   --color-control-typo-primary: rgb(255, 255, 255); /* Цвет акцентного текста */

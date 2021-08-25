@@ -11,10 +11,11 @@ const useStyles = makeStyles({
     // borderBottom: '1px solid var(--color-bg-border)',
   },
   logo: {
-    textTransform: 'uppercase',
-    fontWeight: 600,
+    // textTransform: 'uppercase',
+    fontWeight: 900,
     fontSize: 18,
     paddingRight: 24,
+    letterSpacing: 0.3,
     color: 'var(--color-bg-default)',
   },
   menu: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
     },
     '& li': {
       flex: '0 0 auto',
-      marginRight: 42,
+      marginRight: 24,
       '&:last-child': {
         marginRight: 0,
       },
@@ -36,18 +37,20 @@ const useStyles = makeStyles({
   menuLink: {
     display: 'inline-block',
     padding: 10,
-    fontSize: 17,
-    fontWeight: 400,
-    textShadow: '0 0 var(--color-bg-default)',
-    color: 'var(--color-bg-default)',
+    fontSize: 15,
+    borderRadius:'99rem',
+    fontWeight: 500,
+    letterSpacing: -0.1,
+    // textShadow: '0 0 var(--color-bg-default)',
+    color: '#fafafa',
     transition: 'color .25s ease',
     '&:hover': {
-      color: 'var(--color-typo-brand)',
+      background: 'hsla(0,0%,100%,0.2)'
     },
   },
   cta: {
     flex: '0 0 auto',
-    paddingLeft: 24,
+    // paddingLeft: 24,
     // marginRight: -60, // why ( for no reason :) ) ?
     width: 'auto',
     '@media screen and (max-width: 1440px)': {
@@ -56,6 +59,9 @@ const useStyles = makeStyles({
     '@media screen and (max-width: 992px)': {
       marginLeft: 'auto',
     },
+  },
+  enterbutton: {
+    background: 'hsla(0,0%,100%,0.2)',
   },
   global: {
     padding: 16,

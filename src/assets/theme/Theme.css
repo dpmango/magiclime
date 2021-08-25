@@ -37,7 +37,7 @@
   /* prevent jumping between states */
   /* todo - toggle height */
   border: 1px solid transparent;
-  text-shadow: 0 0 #b3b3b3;
+  text-shadow: 0 0 #fff;
 }
 
 .Button_view_ghost {
