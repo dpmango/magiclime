@@ -24,6 +24,9 @@ const useStyles = makeStyles({
   sidebar: {
     maxWidth: 264,
     marginLeft: 'auto',
+    '@media screen and (max-width: 1279px)': {
+      marginLeft: 0,
+    },
   },
   createBtn: {
     marginTop: 36,

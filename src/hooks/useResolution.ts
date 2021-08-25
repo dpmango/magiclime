@@ -6,7 +6,7 @@ interface IProps {
   height: number;
 }
 
-const debounceRate = 150;
+const debounceRate = 100;
 
 const useResolution = (): IProps => {
   const [windowSize, setWindowSize] = useState<IProps>({

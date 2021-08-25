@@ -13,6 +13,9 @@ const useStyles = makeStyles({
     width: 54,
     lineHeight: '54px',
   },
+  title: {
+    overflow: 'hidden',
+  },
 });
 
 export default useStyles;

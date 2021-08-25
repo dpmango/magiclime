@@ -22,7 +22,12 @@ const ForumDetailsStats: FC = () => {
             url="https://randomuser.me/api/portraits/men/9.jpg"
             className={styles.avatar}
           />
-          <Typography margin="0 0 0 8px" size="l" lineHeight="s">
+          <Typography
+            margin="0 0 0 8px"
+            size="l"
+            lineHeight="s"
+            className={styles.title}
+          >
             Константин Константинопольский
           </Typography>
         </Flex>

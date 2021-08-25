@@ -27,10 +27,13 @@ const ForumTopicPage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  const tabs: ITab[] = [
-    { id: 1, slug: `/forum/${topic}`, label: t('forum.tabs.popular') },
-    { id: 2, slug: `/forum/${topic}/new`, label: t('forum.tabs.new') },
-  ];
+  const tabs: ITab[] = useMemo(
+    () => [
+      { id: 1, slug: `/forum/${topic}`, label: t('forum.tabs.popular') },
+      { id: 2, slug: `/forum/${topic}/new`, label: t('forum.tabs.new') },
+    ],
+    [topic]
+  );
 
   const getTabWithRouter = useMemo((): ITab => {
     if (window.location.pathname.split('/').length > 2) {
@@ -68,7 +71,12 @@ const ForumTopicPage: FC = () => {
           className={styles.tabs}
         />
 
-        <Grid cols="4" gap="xl" className={styles.content}>
+        <Grid
+          cols="1"
+          breakpoints={{ l: { cols: 4 } }}
+          gap="xl"
+          className={styles.content}
+        >
           <GridItem col="3">
             <Switch>
               <Route
