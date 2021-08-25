@@ -2,7 +2,11 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    position: 'relative',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 9,
     padding: '22px 0 64px',
     // borderBottom: '1px solid var(--color-bg-border)',
   },

@@ -2,25 +2,21 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
-import { Modal } from '@consta/uikit/Modal';
 import Typography from 'components/Common/Typography';
 import SvgIcon from 'assets/icons/ConstaIcons';
 import { useTranslation } from 'react-i18next';
-import Auth from 'components/Auth';
 
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
-const Header: FC = () => {
+interface IProps {
+  setAuthOpen: (v: boolean) => void;
+}
+
+const Header: FC<IProps> = ({ setAuthOpen }) => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
   const { t } = useTranslation();
-
-  const [isAuthOpen, setAuthOpen] = useState(false);
-
-  const closeModal = useCallback(() => {
-    setAuthOpen(false);
-  }, []);
 
   const changeLocale = () => {};
 
@@ -73,10 +69,6 @@ const Header: FC = () => {
           </Flex>
         </Flex>
       </div>
-
-      <Modal isOpen={isAuthOpen} hasOverlay onOverlayClick={closeModal}>
-        <Auth closeModal={closeModal} />
-      </Modal>
     </div>
   );
 };

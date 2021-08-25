@@ -4,8 +4,39 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    padding: '0px 0 60px',
+    padding: '135px 0 60px',
     marginBottom: 135,
+  },
+  background: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  body: {
+    position: 'relative',
+    zIndex: 2,
+  },
+  backgroundPosition: {
+    position: 'absolute',
+    minWidth: 1000,
+    height: 600,
+    top: '-200px',
+    left: 0,
+    right: 0,
+    transformOrigin: '55.6px 100%',
+    transform: 'skewY(-10deg)',
+    overflow: 'hidden',
+  },
+  backgroundCanvas: {
+    width: '100%',
+    height: '100%',
+    '--gradient-color-1': '#ef008f',
+    '--gradient-color-2': '#6ec3f4',
+    '--gradient-color-3': '#7038ff',
+    '--gradient-color-4': '#ffba27',
   },
   content: {
     paddingRight: 140,
