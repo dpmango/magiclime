@@ -1,4 +1,4 @@
-@import "../fonts/stylesheet.css";
+@import '../fonts/stylesheet.css';
 
 .Theme {
   --graphics-size-xs: 12px;
@@ -33,17 +33,16 @@
   background-color: var(--color-scroll-thumb-hover);
 }
 
-.Button_view_primary{
+.Button_view_primary {
   /* prevent jumping between states */
   /* todo - toggle height */
   border: 1px solid transparent;
   text-shadow: 0 0 #b3b3b3;
 }
 
-.Button_view_ghost{
+.Button_view_ghost {
   border: var(--control-border-width) solid var(--color-control-bg-border-ghost);
 }
-.Button_view_ghost:hover{
+.Button_view_ghost:hover {
   border-color: var(--color-control-bg-border-ghost-hover);
 }
-

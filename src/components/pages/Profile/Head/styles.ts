@@ -8,6 +8,7 @@ const useStyles = makeStyles({
     flex: '0 0 auto',
     width: 84,
     height: 84,
+    lineHeight: '84px',
   },
   content: {
     paddingLeft: 26,

@@ -57,6 +57,9 @@ const useStyles = makeStyles(() =>
       '@media screen and (max-width: 480px)': {
         'body,html': { overflowX: 'hidden' },
       },
+      '.Modal': {
+        zIndex: 99,
+      },
     },
   })
 );

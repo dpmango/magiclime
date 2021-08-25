@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     minHeight: '64px',
     width: '100%',
     position: 'relative',
-    zIndex: 2,
+    zIndex: 9,
   },
   body: {
     height: '64px',

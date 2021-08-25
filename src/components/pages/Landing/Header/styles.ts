@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     fontWeight: 600,
     fontSize: 18,
     paddingRight: 24,
+    color: 'var(--color-bg-default)',
   },
   menu: {
     listStyle: 'none',
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     fontSize: 17,
     fontWeight: 400,
     textShadow: '0 0 var(--color-bg-default)',
-    color: 'var(--color-typo-primary)',
+    color: 'var(--color-bg-default)',
     transition: 'color .25s ease',
     '&:hover': {
       color: 'var(--color-typo-brand)',
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
     padding: 16,
     marginRight: 8,
     fontSize: 0,
-    color: 'var(--color-typo-ghost)',
+    color: 'var(--color-bg-default)',
     transition: 'color .25s ease',
     cursor: 'pointer',
     '&:hover': {
