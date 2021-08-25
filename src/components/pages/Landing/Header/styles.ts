@@ -2,7 +2,11 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    position: 'relative',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 9,
     padding: '22px 0 64px',
     // borderBottom: '1px solid var(--color-bg-border)',
   },
@@ -16,13 +20,13 @@ const useStyles = makeStyles({
     listStyle: 'none',
     margin: '0 0 0 auto',
     width: 'auto',
-    padding: '0 42px 0 0',
+    padding: '0 24px 0 0',
     '@media screen and (max-width: 992px)': {
       display: 'none',
     },
     '& li': {
       flex: '0 0 auto',
-      marginRight: 80,
+      marginRight: 42,
       '&:last-child': {
         marginRight: 0,
       },
@@ -31,8 +35,10 @@ const useStyles = makeStyles({
   menuLink: {
     display: 'inline-block',
     padding: 10,
-    fontSize: 18,
-    fontWeight: 300,
+    fontSize: 17,
+    fontWeight: 400,
+    textShadow: '0 0 var(--color-bg-default)',
+    color: 'var(--color-typo-primary)',
     transition: 'color .25s ease',
     '&:hover': {
       color: 'var(--color-typo-brand)',
@@ -41,7 +47,7 @@ const useStyles = makeStyles({
   cta: {
     flex: '0 0 auto',
     paddingLeft: 24,
-    marginRight: -60, // why ?
+    // marginRight: -60, // why ( for no reason :) ) ?
     width: 'auto',
     '@media screen and (max-width: 1440px)': {
       marginRight: 0,
