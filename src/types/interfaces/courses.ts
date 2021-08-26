@@ -1,10 +1,22 @@
 export interface ICourse {
-  readonly id: number;
-  category: number;
-  type: string;
-  title: string;
-  duration: number;
-  image: string;
+  readonly id: number; // used
+  title: string; //
+  status: number;
+  price: string;
+  category: {
+    id: number;
+    title: string;
+  };
+  subcategory: {
+    id: number;
+    title: string;
+  };
+  student_level: number;
+  level: number;
+  image: {
+    id: number;
+    image: string;
+  };
 }
 
 export interface IType {

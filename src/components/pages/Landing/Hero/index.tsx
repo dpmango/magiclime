@@ -42,7 +42,7 @@ const Hero: FC<IProps> = ({ setAuthOpen }) => {
             l: { cols: 3 },
           }}
           gap="xl"
-          yAlign="start"
+          yAlign="top"
         >
           <GridItem col="2">
             <div className={styles.content}>

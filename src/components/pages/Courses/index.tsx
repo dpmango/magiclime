@@ -1,34 +1,41 @@
-import React, { FC, useState, useEffect } from 'react';
-import shuffle from 'lodash/shuffle';
+import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import groupBy from 'lodash/groupBy';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { ICourse } from 'types/interfaces/courses';
-import Typography from 'components/Common/Typography';
-import { useTranslation } from 'react-i18next';
+import { getCoursesService } from 'utils/api/routes/courses';
+import { IFilter, ICategory } from 'components/pages/Courses/types';
 
+import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import ProfileCourses from 'components/pages/Profile/Courses';
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
 
-import { tags, mockCourses, mockProfileCourses } from './mockData';
+import { tags, mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const [courses, setCourses] = useState<ICourse[]>(mockCourses);
+  const [courses, setCourses] = useState<ICourse[]>([]);
   const [activeTags, setActiveTags] = useState<number[]>([]);
 
+  const fetchCourses = useCallback(async () => {
+    const [err, data] = await getCoursesService();
+
+    if (err) {
+      console.log({ err });
+    }
+
+    setCourses(data!.results || []);
+  }, []);
+
   const getMore = () => {
-    const newCourses = shuffle(
-      mockCourses.map((x) => ({
-        ...x,
-        id: x.id + 1,
-      }))
-    );
-    setCourses([...courses, ...newCourses]);
+    // const newCourses = [];
+    // setCourses([...courses, ...newCourses]);
   };
 
   const handleTagsToggle = (id: number) => {
@@ -41,6 +48,52 @@ const CoursesPage: FC = () => {
     }
     setActiveTags(newValues);
   };
+
+  const filterData = useMemo((): IFilter => {
+    let categories: ICategory[] = [];
+    let priceRange: [string, string] = ['0 ₽', '0 ₽'];
+    let levelRange: [string, string] = ['1', '1'];
+
+    const groupedCategories = groupBy(courses, (x) => x.subcategory.id);
+
+    if (groupedCategories) {
+      categories = Object.keys(groupedCategories).map((key) => {
+        const { subcategory } = groupedCategories[key][0];
+
+        return subcategory;
+      });
+    }
+
+    if (courses && courses.length) {
+      const prices = courses.map((x) => parseInt(x.price, 10));
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+
+      priceRange = [`${minPrice} ₽`, `${maxPrice} ₽`];
+
+      const levels = courses.map((x) => x.level);
+      const minLevel = Math.min(...levels);
+      const maxLevel = Math.max(...levels);
+
+      levelRange = [`${minLevel}`, `${maxLevel}`];
+    }
+
+    return {
+      categories,
+      level: ['Любой', 'Для новичков', 'Для специалистов'],
+      types: ['Профессия', 'Программа', 'Курс'],
+      priceRange,
+      levelRange,
+    };
+  }, [courses]);
+
+  const handleFiltersChange = useCallback((filter) => {
+    console.log({ filter });
+  }, []);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -66,7 +119,7 @@ const CoursesPage: FC = () => {
           </GridItem>
 
           <GridItem col="1">
-            <Filters />
+            <Filters filter={filterData} onUpdate={handleFiltersChange} />
           </GridItem>
         </Grid>
       </div>

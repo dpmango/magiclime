@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import { ICourse } from 'types/interfaces/courses';
 import Typography from 'components/Common/Typography';
-import { Link } from 'react-router-dom';
 import { Plurize } from 'utils/helpers/plurize';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
-import { useTranslation } from 'react-i18next';
+
 import useStyles from './styles';
 
 interface IProps {
@@ -14,7 +16,7 @@ interface IProps {
 const Course: FC<IProps> = ({ item }) => {
   const isDefaultTheme = useCheckDefaultTheme();
   const styles = useStyles({
-    category: item.category,
+    category: item.subcategory.id,
     darkmode: !isDefaultTheme,
   });
   const { t } = useTranslation();
@@ -24,7 +26,7 @@ const Course: FC<IProps> = ({ item }) => {
       <div className={styles.content}>
         <div>
           <Typography as="p" size="s" className={styles.detail}>
-            {item.type}
+            {item.subcategory.title}
           </Typography>
           <Typography
             as="p"
@@ -36,13 +38,16 @@ const Course: FC<IProps> = ({ item }) => {
           </Typography>
         </div>
         <Typography size="s" as="p" className={styles.detail}>
-          <span>{item.duration}&nbsp;</span>
+          {/* <span>{item.duration}&nbsp;</span> */}
+          TODO &nbsp;
           {t('course.card.month')}
         </Typography>
       </div>
-      <div className={styles.image}>
-        <img src={item.image} alt={item.title} />
-      </div>
+      {item.image && (
+        <div className={styles.image}>
+          <img src={item.image.image} alt={item.title} />
+        </div>
+      )}
     </Link>
   );
 };
