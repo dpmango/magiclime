@@ -210,14 +210,14 @@ const userSlice = createSlice({
       state.profile = {} as IUser;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(
-      getProfile.fulfilled,
-      (state, action: PayloadAction<IUser>) => {
-        state.profile = action.payload;
-      }
-    );
-  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(
+  //     getProfile.fulfilled,
+  //     (state, action: PayloadAction<IUser>) => {
+  //       state.profile = action.payload;
+  //     }
+  //   );
+  // },
 });
 
 export const { setUserProfile, logout, setLogged, userRegistration } =
