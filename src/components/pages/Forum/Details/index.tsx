@@ -39,7 +39,7 @@ const ForumDetails: FC = () => {
         </Typography>
       </div>
 
-      <Grid cols="3" gap="xl">
+      <Grid cols="1" breakpoints={{ l: { cols: 3 } }} gap="xl">
         <GridItem col="2">
           <div className={styles.content}>
             <div
