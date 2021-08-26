@@ -48,12 +48,12 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 91,
-    color: "#fbfbfb",
+    color: '#fbfbfb',
     // opacity: 0.95,
     letterSpacing: '-0.5px',
     lineHeight: 1.3,
     fontWeight: 900,
-    textShadow: "0 0 #fcfcfc",
+    textShadow: '0 0 #fcfcfc',
     mixBlendMode: 'color-burn',
   },
   blockquote: {

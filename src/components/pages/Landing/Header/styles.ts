@@ -38,14 +38,14 @@ const useStyles = makeStyles({
     display: 'inline-block',
     padding: 10,
     fontSize: 15,
-    borderRadius:'99rem',
+    borderRadius: '99rem',
     fontWeight: 500,
     letterSpacing: -0.1,
     // textShadow: '0 0 var(--color-bg-default)',
     color: '#fafafa',
     transition: 'color .25s ease',
     '&:hover': {
-      background: 'hsla(0,0%,100%,0.2)'
+      background: 'hsla(0,0%,100%,0.2)',
     },
   },
   cta: {
