@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    margin: '80px 0',
+    margin: '128px 0',
   },
   grid: {
     marginTop: 36,
     display: 'grid',
+    minHeight: 435,
     gridGap: '24px',
     gridTemplateColumns: '4fr 6fr',
     '@media screen and (max-width: 992px)': {
@@ -33,13 +34,14 @@ const useStyles = makeStyles({
     },
   },
   tabTitle: {
-    fontSize: 19,
-    // fontWeight: 300,
+    fontSize: 18,
+    letterSpacing: '0.5px',
+    fontWeight: 500,
   },
   tabDescription: {
     display: 'none',
-    fontSize: 16,
-    fontWeight: 300,
+    fontSize: 15,
+    fontWeight: 400,
   },
   tabContent: {
     border: '1px solid #6E6E6E',

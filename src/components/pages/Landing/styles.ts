@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     position: 'relative',
   },
   container: {
-    maxWidth: '1296px',
+    maxWidth: '1220px',
     paddingLeft: 40,
     paddingRight: 40,
     marginLeft: 'auto',

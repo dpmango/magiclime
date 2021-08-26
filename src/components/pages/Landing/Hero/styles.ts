@@ -22,23 +22,24 @@ const useStyles = makeStyles({
   backgroundPosition: {
     position: 'absolute',
     minWidth: 1000,
-    height: 600,
-    top: '-200px',
+    height: 840,
+    top: -335,
     left: 0,
     right: 0,
-    transformOrigin: '55.6px 100%',
-    transform: 'skewY(-10deg)',
+    transformOrigin: '200px 100%',
+    transform: 'skewY(-6deg)',
     overflow: 'hidden',
   },
   backgroundCanvas: {
     width: '100%',
     height: '100%',
-    '--gradient-color-1': '#ef008f',
-    '--gradient-color-2': '#6ec3f4',
-    '--gradient-color-3': '#7038ff',
-    '--gradient-color-4': '#ffba27',
+    '--gradient-color-1': '#ffd848',
+    '--gradient-color-2': '#00a600',
+    '--gradient-color-3': '#ffa832',
+    '--gradient-color-4': '#1dcb5d',
   },
   content: {
+    // paddingTop: 20,
     paddingRight: 140,
     '@media screen and (max-width: 1280px)': {
       maxWidth: 640,
@@ -46,13 +47,21 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    fontSize: 52,
+    fontSize: 91,
+    color: "#fbfbfb",
+    opacity: 0.95,
+    letterSpacing: '-0.5px',
+    lineHeight: 1.3,
+    fontWeight: 900,
+    textShadow: "0 0 #fcfcfc",
     mixBlendMode: 'color-burn',
   },
   blockquote: {
+    top: 75,
     position: 'relative',
-    fontSize: 19,
+    fontSize: 18,
     maxWidth: 620,
+    marginTop: 40,
     padding: '0px 0 0px 24px',
     mixBlendMode: 'color-burn',
     '&::after': {
@@ -70,14 +79,15 @@ const useStyles = makeStyles({
   cta: {
     marginBottom: -16,
     '& .Button': {
+      top: 75,
       marginRight: 16,
-      minWidth: 245,
+      // minWidth: 245,
       marginBottom: 16,
-      '&.Button_view_primary': {
-        backgroundImage:
-          'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
-        textShadow: '0 0 #b3b3b3',
-      },
+      // '&.Button_view_primary': {
+      //   backgroundImage:
+      //     'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
+      //   textShadow: '0 0 #b3b3b3',
+      // },
       '&.Button_view_secondary': {
         color: 'var(--color-typo-primary)',
         border: '1px solid #6e6e6e',
@@ -92,6 +102,7 @@ const useStyles = makeStyles({
     boxShadow:
       'inset 0 1px 1px 0 hsl(0deg 0% 100% / 10%), 0 50px 100px -20px rgb(50 50 93 / 25%), 0 30px 60px -30px rgb(0 0 0 / 30%)',
     minHeight: 530,
+    borderRadius: 8,
     marginLeft: 60,
     '@media screen and (max-width: 1280px)': {
       marginTop: '32px',

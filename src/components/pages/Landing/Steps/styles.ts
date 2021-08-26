@@ -7,7 +7,7 @@ const useStyles = makeStyles({
   },
   card: {
     position: 'relative',
-    padding: 24,
+    padding: '24px 24px 24px 0',
     // hered
     // border: '1px solid var(--color-bg-border)',
     borderRadius: 8,
@@ -16,13 +16,26 @@ const useStyles = makeStyles({
     },
   },
   cardImage: {
+    marginLeft:24,
     height: 64,
     width: 64,
     background: 'var(--color-bg-border)',
     borderRadius: 10,
   },
+  titlecard: {
+    paddingLeft:24,
+    lineHeight: '20px',
+    borderLeft: '1px solid #15be53'
+  },
+  cardButton: {
+    marginLeft:24,
+    fontSize: 14,
+    lineHeight: 1.5,
+    height: 40,
+  },
   cardContent: {},
   cardDescription: {
+    marginLeft:24,
     fontSize: 14,
     maxWidth: 256,
   },
