@@ -1,10 +1,16 @@
 import React, { FC, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import Flex from 'components/Common/Flex';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 import { Button } from '@consta/uikit/Button';
+
+import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
 import SvgIcon from 'assets/icons/ConstaIcons';
-import { useTranslation } from 'react-i18next';
+import { setLanguage, setTheme } from 'store/reducers/settings';
+import { Language, Theme } from 'types/common';
+import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
 import useRootStyles from '../styles';
@@ -16,9 +22,24 @@ interface IProps {
 const Header: FC<IProps> = ({ setAuthOpen }) => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const changeLocale = () => {};
+  const { language, theme } = useSelector((state: RootState) => state.settings);
+
+  const switchLocale = useCallback(() => {
+    const newLang: Language = language !== 'ru' ? Language.RU : Language.EN;
+
+    i18n.changeLanguage(newLang).then(() => {
+      dispatch(setLanguage(newLang));
+    });
+  }, [language]);
+
+  const switchTheme = useCallback(() => {
+    const newTheme: Theme = theme !== Theme.Dark ? Theme.Dark : Theme.Default;
+
+    dispatch(setTheme(newTheme));
+  }, [theme]);
 
   return (
     <div className={styles.root}>
@@ -88,7 +109,7 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
               className={styles.global}
               role="button"
               tabIndex={0}
-              onClick={() => changeLocale()}
+              onClick={switchLocale}
             >
               <SvgIcon.Globe size="s" />
             </div>
@@ -96,7 +117,7 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
               className={styles.global}
               role="button"
               tabIndex={0}
-              onClick={() => changeLocale()}
+              onClick={switchTheme}
             >
               <SvgIcon.Moon size="s" />
             </div>
