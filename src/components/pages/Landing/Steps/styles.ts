@@ -16,26 +16,26 @@ const useStyles = makeStyles({
     },
   },
   cardImage: {
-    marginLeft:24,
+    marginLeft: 24,
     height: 64,
     width: 64,
     background: 'var(--color-bg-border)',
     borderRadius: 10,
   },
   titlecard: {
-    paddingLeft:24,
+    paddingLeft: 24,
     lineHeight: '20px',
-    borderLeft: '1px solid #15be53'
+    borderLeft: '1px solid #15be53',
   },
   cardButton: {
-    marginLeft:24,
+    marginLeft: 24,
     fontSize: 14,
     lineHeight: 1.5,
     height: 40,
   },
   cardContent: {},
   cardDescription: {
-    marginLeft:24,
+    marginLeft: 24,
     fontSize: 14,
     maxWidth: 256,
   },

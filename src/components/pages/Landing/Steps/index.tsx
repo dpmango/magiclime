@@ -63,7 +63,12 @@ const Hero: FC = () => {
               <div className={styles.card}>
                 <div className={styles.cardImage} />
                 <Flex direction="column">
-                  <Typography size="m" margin="24px 0 0" weight="semibold" className={styles.titlecard}>
+                  <Typography
+                    size="m"
+                    margin="24px 0 0"
+                    weight="semibold"
+                    className={styles.titlecard}
+                  >
                     {x.step}
                   </Typography>
                   <Typography
@@ -77,12 +82,12 @@ const Hero: FC = () => {
                     {x.description}
                   </Typography>
                   <Button
-                  size="m"
-                  form="default"
-                  label="Зарегистрироваться"
-                  className={styles.cardButton}
-                  // onClick={() => setAuthOpen(true)}
-                />
+                    size="m"
+                    form="default"
+                    label="Зарегистрироваться"
+                    className={styles.cardButton}
+                    // onClick={() => setAuthOpen(true)}
+                  />
                 </Flex>
               </div>
             </GridItem>
