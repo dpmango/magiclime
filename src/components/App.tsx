@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -11,11 +11,17 @@ import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
 import { setLogged } from '../store/reducers/user';
+import { setTheme } from '../store/reducers/settings';
 
 const App: FC = () => {
-  const [theme, setTheme] = useState<'default' | 'dark'>('default');
   const { isLogged } = useSelector((state: RootState) => state.user);
+  const { theme } = useSelector((state: RootState) => state.settings);
+
   const dispatch = useDispatch();
+
+  const handleSetTheme = useCallback((theme) => {
+    dispatch(setTheme(theme));
+  }, []);
 
   if (Cookies.get('access')) {
     setAuthToken(Cookies.get('access') as string);
@@ -28,7 +34,9 @@ const App: FC = () => {
         <Route exact path="/home" component={Landing} />
         <PrivateRoute
           path="/"
-          component={() => <MainLayout theme={theme} setTheme={setTheme} />}
+          component={() => (
+            <MainLayout theme={theme} setTheme={handleSetTheme} />
+          )}
           redirect="/home"
           access={isLogged}
         />

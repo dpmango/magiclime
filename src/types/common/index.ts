@@ -17,6 +17,11 @@ export enum Language {
   EN = 'en',
 }
 
+export enum Theme {
+  Default = 'default',
+  Dark = 'dark',
+}
+
 // размеры шрифтов consta
 export type SizeType =
   | 's'
