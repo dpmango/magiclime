@@ -13,7 +13,7 @@ const useStyles = makeStyles(() =>
         minHeight: '100vh',
         overflowX: 'hidden',
         overflowY: 'auto',
-        letterSpacing: '-0.137px',
+        // letterSpacing: '-0.137px',
         lineHeight: 1,
       },
       '#root': {
@@ -31,6 +31,16 @@ const useStyles = makeStyles(() =>
           font: 'inherit',
           verticalAlign: 'baseline',
           boxSizing: 'border-box',
+        },
+      ' input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button ':
+        {
+          '-webkit-appearance': 'none',
+        },
+
+      'input[type="number"],input[type="number"]:hover,input[type="number"]:focus':
+        {
+          appearance: 'none',
+          '-moz-appearance': 'textfield',
         },
       'article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section':
         {
@@ -56,6 +66,9 @@ const useStyles = makeStyles(() =>
       },
       '@media screen and (max-width: 480px)': {
         'body,html': { overflowX: 'hidden' },
+      },
+      '.Modal': {
+        zIndex: 99,
       },
     },
   })

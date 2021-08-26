@@ -29,6 +29,13 @@ export const updateUser = (data: Partial<IUser>): AxiosPromise<IUser> => {
   return instance.patch('/auth/users/me/', data);
 };
 
+export const updateUserAvatar = (file: File): AxiosPromise<IUser> => {
+  const formData = new FormData();
+  formData.append('avatar', file);
+
+  return instance.patch('/auth/users/me/', formData);
+};
+
 export const changeUserPassword = (data: {
   current_password: string;
   new_password: string;

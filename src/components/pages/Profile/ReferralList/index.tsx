@@ -1,4 +1,12 @@
-import React, { FC, useState, useCallback, MouseEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  MouseEvent,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import ConstaIcons from 'assets/icons/ConstaIcons';
@@ -7,88 +15,146 @@ import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
 import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
+import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import { IReferralGroup, IReferral } from 'components/pages/Profile/types';
+import { IReferralTree } from 'types/interfaces/referrals';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { useTranslation } from 'react-i18next';
+import { RootState } from 'store/reducers/rootReducer';
+import { getReferrals } from 'store/reducers/referrals';
 
-import { referralRoot, referralsList } from './mockData';
+import useSharedStyles from 'assets/styles/Shared';
 import useStyles from './styles';
 
 interface IProgram {
   id: number;
   label: string;
 }
-
-interface IPage {
+interface ICrumbsPage {
   icon?: FC;
   link: string;
   label: string;
   isActive?: boolean;
 }
 
+const defaultCrumbs: ICrumbsPage[] = [
+  {
+    icon: ConstaIcons.Lime,
+    label: 'Home',
+    link: '#',
+  },
+];
+
+const programOptions: IProgram[] = [
+  { id: 1, label: 'BITLIME' },
+  // { id: 2, label: 'AUTO_STANDARD' },
+  // { id: 3, label: 'AUTO_BUSINESS' },
+  // { id: 4, label: 'AUTO_PREMIUM' },
+  // { id: 5, label: 'HOUSE' },
+  // { id: 6, label: 'LIME' },
+];
+
 const Referrals: FC = () => {
   const styles = useStyles();
+  const sharedStyles = useSharedStyles({});
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const breadcrumbs: IPage[] = [
-    {
-      icon: ConstaIcons.Lime,
-      label: 'Home',
-      link: '#',
-    },
-    {
-      label: 'User 1',
-      link: '#',
-    },
-    {
-      label: 'User 2',
-      link: '#',
-    },
-    {
-      label: 'AnotherUser 1',
-      link: '#',
-    },
-    {
-      label: 'AnotherUser 2',
-      link: '#',
-    },
-    {
-      label: 'Page3',
-      link: 'https://url.com/page-3',
-      isActive: true,
-    },
-  ];
-
-  const programOptions: IProgram[] = [
-    { id: 1, label: ' Программа BitLime' },
-    { id: 2, label: 'Программа Bitbox' },
-  ];
+  const { referralsTree, loading, error } = useSelector(
+    (state: RootState) => state.referrals
+  );
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const matrixLevels: number[] = [...Array(17).keys()].map((x) => x + 1);
 
   const [filterSearch, setFilterSearch] = useState<string | null>('');
-  const [filterProgram, setFilterProgram] = useState<IProgram | null>(null);
-  const [selectedLeveles, setSelectedLevels] = useState<number[]>([]);
+  const [filterProgram, setFilterProgram] = useState<IProgram>(
+    programOptions[0]
+  );
+  const [selectedLevel, setSelectedLevels] = useState<number>(1);
 
-  const handleBreadcrumbClick = useCallback(
-    (page: IPage, e: MouseEvent): void => {
-      e.preventDefault();
-      // console.log(page);
+  const requestReferrals = useCallback(
+    ({
+      id,
+      program,
+      level,
+    }: {
+      id: number;
+      program: number;
+      level: number;
+    }) => {
+      dispatch(
+        getReferrals({
+          id,
+          program,
+          level,
+        })
+      );
     },
     []
   );
 
+  const handleBreadcrumbClick = useCallback(
+    (page: ICrumbsPage, e: MouseEvent): void => {
+      e.preventDefault();
+
+      requestReferrals({
+        id: parseInt(page.link, 10),
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+    },
+    [selectedLevel, filterProgram]
+  );
+
+  const handleReferralClick = useCallback(
+    (id: number): void => {
+      requestReferrals({
+        id,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+    },
+    [selectedLevel, filterProgram]
+  );
+
   const handleMatrixLevelClick = useCallback(
     (n: number) => {
-      if (selectedLeveles.includes(n)) {
-        setSelectedLevels([...selectedLeveles.filter((x) => x !== n)]);
-      } else {
-        setSelectedLevels([...selectedLeveles, n]);
-      }
+      setSelectedLevels(n);
     },
-    [selectedLeveles]
+    [selectedLevel]
   );
+
+  useEffect(() => {
+    requestReferrals({
+      id: profile.id,
+      program: filterProgram.id,
+      level: selectedLevel,
+    });
+  }, [selectedLevel, filterProgram]);
+
+  const mappedData = useMemo(() => {
+    return {
+      root: referralsTree,
+      childrens: referralsTree.children,
+      crumbs: [
+        ...defaultCrumbs,
+        ...(referralsTree.ancestors
+          ? referralsTree.ancestors.map((a) => ({
+              label: a.username,
+              link: `${a.id}`,
+            }))
+          : []),
+        ...[
+          {
+            label: referralsTree.username,
+            link: `${referralsTree.id}`,
+            isActive: true,
+          },
+        ],
+      ],
+    };
+  }, [referralsTree]);
 
   return (
     <div className={styles.root}>
@@ -97,32 +163,61 @@ const Referrals: FC = () => {
       </Typography>
 
       <Grid cols="4" gap="xl" className={styles.grid}>
-        <GridItem col="3">
-          <Breadcrumbs
-            className={styles.breadcrumbs}
-            pages={breadcrumbs}
-            maxCount={5}
-            getLabel={(x) => x.label}
-            getLink={(x) => x.link}
-            getIcon={(x) => x.icon}
-            getIsActive={(x) => !!x.isActive}
-            onlyIconRoot
-            onClick={handleBreadcrumbClick}
-          />
+        <GridItem col="3" className={styles.gridColMain}>
+          {!error ? (
+            <>
+              {' '}
+              <Breadcrumbs
+                className={styles.breadcrumbs}
+                pages={mappedData.crumbs}
+                maxCount={5}
+                getLabel={(x) => x.label}
+                getLink={(x) => x.link}
+                getIcon={(x) => x.icon}
+                getIsActive={(x) => !!x.isActive}
+                onlyIconRoot
+                onClick={handleBreadcrumbClick}
+              />
+              <div className={styles.referrals}>
+                <ReferralUser data={mappedData.root} root />
 
-          <div className={styles.referrals}>
-            <ReferralUser data={referralRoot} root />
-
-            {referralsList.map((group: IReferralGroup) => (
-              <div key={group.id} className={styles.referralGroup}>
-                <ReferralUser key={group.referral.id} data={group.referral} />
-                {group.referrals &&
-                  group.referrals.map((referral: IReferral) => (
-                    <ReferralUser key={referral.id} data={referral} nested />
+                {mappedData.childrens &&
+                  mappedData.childrens.map((group: IReferralTree) => (
+                    <div key={group.id} className={styles.referralGroup}>
+                      <ReferralUser
+                        onReferralClick={handleReferralClick}
+                        key={group.id}
+                        data={group}
+                      />
+                      {group.children &&
+                        group.children.map((referral: IReferralTree) => (
+                          <ReferralUser
+                            key={referral.id}
+                            onReferralClick={handleReferralClick}
+                            data={referral}
+                            nested
+                          />
+                        ))}
+                    </div>
                   ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <Typography
+              view="alert"
+              align="center"
+              weight="semibold"
+              margin="0 0 12px"
+            >
+              {error}
+            </Typography>
+          )}
+
+          {loading && (
+            <div className={sharedStyles.loader}>
+              <Loader />
+            </div>
+          )}
         </GridItem>
 
         {/* Filters */}
@@ -141,7 +236,9 @@ const Referrals: FC = () => {
                 items={programOptions}
                 value={filterProgram}
                 placeholder={t('profile.referral.filter.level')}
-                onChange={({ value }) => setFilterProgram(value)}
+                onChange={({ value }) =>
+                  setFilterProgram(value || programOptions[0])
+                }
               />
             </div>
             <div className={styles.filtersGroup}>
@@ -155,7 +252,7 @@ const Referrals: FC = () => {
                     label={lvl}
                     form="round"
                     size="s"
-                    view={selectedLeveles.includes(lvl) ? 'primary' : 'ghost'}
+                    view={selectedLevel === lvl ? 'primary' : 'ghost'}
                     onClick={() => handleMatrixLevelClick(lvl)}
                     className={styles.filtersMatrixBtn}
                   />

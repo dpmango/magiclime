@@ -5,41 +5,52 @@ import { Avatar } from '@consta/uikit/Avatar';
 import { Plurize } from 'utils/helpers/plurize';
 import { useTranslation } from 'react-i18next';
 
-import { IReferral } from 'components/pages/Profile/types';
+import { IReferralTree } from 'types/interfaces/referrals';
 import useStyles from './styles';
 
 interface IProps {
-  data: IReferral;
+  data: IReferralTree;
   nested?: boolean;
   root?: boolean;
+  onReferralClick?: (id: number) => void;
 }
 
-const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
+const ReferralUser: FC<IProps> = ({
+  data: { id, username, avatar, referrals_count },
+  nested,
+  root,
+  onReferralClick,
+}) => {
   const styles = useStyles({ nested, root });
   const { t } = useTranslation();
 
   const referralsPlural = useMemo(() => {
     const plural = Plurize(
-      data.referralsCount,
+      referrals_count,
       t('profile.referralPlural.one'),
       t('profile.referralPlural.two'),
       t('profile.referralPlural.five')
     );
 
-    return root ? data.referralsCount : `${data.referralsCount} ${plural}`;
-  }, [data.referralsCount]);
+    return root ? referrals_count : `${referrals_count} ${plural}`;
+  }, [referrals_count]);
 
   return (
-    <Flex key={data.id} align="center" className={styles.referral}>
+    <Flex
+      key={id}
+      align="center"
+      className={styles.referral}
+      onClick={() => onReferralClick && onReferralClick(id)}
+    >
       <Flex align="center" className={styles.referralUser}>
         <Avatar
-          url={data.avatar}
-          name={data.username}
+          url={avatar && avatar.image ? avatar.image : ''}
+          name={username}
           className={styles.referralAvatar}
         />
         <div className={styles.referralUserWrapper}>
           <Typography weight="semibold" lineHeight="s" size={root ? 'xl' : 'm'}>
-            {data.username}
+            {username}
           </Typography>
           {root && (
             <Typography
@@ -59,7 +70,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          {data.btl} BTL
+          TODO BTL
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
@@ -68,7 +79,7 @@ const ReferralUser: FC<IProps> = ({ data, nested, root }) => {
         )}
       </div>
       <div className={styles.referralLevel}>
-        <Typography size={root ? 'l' : 's'}>{data.level}</Typography>
+        <Typography size={root ? 'l' : 's'}>level</Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
             {t('profile.referral.card.level')}

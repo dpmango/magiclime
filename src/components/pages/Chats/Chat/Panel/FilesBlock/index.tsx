@@ -45,7 +45,7 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
             {isImage(file) ? (
               <img
                 src="https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg"
-                alt=""
+                alt="file"
               />
             ) : (
               <Attach

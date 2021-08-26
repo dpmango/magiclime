@@ -65,7 +65,6 @@ const ProfilePage: FC = () => {
   return (
     <div className={styles.root}>
       <Head />
-
       <Tabs
         value={tab}
         onChange={({ value }) => setTab(value)}

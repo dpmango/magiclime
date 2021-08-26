@@ -1,30 +1,34 @@
-import React, { FC, SyntheticEvent, useCallback } from 'react';
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, { FC, KeyboardEvent, useCallback } from 'react';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
-import Typography from '../../../Typography';
+
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import { getNestedValue } from 'utils/formik/getNestedValue';
+import { ChangeType } from 'types/common';
 import PasswordInput from '../../PasswordInput';
-import Flex from '../../../Flex';
 import MemoWrapper from '../MemoWrapper';
+
 import useStyles from './styles';
-import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
 interface IProps extends TextFieldProps {
   label?: string;
+  mask?: RegExp[];
   isRequired?: boolean;
   isPassword?: boolean;
+  onlyNumbers?: boolean;
 }
-
-const FormikInput = (props: IProps) => {
-  return <Field {...props} component={FormikInputComponent} />;
-};
 
 const FormikInputComponent = MemoWrapper(
   ({
     field: { value, onChange, ...field },
     form: { setFieldValue, errors, touched },
     label,
+    mask = [],
     isRequired = true,
     isPassword = false,
+    onlyNumbers = false,
     ...props
   }: IProps & FieldProps) => {
     const styles = useStyles();
@@ -32,6 +36,36 @@ const FormikInputComponent = MemoWrapper(
     const handleChange = useCallback(({ value }: { value: string | null }) => {
       setFieldValue(field.name, value || '');
     }, []);
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+      const isAllowedKey = [8, 13, 32].includes(event.keyCode); // backspace, enter, space
+
+      if (onlyNumbers) {
+        const isNumber = !Number.isNaN(parseFloat(event.key));
+        if (!isNumber && !isAllowedKey) {
+          event.preventDefault();
+        }
+      } else if (mask && mask.length) {
+        if (!isAllowedKey) {
+          let cursorPosition = 0;
+          if (event.target instanceof HTMLInputElement) {
+            cursorPosition = event.target.selectionStart || 0;
+          }
+
+          const regex = new RegExp(mask[cursorPosition], 'g');
+
+          // limit input by mask length first
+          if (cursorPosition >= mask.length) {
+            event.preventDefault();
+          }
+
+          // test regex by letter position
+          if (!regex.test(event.key)) {
+            event.preventDefault();
+          }
+        }
+      }
+    };
 
     const fieldError = getNestedValue(errors, field.name);
     const fieldTouched = getNestedValue(touched, field.name);
@@ -44,25 +78,28 @@ const FormikInputComponent = MemoWrapper(
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>
         )}
-        {!isPassword ? (
-          <TextField
+
+        {isPassword ? (
+          <PasswordInput
             className={styles.input}
-            value={value}
             state={fieldError && fieldTouched ? 'alert' : undefined}
+            value={value}
             onChange={handleChange}
             {...field}
             {...props}
           />
         ) : (
-          <PasswordInput
+          <TextField
             className={styles.input}
+            state={fieldError && fieldTouched ? 'alert' : undefined}
             value={value}
             onChange={handleChange}
-            state={fieldError && fieldTouched ? 'alert' : undefined}
+            onKeyDown={handleKeyDown}
             {...field}
             {...props}
           />
         )}
+
         {fieldError && fieldTouched && (
           <Typography margin="5px 0 0" size="xs" view="alert">
             {fieldError}
@@ -72,5 +109,9 @@ const FormikInputComponent = MemoWrapper(
     );
   }
 );
+
+const FormikInput = (props: IProps) => {
+  return <Field {...props} component={FormikInputComponent} />;
+};
 
 export default FormikInput;

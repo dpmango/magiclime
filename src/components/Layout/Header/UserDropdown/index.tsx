@@ -116,7 +116,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
     }
     if (item.image) {
       return (
-        <img src={item.image} alt="icon" className={styles.dropdownImage} />
+        <img src={item.image} className={styles.dropdownImage} alt="icon" />
       );
     }
     return '';

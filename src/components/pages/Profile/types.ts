@@ -59,18 +59,3 @@ export interface ICourse {
   progress: string;
   rate: [number, number];
 }
-
-export interface IReferralGroup {
-  readonly id: number;
-  referral: IReferral;
-  referrals: IReferral[];
-}
-
-export interface IReferral {
-  readonly id: number;
-  avatar?: string;
-  username: string;
-  btl: number;
-  level: number;
-  referralsCount: number;
-}
