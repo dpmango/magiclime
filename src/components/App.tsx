@@ -1,4 +1,4 @@
-import React, { FC, useState, Suspense } from 'react';
+import React, { FC, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';

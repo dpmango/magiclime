@@ -10,19 +10,24 @@ import useStyles from '../styles';
 
 interface IProps {
   friend: IFriend;
-  form: { name: string; image: IPhoto; users: number[] };
-  setForm: SetStateType<{ name: string; image: IPhoto; users: number[] }>;
+  form: { name: string; image: IPhoto; participants: number[] };
+  setForm: SetStateType<{
+    name: string;
+    image: IPhoto;
+    participants: number[];
+  }>;
 }
 
 const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
   const styles = useStyles();
   const handleChange = (checked: boolean) => {
     // Сюда приходит следующее состояние, поэтому условия нужно делать наоборот
-    if (checked) setForm({ ...form, users: [...form.users, friend.id] });
+    if (checked)
+      setForm({ ...form, participants: [...form.participants, friend.id] });
     else
       setForm({
         ...form,
-        users: [...form.users.filter((id) => id !== friend.id)],
+        participants: [...form.participants.filter((id) => id !== friend.id)],
       });
   };
 
@@ -40,7 +45,7 @@ const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
         </Typography>
       </Flex>
       <Switch
-        checked={form.users.includes(friend.id)}
+        checked={form.participants.includes(friend.id)}
         onChange={({ checked }) => handleChange(checked)}
       />
     </Flex>

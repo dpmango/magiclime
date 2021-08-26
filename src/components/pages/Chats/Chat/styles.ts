@@ -7,6 +7,9 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     width: '200px',
     height: 'calc(100vh - 64px)',
+    '& > svg': {
+      width: '30%',
+    },
   },
   header: {
     width: 'calc(100% - 24px)',

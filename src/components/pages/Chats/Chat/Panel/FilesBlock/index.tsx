@@ -49,7 +49,11 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
               />
             ) : (
               <Attach
-                fileName={file.name}
+                fileName={
+                  file.name.length > 50
+                    ? `${file.name.slice(0, 47)}...`
+                    : file.name
+                }
                 fileExtension={getExt(file)}
                 fileDescription={`${(file.size / 1024 / 1024).toFixed(
                   1

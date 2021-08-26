@@ -21,7 +21,7 @@ const ChatCreating: FC = () => {
       id: 0,
       image: '',
     },
-    users: [] as number[],
+    participants: [] as number[],
   });
   const [users, setUsers] = useState<IFriend[]>([
     { id: 1, name: 'Roman Avdeev', image: '' },

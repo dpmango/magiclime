@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Formik, Form } from 'formik';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { useTranslation } from 'react-i18next';
+import { getProfile } from '../../../store/reducers/user';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -32,6 +33,7 @@ const ProfilePage: FC = () => {
   const history = useHistory();
   const firstRender = useFirstRender();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const tabs: ITab[] = [
     { id: 1, slug: '/profile', label: t('profile.tabs.main') },
@@ -61,6 +63,10 @@ const ProfilePage: FC = () => {
       history.push(tab.slug);
     }
   }, [tab]);
+
+  useEffect(() => {
+    // dispatch(getProfile());
+  }, []);
 
   return (
     <div className={styles.root}>
