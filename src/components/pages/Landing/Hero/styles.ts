@@ -4,8 +4,39 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
   root: {
     position: 'relative',
-    padding: '0px 0 60px',
+    padding: '135px 0 60px',
     marginBottom: 135,
+  },
+  background: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  body: {
+    position: 'relative',
+    zIndex: 2,
+  },
+  backgroundPosition: {
+    position: 'absolute',
+    minWidth: 1000,
+    height: 600,
+    top: '-200px',
+    left: 0,
+    right: 0,
+    transformOrigin: '55.6px 100%',
+    transform: 'skewY(-10deg)',
+    overflow: 'hidden',
+  },
+  backgroundCanvas: {
+    width: '100%',
+    height: '100%',
+    '--gradient-color-1': '#ef008f',
+    '--gradient-color-2': '#6ec3f4',
+    '--gradient-color-3': '#7038ff',
+    '--gradient-color-4': '#ffba27',
   },
   content: {
     paddingRight: 140,
@@ -15,12 +46,15 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    fontSize: 48,
+    fontSize: 52,
+    mixBlendMode: 'color-burn',
   },
   blockquote: {
     position: 'relative',
-    fontSize: 20,
+    fontSize: 19,
+    maxWidth: 620,
     padding: '0px 0 0px 24px',
+    mixBlendMode: 'color-burn',
     '&::after': {
       display: 'block',
       content: "''",
@@ -29,26 +63,34 @@ const useStyles = makeStyles({
       width: 4,
       top: 0,
       bottom: 0,
-      border: '1px solid var(--color-bg-border)',
-      borderRadius: 2,
+      border: '1px solid #6e6e6e',
+      borderRadius: 1,
     },
   },
   cta: {
     marginBottom: -16,
     '& .Button': {
       marginRight: 16,
-      minWidth: 255,
+      minWidth: 245,
       marginBottom: 16,
       '&.Button_view_primary': {
         backgroundImage:
           'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
+        textShadow: '0 0 #b3b3b3',
+      },
+      '&.Button_view_secondary': {
+        color: 'var(--color-typo-primary)',
+        border: '1px solid #6e6e6e',
       },
     },
   },
   panel: {
     padding: '0px calc(((100vw - 1208px) / 2) + 274px + 40px) 0px 40px',
     marginRight: 'calc(((-100vw + 1208px) / 2) - 274px - 40px)',
-    background: 'var(--color-bg-secondary)',
+    background:
+      'linear-gradient(hsla(0,0%,100%,.4),hsla(0,0%,100%,.3) 25%,rgba(246,249,252,.3) 50%,#f6f9fc 60%)',
+    boxShadow:
+      'inset 0 1px 1px 0 hsl(0deg 0% 100% / 10%), 0 50px 100px -20px rgb(50 50 93 / 25%), 0 30px 60px -30px rgb(0 0 0 / 30%)',
     minHeight: 530,
     marginLeft: 60,
     '@media screen and (max-width: 1280px)': {
@@ -64,8 +106,8 @@ const useStyles = makeStyles({
     transform: 'translate(-132px, 60px)',
     maxWidth: 264,
     height: 530,
-    background: 'var(--color-bg-stripe)',
-    border: '1px solid rgba(--color-bg-border)',
+    background: '#fff',
+    border: '8px solid #f6f9fc',
     borderRadius: 36,
   },
 });

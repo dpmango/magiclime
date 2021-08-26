@@ -93,6 +93,7 @@ const Withdrawal: FC = () => {
               label={t('profile.balance.withdrawal.amount.label')}
               name="amount"
               placeholder={t('profile.balance.withdrawal.amount.placeholder')}
+              onlyNumbers
             />
           </div>
 

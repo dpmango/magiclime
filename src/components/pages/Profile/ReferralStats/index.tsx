@@ -1,18 +1,21 @@
 import React, { FC } from 'react';
-import Typography from 'components/Common/Typography';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { TextField } from '@consta/uikit/TextField';
 import { IconCopy } from '@consta/uikit/IconCopy';
+
+import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 // import { Button } from '@consta/uikit/Button';
-// import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
+import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
 
 const Referrals: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+  const { profile } = useSelector((state: RootState) => state.user);
 
   return (
     <div className={styles.root}>
@@ -39,7 +42,7 @@ const Referrals: FC = () => {
               name="name"
               size="s"
               form="round"
-              value="UserLoginRefLink"
+              value={profile.referral_number}
               leftSide={IconCopy}
               className={styles.input}
             />
@@ -93,7 +96,7 @@ const Referrals: FC = () => {
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold">
-                5
+                {profile.level}
               </Typography>
               <Typography size="xl">
                 &nbsp;{t('profile.referral.stats.level')}

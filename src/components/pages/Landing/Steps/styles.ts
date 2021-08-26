@@ -8,8 +8,12 @@ const useStyles = makeStyles({
   card: {
     position: 'relative',
     padding: 24,
-    border: '1px solid var(--color-bg-border)',
-    borderRadius: 10,
+    // hered
+    // border: '1px solid var(--color-bg-border)',
+    borderRadius: 8,
+    '&:hover': {
+      background: '#f6f6f6',
+    },
   },
   cardImage: {
     height: 64,
@@ -19,6 +23,7 @@ const useStyles = makeStyles({
   },
   cardContent: {},
   cardDescription: {
+    fontSize: 14,
     maxWidth: 256,
   },
 });

@@ -100,6 +100,7 @@ const Refill: FC = () => {
               label={t('profile.balance.refill.amount.label')}
               name="amount"
               placeholder={t('profile.balance.refill.amount.placeholder')}
+              onlyNumbers
             />
           </div>
 

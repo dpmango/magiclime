@@ -12,17 +12,17 @@ const useStyles = makeStyles({
     margin: '64px 0 40px',
     '&.reverse': {
       gridTemplateColumns: '57fr 43fr',
-      '@media screen and (max-width: 992px)': {
+      '@media screen and (max-width: 1023px)': {
         gridTemplateColumns: '1fr',
       },
       '& $cardContent': {
         marginLeft: 'auto',
-        '@media screen and (max-width: 992px)': {
+        '@media screen and (max-width: 1023px)': {
           marginLeft: 0,
         },
       },
     },
-    '@media screen and (max-width: 992px)': {
+    '@media screen and (max-width: 1023px)': {
       gridTemplateColumns: '1fr',
       '& $cardGridImage': {
         order: -1,
@@ -46,7 +46,9 @@ const useStyles = makeStyles({
     flexDirection: 'column',
   },
   cardDescription: {
-    fontSize: 19,
+    '@media screen and (min-width: 1024px)': {
+      fontSize: 19,
+    },
   },
   image: {
     paddingBottom: '50%',

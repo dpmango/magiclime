@@ -10,6 +10,7 @@ import { IUser } from '../../../types/interfaces/user';
 import { setAuthToken } from '../../../utils/api';
 import {
   UpdateProfileType,
+  UpdateProfileAvatarType,
   LoginPayloadType,
   RegistrationPayloadType,
   ChangePasswordType,
@@ -19,6 +20,7 @@ import {
   loginUser,
   registrationUser,
   updateUser,
+  updateUserAvatar,
   changeUserPassword,
 } from '../../../utils/api/routes/auth';
 
@@ -114,6 +116,35 @@ export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
     const { profile, successCallback, errorCallback } = payload;
     try {
       const response = await updateUser(profile);
+      if (response?.status === 200) {
+        dispatch(setUserProfile(response.data));
+        successCallback && successCallback();
+      }
+      return response.data;
+    } catch (err) {
+      if (errorCallback) {
+        if (err.data) {
+          Object.keys(err.data).forEach((key) => {
+            errorCallback(`${key}: ${err.data[key][0]}`);
+          });
+        } else {
+          errorCallback('Что-то пошло не так...');
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const updateProfileAvatar = createAsyncThunk<
+  object,
+  UpdateProfileAvatarType
+>(
+  'user/updateProfileAvatar',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { file, successCallback, errorCallback } = payload;
+    try {
+      const response = await updateUserAvatar(file);
       if (response?.status === 200) {
         dispatch(setUserProfile(response.data));
         successCallback && successCallback();

@@ -11,7 +11,7 @@ const MyBalance: FC = () => {
     <div className={styles.root}>
       <Flex align="center">
         <div className={styles.coinIcon}>
-          <img src="images/bitcoin.png" alt="btc" />
+          <img src="/images/bitcoin.png" alt="btc" />
         </div>
         <div className={styles.coinContent}>
           <Typography view="brand" size="s">

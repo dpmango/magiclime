@@ -20,6 +20,12 @@ export type UpdateProfileType = {
   errorCallback?: (error: string) => void;
 };
 
+export type UpdateProfileAvatarType = {
+  file: File;
+  successCallback?: VoidFunction;
+  errorCallback?: (error: string) => void;
+};
+
 export type ChangePasswordType = {
   data: {
     current_password: string;
