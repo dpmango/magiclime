@@ -1,8 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { ScrollTo } from 'utils/helpers/scroll';
-import useResolution from 'hooks/useResolution';
-import { Router } from '@material-ui/icons';
+import React, { FC, useState } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
 import Header from '../Header';
@@ -21,7 +18,6 @@ import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import Webinars from '../../pages/Webinars';
 import WebinarInfo from '../../pages/WebinarInfo';
-import PrivateRoute from '../../PrivateRoute';
 import Admin from '../../pages/Admin';
 import { RootState } from '../../../store/reducers/rootReducer';
 import Webinar from '../../pages/Webinar';
@@ -35,29 +31,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const [isFullMenu, setIsFullMenu] = useState(false);
   const styles = useStyles();
   const { is_staff } = useSelector((state: RootState) => state.user.profile);
-
-  // const location = useLocation();
-  // const size = useResolution();
-  // const isCollapsedMenuBreakpoint = size.width <= 992;
-
-  // const getFullMenuState = () => {
-  //   const shouldCollapseRoute = location.pathname.includes('/courses/');
-  //   return !shouldCollapseRoute;
-  // };
-  //
-  // useEffect(() => {
-  //   const shouldCollapseRoute = location.pathname.includes('/courses/');
-  //
-  //   if (shouldCollapseRoute) {
-  //     setIsFullMenu(false);
-  //   }
-  //
-  //   ScrollTo(0, 300);
-  // }, [location.pathname]);
-
-  // useEffect(() => {
-  //   setIsFullMenu(!isCollapsedMenuBreakpoint);
-  // }, [isCollapsedMenuBreakpoint]);
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -96,7 +69,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
           )}
         </Container>
       </Flex>
-      {/* FOOTER */}
     </Flex>
   );
 };

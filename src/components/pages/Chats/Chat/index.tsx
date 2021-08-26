@@ -81,7 +81,7 @@ const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
               <Avatar
                 form="round"
                 name={chat.title}
-                url={chat.avatar && chat.avatar.image}
+                url={chat.avatar ? chat.avatar.image : ''}
               />
             </div>
             <div>

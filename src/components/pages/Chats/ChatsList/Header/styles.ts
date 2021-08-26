@@ -15,7 +15,6 @@ const useStyles = makeStyles<null, { open: boolean }>(() => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
     background: 'var(--color-bg-secondary)',
     transition: 'all .25s linear',
     overflow: 'hidden',
