@@ -2,36 +2,23 @@ import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
+
 import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import FormikRangeBlock from 'components/Common/Controls/Formik/RangeGroup';
 import ConstaIcons from 'assets/icons/ConstaIcons';
+import { IFilter, ICategory } from 'components/pages/Courses/types';
 
 import useStyles from './styles';
 
-interface ICategory {
-  id: number;
-  name: string;
+interface IProps {
+  filter: IFilter;
+  onUpdate: (f: any) => void;
 }
 
-const Filters: FC = () => {
+const Filters: FC<IProps> = ({ filter, onUpdate }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-
-  const difficults = ['Любой', 'Для новичков', 'Для специалистов'];
-  const educationTypes = ['Профессия', 'Программа', 'Курс'];
-
-  const categories = [
-    { id: 1, name: 'Маркетинг' },
-    { id: 2, name: 'Финансы' },
-    { id: 3, name: 'Управление' },
-    { id: 4, name: 'Личный рост' },
-    { id: 5, name: 'Бизнес' },
-    { id: 6, name: 'Маркетинг1' },
-    { id: 7, name: 'Маркетинг32' },
-    { id: 8, name: 'Маркетинг4' },
-    { id: 9, name: 'Маркетинг5' },
-  ] as ICategory[];
 
   return (
     <>
@@ -46,10 +33,7 @@ const Filters: FC = () => {
           lime: [null, null],
         }}
         enableReinitialize
-        onSubmit={(data) => {
-          // eslint-disable-next-line no-console
-          console.log(data);
-        }}
+        onSubmit={(data) => onUpdate(data)}
       >
         {({ values, setFieldValue }) => (
           <Form>
@@ -71,9 +55,9 @@ const Filters: FC = () => {
               <FormikCheckboxGroup
                 label={t('course.filter.categories')}
                 name="categories"
-                items={categories}
+                items={filter.categories}
                 direction="column"
-                getLabel={(item) => (item as ICategory).name}
+                getLabel={(item) => (item as ICategory).title}
                 className={styles.group}
               />
             </div>
@@ -82,7 +66,7 @@ const Filters: FC = () => {
               <FormikRangeBlock
                 name="price"
                 title={t('course.filter.price')}
-                placeholders={['0 ₽', '156 000 ₽']}
+                placeholders={filter.priceRange}
               />
             </div>
 
@@ -90,7 +74,7 @@ const Filters: FC = () => {
               <FormikRadiobuttons
                 label={t('course.filter.difficulty')}
                 name="difficult"
-                items={difficults}
+                items={filter.level}
                 getLabel={(item) => item as string}
                 direction="column"
                 className={styles.group}
@@ -101,7 +85,7 @@ const Filters: FC = () => {
               <FormikRangeBlock
                 name="lime"
                 title={t('course.filter.limeLevel')}
-                placeholders={['1', '53']}
+                placeholders={filter.levelRange}
               />
             </div>
 
@@ -109,7 +93,7 @@ const Filters: FC = () => {
               <FormikCheckboxGroup
                 label={t('course.filter.educationType')}
                 name="education_types"
-                items={educationTypes}
+                items={filter.types}
                 direction="column"
                 getLabel={(item) => item as string}
                 className={styles.group}
