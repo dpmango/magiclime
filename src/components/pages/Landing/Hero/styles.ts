@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     '--gradient-color-4': '#1dcb5d',
   },
   content: {
-    // paddingTop: 20,
+    paddingTop: 40,
     paddingRight: 140,
     '@media screen and (max-width: 1280px)': {
       maxWidth: 640,
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   title: {
     fontSize: 91,
     color: "#fbfbfb",
-    opacity: 0.95,
+    // opacity: 0.95,
     letterSpacing: '-0.5px',
     lineHeight: 1.3,
     fontWeight: 900,
@@ -57,11 +57,10 @@ const useStyles = makeStyles({
     mixBlendMode: 'color-burn',
   },
   blockquote: {
-    top: 75,
     position: 'relative',
     fontSize: 18,
     maxWidth: 620,
-    marginTop: 40,
+    marginTop: 120,
     padding: '0px 0 0px 24px',
     mixBlendMode: 'color-burn',
     '&::after': {
@@ -79,7 +78,6 @@ const useStyles = makeStyles({
   cta: {
     marginBottom: -16,
     '& .Button': {
-      top: 75,
       marginRight: 16,
       // minWidth: 245,
       marginBottom: 16,
@@ -103,7 +101,7 @@ const useStyles = makeStyles({
       'inset 0 1px 1px 0 hsl(0deg 0% 100% / 10%), 0 50px 100px -20px rgb(50 50 93 / 25%), 0 30px 60px -30px rgb(0 0 0 / 30%)',
     minHeight: 530,
     borderRadius: 8,
-    marginLeft: 60,
+    marginLeft: 45,
     '@media screen and (max-width: 1280px)': {
       marginTop: '32px',
       paddingRight: '32px',
