@@ -22,23 +22,24 @@ const How: FC = () => {
   const tabs: Itab[] = [
     {
       id: 1,
-      title: 'Specialisation 1',
-      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+      title: 'Видеокурсы',
+      description: `Видеокурсы для самостоятельного изучения, которые систематизированы по принципу от простого к сложному
+      Вебинары и мастер-классы в online-режиме (доступны после оплаты навсегда)`,
     },
     {
       id: 2,
-      title: 'Specialisation 2',
-      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+      title: 'Монетизация знаний',
+      description: `Мы объединили теорию и практику в уникальную систему, благодаря которой наши партнёры ОБУЧАЯСЬ ЗАРАБАТЫВАЮТ!`,
     },
     {
       id: 3,
-      title: 'Specialisation 3',
-      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+      title: 'Обучающие материалы',
+      description: `Тысячи книг, лекций, методических пособий к вашим услугам. Библиотека Лайм содержит обучающие материалы по множеству тем.`,
     },
     {
       id: 4,
-      title: 'Specialisation 4',
-      description: `All information about projects, tasks, financial transactions and team progress is available in a single workspace. This allows you to better navigate the processes, faster make decisions and complete work on time.`,
+      title: 'Поддержка 24/7',
+      description: `Опытные кураторы, доказавшие свою эффективность опытом и результатом, и дружная команда всегда на связи! Индивидуальный подход.`,
     },
   ];
 

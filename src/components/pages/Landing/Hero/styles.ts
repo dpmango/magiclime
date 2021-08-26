@@ -22,12 +22,12 @@ const useStyles = makeStyles({
   backgroundPosition: {
     position: 'absolute',
     minWidth: 1000,
-    height: 700,
-    top: '-200px',
+    height: 840,
+    top: -335,
     left: 0,
     right: 0,
-    transformOrigin: '55.6px 100%',
-    transform: 'skewY(-10deg)',
+    transformOrigin: '200px 100%',
+    transform: 'skewY(-6deg)',
     overflow: 'hidden',
   },
   backgroundCanvas: {
@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     '--gradient-color-4': '#1dcb5d',
   },
   content: {
+    // paddingTop: 20,
     paddingRight: 140,
     '@media screen and (max-width: 1280px)': {
       maxWidth: 640,
@@ -46,18 +47,21 @@ const useStyles = makeStyles({
     },
   },
   title: {
-    fontSize: 64,
+    fontSize: 91,
     color: "#fbfbfb",
     opacity: 0.95,
+    letterSpacing: '-0.5px',
+    lineHeight: 1.3,
     fontWeight: 900,
-    textShadow: "0 0 #fafafa",
+    textShadow: "0 0 #fcfcfc",
     mixBlendMode: 'color-burn',
   },
   blockquote: {
+    top: 75,
     position: 'relative',
     fontSize: 18,
     maxWidth: 620,
-    marginTop: 280,
+    marginTop: 40,
     padding: '0px 0 0px 24px',
     mixBlendMode: 'color-burn',
     '&::after': {
@@ -75,6 +79,7 @@ const useStyles = makeStyles({
   cta: {
     marginBottom: -16,
     '& .Button': {
+      top: 75,
       marginRight: 16,
       // minWidth: 245,
       marginBottom: 16,

@@ -4,34 +4,34 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 
 import { useTranslation } from 'react-i18next';
-
+import { Button } from '@consta/uikit/Button';
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
 const content = [
   {
     id: 1,
-    step: 'Шаг 1',
+    step: 'Найти спонсора',
     description:
-      'At Hanzo, we are not driven by profit but rather a deep appreciation for great design',
+      'Чтобы попасть на площадку вам нужно получить приглашение от одного из пользователей',
   },
   {
     id: 2,
-    step: 'Шаг 2',
+    step: 'Оплатить вход',
     description:
-      'At Hanzo, we are not driven by profit but rather a deep appreciation for great design',
+      'Услуга оплачивается однократно: 40 bl за подписку на вебинары преподавателей',
   },
   {
     id: 3,
-    step: 'Шаг 3',
+    step: 'Обучающий курс',
     description:
-      'At Hanzo, we are not driven by profit but rather a deep appreciation for great design',
+      'После регистрации необходимо пройти обучающий курс, который поможет освоиться',
   },
   {
     id: 4,
-    step: 'Шаг 4',
+    step: 'Полный доступ',
     description:
-      'At Hanzo, we are not driven by profit but rather a deep appreciation for great design',
+      'Для получения полного доступа вам необходимо оплатить премиальный аккаунт',
   },
 ];
 
@@ -43,14 +43,14 @@ const Hero: FC = () => {
   return (
     <div className={styles.root}>
       <div className={rootStyles.container}>
-        <Typography
+        {/* <Typography
           margin="0 0 36px"
           size="3xl"
           lineHeight="m"
           weight="semibold"
         >
           {t('landing.steps.title')}
-        </Typography>
+        </Typography> */}
 
         <Grid
           cols="1"
@@ -63,19 +63,26 @@ const Hero: FC = () => {
               <div className={styles.card}>
                 <div className={styles.cardImage} />
                 <Flex direction="column">
-                  <Typography size="m" margin="24px 0 0" weight="semibold">
+                  <Typography size="m" margin="24px 0 0" weight="semibold" className={styles.titlecard}>
                     {x.step}
                   </Typography>
                   <Typography
                     as="p"
                     view="secondary"
-                    margin="16px 0 0"
+                    margin="16px 0 32px"
                     size="s"
                     lineHeight="m"
                     className={styles.cardDescription}
                   >
                     {x.description}
                   </Typography>
+                  <Button
+                  size="m"
+                  form="default"
+                  label="Зарегистрироваться"
+                  className={styles.cardButton}
+                  // onClick={() => setAuthOpen(true)}
+                />
                 </Flex>
               </div>
             </GridItem>
