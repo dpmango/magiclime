@@ -23,5 +23,5 @@ export interface IUser {
   achievements: IAchievement[];
   level: number;
   experience: number;
-  is_stuff: boolean;
+  is_staff: boolean;
 }

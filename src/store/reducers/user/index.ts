@@ -40,9 +40,10 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
         Cookies.set('access', response.data.access, { expires: 10 / 24 });
       remember && Cookies.set('refresh', response.data.refresh, { expires: 1 });
       setAuthToken(response.data.access);
-      dispatch(setLogged());
-      dispatch(getProfile());
-      successCallback && successCallback();
+      dispatch(getProfile()).then(() => {
+        dispatch(setLogged());
+        successCallback && successCallback();
+      });
 
       return response.data;
     } catch (err) {
