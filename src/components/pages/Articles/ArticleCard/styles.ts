@@ -11,13 +11,16 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
     },
   },
   image: {
+    position: 'relative',
     paddingBottom: '63.5%',
     borderRadius: 8,
     background: 'var(--color-bg-system)',
     fontSize: 0,
     transition: 'opacity .25s ease-in-out',
     '& > img': {
-      flex: '1 1 auto',
+      position: 'absolute',
+      top: 0,
+      left: 0,
       width: '100%',
       height: '100%',
       objectFit: 'contain',
