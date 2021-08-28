@@ -21,7 +21,8 @@ import { IUser } from 'types/interfaces/user';
 import {
   UpdateProfileType,
   UpdateProfileAvatarType,
-  GetProfileByIdType,
+  GetProfileType,
+  GetForeignProfileType,
   LoginPayloadType,
   RegistrationPayloadType,
   ChangePasswordType,
@@ -46,7 +47,7 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
         Cookies.set('access', response.data.access, { expires: 10 / 24 });
       remember && Cookies.set('refresh', response.data.refresh, { expires: 1 });
       setAuthToken(response.data.access);
-      dispatch(getProfile()).then(() => {
+      dispatch(getProfile({})).then(() => {
         dispatch(setLogged());
         successCallback && successCallback();
       });
@@ -99,14 +100,16 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
   }
 );
 
-export const getProfile = createAsyncThunk(
+export const getProfile = createAsyncThunk<object, GetProfileType>(
   'user/getProfile',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
+      const { successCallback } = payload;
       const response = await getUserProfile();
       if (response?.status === 200) {
         console.log(response.data);
         dispatch(setUserProfile(response.data));
+        successCallback && successCallback(response.data);
       }
       return response.data;
     } catch (err) {
@@ -115,24 +118,24 @@ export const getProfile = createAsyncThunk(
   }
 );
 
-export const getProfileById = createAsyncThunk<object, GetProfileByIdType>(
-  'user/getProfileById',
-  async (payload, { dispatch, rejectWithValue }) => {
+export const getForeignProfile = createAsyncThunk<
+  object,
+  GetForeignProfileType
+>('user/getForeignProfile', async (payload, { dispatch, rejectWithValue }) => {
+  try {
     const { id, successCallback } = payload;
-    try {
-      const response = await getUserProfileById(id);
+    const response = await getUserProfileById(id);
 
-      if (response?.status === 200) {
-        dispatch(setForeignProfile(response.data));
-        successCallback && successCallback();
-      }
-
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
+    if (response?.status === 200) {
+      dispatch(setForeignProfile(response.data));
+      successCallback && successCallback();
     }
+
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
   }
-);
+});
 
 export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
   'user/updateProfile',

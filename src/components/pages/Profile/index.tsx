@@ -4,10 +4,11 @@ import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import { getProfileById, getProfile } from 'store/reducers/user';
+import { getForeignProfile, getProfile } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
 
 import { useFirstRender } from 'hooks/useFirstRender';
+import { IUser } from 'types/interfaces/user';
 import Head from './Head';
 import ProgramList from './ProgramList';
 import Achievements from './Achievements';
@@ -35,6 +36,8 @@ const ProfilePage: FC = () => {
   const history = useHistory();
   const firstRender = useFirstRender();
   const { t } = useTranslation();
+
+  const [curUser, setCurUser] = useState<IUser | null>(null);
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -70,10 +73,25 @@ const ProfilePage: FC = () => {
     }
   }, [tab]);
 
+  const fetchCurrentUser = () => {
+    dispatch(
+      getProfile({
+        successCallback: (data) => {
+          // console.log({ data });
+          setCurUser(data);
+        },
+      })
+    );
+  };
+
   useEffect(() => {
-    const responce = dispatch(getProfileById({ id: 1 }));
-    console.log(responce);
-  }, []);
+    if (!curUser) {
+      // TODO - infinte loop
+      // fetchCurrentUser();
+    }
+
+    const responce = dispatch(getForeignProfile({ id: 1 }));
+  }, [curUser]);
 
   return (
     <div className={styles.root}>
