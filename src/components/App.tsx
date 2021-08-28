@@ -28,6 +28,8 @@ const App: FC = () => {
     dispatch(setLogged());
   }
 
+  console.log(theme);
+
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>

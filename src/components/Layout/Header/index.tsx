@@ -12,14 +12,14 @@ import { IconHamburger } from '@consta/uikit/IconHamburger';
 import useResolution from '../../../hooks/useResolution';
 import useStyles from './styles';
 import { RootState } from '../../../store/reducers/rootReducer';
-import { SetStateType } from '../../../types/common';
+import { SetStateType, Theme } from '../../../types/common';
 import bitcoin from '../../../assets/images/bitcoin.png';
 import UserDropdown from './UserDropdown';
 import Logo from '../../../assets/images/logo.svg';
 
 interface IHeaderProps {
-  theme: 'default' | 'dark';
-  setTheme: SetStateType<'default' | 'dark'>;
+  theme: Theme;
+  setTheme: SetStateType<Theme>;
   toggleMenu: VoidFunction;
 }
 
@@ -86,7 +86,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   clickOutside={() => setOpen(false)}
                   targetRef={ref}
                   changeTheme={() =>
-                    setTheme(theme !== 'dark' ? 'dark' : 'default')
+                    setTheme(theme !== Theme.Dark ? Theme.Dark : Theme.Default)
                   }
                   theme={theme}
                 />

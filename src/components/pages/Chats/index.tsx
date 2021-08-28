@@ -14,7 +14,7 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
   const { chatContext, setChatContext } = useContext(ChatContext);
 
   const socket = new WebSocket(
-    `ws://178.154.196.41:443/ws/chat/?token=${Cookies.get('access')}`
+    `wss://magiclime.academy/ws/chat/?token=${Cookies.get('access')}`
   );
 
   useEffect(() => {
