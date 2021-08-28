@@ -68,7 +68,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
       />
       <div className={styles.w100}>
         <Flex align="center" margin="0 0 4px">
-          <Typography weight="semibold">{message.creator.name}</Typography>
+          <Typography size="s" weight="semibold">{message.creator.name}</Typography>
           <div className={styles.dot} />
           <Typography className={styles.date} view="secondary">
             {moment(message.created_at).format(format)}
@@ -92,7 +92,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             </Typography>
           </div>
         )}
-        <Flex margin="0 0 6px" className={styles.container}>
+        <Flex margin="0 0 8px" className={styles.container}>
           <Typography className={styles.text}>{message.text}</Typography>
         </Flex>
         <Flex className={styles.buttons}>

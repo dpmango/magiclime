@@ -28,7 +28,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
         <Typography
           weight="semibold"
           size="s"
-          margin="0 0 2px"
+          margin="0 0 3px"
           className={styles.text}
         >
           {chat.title}

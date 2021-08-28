@@ -4,7 +4,7 @@ import { COLORS } from '../../../../../utils/constants/colors';
 const useStyles = makeStyles<null, { open: boolean }>(() => ({
   root: {
     borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    padding: '5px 16px',
+    padding: '5px 16px 5px 0',
     height: '55px',
   },
   meatball: {
@@ -27,9 +27,11 @@ const useStyles = makeStyles<null, { open: boolean }>(() => ({
     },
   },
   group: {
-    maxWidth: '110px',
+    maxWidth: '50%',
+    direction: 'rtl',
     '& span': {
       fontWeight: 500,
+      lineHeight: '44px',
     },
   },
 }));

@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     width: '200px',
     height: 'calc(100vh - 64px)',
     '& > svg': {
-      width: '30%',
+      width: '25%',
     },
   },
   header: {
@@ -31,7 +31,10 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     overflowY: 'auto',
     width: '100%',
-    padding: '28px 0 0 24px',
+    padding: '24px 0 0 24px',
+  },
+  chooseChat: {
+    maxWidth: 510,
   },
   replyAnimation: {
     animation: '$effect 3s ease-out',

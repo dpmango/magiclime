@@ -70,8 +70,8 @@ const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
       {!chatId || !chat ? (
         <>
           <EmptyChat />
-          <Typography size="xl" margin="30px 0 0">
-            Выберите чат, чтобы начать переписку
+          <Typography lineHeight="l" align="center" className={styles.chooseChat} size="xl" margin="30px 0 0">
+            Выберите чат, чтобы начать переписку или создайте новую беседу
           </Typography>
         </>
       ) : (
