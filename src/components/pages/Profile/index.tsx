@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
-import { useFirstRender } from 'hooks/useFirstRender';
+import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import { useTranslation } from 'react-i18next';
-import { getProfileById } from 'store/reducers/user';
+import { getProfileById, getProfile } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
 
+import { useFirstRender } from 'hooks/useFirstRender';
 import Head from './Head';
 import ProgramList from './ProgramList';
 import Achievements from './Achievements';
@@ -31,19 +31,22 @@ interface ITab {
 const ProfilePage: FC = () => {
   const styles = useStyles();
   const { path } = useRouteMatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const firstRender = useFirstRender();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const { profile } = useSelector((state: RootState) => state.user);
 
-  const tabs: ITab[] = [
-    { id: 1, slug: '/profile', label: t('profile.tabs.main') },
-    { id: 2, slug: '/profile/balance', label: t('profile.tabs.balance') },
-    { id: 3, slug: '/profile/referrals', label: t('profile.tabs.referrals') },
-    { id: 4, slug: '/profile/settings', label: t('profile.tabs.settings') },
-  ];
+  const tabs: ITab[] = useMemo(
+    () => [
+      { id: 1, slug: '/profile', label: t('profile.tabs.main') },
+      { id: 2, slug: '/profile/balance', label: t('profile.tabs.balance') },
+      { id: 3, slug: '/profile/referrals', label: t('profile.tabs.referrals') },
+      { id: 4, slug: '/profile/settings', label: t('profile.tabs.settings') },
+    ],
+    []
+  );
 
   const getTabWithRouter = useMemo((): ITab => {
     // path is not up to date at this point

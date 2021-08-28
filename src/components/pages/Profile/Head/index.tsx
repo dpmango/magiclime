@@ -19,26 +19,33 @@ const ProfileHead: FC = () => {
 
   const { profile } = useSelector((state: RootState) => state.user);
 
-  const handleCopyRefClick = useCallback(() => {
-    // TODO - should be changed to some library ?
-    const textArea = document.createElement('textarea');
-    textArea.value = `http://link.me/${profile.referral_number}`;
-    textArea.style.opacity = '0';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
+  const handleCopyRefClick = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    try {
-      const successful = document.execCommand('copy');
-      const msg = successful ? 'successful' : 'unsuccessful';
-      // TODO - show toast ?
-      console.log(`Copying text command was ${msg}`);
-    } catch (err) {
-      console.log(`Unable to copy value , error : ${err.message}`);
-    }
+      // TODO - should be changed to some library ?
+      const textArea = document.createElement('textarea');
+      textArea.value = `http://link.me/${profile.referral_number}`;
+      textArea.style.opacity = '0';
+      textArea.style.position = 'absolute';
+      textArea.style.top = '0';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
 
-    document.body.removeChild(textArea);
-  }, [profile.referral_number]);
+      try {
+        const successful = document.execCommand('copy');
+        const msg = successful ? 'successful' : 'unsuccessful';
+        // TODO - show toast ?
+        console.log(`Copying text command was ${msg}`);
+      } catch (err) {
+        console.log(`Unable to copy value , error : ${err.message}`);
+      }
+
+      document.body.removeChild(textArea);
+    },
+    [profile.referral_number]
+  );
 
   return (
     <Flex align="center" className={styles.root} margin="0 0px">
