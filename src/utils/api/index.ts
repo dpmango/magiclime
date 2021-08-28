@@ -11,7 +11,7 @@ export const instance = Axios.create({
 });
 
 export const setAuthToken = (token: string) => {
-  instance.defaults.headers.Authorization = `JWT ${token}`;
+  instance.defaults.headers.Authorization = `Bearer ${token}`;
 };
 
 export const deleteAuthHeader = () => {

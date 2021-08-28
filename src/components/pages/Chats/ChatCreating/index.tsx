@@ -1,56 +1,65 @@
+import { ProgressSpin } from '@consta/uikit/ProgressSpin';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
 import { TextField } from '@consta/uikit/TextField';
 import { IconCamera } from '@consta/uikit/IconCamera';
 import { IconSearch } from '@consta/uikit/IconSearch';
+import { IUser } from '../../../../types/interfaces/user';
+import { createChat, getUsers } from '../../../../utils/api/routes/chat';
+import { ICreateChatForm } from '../types';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import { ChatContext } from '../context';
-import { UserIcon } from '../../../../assets/icons';
-import { ChangeType } from '../../../../types/common';
+import { ChangeType, SetStateType } from '../../../../types/common';
 import { uploadImage } from '../../../../utils/api/routes/other';
 import FriendCard from './FriendCard';
-import { IFriend } from '../types';
 
-const ChatCreating: FC = () => {
-  const [form, setForm] = useState({
-    name: '',
+const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
+  setActiveChatId,
+}) => {
+  const [form, setForm] = useState<ICreateChatForm>({
+    title: '',
     image: {
       id: 0,
       image: '',
     },
     participants: [] as number[],
   });
-  const [users, setUsers] = useState<IFriend[]>([
-    { id: 1, name: 'Roman Avdeev', image: '' },
-    {
-      id: 2,
-      name: 'Roman Avdeev',
-      image: 'https://iohotnik.ru/wp-content/auploads/775545/lesnye_koty.jpg',
-    },
-    { id: 3, name: 'Roman Avdeev', image: '' },
-    { id: 4, name: 'Roman Avdeev', image: '' },
-    { id: 5, name: 'Roman Avdeev', image: '' },
-  ]);
+  const [users, setUsers] = useState<IUser[]>([]);
   const [search, setSearch] = useState('');
-  const styles = useStyles();
+  const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false);
+  const styles = useStyles({
+    haveAvatar: !!form.image.id,
+  });
   const { chatContext, setChatContext } = useContext(ChatContext);
 
   useEffect(() => {
-    // Get users list
+    getUsers(search).then((res) => {
+      setUsers(res.data.results);
+    });
   }, [search]);
 
   const addImage = (e: ChangeType) => {
-    uploadImage(e.target!.files![0]).then((res) => {
-      setForm({ ...form, image: res.data });
-    });
+    setUploadAvatarLoading(true);
+    uploadImage(e.target!.files![0])
+      .then((res) => {
+        setForm({ ...form, image: res.data });
+      })
+      .finally(() => {
+        setUploadAvatarLoading(false);
+      });
   };
 
   const handleSubmit = () => {
     const avatar = form.image.id ? +form.image.id : null;
     const data = { ...form, image: avatar };
+
+    createChat(data).then((res) => {
+      cancel();
+      setActiveChatId(res.data.id);
+    });
   };
 
   const cancel = () => {
@@ -86,7 +95,9 @@ const ChatCreating: FC = () => {
             className={styles.hiddenInput}
           />
           <label htmlFor="chat_photo_field" className={styles.addPhoto}>
-            {form.image.id ? (
+            {uploadAvatarLoading ? (
+              <ProgressSpin size="m" />
+            ) : form.image.id ? (
               <img src={form.image.image} alt="avatar" />
             ) : (
               <IconCamera view="secondary" />
@@ -94,9 +105,9 @@ const ChatCreating: FC = () => {
           </label>
         </div>
         <TextField
-          value={form.name}
+          value={form.title}
           className={styles.input}
-          onChange={({ value }) => setForm({ ...form, name: value as string })}
+          onChange={({ value }) => setForm({ ...form, title: value as string })}
           placeholder="Введите название"
         />
       </Flex>
@@ -120,7 +131,12 @@ const ChatCreating: FC = () => {
         ))}
       </Flex>
       <Flex justify="space-between" padding="16px" className={styles.panel}>
-        <Button label="Создать беседу" view="primary" onClick={handleSubmit} />
+        <Button
+          label="Создать беседу"
+          view="primary"
+          onClick={handleSubmit}
+          disabled={!form.title || !form.participants.length}
+        />
         <Button label="Отмена" view="ghost" onClick={cancel} />
       </Flex>
     </div>

@@ -14,6 +14,15 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     overflowY: 'auto',
   },
+  skeleton: {
+    width: '100%',
+    display: 'flex',
+    padding: '12px 16px 5px 18px',
+    '& > div:first-of-type': {
+      marginRight: '12px',
+      flex: 'none',
+    },
+  },
 }));
 
 export default useStyles;

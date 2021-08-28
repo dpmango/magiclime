@@ -14,11 +14,10 @@ interface IProps {
   socket: WebSocket;
 }
 
-const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
+const Chat: FC<IProps> = ({ chatId, socket }) => {
   const [chat, setChat] = useState<IChatDetail | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
-  const socket = { ...parentSocket };
 
   useEffect(() => {
     if (chatId) {
@@ -38,18 +37,11 @@ const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
   }, []);
 
   socket.onmessage = (event) => {
-    // Пока от бэка приходят дубли, нужна такая проверка
-    if (
-      chat &&
-      !chat.messages.find(
-        (item) => item.id === (JSON.parse(event.data) as IMessage).id
-      )
-    ) {
-      setChat((prev) => ({
-        ...prev!,
-        messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
-      }));
-    }
+    console.log(JSON.parse(event.data));
+    setChat((prev) => ({
+      ...prev!,
+      messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
+    }));
   };
 
   // Скроллим окно сообщений вниз
@@ -70,7 +62,13 @@ const Chat: FC<IProps> = ({ chatId, socket: parentSocket }) => {
       {!chatId || !chat ? (
         <>
           <EmptyChat />
-          <Typography lineHeight="l" align="center" className={styles.chooseChat} size="xl" margin="30px 0 0">
+          <Typography
+            lineHeight="l"
+            align="center"
+            className={styles.chooseChat}
+            size="xl"
+            margin="30px 0 0"
+          >
             Выберите чат, чтобы начать переписку или создайте новую беседу
           </Typography>
         </>

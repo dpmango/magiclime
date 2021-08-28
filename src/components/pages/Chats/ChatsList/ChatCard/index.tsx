@@ -10,7 +10,7 @@ import { useCheckDefaultTheme } from '../../../../../hooks/useCheckDefaultTheme'
 
 const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
   const isDefault = useCheckDefaultTheme();
-  const styles = useStyles({ isDefault, haveLastMessage: !!chat.last_message });
+  const styles = useStyles({ isDefault, haveLastMessage: !!chat.messages });
 
   return (
     <NavLink
@@ -33,16 +33,15 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
         >
           {chat.title}
         </Typography>
-        {chat.last_message && (
+        {chat.messages && (
           <Typography size="s" view="ghost" className={styles.text}>
-            {chat.last_message.text}
+            {chat.messages.text}
           </Typography>
         )}
       </div>
       <div className={styles.timeWrapper}>
         <Typography size="xs" view="ghost" margin="0 0 4px">
-          {chat.last_message &&
-            moment(chat.last_message.created_at).format('HH:mm')}
+          {chat.messages && moment(chat.messages.created_at).format('HH:mm')}
         </Typography>
         {chat.unread_count && (
           <Badge

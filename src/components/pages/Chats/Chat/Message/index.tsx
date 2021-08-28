@@ -14,6 +14,7 @@ import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconWarning } from '@consta/uikit/IconWarning';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { ComponentType } from '../../../../../types/common';
 import { ChatContext } from '../../context';
 import Typography from '../../../../Common/Typography';
@@ -60,15 +61,21 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
       onDoubleClick={replyMessage}
       id={`message_${message.id}`}
     >
-      <Avatar
-        form="round"
-        name={message.creator.name}
-        url={message.creator.avatar ? message.creator.avatar.image : ''}
-        className={styles.avatar}
-      />
+      <Link to={`/profile/${message.creator.id}`}>
+        <Avatar
+          form="round"
+          name={message.creator.name}
+          url={message.creator.avatar ? message.creator.avatar.image : ''}
+          className={styles.avatar}
+        />
+      </Link>
       <div className={styles.w100}>
         <Flex align="center" margin="0 0 4px">
-          <Typography size="s" weight="semibold">{message.creator.name}</Typography>
+          <Link to={`/profile/${message.creator.id}`}>
+            <Typography size="s" weight="semibold">
+              {message.creator.name}
+            </Typography>
+          </Link>
           <div className={styles.dot} />
           <Typography className={styles.date} view="secondary">
             {moment(message.created_at).format(format)}

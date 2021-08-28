@@ -31,6 +31,8 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
   const isImage = (file: File): boolean =>
     /(png|jpe?g|gif|ico)/.test(getExt(file));
 
+  const uploadFile = () => {};
+
   return (
     <Container className={styles.root}>
       <Flex align="center">

@@ -6,3 +6,10 @@ export interface IPhoto {
 export interface IStyleInterface {
   darkmode?: boolean;
 }
+
+export interface IAxiosPaginatedResponse<T = any> {
+  count: number;
+  next: T | null;
+  previous: T | null;
+  results: T[];
+}
