@@ -7,12 +7,20 @@ const useStyles = makeStyles(() => ({
     maxWidth: '1210px',
     margin: '0 auto',
   },
-  cancelButton: {
+  moreInfo: {
     background: 'transparent',
     marginLeft: '10px',
-    color: 'var(--color-typo-alert)',
+    borderColor: 'var(--color-typo-success)',
+    color: 'var(--color-typo-success)',
     '&:hover': {
-      color: 'var(--color-typo-alert)',
+      color: 'var(--color-typo-link-hover)',
+      borderColor: 'var(--color-typo-link-hover)',
+    },
+  },
+  buttonsWrapper: {
+    width: 'auto',
+    '& > button': {
+      marginLeft: '24px',
     },
   },
 }));

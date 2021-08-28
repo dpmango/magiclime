@@ -13,32 +13,8 @@ import { exportUsersList, getUsers } from '../../../../utils/api/routes/admin';
 
 const Users: FC = () => {
   const [search, setSearch] = useState('');
-  const [users, setUsers] = useState<IUserListItem[]>([
-    {
-      id: '1',
-      name: 'Ivanov Ivan',
-      username: 'Test',
-      date_joined: '2021-06-03',
-      last_login: '2021-06-03',
-      email: 'test_user@mail.ru',
-      is_active: true,
-      phone: '89216336503',
-      referral_number: 'icndn930-ej23idkk',
-      parent_username: 'Invite',
-    },
-    {
-      id: '2',
-      name: 'Ivanov Ivan',
-      username: 'Test',
-      date_joined: '2021-06-03',
-      last_login: '2021-06-03',
-      email: 'test_user@mail.ru',
-      is_active: true,
-      phone: '89216336503',
-      referral_number: 'icndn930-ej23idkk',
-      parent_username: 'Invite',
-    },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<IUserListItem[]>([]);
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -49,31 +25,36 @@ const Users: FC = () => {
   }, []);
 
   useEffect(() => {
-    // getUsers(debouncedSearch)
-    //     .then(res => setUsers(res.data))
+    getUsers(debouncedSearch)
+      .then((res) => setUsers(res.data.results))
+      .finally(() => {
+        setLoading(false);
+      });
   }, [debouncedSearch]);
 
   return (
     <div className={styles.root}>
-      <Typography weight="semibold" size="3xl" margin="0 0 24px">
-        {t('admin.userManagement')}
-      </Typography>
-      <Flex justify="space-between" align="center" margin="0 0 36px">
-        <TextField
-          value={search}
-          onChange={({ value }) => setSearch(value || '')}
-          size="s"
-          placeholder={t('admin.loginSearch')}
-          rightSide={IconSearch}
-        />
-        <Button
-          label={t('admin.csvExport')}
-          size="s"
-          view="primary"
-          onClick={exportList}
-        />
+      <Flex align="center" justify="space-between" margin="0 0 84px">
+        <Typography weight="semibold" size="3xl">
+          {t('admin.users.usersManagement')}
+        </Typography>
+        <Flex align="center" className={styles.buttonsWrapper}>
+          <TextField
+            value={search}
+            onChange={({ value }) => setSearch(value || '')}
+            size="s"
+            placeholder={t('admin.users.loginSearch')}
+            rightSide={IconSearch}
+          />
+          <Button
+            label={t('admin.users.csvExport')}
+            size="s"
+            view="primary"
+            onClick={exportList}
+          />
+        </Flex>
       </Flex>
-      <UsersTable data={users} />
+      <UsersTable data={users} loading={loading} />
     </div>
   );
 };

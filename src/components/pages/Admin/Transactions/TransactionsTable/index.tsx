@@ -29,7 +29,7 @@ const TransactionsTable: FC<{ data: ITransaction[] }> = ({ data }) => {
     },
     {
       id: '3',
-      title: t('admin.login'),
+      title: t('admin.users.login'),
       accessor: 'username',
       align: 'center',
     },

@@ -115,12 +115,12 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
       { name: '' },
       {
         path: '/admin/users',
-        name: t('admin.users'),
+        name: t('admin.menu.users'),
         icon: icons.UserIcon,
       },
       {
         path: '/admin/transactions',
-        name: t('admin.transactions'),
+        name: t('admin.menu.transactions'),
         icon: icons.MarketIcon,
       },
       {

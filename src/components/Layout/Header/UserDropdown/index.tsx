@@ -1,9 +1,11 @@
+import { IconCards } from '@consta/uikit/IconCards';
+import { IconVideo } from '@consta/uikit/IconVideo';
 import React, { FC, MouseEvent, useCallback, useMemo } from 'react';
 import i18n from 'i18next';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconUser } from '@consta/uikit/IconUser';
 import { IconExit } from '@consta/uikit/IconExit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Switch } from '@consta/uikit/Switch';
 import { IconMoon } from '@consta/uikit/IconMoon';
@@ -14,6 +16,7 @@ import { IconRouble } from '@consta/uikit/IconRouble';
 import { IconEye } from '@consta/uikit/IconEye';
 import { IconWorld } from '@consta/uikit/IconWorld';
 import { useTranslation } from 'react-i18next';
+import { RootState } from '../../../../store/reducers/rootReducer';
 import useStyles from '../styles';
 import { Language } from '../../../../types/common';
 import { setLanguage } from '../../../../store/reducers/settings';
@@ -32,6 +35,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
   const history = useHistory();
   const styles = useStyles();
   const { t } = useTranslation();
+  const { is_staff } = useSelector((state: RootState) => state.user.profile);
 
   const redirectToPoorVision = () => {
     document.getElementById('specialButton')!.click();
@@ -60,17 +64,52 @@ const UserDropdown: FC<IUserDropdownProps> = ({
     },
   ] as const;
 
-  const items = useMemo(
-    () => [
-      { name: 'Профиль', icon: IconUser, path: '/profile', group: 1 },
-      {
-        name: 'Пополнить баланс',
-        icon: IconRouble,
-        path: '/profile/balance',
-        group: 1,
-      },
-      { name: 'Настройки', icon: IconSettings, path: '/settings', group: 1 },
-      { name: 'Помощь', icon: IconQuestion, path: '/help', group: 1 },
+  const items = useMemo(() => {
+    const routes: any[] = !is_staff
+      ? [
+          { name: 'Профиль', icon: IconUser, path: '/profile', group: 1 },
+          {
+            name: 'Пополнить баланс',
+            icon: IconRouble,
+            path: '/profile/balance',
+            group: 1,
+          },
+          {
+            name: 'Настройки',
+            icon: IconSettings,
+            path: '/settings',
+            group: 1,
+          },
+          { name: 'Помощь', icon: IconQuestion, path: '/help', group: 1 },
+        ]
+      : [
+          {
+            name: 'Пользователи',
+            icon: IconUser,
+            path: '/admin/users',
+            group: 1,
+          },
+          {
+            name: 'Транзакции',
+            icon: IconRouble,
+            path: '/admin/transactions',
+            group: 1,
+          },
+          {
+            name: 'Курсы',
+            icon: IconCards,
+            path: '/admin/courses',
+            group: 1,
+          },
+          {
+            name: 'Вебинары',
+            icon: IconVideo,
+            path: '/admin/webinars',
+            group: 1,
+          },
+        ];
+
+    return routes.concat([
       {
         name: 'Тёмная тема',
         switch: true,
@@ -105,9 +144,8 @@ const UserDropdown: FC<IUserDropdownProps> = ({
         group: 2,
       },
       { name: 'Выход', icon: IconExit, group: 3 },
-    ],
-    [theme]
-  );
+    ]);
+  }, [theme]);
 
   const renderLeftSide = useCallback((item: UserDropdownItem) => {
     if (item.icon) {

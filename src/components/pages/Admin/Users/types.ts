@@ -9,4 +9,7 @@ export interface IUserListItem {
   phone: string;
   referral_number: string;
   parent_username: string;
+  balance: string;
+  earned: string;
+  withdrawn: string;
 }

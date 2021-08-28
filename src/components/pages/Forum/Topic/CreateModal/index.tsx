@@ -68,7 +68,7 @@ const CreateForum: FC = () => {
 
       <BaseModal
         isOpen={modalOpen}
-        setModalOpen={(x: boolean) => setModalOpen(x)}
+        setModalOpen={setModalOpen}
         title={t('forum.create.title')}
       >
         <div className={styles.form}>

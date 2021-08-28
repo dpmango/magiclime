@@ -4,6 +4,7 @@ import Typography from 'components/Common/Typography';
 import ConstaIcons from 'assets/icons/ConstaIcons';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
+import { SetStateType } from '../../../types/common';
 
 import useStyles from './styles';
 
@@ -11,7 +12,7 @@ interface IProps {
   title: string;
   isOpen: boolean;
   children?: ReactNode;
-  setModalOpen: (x: boolean) => void;
+  setModalOpen: SetStateType<boolean>;
 }
 
 const BaseModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {

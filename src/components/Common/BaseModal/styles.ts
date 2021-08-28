@@ -20,6 +20,10 @@ const useStyles = makeStyles({
       color: 'var(--color-bg-alert)',
       opacity: 0.6,
     },
+    '& > span': {
+      width: '14px',
+      height: '14px',
+    },
   },
 });
 
