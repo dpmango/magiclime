@@ -14,14 +14,12 @@ const Events: FC = () => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      
-
       <div className={styles.balanceWidget}>
         <BalanceWidget />
       </div>
-  <Typography margin="0 0 24px" weight="semibold" lineHeight="s" size="2xl">
-          Операции с балансом
-        </Typography>
+      <Typography margin="0 0 24px" weight="semibold" lineHeight="s" size="2xl">
+        Операции с балансом
+      </Typography>
       <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 4 } }}>
         {/* <GridItem col="1">
           <div className={styles.box}>

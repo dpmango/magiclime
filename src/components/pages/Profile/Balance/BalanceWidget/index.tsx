@@ -22,7 +22,12 @@ const MyBalance: FC = () => {
           </Typography>
         </div>
       </Flex>
-      <Typography className={styles.coinBalance}  margin="12px 0" lineHeight="2xs" weight="semibold">
+      <Typography
+        className={styles.coinBalance}
+        margin="12px 0"
+        lineHeight="2xs"
+        weight="semibold"
+      >
         Баланс:
       </Typography>
       <Flex align="baseline" wrap="wrap">
