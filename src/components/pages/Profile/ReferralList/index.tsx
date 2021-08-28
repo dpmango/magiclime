@@ -47,11 +47,11 @@ const defaultCrumbs: ICrumbsPage[] = [
 
 const programOptions: IProgram[] = [
   { id: 1, label: 'BITLIME' },
-  // { id: 2, label: 'AUTO_STANDARD' },
-  // { id: 3, label: 'AUTO_BUSINESS' },
-  // { id: 4, label: 'AUTO_PREMIUM' },
-  // { id: 5, label: 'HOUSE' },
-  // { id: 6, label: 'LIME' },
+  { id: 2, label: 'AUTO_STANDARD' },
+  { id: 3, label: 'AUTO_BUSINESS' },
+  { id: 4, label: 'AUTO_PREMIUM' },
+  { id: 5, label: 'HOUSE' },
+  { id: 6, label: 'LIME' },
 ];
 
 const Referrals: FC = () => {
