@@ -37,7 +37,6 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, []);
 
   socket.onmessage = (event) => {
-    console.log(JSON.parse(event.data));
     setChat((prev) => ({
       ...prev!,
       messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
