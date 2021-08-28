@@ -3,6 +3,7 @@ const Client = require('ssh2-sftp-client');
 const path = require('path');
 const sftp = new Client();
 const fs = require('fs');
+const os = require('os');
 
 if (
   !process.argv[2] ||
@@ -23,7 +24,7 @@ const devConfig = {
   host: '178.154.196.41',
   port: '443',
   username: 'dev',
-  privateKey: fs.readFileSync('~/.ssh/id_rsa.pub'),
+  privateKey: fs.readFileSync(`${os.homedir()}/.ssh/id_rsa.pub`),
 };
 
 const REMOTE_PATH = '/var/www/html';

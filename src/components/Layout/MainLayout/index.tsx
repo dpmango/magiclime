@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
 import Header from '../Header';
-import { SetStateType } from '../../../types/common';
+import { SetStateType, Theme } from '../../../types/common';
 import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
@@ -23,8 +23,8 @@ import { RootState } from '../../../store/reducers/rootReducer';
 import Webinar from '../../pages/Webinar';
 
 interface IProps {
-  theme: 'default' | 'dark';
-  setTheme: SetStateType<'default' | 'dark'>;
+  theme: Theme;
+  setTheme: SetStateType<Theme>;
 }
 
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
