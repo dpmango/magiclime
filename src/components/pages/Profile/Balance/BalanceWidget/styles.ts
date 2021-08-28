@@ -16,6 +16,12 @@ const useStyles = makeStyles({
       width: '100%',
     },
   },
+  coinTitle16: {
+    lineHeight: '16px',
+  },
+  coinBalance: {
+    fontSize: '20px',
+  },
   coinContent: {
     flex: '1 1 auto',
     minWidth: 1,

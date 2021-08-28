@@ -14,15 +14,15 @@ const MyBalance: FC = () => {
           <img src="/images/bitcoin.png" alt="btc" />
         </div>
         <div className={styles.coinContent}>
-          <Typography view="brand" size="s">
+          <Typography className={styles.coinTitle16} view="brand" size="s">
             BTL/RUB
           </Typography>
-          <Typography view="secondary" margin="2px 0 0" size="s">
+          <Typography view="secondary" margin="2px 0 0" size="xs">
             Курс 1 к 37 291
           </Typography>
         </div>
       </Flex>
-      <Typography size="xl" margin="12px 0" lineHeight="2xs" weight="semibold">
+      <Typography className={styles.coinBalance}  margin="12px 0" lineHeight="2xs" weight="semibold">
         Баланс:
       </Typography>
       <Flex align="baseline" wrap="wrap">

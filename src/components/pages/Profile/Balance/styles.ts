@@ -19,8 +19,8 @@ const useStyles = makeStyles({
     border: '1px solid var(--color-bg-border)',
   },
   balanceWidget: {
-    margin: '56px 0 80px',
-    maxWidth: 264,
+    margin: '0 0 24px ',
+    width: 264,
   },
 });
 
