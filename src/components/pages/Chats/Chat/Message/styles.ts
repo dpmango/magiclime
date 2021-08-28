@@ -43,7 +43,6 @@ const useStyles = makeStyles(() => ({
     '& > *': {
       lineHeight: '1.3125',
       fontSize: '14px !important',
-
     },
   },
   reply: {
