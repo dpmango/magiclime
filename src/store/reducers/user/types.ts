@@ -14,6 +14,12 @@ export type RegistrationPayloadType = Partial<IUser> & {
   password: string;
 };
 
+export type GetProfileByIdType = {
+  id: number;
+  successCallback?: VoidFunction;
+  errorCallback?: (error: string) => void;
+};
+
 export type UpdateProfileType = {
   profile: Partial<IUser>;
   successCallback?: VoidFunction;

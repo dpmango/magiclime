@@ -4,30 +4,34 @@ import {
   PayloadAction,
   Update,
 } from '@reduxjs/toolkit';
-
 import Cookies from 'js-cookie';
-import { IUser } from '../../../types/interfaces/user';
-import { setAuthToken } from '../../../utils/api';
-import {
-  UpdateProfileType,
-  UpdateProfileAvatarType,
-  LoginPayloadType,
-  RegistrationPayloadType,
-  ChangePasswordType,
-} from './types';
+
 import {
   getUserProfile,
+  getUserProfileById,
   loginUser,
   registrationUser,
   updateUser,
   updateUserAvatar,
   changeUserPassword,
-} from '../../../utils/api/routes/auth';
+} from 'utils/api/routes/auth';
+
+import { setAuthToken } from 'utils/api';
+import { IUser } from 'types/interfaces/user';
+import {
+  UpdateProfileType,
+  UpdateProfileAvatarType,
+  GetProfileByIdType,
+  LoginPayloadType,
+  RegistrationPayloadType,
+  ChangePasswordType,
+} from './types';
 
 const initialState = {
   isLogged: false,
   isFirstTime: false,
   profile: {} as IUser,
+  profiles: new Map(),
 };
 
 export const login = createAsyncThunk<object, LoginPayloadType>(
@@ -101,8 +105,28 @@ export const getProfile = createAsyncThunk(
     try {
       const response = await getUserProfile();
       if (response?.status === 200) {
+        console.log(response.data);
         dispatch(setUserProfile(response.data));
       }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getProfileById = createAsyncThunk<object, GetProfileByIdType>(
+  'user/getProfileById',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { id, successCallback } = payload;
+    try {
+      const response = await getUserProfileById(id);
+
+      if (response?.status === 200) {
+        dispatch(setForeignProfile(response.data));
+        successCallback && successCallback();
+      }
+
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -205,22 +229,30 @@ const userSlice = createSlice({
     setUserProfile: (state, action: PayloadAction<IUser>) => {
       state.profile = action.payload;
     },
+    setForeignProfile: (state, action: PayloadAction<IUser>) => {
+      state.profiles.set(`${action.payload.id}`, action.payload);
+    },
     logout: (state) => {
       state.isLogged = false;
       state.profile = {} as IUser;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      getProfile.fulfilled,
-      (state, action: PayloadAction<IUser>) => {
-        state.profile = action.payload;
-      }
-    );
+    // builder.addCase(
+    //   getProfile.fulfilled,
+    //   (state, action: PayloadAction<IUser>) => {
+    //     state.profile = action.payload;
+    //   }
+    // );
   },
 });
 
-export const { setUserProfile, logout, setLogged, userRegistration } =
-  userSlice.actions;
+export const {
+  setUserProfile,
+  setForeignProfile,
+  logout,
+  setLogged,
+  userRegistration,
+} = userSlice.actions;
 
 export default userSlice.reducer;

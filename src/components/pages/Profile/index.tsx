@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { useTranslation } from 'react-i18next';
-import { getProfile } from '../../../store/reducers/user';
+import { getProfileById } from 'store/reducers/user';
+import { RootState } from 'store/reducers/rootReducer';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -34,6 +35,8 @@ const ProfilePage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const tabs: ITab[] = [
     { id: 1, slug: '/profile', label: t('profile.tabs.main') },
@@ -65,7 +68,8 @@ const ProfilePage: FC = () => {
   }, [tab]);
 
   useEffect(() => {
-    // dispatch(getProfile());
+    const responce = dispatch(getProfileById({ id: 1 }));
+    console.log(responce);
   }, []);
 
   return (

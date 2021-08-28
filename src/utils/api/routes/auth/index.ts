@@ -13,6 +13,10 @@ export const getUserProfile = (): AxiosPromise<IUser> => {
   return instance.get('/auth/users/me/');
 };
 
+export const getUserProfileById = (id: number): AxiosPromise<IUser> => {
+  return instance.get(`/auth/users/${id}/`);
+};
+
 export const refreshAuthToken = (
   refresh: string
 ): AxiosPromise<{ access: string }> => {
