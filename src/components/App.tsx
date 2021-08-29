@@ -2,6 +2,7 @@ import React, { FC, useMemo, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
 
@@ -43,6 +44,17 @@ const App: FC = () => {
           access={isLogged}
         />
       </Switch>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: 'h-toast',
+          duration: 5000,
+          // style: {
+          //   background: '#363636',
+          //   color: '#fff',
+          // },
+        }}
+      />
     </Theme>
   );
 };

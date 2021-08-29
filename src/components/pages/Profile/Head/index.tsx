@@ -1,6 +1,7 @@
 import React, { FC, useCallback, ChangeEvent, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
 
 import Typography from 'components/Common/Typography';
@@ -36,10 +37,9 @@ const ProfileHead: FC = () => {
       try {
         const successful = document.execCommand('copy');
         const msg = successful ? 'successful' : 'unsuccessful';
-        // TODO - show toast ?
-        console.log(`Copying text command was ${msg}`);
+        toast(t('profile.head.copySuccess'));
       } catch (err) {
-        console.log(`Unable to copy value , error : ${err.message}`);
+        console.log(`${t('profile.head.copyError')} : ${err.message}`);
       }
 
       document.body.removeChild(textArea);
