@@ -1,5 +1,9 @@
+import { Button } from '@consta/uikit/Button';
+import { IconArrowDown } from '@consta/uikit/IconArrowDown';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
+import { DOMAIN } from '../../../../utils/api';
+import { chatSocket } from '../context';
 import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
@@ -11,11 +15,11 @@ import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
   chatId: number | null;
-  socket: WebSocket;
 }
 
-const Chat: FC<IProps> = ({ chatId, socket }) => {
+const Chat: FC<IProps> = ({ chatId }) => {
   const [chat, setChat] = useState<IChatDetail | null>(null);
+  const [scroll, setScroll] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
 
@@ -36,18 +40,46 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
     }, 3000);
   }, []);
 
-  socket.onmessage = (event) => {
+  chatSocket.onmessage = (event) => {
+    const newMessage = JSON.parse(event.data) as IMessage;
+    const avatar = newMessage.creator.avatar
+      ? {
+          ...newMessage.creator.avatar,
+          image: DOMAIN + newMessage.creator.avatar.image,
+        }
+      : null;
+
     setChat((prev) => ({
       ...prev!,
-      messages: [...prev!.messages, JSON.parse(event.data) as IMessage],
+      messages: [
+        ...prev!.messages,
+        { ...newMessage, creator: { ...newMessage.creator, avatar } },
+      ],
     }));
   };
 
-  // Скроллим окно сообщений вниз
   useEffect(() => {
-    if (ref.current) {
+    console.log(ref);
+  }, [ref.current]);
+
+  // Скроллим окно сообщений вниз до непрочитанных сообщений
+  useEffect(() => {
+    if (ref.current && chat) {
       const elem = ref.current;
-      elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+      if (!chat.unreaded_count) {
+        elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+      } else {
+        const firstUnread = elem.children[
+          chat.messages.length - chat.unreaded_count
+        ] as HTMLDivElement;
+        if (firstUnread.offsetTop > elem.clientHeight) {
+          elem.scrollTop =
+            firstUnread.offsetTop -
+            elem.clientHeight +
+            firstUnread.clientHeight +
+            5;
+        }
+      }
     }
   }, [ref.current, chat]);
 
@@ -91,13 +123,32 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
             </div>
           </Flex>
           <div className={styles.body} ref={ref}>
-            {chat.messages.map((message) => (
-              <Message
-                message={message}
-                onReplyClick={onReplyClick}
-                key={message.id}
-              />
+            {chat.messages.map((message, index, array) => (
+              <div>
+                {array.length - index === chat?.unreaded_count && (
+                  <Flex align="center" margin="15px 0">
+                    <div className={styles.line} />
+                    <Typography margin="0 15px" size="xs" view="secondary">
+                      Непрочитанные сообщения
+                    </Typography>
+                    <div className={styles.line} />
+                  </Flex>
+                )}
+                <Message
+                  message={message}
+                  onReplyClick={onReplyClick}
+                  unread={array.length - index <= chat?.unreaded_count}
+                  key={message.id}
+                />
+              </div>
             ))}
+            <Button
+              view="primary"
+              form="round"
+              size="l"
+              iconLeft={IconArrowDown}
+              className={styles.scrollToBottom}
+            />
           </div>
           <Panel chatId={chat.id} />
         </>

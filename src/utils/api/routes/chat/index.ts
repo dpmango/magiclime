@@ -48,7 +48,7 @@ export const getUsers = (
 
 export const createChat = (data: {
   title: string;
-  image: number | null;
+  avatar: number | null;
   participants: number[];
 }): AxiosPromise<IChat> => {
   return instance.post('/chats/', data);
@@ -66,4 +66,8 @@ export const sendFile = (file: File): AxiosPromise => {
   return instance.post('/files/', fakeForm, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
+};
+
+export const readMessage = (id: number): AxiosPromise => {
+  return instance.post(`/messages/${id}/read_message/`, {});
 };

@@ -60,6 +60,16 @@ const useStyles = makeStyles<null, { haveAvatar?: boolean }>(() => ({
   panel: {
     background: 'var(--color-bg-secondary)',
   },
+  skeleton: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '13px 16px',
+    '& > div:first-of-type': {
+      marginRight: '12px',
+      flex: 'none',
+    },
+  },
 }));
 
 export default useStyles;

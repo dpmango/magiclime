@@ -32,6 +32,7 @@ const useStyles = makeStyles(() => ({
     overflowY: 'auto',
     width: '100%',
     padding: '24px 0 0 24px',
+    position: 'relative',
   },
   chooseChat: {
     maxWidth: 510,
@@ -51,6 +52,22 @@ const useStyles = makeStyles(() => ({
     '100%': {
       transform: 'transparent',
       // borderRight: '5px solid transparent',
+    },
+  },
+  line: {
+    height: '2px',
+    flex: 1,
+    borderRadius: '1px',
+    background: 'var(--color-typo-secondary)',
+  },
+  scrollToBottom: {
+    position: 'fixed',
+    bottom: '80px',
+    right: '20px',
+    transition: 'opacity .5s linear',
+    '& > span': {
+      width: '32px',
+      height: '32px',
     },
   },
 }));

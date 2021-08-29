@@ -1,10 +1,12 @@
 import { ProgressSpin } from '@consta/uikit/ProgressSpin';
+import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
 import { TextField } from '@consta/uikit/TextField';
 import { IconCamera } from '@consta/uikit/IconCamera';
 import { IconSearch } from '@consta/uikit/IconSearch';
+import { v4 as uuid } from 'uuid';
 import { IUser } from '../../../../types/interfaces/user';
 import { createChat, getUsers } from '../../../../utils/api/routes/chat';
 import { ICreateChatForm } from '../types';
@@ -21,7 +23,7 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
 }) => {
   const [form, setForm] = useState<ICreateChatForm>({
     title: '',
-    image: {
+    avatar: {
       id: 0,
       image: '',
     },
@@ -30,22 +32,28 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
   const [users, setUsers] = useState<IUser[]>([]);
   const [search, setSearch] = useState('');
   const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const styles = useStyles({
-    haveAvatar: !!form.image.id,
+    haveAvatar: !!form.avatar.id,
   });
   const { chatContext, setChatContext } = useContext(ChatContext);
 
   useEffect(() => {
-    getUsers(search).then((res) => {
-      setUsers(res.data.results);
-    });
+    setLoading(true);
+    getUsers(search)
+      .then((res) => {
+        setUsers(res.data.results);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search]);
 
   const addImage = (e: ChangeType) => {
     setUploadAvatarLoading(true);
     uploadImage(e.target!.files![0])
       .then((res) => {
-        setForm({ ...form, image: res.data });
+        setForm({ ...form, avatar: res.data });
       })
       .finally(() => {
         setUploadAvatarLoading(false);
@@ -53,8 +61,8 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
   };
 
   const handleSubmit = () => {
-    const avatar = form.image.id ? +form.image.id : null;
-    const data = { ...form, image: avatar };
+    const avatar = form.avatar.id ? +form.avatar.id : null;
+    const data = { ...form, avatar };
 
     createChat(data).then((res) => {
       cancel();
@@ -97,8 +105,8 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
           <label htmlFor="chat_photo_field" className={styles.addPhoto}>
             {uploadAvatarLoading ? (
               <ProgressSpin size="m" />
-            ) : form.image.id ? (
-              <img src={form.image.image} alt="avatar" />
+            ) : form.avatar.id ? (
+              <img src={form.avatar.image} alt="avatar" />
             ) : (
               <IconCamera view="secondary" />
             )}
@@ -121,14 +129,21 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
         />
       </Flex>
       <Flex direction="column" className={styles.list}>
-        {users.map((user) => (
-          <FriendCard
-            key={user.id}
-            friend={user}
-            form={form}
-            setForm={setForm}
-          />
-        ))}
+        {!loading
+          ? users.map((user) => (
+              <FriendCard
+                key={user.id}
+                friend={user}
+                form={form}
+                setForm={setForm}
+              />
+            ))
+          : Array.from({ length: 4 }).map(() => (
+              <div key={uuid()} className={styles.skeleton}>
+                <SkeletonCircle size={32} />
+                <SkeletonText rows={1} fontSize="xs" lineHeight="s" />
+              </div>
+            ))}
       </Flex>
       <Flex justify="space-between" padding="16px" className={styles.panel}>
         <Button

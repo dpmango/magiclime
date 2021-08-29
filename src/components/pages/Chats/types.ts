@@ -1,15 +1,14 @@
-import Cookies from 'js-cookie';
 import { IPhoto } from '../../../types/interfaces/common';
 
 export interface IChat {
   readonly id: number;
   title: string;
   avatar: IPhoto;
-  messages: IMessage | null;
-  unread_count: number;
+  last_message: IMessage | null;
+  unreaded_count: number;
 }
 
-export interface IChatDetail extends Omit<IChat, 'messages'> {
+export interface IChatDetail extends Omit<IChat, 'last_message'> {
   participants_count: string;
   messages: IMessage[];
 }
@@ -33,11 +32,13 @@ export interface IMessage {
       avatar: IPhoto | null;
     };
   };
+  attached_files?: [];
+  attached_images?: IPhoto[];
 }
 
 export interface ICreateChatForm {
   title: string;
-  image: IPhoto;
+  avatar: IPhoto;
   participants: number[];
 }
 

@@ -3,9 +3,10 @@ import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Flex from '../../../Common/Flex';
+import { chatSocket } from '../context';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { IChat, IGroup } from '../types';
+import { IChat, IGroup, IMessage } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
 import Header from './Header';
@@ -47,6 +48,13 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
     }
   }, [chatId]);
 
+  chatSocket.onmessage = (event) => {
+    const newMessage = JSON.parse(event.data) as IMessage;
+    if (newMessage) {
+      console.log(newMessage);
+    }
+  };
+
   return (
     <div className={styles.root}>
       <Header
@@ -60,13 +68,8 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
           ? chats.map((chat) => <ChatCard chat={chat} key={chat.id} />)
           : Array.from({ length: 4 }).map(() => (
               <div key={uuid()} className={styles.skeleton}>
-                <SkeletonCircle className="avatar" size={50} />
-                <SkeletonText
-                  className="text"
-                  rows={2}
-                  fontSize="xs"
-                  lineHeight="s"
-                />
+                <SkeletonCircle size={50} />
+                <SkeletonText rows={2} fontSize="xs" lineHeight="s" />
               </div>
             ))}
       </Flex>

@@ -30,12 +30,14 @@ type DropdownItem = {
 interface IProps {
   message: IMessage;
   onReplyClick: (id: number) => void;
+  unread: boolean;
 }
 
-const Message: FC<IProps> = ({ message, onReplyClick }) => {
+const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
-  const ref = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { chatContext, setChatContext } = useContext(ChatContext);
   const { t } = useTranslation();
 
@@ -59,6 +61,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
     <Flex
       margin="0 0 36px"
       onDoubleClick={replyMessage}
+      elRef={ref}
       id={`message_${message.id}`}
     >
       <Link to={`/profile/${message.creator.id}`}>
@@ -113,7 +116,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
           />
           <Button
             iconLeft={IconMeatball}
-            ref={ref}
+            ref={buttonRef}
             onClick={() => setIsOpen(!isOpen)}
             view="clear"
             size="xs"
@@ -123,7 +126,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             <ContextMenu
               items={items}
               getLabel={(item: DropdownItem) => item.name}
-              anchorRef={ref}
+              anchorRef={buttonRef}
               size="s"
               getLeftSideBar={renderLeftSide}
               direction="downStartLeft"
