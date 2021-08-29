@@ -5,7 +5,7 @@ const useStyles = makeStyles({
     background: 'var(--color-bg-default)',
     border: '1px solid var(--color-bg-border)',
     borderRadius: 4,
-    padding: 20,
+    padding: '20px 20px 12px',
     height: '100%',
   },
   coinIcon: {
@@ -15,6 +15,12 @@ const useStyles = makeStyles({
     '& img': {
       width: '100%',
     },
+  },
+  coinTitle16: {
+    lineHeight: '16px',
+  },
+  coinBalance: {
+    fontSize: '20px',
   },
   coinContent: {
     flex: '1 1 auto',

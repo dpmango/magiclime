@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
 
 import SvgIcon from 'assets/icons/ConstaIcons';
@@ -50,11 +51,7 @@ const PorifleHeadUploader: FC = () => {
       // limit mime
       if (uploader.allowedMime) {
         if (!uploader.allowedMime.includes(file.type.split('/')[0])) {
-          // await $toast.error({
-          //   message: t('profile.head.uploader.mimeLocked'),
-          // });
-
-          console.log(t('profile.head.uploader.mimeLocked'));
+          toast(t('profile.head.uploader.mimeLocked'));
           clearInput(e.target);
           return false;
         }
@@ -65,10 +62,7 @@ const PorifleHeadUploader: FC = () => {
         const sizeInMb = bytesToMegaBytes(file.size);
 
         if (sizeInMb > uploader.maxSize) {
-          // await this.$toast.global.error({
-          //   message: `Размер файла превышает ${this.maxSize}Мб`,
-          // });
-          console.log(`Размер файла превышает ${uploader.maxSize}Мб`);
+          toast(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
           clearInput(e.target);
           return false;
         }

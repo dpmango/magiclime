@@ -31,12 +31,7 @@ const Profile: FC = () => {
 
   const handleSubmit = (values: typeof initialValues) => {
     const { name, date_of_birth, country, city } = values;
-    console.log({
-      name: name || '',
-      date_of_birth,
-      country: country || '',
-      city: city || '',
-    });
+
     dispatch(
       updateProfile({
         profile: {

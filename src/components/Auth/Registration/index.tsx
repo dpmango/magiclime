@@ -98,7 +98,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       dispatch(
         registration({
           ...data,
-          successCallback: () => history.push('/profile'),
+          successCallback: () => history.push('/profile/me'),
           errorCallback,
         })
       );

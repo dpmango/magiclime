@@ -62,14 +62,19 @@ const UserDropdown: FC<IUserDropdownProps> = ({
 
   const items = useMemo(
     () => [
-      { name: 'Профиль', icon: IconUser, path: '/profile', group: 1 },
+      { name: 'Профиль', icon: IconUser, path: '/profile/me', group: 1 },
       {
         name: 'Пополнить баланс',
         icon: IconRouble,
-        path: '/profile/balance',
+        path: '/profile/me/balance',
         group: 1,
       },
-      { name: 'Настройки', icon: IconSettings, path: '/settings', group: 1 },
+      {
+        name: 'Настройки',
+        icon: IconSettings,
+        path: '/profile/me/settings',
+        group: 1,
+      },
       { name: 'Помощь', icon: IconQuestion, path: '/help', group: 1 },
       {
         name: 'Тёмная тема',

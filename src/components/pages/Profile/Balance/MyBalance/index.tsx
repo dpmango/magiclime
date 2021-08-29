@@ -1,72 +1,77 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
+import { Grid, GridItem } from '@consta/uikit/Grid';
+
+import { btlToRub } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 
+import BalanceWidget from '../BalanceWidget';
 import useStyles from './styles';
 
-const MyBalance: FC = () => {
+interface IProps {
+  btcRate: number;
+}
+
+const MyBalance: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
+
+  const cells = useMemo(() => {
+    return [
+      {
+        label: 'Доступно для вывода',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
+      },
+      {
+        label: 'Всего заработано',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
+      },
+      {
+        label: 'Всего выведено',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
+      },
+    ];
+  }, [btcRate]);
 
   return (
     <div className={styles.root}>
-      <Typography size="xl" weight="semibold">
-        Мой счет
-      </Typography>
-      <div className={styles.curBalance}>
-        <Typography>Текущий баланс</Typography>
-        <Flex margin="8px 0 0 0" align="baseline">
-          <Typography size="3xl">62.393</Typography>
-          <Typography view="ghost" size="xl">
-            &nbsp;BTL
-          </Typography>
-        </Flex>
-      </div>
-      <div className={styles.options}>
-        <Flex align="center" className={styles.option}>
-          <Typography
-            view="ghost"
-            lineHeight="s"
-            size="xs"
-            className={styles.optionLabel}
-          >
-            Доступно для вывода
-          </Typography>
-          <Flex align="baseline">
-            <Typography size="2xl">567</Typography>
-            <Typography view="ghost">&nbsp;BTL</Typography>
-          </Flex>
-        </Flex>
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{ m: { cols: 4 } }}
+        className={styles.options}
+      >
+        <GridItem col="1">
+          <BalanceWidget btcRate={btcRate} />
+        </GridItem>
 
-        <Flex align="center" className={styles.option}>
-          <Typography
-            view="ghost"
-            lineHeight="s"
-            size="xs"
-            className={styles.optionLabel}
-          >
-            Всего заработано
-          </Typography>
-          <Flex align="baseline">
-            <Typography size="2xl">4 567</Typography>
-            <Typography view="ghost">&nbsp;BTL</Typography>
-          </Flex>
-        </Flex>
-
-        <Flex align="center" className={styles.option}>
-          <Typography
-            view="ghost"
-            lineHeight="s"
-            size="xs"
-            className={styles.optionLabel}
-          >
-            Всего выведено
-          </Typography>
-          <Flex align="baseline">
-            <Typography size="2xl">12 567</Typography>
-            <Typography view="ghost">&nbsp;BTL</Typography>
-          </Flex>
-        </Flex>
-      </div>
+        {cells &&
+          cells.map((cell) => (
+            <GridItem col="1" key={cell.label}>
+              <div className={styles.option}>
+                <Typography
+                  view="secondary"
+                  lineHeight="s"
+                  size="l"
+                  weight="semibold"
+                  margin="0 0 8px"
+                >
+                  {cell.label}
+                </Typography>
+                <Flex align="baseline">
+                  <Typography view="brand" size="2xl" weight="semibold">
+                    {cell.main}
+                  </Typography>
+                  <Typography margin="0 0 0 4px" view="secondary" size="xs">
+                    {cell.secondary}
+                  </Typography>
+                </Flex>
+              </div>
+            </GridItem>
+          ))}
+      </Grid>
     </div>
   );
 };

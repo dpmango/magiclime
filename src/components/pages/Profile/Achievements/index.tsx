@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, ReactElement, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import groupBy from 'lodash/groupBy';
+import { IconCheck } from '@consta/uikit/IconCheck';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { IconCheck } from '@consta/uikit/IconCheck';
-// import { IconArrowRight } from '@consta/uikit/IconArrowRight';
-import { RootState } from 'store/reducers/rootReducer';
-import groupBy from 'lodash/groupBy';
+import { IUser } from 'types/interfaces/user';
+
 import cns from 'classnames';
 import {
   IAchievementGroup,
@@ -17,10 +17,13 @@ import {
 
 import useStyles from './styles';
 
-const Achievements: FC = () => {
+interface IProps {
+  profile: IUser;
+  isMyProfile: boolean;
+}
+
+const Achievements: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
-  // const dispatch = useDispatch();
-  const { profile } = useSelector((state: RootState) => state.user);
   const { t } = useTranslation();
 
   const groups: IActivementsGrouped[] = useMemo(() => {
