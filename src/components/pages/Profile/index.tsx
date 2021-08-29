@@ -13,6 +13,7 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
 
+import Typography from 'components/Common/Typography';
 import { useFirstRender } from 'hooks/useFirstRender';
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -159,19 +160,6 @@ const ProfilePage: FC = () => {
           )}
         />
         <Route
-          path={`${path}/balance`}
-          render={() => (
-            <>
-              <div className={styles.section}>
-                <Balance />
-              </div>
-              {/* <div className={styles.section}>
-                <BalanceHistory />
-              </div> */}
-            </>
-          )}
-        />
-        <Route
           path={`${path}/referrals`}
           render={() => (
             <>
@@ -180,7 +168,44 @@ const ProfilePage: FC = () => {
             </>
           )}
         />
-        <Route path={`${path}/settings`} render={() => <Settings />} />
+
+        <Route
+          path={`${path}`}
+          render={() => (
+            <>
+              <Typography
+                size="2xl"
+                align="center"
+                weight="semibold"
+                view="secondary"
+                margin="32px 0"
+              >
+                Not found
+              </Typography>
+            </>
+          )}
+        />
+
+        {isMyProfile && (
+          <>
+            <Route
+              path={`${path}/balance`}
+              render={() => (
+                <>
+                  <div className={styles.section}>
+                    <Balance />
+                  </div>
+
+                  {/* <div className={styles.section}>
+                    <BalanceHistory />
+                  </div> */}
+                </>
+              )}
+            />
+
+            <Route path={`${path}/settings`} render={() => <Settings />} />
+          </>
+        )}
       </Switch>
     </div>
   );

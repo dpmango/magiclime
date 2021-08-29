@@ -23,8 +23,6 @@ export const getReferralsService = (data: {
     };
   }
 
-  console.log(params);
-
   return instance.get(`/auth/users/me/referrals/`, {
     params,
   });

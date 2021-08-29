@@ -38,7 +38,7 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
         const msg = successful ? 'successful' : 'unsuccessful';
         toast(t('profile.head.copySuccess'));
       } catch (err) {
-        console.log(`${t('profile.head.copyError')} : ${err.message}`);
+        toast(`${t('profile.head.copyError')} : ${err.message}`);
       }
 
       document.body.removeChild(textArea);

@@ -43,7 +43,7 @@ const MyBalance: FC = () => {
 
         {cells &&
           cells.map((cell) => (
-            <GridItem col="1">
+            <GridItem col="1" key={cell.label}>
               <div className={styles.option}>
                 <Typography
                   view="secondary"
