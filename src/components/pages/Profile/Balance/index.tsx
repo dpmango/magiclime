@@ -1,19 +1,36 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
+import { getBitcoinService } from 'utils/api/routes/bitcoin';
 import MyBalance from './MyBalance';
 import BalanceRefill from './Refill';
 import BalanceWidthdrawal from './Withdrawal';
 import useStyles from './styles';
 
-const Events: FC = () => {
+const Balance: FC = () => {
   const styles = useStyles();
+
+  const [btcRate, setBtcRate] = useState<number>(0);
+
+  const fetchPrice = useCallback(async () => {
+    const [err, data] = await getBitcoinService();
+
+    if (err) {
+      console.log({ err });
+    }
+
+    setBtcRate(data!.price);
+  }, []);
+
+  useEffect(() => {
+    fetchPrice();
+  }, []);
 
   return (
     <Flex direction="column" className={styles.root}>
-      <MyBalance />
+      <MyBalance btcRate={btcRate} />
 
       <Typography margin="0 0 24px" weight="semibold" lineHeight="s" size="2xl">
         Операции с балансом
@@ -41,4 +58,4 @@ const Events: FC = () => {
   );
 };
 
-export default Events;
+export default Balance;

@@ -169,23 +169,7 @@ const ProfilePage: FC = () => {
           )}
         />
 
-        <Route
-          path={`${path}`}
-          render={() => (
-            <>
-              <Typography
-                size="2xl"
-                align="center"
-                weight="semibold"
-                view="secondary"
-                margin="32px 0"
-              >
-                Not found
-              </Typography>
-            </>
-          )}
-        />
-
+        {/* restrict some routes */}
         {isMyProfile && (
           <>
             <Route
@@ -206,6 +190,23 @@ const ProfilePage: FC = () => {
             <Route path={`${path}/settings`} render={() => <Settings />} />
           </>
         )}
+
+        <Route
+          path={`${path}`}
+          render={() => (
+            <>
+              <Typography
+                size="2xl"
+                align="center"
+                weight="semibold"
+                view="secondary"
+                margin="32px 0"
+              >
+                Not found
+              </Typography>
+            </>
+          )}
+        />
       </Switch>
     </div>
   );

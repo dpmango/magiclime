@@ -1,33 +1,39 @@
 import React, { FC, useMemo } from 'react';
+import { Grid, GridItem } from '@consta/uikit/Grid';
+
+import { formatPrice, btlToRub } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { Grid, GridItem } from '@consta/uikit/Grid';
 
 import BalanceWidget from '../BalanceWidget';
 import useStyles from './styles';
 
-const MyBalance: FC = () => {
+interface IProps {
+  btcRate: number;
+}
+
+const MyBalance: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
 
   const cells = useMemo(() => {
     return [
       {
         label: 'Доступно для вывода',
-        main: '567 BTL',
-        secondary: '32 312,281 RUB',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
       },
       {
         label: 'Всего заработано',
-        main: '567 BTL',
-        secondary: '32 312,281 RUB',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
       },
       {
         label: 'Всего выведено',
-        main: '567 BTL',
-        secondary: '32 312,281 RUB',
+        main: '232 BTL',
+        secondary: `${btlToRub(232, btcRate)} RUB`,
       },
     ];
-  }, []);
+  }, [btcRate]);
 
   return (
     <div className={styles.root}>
@@ -38,7 +44,7 @@ const MyBalance: FC = () => {
         className={styles.options}
       >
         <GridItem col="1">
-          <BalanceWidget />
+          <BalanceWidget btcRate={btcRate} />
         </GridItem>
 
         {cells &&

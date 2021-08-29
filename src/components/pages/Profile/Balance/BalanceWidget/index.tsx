@@ -1,10 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { formatPrice, btlToRub } from 'utils/helpers/formatPrice';
 
 import useStyles from './styles';
 
-const MyBalance: FC = () => {
+interface IProps {
+  btcRate: number;
+}
+
+const BalanceWidget: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
 
   return (
@@ -18,7 +23,7 @@ const MyBalance: FC = () => {
             BTL/RUB
           </Typography>
           <Typography view="secondary" margin="2px 0 0" size="xs">
-            Курс 1 к 37 291
+            Курс 1 к {formatPrice(btcRate)}
           </Typography>
         </div>
       </Flex>
@@ -36,11 +41,11 @@ const MyBalance: FC = () => {
           232 BTL
         </Typography>
         <Typography view="secondary" margin="0 0 0 4px" size="xs">
-          32 312,281 RUB
+          {btlToRub(232, btcRate)} RUB
         </Typography>
       </Flex>
     </div>
   );
 };
 
-export default MyBalance;
+export default BalanceWidget;
