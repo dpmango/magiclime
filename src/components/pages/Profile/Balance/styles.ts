@@ -18,10 +18,6 @@ const useStyles = makeStyles({
     padding: '16px 24px 24px',
     border: '1px solid var(--color-bg-border)',
   },
-  balanceWidget: {
-    margin: '0 0 24px ',
-    width: 264,
-  },
 });
 
 export default useStyles;

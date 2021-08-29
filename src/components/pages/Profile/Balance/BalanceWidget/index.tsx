@@ -24,17 +24,18 @@ const MyBalance: FC = () => {
       </Flex>
       <Typography
         className={styles.coinBalance}
-        margin="12px 0"
+        margin="8px 0 2px"
         lineHeight="2xs"
+        size="s"
         weight="semibold"
       >
         Баланс:
       </Typography>
       <Flex align="baseline" wrap="wrap">
-        <Typography view="brand" size="xl" weight="semibold">
+        <Typography view="brand" size="2xl" weight="semibold">
           232 BTL
         </Typography>
-        <Typography view="secondary" margin="0 0 0 6px" size="xs">
+        <Typography view="secondary" margin="0 0 0 4px" size="xs">
           32 312,281 RUB
         </Typography>
       </Flex>

@@ -57,12 +57,7 @@ const programOptions: IProgram[] = [
   { id: 6, label: 'LIME' },
 ];
 
-interface IProps {
-  profile: IUser;
-  isMyProfile: boolean;
-}
-
-const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
+const Referrals: FC = () => {
   const styles = useStyles();
   const sharedStyles = useSharedStyles({});
   const params: { id: string } = useParams();

@@ -165,9 +165,9 @@ const ProfilePage: FC = () => {
               <div className={styles.section}>
                 <Balance />
               </div>
-              <div className={styles.section}>
+              {/* <div className={styles.section}>
                 <BalanceHistory />
-              </div>
+              </div> */}
             </>
           )}
         />
@@ -176,7 +176,7 @@ const ProfilePage: FC = () => {
           render={() => (
             <>
               <ReferralStats {...profileProps} />
-              <ReferralList {...profileProps} />
+              <ReferralList />
             </>
           )}
         />
