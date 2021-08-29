@@ -14,7 +14,6 @@ import { getForeignProfile, getProfile } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
 
 import { useFirstRender } from 'hooks/useFirstRender';
-import { IUser } from 'types/interfaces/user';
 import Head from './Head';
 import ProgramList from './ProgramList';
 import Achievements from './Achievements';
@@ -44,35 +43,50 @@ const ProfilePage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  const [curUser, setCurUser] = useState<IUser | null>(null);
+  const { profile, foreignProfile } = useSelector(
+    (state: RootState) => state.user
+  );
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const isMyProfile = useMemo(() => {
+    return params.id === 'me';
+  }, [params.id]);
 
-  const tabs: ITab[] = useMemo(
-    () => [
+  const viewingProfile = useMemo(() => {
+    return isMyProfile ? profile : foreignProfile;
+  }, [profile, foreignProfile, isMyProfile]);
+
+  const tabs: ITab[] = useMemo(() => {
+    if (isMyProfile) {
+      return [
+        { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
+        {
+          id: 2,
+          slug: `/profile/${params.id}/balance`,
+          label: t('profile.tabs.balance'),
+        },
+        {
+          id: 3,
+          slug: `/profile/${params.id}/referrals`,
+          label: t('profile.tabs.referrals'),
+        },
+        {
+          id: 4,
+          slug: `/profile/${params.id}/settings`,
+          label: t('profile.tabs.settings'),
+        },
+      ];
+    }
+    return [
       { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
-      {
-        id: 2,
-        slug: `/profile/${params.id}/balance`,
-        label: t('profile.tabs.balance'),
-      },
       {
         id: 3,
         slug: `/profile/${params.id}/referrals`,
         label: t('profile.tabs.referrals'),
       },
-      {
-        id: 4,
-        slug: `/profile/${params.id}/settings`,
-        label: t('profile.tabs.settings'),
-      },
-    ],
-    [params.id]
-  );
+    ];
+  }, [params.id, isMyProfile]);
 
   const getTabWithRouter = useMemo((): ITab => {
-    // path is not up to date at this point
-    // because of nested Switch ?
     if (window.location.pathname.split('/').length > 2) {
       const cTab = tabs
         .slice(1, tabs.length)
@@ -92,30 +106,24 @@ const ProfilePage: FC = () => {
     }
   }, [tab]);
 
-  const fetchCurrentUser = () => {
-    dispatch(
-      getProfile({
-        successCallback: (data) => {
-          // console.log({ data });
-          setCurUser(data);
-        },
-      })
-    );
-  };
-
   useEffect(() => {
-    console.log(`Getting profile id ${params.id}`);
+    // console.log(`Getting profile id ${params.id}`);
 
     if (params.id === 'me') {
-      fetchCurrentUser();
+      dispatch(getProfile({}));
     } else {
       dispatch(getForeignProfile({ id: parseInt(params.id, 10) }));
     }
   }, [params.id]);
 
+  const profileProps = {
+    profile: viewingProfile,
+    isMyProfile,
+  };
+
   return (
     <div className={styles.root}>
-      <Head />
+      <Head {...profileProps} />
       <Tabs
         value={tab}
         onChange={({ value }) => setTab(value)}
@@ -137,7 +145,7 @@ const ProfilePage: FC = () => {
               <div className={styles.section}>
                 <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>
-                    <Achievements />
+                    <Achievements {...profileProps} />
                   </GridItem>
                   <GridItem>
                     <Events list={mockEvents} />
@@ -167,8 +175,8 @@ const ProfilePage: FC = () => {
           path={`${path}/referrals`}
           render={() => (
             <>
-              <ReferralStats />
-              <ReferralList />
+              <ReferralStats {...profileProps} />
+              <ReferralList {...profileProps} />
             </>
           )}
         />

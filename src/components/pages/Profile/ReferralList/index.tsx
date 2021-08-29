@@ -7,9 +7,8 @@ import React, {
   MouseEvent,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
-import ConstaIcons from 'assets/icons/ConstaIcons';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
 import { TextField } from '@consta/uikit/TextField';
@@ -17,11 +16,15 @@ import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
+
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import ConstaIcons from 'assets/icons/ConstaIcons';
 import { IReferralTree } from 'types/interfaces/referrals';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
-import { useTranslation } from 'react-i18next';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
+import { IUser } from 'types/interfaces/user';
 
 import useSharedStyles from 'assets/styles/Shared';
 import useStyles from './styles';
@@ -54,16 +57,21 @@ const programOptions: IProgram[] = [
   { id: 6, label: 'LIME' },
 ];
 
-const Referrals: FC = () => {
+interface IProps {
+  profile: IUser;
+  isMyProfile: boolean;
+}
+
+const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const sharedStyles = useSharedStyles({});
+  const params: { id: string } = useParams();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
   );
-  const { profile } = useSelector((state: RootState) => state.user);
 
   const matrixLevels: number[] = [...Array(17).keys()].map((x) => x + 1);
 
@@ -79,7 +87,7 @@ const Referrals: FC = () => {
       program,
       level,
     }: {
-      id?: number;
+      id: number | string;
       program: number;
       level: number;
     }) => {
@@ -99,7 +107,7 @@ const Referrals: FC = () => {
       e.preventDefault();
 
       requestReferrals({
-        id: parseInt(page.link, 10),
+        id: page.link,
         program: filterProgram.id,
         level: selectedLevel,
       });
@@ -127,10 +135,11 @@ const Referrals: FC = () => {
 
   useEffect(() => {
     requestReferrals({
+      id: params.id,
       program: filterProgram.id,
       level: selectedLevel,
     });
-  }, [selectedLevel, filterProgram]);
+  }, [selectedLevel, filterProgram, params.id]);
 
   const mappedData = useMemo(() => {
     return {
@@ -165,7 +174,6 @@ const Referrals: FC = () => {
         <GridItem col="3" className={styles.gridColMain}>
           {!error ? (
             <>
-              {' '}
               <Breadcrumbs
                 className={styles.breadcrumbs}
                 pages={mappedData.crumbs}

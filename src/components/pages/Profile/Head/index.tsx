@@ -1,24 +1,23 @@
-import React, { FC, useCallback, ChangeEvent, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { updateProfileAvatar } from 'store/reducers/user';
-import { RootState } from 'store/reducers/rootReducer';
-import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
+import { IUser } from 'types/interfaces/user';
 
 import Uploader from './Uploader';
 import useStyles from './styles';
 
-const ProfileHead: FC = () => {
+interface IProps {
+  profile: IUser;
+  isMyProfile: boolean;
+}
+
+const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
-  const { profile } = useSelector((state: RootState) => state.user);
 
   const handleCopyRefClick = useCallback(
     (e) => {
@@ -26,7 +25,7 @@ const ProfileHead: FC = () => {
 
       // TODO - should be changed to some library ?
       const textArea = document.createElement('textarea');
-      textArea.value = `http://link.me/${profile.referral_number}`;
+      textArea.value = `https://magiclime.academy/?ref=${profile.referral_number}`;
       textArea.style.opacity = '0';
       textArea.style.position = 'absolute';
       textArea.style.top = '0';
@@ -55,7 +54,7 @@ const ProfileHead: FC = () => {
           name={profile.name}
           className={styles.avatar}
         />
-        <Uploader />
+        {isMyProfile && <Uploader />}
       </div>
 
       <div className={styles.content}>
