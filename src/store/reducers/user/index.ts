@@ -32,8 +32,49 @@ const initialState = {
   isLogged: false,
   isFirstTime: false,
   profile: {} as IUser,
-  profiles: new Map(),
+  foreignProfile: {} as IUser,
 };
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setLogged: (state) => {
+      state.isLogged = true;
+    },
+    userRegistration: (state, action: PayloadAction<IUser>) => {
+      state.isLogged = true;
+      state.isFirstTime = true;
+      state.profile = action.payload;
+    },
+    setUserProfile: (state, action: PayloadAction<IUser>) => {
+      state.profile = action.payload;
+    },
+    setForeignProfile: (state, action: PayloadAction<IUser>) => {
+      state.foreignProfile = action.payload;
+    },
+    logout: (state) => {
+      state.isLogged = false;
+      state.profile = {} as IUser;
+    },
+  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(
+  //     getProfile.fulfilled,
+  //     (state, action: PayloadAction<IUser>) => {
+  //       state.profile = action.payload;
+  //     }
+  //   );
+  // },
+});
+
+export const {
+  setUserProfile,
+  setForeignProfile,
+  logout,
+  setLogged,
+  userRegistration,
+} = userSlice.actions;
 
 export const login = createAsyncThunk<object, LoginPayloadType>(
   'user/login',
@@ -107,7 +148,6 @@ export const getProfile = createAsyncThunk<object, GetProfileType>(
       const { successCallback } = payload;
       const response = await getUserProfile();
       if (response?.status === 200) {
-        console.log(response.data);
         dispatch(setUserProfile(response.data));
         successCallback && successCallback(response.data);
       }
@@ -216,46 +256,5 @@ export const changePassword = createAsyncThunk<object, ChangePasswordType>(
     }
   }
 );
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {
-    setLogged: (state) => {
-      state.isLogged = true;
-    },
-    userRegistration: (state, action: PayloadAction<IUser>) => {
-      state.isLogged = true;
-      state.isFirstTime = true;
-      state.profile = action.payload;
-    },
-    setUserProfile: (state, action: PayloadAction<IUser>) => {
-      state.profile = action.payload;
-    },
-    setForeignProfile: (state, action: PayloadAction<IUser>) => {
-      state.profiles.set(`${action.payload.id}`, action.payload);
-    },
-    logout: (state) => {
-      state.isLogged = false;
-      state.profile = {} as IUser;
-    },
-  },
-  // extraReducers: (builder) => {
-  //   builder.addCase(
-  //     getProfile.fulfilled,
-  //     (state, action: PayloadAction<IUser>) => {
-  //       state.profile = action.payload;
-  //     }
-  //   );
-  // },
-});
-
-export const {
-  setUserProfile,
-  setForeignProfile,
-  logout,
-  setLogged,
-  userRegistration,
-} = userSlice.actions;
 
 export default userSlice.reducer;

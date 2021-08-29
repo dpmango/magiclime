@@ -1,6 +1,12 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  useHistory,
+  useRouteMatch,
+  useParams,
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
@@ -32,6 +38,7 @@ interface ITab {
 const ProfilePage: FC = () => {
   const styles = useStyles();
   const { path } = useRouteMatch();
+  const params: { id: string } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const firstRender = useFirstRender();
@@ -43,12 +50,24 @@ const ProfilePage: FC = () => {
 
   const tabs: ITab[] = useMemo(
     () => [
-      { id: 1, slug: '/profile', label: t('profile.tabs.main') },
-      { id: 2, slug: '/profile/balance', label: t('profile.tabs.balance') },
-      { id: 3, slug: '/profile/referrals', label: t('profile.tabs.referrals') },
-      { id: 4, slug: '/profile/settings', label: t('profile.tabs.settings') },
+      { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
+      {
+        id: 2,
+        slug: `/profile/${params.id}/balance`,
+        label: t('profile.tabs.balance'),
+      },
+      {
+        id: 3,
+        slug: `/profile/${params.id}/referrals`,
+        label: t('profile.tabs.referrals'),
+      },
+      {
+        id: 4,
+        slug: `/profile/${params.id}/settings`,
+        label: t('profile.tabs.settings'),
+      },
     ],
-    []
+    [params.id]
   );
 
   const getTabWithRouter = useMemo((): ITab => {
@@ -85,13 +104,14 @@ const ProfilePage: FC = () => {
   };
 
   useEffect(() => {
-    if (!curUser) {
-      // TODO - infinte loop
-      // fetchCurrentUser();
-    }
+    console.log(`Getting profile id ${params.id}`);
 
-    const responce = dispatch(getForeignProfile({ id: 1 }));
-  }, [curUser]);
+    if (params.id === 'me') {
+      fetchCurrentUser();
+    } else {
+      dispatch(getForeignProfile({ id: parseInt(params.id, 10) }));
+    }
+  }, [params.id]);
 
   return (
     <div className={styles.root}>

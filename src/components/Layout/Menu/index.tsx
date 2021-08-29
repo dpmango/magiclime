@@ -18,7 +18,7 @@ interface IProps {
 
 const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
   const [activeLink, setActiveLink] = useState({
-    path: isAdmin ? '/admin/users' : '/profile',
+    path: isAdmin ? '/admin/users' : '/profile/me',
     index: 1,
   });
 
@@ -50,7 +50,7 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
     () => [
       { name: '' },
       {
-        path: '/profile',
+        path: '/profile/me',
         name: t('menu.profile'),
         icon: icons.UserIcon,
       },

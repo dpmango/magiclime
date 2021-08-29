@@ -23,5 +23,7 @@ export interface IUser {
   achievements: IAchievement[];
   level: number;
   experience: number;
+  media_sponsor: string;
+  username: string;
   is_staff: boolean;
 }

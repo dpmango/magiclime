@@ -79,7 +79,7 @@ const Referrals: FC = () => {
       program,
       level,
     }: {
-      id: number;
+      id?: number;
       program: number;
       level: number;
     }) => {
@@ -127,7 +127,6 @@ const Referrals: FC = () => {
 
   useEffect(() => {
     requestReferrals({
-      id: profile.id,
       program: filterProgram.id,
       level: selectedLevel,
     });

@@ -3,15 +3,27 @@ import { IReferralTree } from 'types/interfaces/referrals';
 import { instance } from '../../index';
 
 export const getReferralsService = (data: {
-  id: number;
+  id?: number;
   level: number;
   program: number;
 }): AxiosPromise<IReferralTree> => {
-  return instance.get(`/auth/users/me/referrals/`, {
-    params: {
+  let params: {
+    matrixUserId?: number;
+    level: number;
+    program: number;
+  } = {
+    level: data.level,
+    program: data.program,
+  };
+
+  if (data.id) {
+    params = {
+      ...params,
       matrixUserId: data.id,
-      level: data.level,
-      program: data.program,
-    },
+    };
+  }
+
+  return instance.get(`/auth/users/me/referrals/`, {
+    params,
   });
 };
