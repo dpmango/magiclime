@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
-import { formatPrice, btlToRub } from 'utils/helpers/formatPrice';
+import { btlToRub } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 
