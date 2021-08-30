@@ -70,6 +70,15 @@ const useStyles = makeStyles(() => ({
       height: '32px',
     },
   },
+  skeleton: {
+    display: 'flex',
+    width: '300px',
+    marginBottom: '30px',
+    '& > div:first-of-type': {
+      marginRight: '16px',
+      flex: 'none',
+    },
+  },
 }));
 
 export default useStyles;

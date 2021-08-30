@@ -10,7 +10,6 @@ export interface IChat {
 
 export interface IChatDetail extends Omit<IChat, 'last_message'> {
   participants_count: string;
-  messages: IMessage[];
 }
 
 export interface IMessage {

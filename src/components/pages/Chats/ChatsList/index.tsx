@@ -48,12 +48,12 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
     }
   }, [chatId]);
 
-  chatSocket.onmessage = (event) => {
-    const newMessage = JSON.parse(event.data) as IMessage;
-    if (newMessage) {
-      console.log(newMessage);
-    }
-  };
+  // chatSocket.onmessage = (event) => {
+  //   const newMessage = JSON.parse(event.data) as IMessage;
+  //   if (newMessage) {
+  //     console.log(newMessage);
+  //   }
+  // };
 
   return (
     <div className={styles.root}>

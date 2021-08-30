@@ -139,4 +139,6 @@ const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
   );
 };
 
-export default Message;
+export default React.memo(Message, (prevProps, nextProps) => {
+  return prevProps.message.id === nextProps.message.id;
+});

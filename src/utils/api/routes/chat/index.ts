@@ -71,3 +71,17 @@ export const sendFile = (file: File): AxiosPromise => {
 export const readMessage = (id: number): AxiosPromise => {
   return instance.post(`/messages/${id}/read_message/`, {});
 };
+
+export const getChatMessages = (
+  chatId: number,
+  page?: number,
+  limit?: number
+): AxiosPromise<IAxiosPaginatedResponse<IMessage>> => {
+  return instance.get('/messages/', {
+    params: {
+      chat_in: chatId,
+      page: page || null,
+      page_size: limit || null,
+    },
+  });
+};
