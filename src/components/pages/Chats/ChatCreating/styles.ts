@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { COLORS } from '../../../../utils/constants/colors';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<null, { haveAvatar?: boolean }>(() => ({
   root: {
     width: '360px',
     minWidth: '310px',
@@ -21,8 +21,10 @@ const useStyles = makeStyles(() => ({
   addPhoto: {
     width: '48px',
     height: '48px',
-    background: 'var(--color-bg-brand)',
+    background: ({ haveAvatar }) =>
+      haveAvatar ? 'none' : 'var(--color-bg-brand)',
     borderRadius: '50%',
+    border: `1px solid ${COLORS.layoutBorderColor}`,
     margin: '0 16px 0 0',
     cursor: 'pointer',
     display: 'flex',
@@ -57,6 +59,16 @@ const useStyles = makeStyles(() => ({
   },
   panel: {
     background: 'var(--color-bg-secondary)',
+  },
+  skeleton: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '13px 16px',
+    '& > div:first-of-type': {
+      marginRight: '12px',
+      flex: 'none',
+    },
   },
 }));
 

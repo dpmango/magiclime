@@ -5,7 +5,7 @@ const useStyles = makeStyles(() => ({
     width: '52px',
     height: '52px',
     lineHeight: '52px',
-    border: '1px solid #d1d1d1',
+    border: '1px solid #C7CFCE',
     fontSize: '17px',
     letterSpacing: '-0.8px',
     marginRight: '12px',
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     height: '5px',
     borderRadius: '50%',
     margin: '-4px 12px 0',
-    background: 'var(--color-typo-secondary)',
+    background: '#C7CFCE',
   },
   text: {},
   container: {
@@ -32,16 +32,23 @@ const useStyles = makeStyles(() => ({
   },
   date: {
     lineHeight: '24px',
+    fontSize: 14,
   },
   replyFrom: {
+    height: '100%',
     cursor: 'pointer',
-    borderLeft: '4px solid var(--color-bg-brand)',
-    padding: '4px 0 4px 16px',
+    borderLeft: '0.2rem solid var(--color-bg-brand)',
+    padding: '0 0 0 10px',
     margin: '8px 0 12px',
+    '& > *': {
+      lineHeight: '1.3125',
+      fontSize: '14px !important',
+    },
   },
   reply: {
     marginRight: '20px',
     padding: 0,
+    fontSize: 14,
   },
   replyCreator: {
     fontSize: '13px',

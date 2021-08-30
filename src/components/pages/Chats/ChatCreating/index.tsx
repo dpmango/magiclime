@@ -1,56 +1,73 @@
+import { ProgressSpin } from '@consta/uikit/ProgressSpin';
+import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
 import { TextField } from '@consta/uikit/TextField';
 import { IconCamera } from '@consta/uikit/IconCamera';
 import { IconSearch } from '@consta/uikit/IconSearch';
+import { v4 as uuid } from 'uuid';
+import { IUser } from '../../../../types/interfaces/user';
+import { createChat, getUsers } from '../../../../utils/api/routes/chat';
+import { ICreateChatForm } from '../types';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import { ChatContext } from '../context';
-import { UserIcon } from '../../../../assets/icons';
-import { ChangeType } from '../../../../types/common';
+import { ChangeType, SetStateType } from '../../../../types/common';
 import { uploadImage } from '../../../../utils/api/routes/other';
 import FriendCard from './FriendCard';
-import { IFriend } from '../types';
 
-const ChatCreating: FC = () => {
-  const [form, setForm] = useState({
-    name: '',
-    image: {
+const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
+  setActiveChatId,
+}) => {
+  const [form, setForm] = useState<ICreateChatForm>({
+    title: '',
+    avatar: {
       id: 0,
       image: '',
     },
     participants: [] as number[],
   });
-  const [users, setUsers] = useState<IFriend[]>([
-    { id: 1, name: 'Roman Avdeev', image: '' },
-    {
-      id: 2,
-      name: 'Roman Avdeev',
-      image: 'https://iohotnik.ru/wp-content/auploads/775545/lesnye_koty.jpg',
-    },
-    { id: 3, name: 'Roman Avdeev', image: '' },
-    { id: 4, name: 'Roman Avdeev', image: '' },
-    { id: 5, name: 'Roman Avdeev', image: '' },
-  ]);
+  const [users, setUsers] = useState<IUser[]>([]);
   const [search, setSearch] = useState('');
-  const styles = useStyles();
+  const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const styles = useStyles({
+    haveAvatar: !!form.avatar.id,
+  });
   const { chatContext, setChatContext } = useContext(ChatContext);
 
   useEffect(() => {
-    // Get users list
+    setLoading(true);
+    getUsers(search)
+      .then((res) => {
+        setUsers(res.data.results);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [search]);
 
   const addImage = (e: ChangeType) => {
-    uploadImage(e.target!.files![0]).then((res) => {
-      setForm({ ...form, image: res.data });
-    });
+    setUploadAvatarLoading(true);
+    uploadImage(e.target!.files![0])
+      .then((res) => {
+        setForm({ ...form, avatar: res.data });
+      })
+      .finally(() => {
+        setUploadAvatarLoading(false);
+      });
   };
 
   const handleSubmit = () => {
-    const avatar = form.image.id ? +form.image.id : null;
-    const data = { ...form, image: avatar };
+    const avatar = form.avatar.id ? +form.avatar.id : null;
+    const data = { ...form, avatar };
+
+    createChat(data).then((res) => {
+      cancel();
+      setActiveChatId(res.data.id);
+    });
   };
 
   const cancel = () => {
@@ -86,17 +103,19 @@ const ChatCreating: FC = () => {
             className={styles.hiddenInput}
           />
           <label htmlFor="chat_photo_field" className={styles.addPhoto}>
-            {form.image.id ? (
-              <img src={form.image.image} alt="avatar" />
+            {uploadAvatarLoading ? (
+              <ProgressSpin size="m" />
+            ) : form.avatar.id ? (
+              <img src={form.avatar.image} alt="avatar" />
             ) : (
               <IconCamera view="secondary" />
             )}
           </label>
         </div>
         <TextField
-          value={form.name}
+          value={form.title}
           className={styles.input}
-          onChange={({ value }) => setForm({ ...form, name: value as string })}
+          onChange={({ value }) => setForm({ ...form, title: value as string })}
           placeholder="Введите название"
         />
       </Flex>
@@ -110,17 +129,29 @@ const ChatCreating: FC = () => {
         />
       </Flex>
       <Flex direction="column" className={styles.list}>
-        {users.map((user) => (
-          <FriendCard
-            key={user.id}
-            friend={user}
-            form={form}
-            setForm={setForm}
-          />
-        ))}
+        {!loading
+          ? users.map((user) => (
+              <FriendCard
+                key={user.id}
+                friend={user}
+                form={form}
+                setForm={setForm}
+              />
+            ))
+          : Array.from({ length: 4 }).map(() => (
+              <div key={uuid()} className={styles.skeleton}>
+                <SkeletonCircle size={32} />
+                <SkeletonText rows={1} fontSize="xs" lineHeight="s" />
+              </div>
+            ))}
       </Flex>
       <Flex justify="space-between" padding="16px" className={styles.panel}>
-        <Button label="Создать беседу" view="primary" onClick={handleSubmit} />
+        <Button
+          label="Создать беседу"
+          view="primary"
+          onClick={handleSubmit}
+          disabled={!form.title || !form.participants.length}
+        />
         <Button label="Отмена" view="ghost" onClick={cancel} />
       </Flex>
     </div>

@@ -4,6 +4,7 @@ import { IPhoto } from './common';
 export interface IUser {
   readonly id: number;
   name: string;
+  username: string;
   email: string;
   is_active: boolean;
   phone: string;

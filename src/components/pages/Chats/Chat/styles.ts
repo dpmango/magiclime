@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
     width: '200px',
     height: 'calc(100vh - 64px)',
     '& > svg': {
-      width: '30%',
+      width: '25%',
     },
   },
   header: {
@@ -31,7 +31,11 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     overflowY: 'auto',
     width: '100%',
-    padding: '28px 0 0 24px',
+    padding: '24px 0 0 24px',
+    position: 'relative',
+  },
+  chooseChat: {
+    maxWidth: 510,
   },
   replyAnimation: {
     animation: '$effect 3s ease-out',
@@ -48,6 +52,31 @@ const useStyles = makeStyles(() => ({
     '100%': {
       transform: 'transparent',
       // borderRight: '5px solid transparent',
+    },
+  },
+  line: {
+    height: '2px',
+    flex: 1,
+    borderRadius: '1px',
+    background: 'var(--color-typo-secondary)',
+  },
+  scrollToBottom: {
+    position: 'fixed',
+    bottom: '80px',
+    right: '20px',
+    transition: 'opacity .5s linear',
+    '& > span': {
+      width: '32px',
+      height: '32px',
+    },
+  },
+  skeleton: {
+    display: 'flex',
+    width: '300px',
+    marginBottom: '30px',
+    '& > div:first-of-type': {
+      marginRight: '16px',
+      flex: 'none',
     },
   },
 }));

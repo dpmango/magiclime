@@ -1,25 +1,22 @@
 import React, { FC } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Switch } from '@consta/uikit/Switch';
+import { IUser } from '../../../../../types/interfaces/user';
 import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
-import { IFriend } from '../../types';
-import { IPhoto } from '../../../../../types/interfaces/common';
 import { SetStateType } from '../../../../../types/common';
+import { ICreateChatForm } from '../../types';
 import useStyles from '../styles';
 
 interface IProps {
-  friend: IFriend;
-  form: { name: string; image: IPhoto; participants: number[] };
-  setForm: SetStateType<{
-    name: string;
-    image: IPhoto;
-    participants: number[];
-  }>;
+  friend: IUser;
+  form: ICreateChatForm;
+  setForm: SetStateType<ICreateChatForm>;
 }
 
 const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
-  const styles = useStyles();
+  const styles = useStyles({});
+
   const handleChange = (checked: boolean) => {
     // Сюда приходит следующее состояние, поэтому условия нужно делать наоборот
     if (checked)
@@ -39,7 +36,11 @@ const FriendCard: FC<IProps> = ({ friend, form, setForm }) => {
       className={styles.friend}
     >
       <Flex align="center">
-        <Avatar form="round" name={friend.name} url={friend.image} />
+        <Avatar
+          form="round"
+          name={friend.name}
+          url={friend.avatar ? friend.avatar.image : ''}
+        />
         <Typography size="s" weight="semibold" margin="0 0 0 15px">
           {friend.name}
         </Typography>

@@ -1,25 +1,19 @@
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import Flex from '../../Common/Flex';
 import ChatsList from './ChatsList';
-import { IChat } from './types';
 import Chat from './Chat';
-import { ChatContext } from './context';
+import { ChatContext, chatSocket } from './context';
 import ChatCreating from './ChatCreating';
 
 const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
   const { id } = match.params;
-  const { chatContext, setChatContext } = useContext(ChatContext);
-
-  const socket = new WebSocket(
-    `wss://magiclime.academy/ws/chat/?token=${Cookies.get('access')}`
-  );
+  const { chatContext } = useContext(ChatContext);
 
   useEffect(() => {
     return () => {
-      socket.close();
+      chatSocket.close();
     };
   }, []);
 
@@ -28,9 +22,9 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
       {chatContext.mode === 'list' ? (
         <ChatsList chatId={id} setActiveChatId={setActiveChatId} />
       ) : (
-        <ChatCreating />
+        <ChatCreating setActiveChatId={setActiveChatId} />
       )}
-      <Chat chatId={activeChatId} socket={socket} />
+      <Chat chatId={activeChatId} />
     </Flex>
   );
 };
