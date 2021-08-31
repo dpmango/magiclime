@@ -1,9 +1,10 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import Flex from '../../Common/Flex';
 import ChatsList from './ChatsList';
 import Chat from './Chat';
-import { ChatContext, chatSocket } from './context';
+import { ChatContext } from './context';
 import ChatCreating from './ChatCreating';
 
 const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
@@ -11,9 +12,17 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
   const { id } = match.params;
   const { chatContext } = useContext(ChatContext);
 
+  const socket = useMemo(
+    () =>
+      new WebSocket(
+        `wss://magiclime.academy/ws/chat/?token=${Cookies.get('access')}`
+      ),
+    []
+  );
+
   useEffect(() => {
     return () => {
-      chatSocket.close();
+      socket.close();
     };
   }, []);
 
@@ -24,7 +33,7 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
       ) : (
         <ChatCreating setActiveChatId={setActiveChatId} />
       )}
-      <Chat chatId={activeChatId} />
+      <Chat chatId={activeChatId} socket={socket} />
     </Flex>
   );
 };

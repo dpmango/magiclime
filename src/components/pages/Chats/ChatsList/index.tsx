@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import Flex from '../../../Common/Flex';
-import { chatSocket } from '../context';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IChat, IGroup, IMessage } from '../types';

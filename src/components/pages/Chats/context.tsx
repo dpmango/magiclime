@@ -35,7 +35,3 @@ export const ChatContextProvider: FC = ({ children }) => {
     </ChatContext.Provider>
   );
 };
-
-export const chatSocket = new WebSocket(
-  `wss://magiclime.academy/ws/chat/?token=${Cookies.get('access')}`
-);

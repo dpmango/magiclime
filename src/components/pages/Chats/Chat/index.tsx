@@ -14,7 +14,6 @@ import { v4 as uuid } from 'uuid';
 import { Avatar } from '@consta/uikit/Avatar';
 import { usePrevious } from '../../../../hooks/usePrevious';
 import { DOMAIN } from '../../../../utils/api';
-import { chatSocket } from '../context';
 import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
@@ -26,9 +25,10 @@ import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
   chatId: number | null;
+  socket: WebSocket;
 }
 
-const Chat: FC<IProps> = ({ chatId }) => {
+const Chat: FC<IProps> = ({ chatId, socket }) => {
   const [chat, setChat] = useState<IChatDetail | null>(null);
   const [messages, setMessages] = useState<{
     array: IMessage[];
@@ -91,7 +91,7 @@ const Chat: FC<IProps> = ({ chatId }) => {
     }, 3000);
   }, []);
 
-  chatSocket.onmessage = (event) => {
+  socket.onmessage = (event) => {
     const newMessage = JSON.parse(event.data) as IMessage;
     const avatar = newMessage.creator.avatar
       ? {
@@ -110,15 +110,14 @@ const Chat: FC<IProps> = ({ chatId }) => {
   };
 
   useEffect(() => {
-    console.log(scroll, previousScroll);
     if (
       finishGettingData &&
       previousScroll !== undefined &&
       (Math.abs(previousScroll - scroll) <= 300 || scroll === 0)
     ) {
-      const lastElementOffset = (
-        ref.current!.lastElementChild! as HTMLDivElement
-      ).offsetTop;
+      const lastElement = ref.current!.lastElementChild! as HTMLDivElement;
+
+      if (!lastElement) return;
 
       if (scroll - 300 <= 0 && page * LIMIT < allMessagesCount) {
         setLoading(true);
@@ -131,7 +130,10 @@ const Chat: FC<IProps> = ({ chatId }) => {
             }));
           })
           .finally(() => setLoading(false));
-      } else if (scroll + 300 >= lastElementOffset && page > allMessagesCount) {
+      } else if (
+        scroll + 300 >= lastElement.offsetTop &&
+        page > allMessagesCount
+      ) {
         // getChatMessages(chat!.id, page + 1, LIMIT).then((res) => {
         //   setPage(page - 1);
         //   setMessages((prev) => [...prev, ...res.data.results]);
