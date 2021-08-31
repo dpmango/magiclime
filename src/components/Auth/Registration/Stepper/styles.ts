@@ -2,7 +2,9 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   container: {
-    width: 'calc(100% - 100px)',
+    width: '100%',
+    maxWidth: 456,
+    padding: '0 50px',
   },
   line: {
     flex: 1,
