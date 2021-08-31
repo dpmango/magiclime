@@ -4,6 +4,8 @@ import { TextField } from '@consta/uikit/TextField';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { Button } from '@consta/uikit/Button';
+import { getChatGroups } from '../../../../../utils/api/routes/chat';
+import { IGroup } from '../../types';
 import useStyles from './styles';
 import { SetStateType } from '../../../../../types/common';
 import Dropdown from './Dropdown';
@@ -12,8 +14,8 @@ import Flex from '../../../../Common/Flex';
 interface IProps {
   search: string;
   setSearch: SetStateType<string>;
-  selectedGroup: string | null;
-  setSelectedGroup: SetStateType<string | null>;
+  selectedGroup: IGroup | null;
+  setSelectedGroup: SetStateType<IGroup | null>;
 }
 
 const Header: FC<IProps> = ({
@@ -22,14 +24,16 @@ const Header: FC<IProps> = ({
   selectedGroup,
   setSelectedGroup,
 }) => {
-  const [groups, setGroups] = useState(['Города', 'Вебинары', 'Другое']);
+  const [groups, setGroups] = useState<IGroup[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const styles = useStyles({ open: isSearchOpen });
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Get user chat groups
+    getChatGroups().then((res) => {
+      setGroups(res.data.results);
+    });
   }, []);
 
   const toggleSearch = () => {
@@ -45,8 +49,8 @@ const Header: FC<IProps> = ({
           view="clear"
           items={groups}
           className={styles.group}
-          getItemLabel={(item) => item}
-          getItemKey={(item) => item}
+          getItemLabel={(item) => item.title}
+          getItemKey={(item) => item.id}
           value={selectedGroup}
           onChange={({ value }) => setSelectedGroup(value)}
         />
@@ -79,7 +83,7 @@ const Header: FC<IProps> = ({
         <TextField
           form="brick"
           className={styles.search}
-          placeholder="Поиск по сообщениям"
+          placeholder="Поиск по беседам"
           value={search}
           onChange={({ value }) => setSearch(value as string)}
         />

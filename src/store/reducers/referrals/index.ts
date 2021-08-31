@@ -36,7 +36,6 @@ const referralsSlice = createSlice({
       state.referralsTree = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {
-      console.log('setting error', action);
       state.error = action.payload;
     },
   },

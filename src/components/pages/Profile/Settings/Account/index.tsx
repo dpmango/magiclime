@@ -26,8 +26,8 @@ const Account: FC = () => {
   const { profile } = useSelector((state: RootState) => state.user);
 
   const initialValues = {
-    login: 'api TODO',
-    sponsor: 'api TODO',
+    login: profile.username,
+    sponsor: profile.media_sponsor,
     email: profile.email,
     phone: profile.phone,
     switch1: false,
@@ -35,12 +35,14 @@ const Account: FC = () => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    const { phone, email } = values;
+    const { login, phone, email } = values;
     dispatch(
       updateProfile({
         profile: {
           phone,
           email,
+          username: login,
+          // media_sponsor: sponsor,
         },
         successCallback: () => setErrorMessage(''),
         errorCallback: (message: string) => setErrorMessage(message),
@@ -49,6 +51,7 @@ const Account: FC = () => {
   };
 
   const schema = Yup.object({
+    sponsor: REQUIRED_STRING,
     login: REQUIRED_STRING,
     email: EMAIL,
     phone: PHONE,
@@ -117,6 +120,7 @@ const Account: FC = () => {
                   <FormikInput
                     label={t('profile.settings.account.sponsor.label')}
                     name="sponsor"
+                    readOnly
                     placeholder={t(
                       'profile.settings.account.sponsor.placeholder'
                     )}

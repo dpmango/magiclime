@@ -5,12 +5,11 @@ export interface IChat {
   title: string;
   avatar: IPhoto;
   last_message: IMessage | null;
-  unread_count: number;
+  unreaded_count: number;
 }
 
 export interface IChatDetail extends Omit<IChat, 'last_message'> {
   participants_count: string;
-  messages: IMessage[];
 }
 
 export interface IMessage {
@@ -32,10 +31,17 @@ export interface IMessage {
       avatar: IPhoto | null;
     };
   };
+  attached_files?: [];
+  attached_images?: IPhoto[];
 }
 
-export interface IFriend {
+export interface ICreateChatForm {
+  title: string;
+  avatar: IPhoto;
+  participants: number[];
+}
+
+export interface IGroup {
   readonly id: number;
-  name: string;
-  image: string;
+  title: string;
 }

@@ -11,12 +11,19 @@ import useStyles from './styles';
 interface IProps {
   title: string;
   isOpen: boolean;
+  dynamicSize?: boolean;
   children?: ReactNode;
   setModalOpen: SetStateType<boolean>;
 }
 
-const BaseModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
-  const styles = useStyles();
+const BaseModal: FC<IProps> = ({
+  title,
+  isOpen,
+  setModalOpen,
+  children,
+  dynamicSize,
+}) => {
+  const styles = useStyles({ dynamicSize });
 
   return (
     <div className={styles.modal}>

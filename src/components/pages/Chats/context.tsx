@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { FC, useState } from 'react';
 import { IMessage } from './types';
 import { SetStateType } from '../../../types/common';
@@ -34,3 +35,7 @@ export const ChatContextProvider: FC = ({ children }) => {
     </ChatContext.Provider>
   );
 };
+
+export const chatSocket = new WebSocket(
+  `wss://magiclime.academy/ws/chat/?token=${Cookies.get('access')}`
+);

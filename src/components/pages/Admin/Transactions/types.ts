@@ -6,3 +6,13 @@ export interface ITransaction {
   address: string;
   status: string;
 }
+
+export interface IRequest {
+  readonly id: string;
+  status: string;
+  username: string;
+  count: number;
+  earned: number;
+  withdrew: number;
+  remainder: number;
+}

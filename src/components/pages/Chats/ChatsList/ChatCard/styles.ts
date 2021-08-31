@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { start } from 'repl';
 
 interface IProps {
   isDefault: boolean;
@@ -8,7 +9,7 @@ interface IProps {
 const useStyles = makeStyles<null, IProps>(() => ({
   root: {
     width: '100%',
-    padding: '12px 16px',
+    padding: '12px 16px 5px 18px',
     display: 'flex',
     fontSize: '15px !important',
     // transition: 'all 0.3s',
@@ -56,6 +57,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
   timeWrapper: {
     textAlign: 'end',
     marginLeft: '5px',
+    alignSelf: 'start',
+    paddingTop: 5,
   },
   text: {
     fontSize: '15px !important',

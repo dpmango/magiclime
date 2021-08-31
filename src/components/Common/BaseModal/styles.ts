@@ -1,10 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { dynamicSize?: boolean }>({
   modal: {
     position: 'relative',
     width: '100%',
-    minWidth: '696px',
+    minWidth: ({ dynamicSize }) => (dynamicSize ? 'auto' : '696px'),
     padding: '32px 24px 24px',
   },
   close: {

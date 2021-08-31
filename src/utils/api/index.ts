@@ -3,15 +3,17 @@ import Cookies from 'js-cookie';
 import { refreshAuthToken } from './routes/auth';
 import { logoutFunc } from '../helpers/logout';
 
+export const DOMAIN = 'https://magiclime.academy';
+
 export const instance = Axios.create({
-  baseURL: 'https://magiclime.academy/api/v1',
+  baseURL: `${DOMAIN}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 export const setAuthToken = (token: string) => {
-  instance.defaults.headers.Authorization = `JWT ${token}`;
+  instance.defaults.headers.Authorization = `Bearer ${token}`;
 };
 
 export const deleteAuthHeader = () => {

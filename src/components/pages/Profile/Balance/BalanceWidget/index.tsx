@@ -1,10 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback, useEffect } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { formatPrice, btlToRub } from 'utils/helpers/formatPrice';
 
 import useStyles from './styles';
 
-const MyBalance: FC = () => {
+interface IProps {
+  btcRate: number;
+}
+
+const BalanceWidget: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
 
   return (
@@ -14,27 +19,33 @@ const MyBalance: FC = () => {
           <img src="/images/bitcoin.png" alt="btc" />
         </div>
         <div className={styles.coinContent}>
-          <Typography view="brand" size="s">
+          <Typography className={styles.coinTitle16} view="brand" size="s">
             BTL/RUB
           </Typography>
-          <Typography view="secondary" margin="2px 0 0" size="s">
-            Курс 1 к 37 291
+          <Typography view="secondary" margin="2px 0 0" size="xs">
+            Курс 1 к {formatPrice(btcRate)}
           </Typography>
         </div>
       </Flex>
-      <Typography size="xl" margin="12px 0" lineHeight="2xs" weight="semibold">
+      <Typography
+        className={styles.coinBalance}
+        margin="8px 0 2px"
+        lineHeight="2xs"
+        size="s"
+        weight="semibold"
+      >
         Баланс:
       </Typography>
       <Flex align="baseline" wrap="wrap">
-        <Typography view="brand" size="xl" weight="semibold">
+        <Typography view="brand" size="2xl" weight="semibold">
           232 BTL
         </Typography>
-        <Typography view="secondary" margin="0 0 0 6px" size="xs">
-          32 312,281 RUB
+        <Typography view="secondary" margin="0 0 0 4px" size="xs">
+          {btlToRub(232, btcRate)} RUB
         </Typography>
       </Flex>
     </div>
   );
 };
 
-export default MyBalance;
+export default BalanceWidget;

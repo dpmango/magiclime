@@ -94,7 +94,8 @@
   },
   "common": {
     "moreDetails": "More",
-    "complain": "Complain"
+    "complain": "Complain",
+    "search": "Search"
   },
   "profile": {
     "tabs": {
@@ -381,15 +382,22 @@
       "edit": "Редактировать",
       "resetPass": "Сбросить пароль"
     },
-    "transactions": "Транзакции",
-    "receiptsHistory": "История поступлений",
-    "outputRequest": "Заявки на вывод",
-    "userId": "ID пользователя",
-    "transactionTime": "Время транзакции",
-    "status": "Статус",
-    "check": "Проверить",
-    "accrue": "Начислить",
-    "address": "Адрес",
+    "transactions": {
+      "title": "Транзакции",
+      "receiptsHistory": "История поступлений",
+      "outputRequest": "Заявки на вывод",
+      "userId": "ID пользователя",
+      "time": "Время транзакции",
+      "status": "Статус",
+      "check": "Проверить",
+      "accrue": "Начислить",
+      "toAccrue": "Доначислить",
+      "accountManagement": "Управление счётом",
+      "transfers": "Переводы",
+      "address": "Адрес",
+      "login": "Логин пользователя",
+      "setUpCommission": "Настроить комиссию"
+    },
     "addWebinar": "Добавить вебинар",
     "createWebinar": "Создать вебинар",
     "deployWebinar": "Опубликовать вебинар",

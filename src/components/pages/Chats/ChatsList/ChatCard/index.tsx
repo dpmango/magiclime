@@ -28,7 +28,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
         <Typography
           weight="semibold"
           size="s"
-          margin="0 0 2px"
+          margin="0 0 3px"
           className={styles.text}
         >
           {chat.title}
@@ -44,12 +44,12 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           {chat.last_message &&
             moment(chat.last_message.created_at).format('HH:mm')}
         </Typography>
-        {chat.unread_count && (
+        {!!chat.unreaded_count && (
           <Badge
             size="s"
             status="normal"
             form="round"
-            label={`${chat.unread_count}`}
+            label={`${chat.unreaded_count}`}
           />
         )}
       </div>

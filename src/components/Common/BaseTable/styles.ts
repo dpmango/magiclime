@@ -5,6 +5,10 @@ const useStyles = makeStyles(() => ({
     /* eslint-disable @typescript-eslint/naming-convention */
     '& .TableCell_isHeader': {
       textTransform: 'initial',
+      fontSize: '12px',
+    },
+    '& p': {
+      fontSize: '14px',
     },
   },
   loader: {

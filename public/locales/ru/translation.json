@@ -95,7 +95,8 @@
   },
   "common": {
     "moreDetails": "Подробнее",
-    "complain": "Пожаловаться"
+    "complain": "Пожаловаться",
+    "search": "Поиск"
   },
   "profile": {
     "tabs": {
@@ -111,9 +112,12 @@
     },
     "head": {
       "copyRefLink": "Скопировать рефферальную ссылку",
+      "copySuccess": "Реферальная ссылка скопирована",
+      "copyError": " Ошибка при копировании ссылки",
       "uploader": {
         "ctaAlt": "Загрузить новый аватар",
-        "mimeLocked": "Неверный формат файла"
+        "mimeLocked": "Неверный формат файла",
+        "limitSize": "Размер файла превышает"
       }
     },
     "programCard": {
@@ -387,15 +391,22 @@
       "edit": "Редактировать",
       "resetPass": "Сбросить пароль"
     },
-    "transactions": "Транзакции",
-    "receiptsHistory": "История поступлений",
-    "outputRequest": "Заявки на вывод",
-    "userId": "ID пользователя",
-    "transactionTime": "Время транзакции",
-    "status": "Статус",
-    "check": "Проверить",
-    "accrue": "Начислить",
-    "address": "Адрес",
+    "transactions": {
+      "title": "Транзакции",
+      "receiptsHistory": "История поступлений",
+      "outputRequest": "Заявки на вывод",
+      "userId": "ID пользователя",
+      "time": "Время транзакции",
+      "status": "Статус",
+      "check": "Проверить",
+      "accrue": "Начислить",
+      "toAccrue": "Доначислить",
+      "accountManagement": "Управление счётом",
+      "transfers": "Переводы",
+      "address": "Адрес",
+      "login": "Логин пользователя",
+      "setUpCommission": "Настроить комиссию"
+    },
     "addWebinar": "Добавить вебинар",
     "createWebinar": "Создать вебинар",
     "deployWebinar": "Опубликовать вебинар",

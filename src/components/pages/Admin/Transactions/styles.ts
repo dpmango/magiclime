@@ -13,6 +13,12 @@ const useStyles = makeStyles(() => ({
   checkButton: {
     marginLeft: '15px',
   },
+  buttonsWrapper: {
+    width: 'auto',
+    '& > button': {
+      marginLeft: '24px',
+    },
+  },
 }));
 
 export default useStyles;
