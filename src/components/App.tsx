@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback } from 'react';
+import React, { FC, useMemo, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -6,15 +6,17 @@ import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
 
-import { RootState } from '../store/reducers/rootReducer';
+import { setLogged } from 'store/reducers/user';
+import { setTheme } from 'store/reducers/settings';
+import { getAllMeta } from 'store/reducers/meta';
+import { RootState } from 'store/reducers/rootReducer';
+
 import { setAuthToken } from '../utils/api';
 import PrivateRoute from './PrivateRoute';
 import Landing from './pages/Landing';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
-import { setLogged } from '../store/reducers/user';
-import { setTheme } from '../store/reducers/settings';
 
 const App: FC = () => {
   const { isLogged } = useSelector((state: RootState) => state.user, isEqual);
@@ -30,6 +32,9 @@ const App: FC = () => {
     setAuthToken(Cookies.get('access') as string);
     dispatch(setLogged());
   }
+  useEffect(() => {
+    dispatch(getAllMeta(null));
+  }, []);
 
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>

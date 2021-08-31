@@ -1,1 +1,1 @@
-export type StepType = 1 | 2 | 3 | 4;
+export type StepType = 1 | 2 | 3;
