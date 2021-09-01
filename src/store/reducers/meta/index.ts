@@ -60,7 +60,7 @@ export const getTags = createAsyncThunk<unknown, PaginationPayloadType>(
 );
 
 export const getAllMeta = createAsyncThunk<unknown, null>(
-  'meta/getArticles',
+  'meta/getAllMeta',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
       dispatch(getCategories({}));

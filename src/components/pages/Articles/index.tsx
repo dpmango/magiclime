@@ -33,8 +33,8 @@ const ArticlePage: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getArticles({}));
-  }, []);
+    dispatch(getArticles({ tags: activeTags }));
+  }, [activeTags]);
 
   return (
     <div className={styles.root}>
