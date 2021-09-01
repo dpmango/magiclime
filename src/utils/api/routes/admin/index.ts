@@ -20,7 +20,9 @@ export const exportUsersList = (): AxiosPromise => {
 export const getWebinars = (
   search: string
 ): AxiosPromise<IAxiosPaginatedResponse> => {
-  return instance.get('/admin/webinars/', { params: { search } });
+  return instance.get('/admin/webinars/', {
+    params: { search: search || null },
+  });
 };
 
 export const createWebinar = (data: object): AxiosPromise => {

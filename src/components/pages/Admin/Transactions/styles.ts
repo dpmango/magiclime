@@ -19,6 +19,9 @@ const useStyles = makeStyles(() => ({
       marginLeft: '24px',
     },
   },
+  status: {
+    color: 'var(--color-typo-warning) !important',
+  },
 }));
 
 export default useStyles;

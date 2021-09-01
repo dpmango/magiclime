@@ -9,12 +9,14 @@ import Typography from '../../../Common/Typography';
 import Flex from '../../../Common/Flex';
 import useStyles from '../Users/styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
+import { IWebinar } from './types';
 import WebinarsTable from './WebinarsTable';
 import { getWebinars } from '../../../../utils/api/routes/admin';
 
 const Webinars: FC = () => {
   const [search, setSearch] = useState('');
-  const [webinars, setWebinars] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [webinars, setWebinars] = useState<IWebinar[]>([]);
   const styles = useStyles();
   const { t } = useTranslation();
   const history = useHistory();
@@ -22,31 +24,34 @@ const Webinars: FC = () => {
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    // getWebinars(search).then((res) => setWebinars(res.data));
+    setLoading(true);
+    getWebinars(search)
+      .then((res) => setWebinars(res.data.results))
+      .finally(() => setLoading(false));
   }, [debouncedSearch]);
 
   return (
     <div className={styles.root}>
       <Typography weight="semibold" size="3xl" margin="0 0 24px">
-        {t('admin.webinarsList')}
+        {t('admin.webinars.webinarsList')}
       </Typography>
       <Flex justify="space-between" align="center" margin="0 0 36px">
         <TextField
           value={search}
           onChange={({ value }) => setSearch(value || '')}
           size="s"
-          placeholder={t('admin.searchWebinars')}
+          placeholder={t('admin.webinars.searchWebinars')}
           rightSide={IconSearch}
         />
         <Button
-          label={t('admin.addWebinar')}
+          label={t('admin.webinars.addWebinar')}
           size="s"
           view="primary"
           iconLeft={IconAdd}
           onClick={() => history.push('/admin/webinars/create')}
         />
       </Flex>
-      <WebinarsTable data={webinars} />
+      <WebinarsTable data={webinars} loading={loading} />
     </div>
   );
 };

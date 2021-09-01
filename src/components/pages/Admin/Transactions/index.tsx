@@ -1,13 +1,16 @@
 import { Button } from '@consta/uikit/Button';
 import { IconSearch } from '@consta/uikit/IconSearch';
 import { TextField } from '@consta/uikit/TextField';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Tabs } from '@consta/uikit/Tabs';
 import { useTranslation } from 'react-i18next';
+import { useDebounce } from '../../../../hooks/useDebounce';
 import Flex from '../../../Common/Flex';
+import Requests from './Requests';
 import useStyles from './styles';
 import Typography from '../../../Common/Typography';
 import TransactionsHistory from './TransactionsHistory';
+import Transfers from './Transfers';
 
 const Transactions: FC = () => {
   const { t } = useTranslation();
@@ -23,6 +26,21 @@ const Transactions: FC = () => {
   const [tab, setTab] = useState(tabs[0]);
   const [search, setSearch] = useState('');
   const styles = useStyles();
+
+  const debouncedSearch = useDebounce(search, 300);
+
+  const renderTable = useCallback(() => {
+    switch (tab.id) {
+      case 1:
+        return <TransactionsHistory search={debouncedSearch} />;
+      case 2:
+        return <Requests search={debouncedSearch} />;
+      case 3:
+        return <Transfers search={debouncedSearch} />;
+      default:
+        return <TransactionsHistory search={debouncedSearch} />;
+    }
+  }, [tab, debouncedSearch]);
 
   return (
     <div className={styles.root}>
@@ -53,7 +71,7 @@ const Transactions: FC = () => {
         size="m"
         className={styles.tabs}
       />
-      <TransactionsHistory search={search} />
+      {renderTable()}
     </div>
   );
 };

@@ -19,7 +19,7 @@ export const Status: FC<IProps> = ({ row, openManagement }) => {
   return (
     <Flex align="center" justify="space-between" padding="0 10px">
       <Flex align="center">
-        {row.status}
+        <p className={styles.status}>{row.status}</p>
         <Button
           view="secondary"
           size="s"

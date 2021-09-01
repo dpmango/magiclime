@@ -23,7 +23,7 @@ const BaseModal: FC<IProps> = ({
   children,
   dynamicSize,
 }) => {
-  const styles = useStyles({ dynamicSize });
+  const styles = useStyles({ dynamicSize, isOpen });
 
   return (
     <div className={styles.modal}>

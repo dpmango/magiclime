@@ -396,16 +396,27 @@
       "transfers": "Переводы",
       "address": "Адрес",
       "login": "Логин пользователя",
-      "setUpCommission": "Настроить комиссию"
+      "setUpCommission": "Настроить комиссию",
+      "ip": "IP",
+      "count": "Сумма",
+      "earned": "Заработано",
+      "withdrew": "Выведено",
+      "remainder": "Остаток",
+      "date": "Дата перевода",
+      "sender": "Кто перевёл",
+      "recipient": "Кому перевели",
+      "pin": "Пин код"
     },
-    "addWebinar": "Добавить вебинар",
-    "createWebinar": "Создать вебинар",
-    "deployWebinar": "Опубликовать вебинар",
-    "webinarsList": "Список вебинаров",
-    "searchWebinars": "Поиск по вебинарам",
-    "webinarName": "Название вебинара",
-    "dateTime": "Дата и время",
-    "link": "Ссылка",
-    "speaker": "Спикер"
+    "webinars": {
+      "addWebinar": "Добавить вебинар",
+      "createWebinar": "Создать вебинар",
+      "deployWebinar": "Опубликовать вебинар",
+      "webinarsList": "Список вебинаров",
+      "searchWebinars": "Поиск по вебинарам",
+      "webinarName": "Название вебинара",
+      "dateTime": "Дата и время",
+      "link": "Ссылка",
+      "speakers": "Спикеры"
+    }
   }
 }

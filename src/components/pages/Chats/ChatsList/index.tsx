@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import Flex from '../../../Common/Flex';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { IChat, IGroup, IMessage } from '../types';
+import { IChat, IGroup } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
 import Header from './Header';

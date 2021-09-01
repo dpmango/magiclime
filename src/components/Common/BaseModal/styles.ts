@@ -1,11 +1,16 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles<null, { dynamicSize?: boolean }>({
+interface IProps {
+  isOpen: boolean;
+  dynamicSize?: boolean;
+}
+
+const useStyles = makeStyles<null, IProps>({
   modal: {
     position: 'relative',
     width: '100%',
     minWidth: ({ dynamicSize }) => (dynamicSize ? 'auto' : '696px'),
-    padding: '32px 24px 24px',
+    padding: ({ isOpen }) => (isOpen ? '32px 24px 24px' : 0),
   },
   close: {
     position: 'absolute',

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
@@ -44,7 +44,7 @@ const CreateWebinar: FC = () => {
   return (
     <div className={styles.root}>
       <Typography weight="semibold" size="3xl" margin="0 0 24px">
-        {t('admin.createWebinar')}
+        {t('admin.webinars.createWebinar')}
       </Typography>
       <Formik
         initialValues={initialValues}
@@ -87,7 +87,7 @@ const CreateWebinar: FC = () => {
             />
           </div>
           <Button
-            label={t('admin.deployWebinar')}
+            label={t('admin.webinars.deployWebinar')}
             type="submit"
             view="secondary"
           />
