@@ -1,17 +1,30 @@
 import React, { useMemo, FC, useEffect, useState } from 'react';
-
 import { AxiosError } from 'axios';
 import { Button } from '@consta/uikit/Button';
 import { Loader } from '@consta/uikit/Loader';
 import ConstaIcons from '../assets/icons/ConstaIcons';
 import { AxiosPromise } from '../types/common';
+import { IAxiosPaginatedResponse } from '../types/interfaces/common';
 
 interface IProps<T> {
-  getList: (page: number) => AxiosPromise<{ count: number; results: T[] }>;
+  getList: (
+    page?: number,
+    limit?: number
+  ) => AxiosPromise<IAxiosPaginatedResponse<T>>;
   elName: string;
   limit?: number;
   successCallback?: VoidFunction;
   errorCallback?: (err?: AxiosError) => VoidFunction;
+}
+
+export interface IPaginationButtonProps {
+  buttonClassName?: string;
+  loaderClassName?: string;
+}
+
+interface ReturnedValues<T> {
+  data: T[];
+  PaginationButton: FC<IPaginationButtonProps>;
 }
 
 export const usePagination = <T extends object>({
@@ -20,8 +33,8 @@ export const usePagination = <T extends object>({
   limit = 20,
   successCallback,
   errorCallback,
-}: IProps<T>) => {
-  const [page, setPage] = useState(0);
+}: IProps<T>): ReturnedValues<T> => {
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState<{ count: number; data: T[] }>({
     count: 0,
@@ -30,7 +43,7 @@ export const usePagination = <T extends object>({
 
   useEffect(() => {
     setLoading(true);
-    getList(page)
+    getList(page, limit)
       .then((res) => {
         setState({
           count: res.data.count,
@@ -51,18 +64,23 @@ export const usePagination = <T extends object>({
     return state.count - state.data.length;
   }, [state.data.length]);
 
-  const PaginationButton = loading ? (
-    <Loader />
-  ) : residue > 0 ? (
-    <Button
-      view="secondary"
-      label={`Показать ещё ${residue} ${elName}`}
-      onClick={() => setPage(page + 1)}
-      iconLeft={ConstaIcons.Refresh}
-    />
-  ) : (
-    <></>
-  );
+  const PaginationButton: FC<IPaginationButtonProps> = ({
+    loaderClassName,
+    buttonClassName,
+  }) =>
+    loading ? (
+      <Loader className={loaderClassName} />
+    ) : residue > 0 ? (
+      <Button
+        view="secondary"
+        label={`Показать ещё ${residue} ${elName}`}
+        onClick={() => setPage(page + 1)}
+        iconLeft={ConstaIcons.Refresh}
+        className={buttonClassName}
+      />
+    ) : (
+      <></>
+    );
 
   return {
     data: state.data,

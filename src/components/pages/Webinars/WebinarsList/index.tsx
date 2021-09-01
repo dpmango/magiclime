@@ -3,10 +3,8 @@ import { makeStyles } from '@material-ui/core';
 import { IWebinar } from 'components/pages/Webinars/types';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
-// import { SkeletonBrick } from '@consta/uikit/Skeleton';
-import ConstaIcons from 'assets/icons/ConstaIcons';
+import { IPaginationButtonProps } from '../../../../hooks/usePagination';
 import Webinar from './Webinar';
-import Flex from '../../../Common/Flex';
 
 const useStyles = makeStyles({
   root: {
@@ -20,11 +18,10 @@ const useStyles = makeStyles({
 
 interface IProps {
   items: IWebinar[];
-  getMore: () => void;
-  hasMore?: boolean;
+  button: FC<IPaginationButtonProps>;
 }
 
-const WebinarsList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
+const WebinarsList: FC<IProps> = ({ items, button: Button }) => {
   const styles = useStyles();
 
   return (
@@ -38,15 +35,7 @@ const WebinarsList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
         ))}
       </Grid>
 
-      {hasMore && (
-        <Button
-          label="Показать еще 20 вебинаров"
-          view="secondary"
-          onClick={getMore}
-          className={styles.button}
-          iconLeft={ConstaIcons.Refresh}
-        />
-      )}
+      <Button buttonClassName={styles.button} />
     </div>
   );
 };

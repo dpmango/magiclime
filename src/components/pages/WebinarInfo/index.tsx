@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
+import { RouteComponentProps } from 'react-router-dom';
+import { getWebinar } from '../../../utils/api/routes/webinars';
+import { IWebinar } from '../Webinars/types';
 import useStyles from './styles';
 import Header from './Header';
 import Flex from '../../Common/Flex';
@@ -9,13 +12,24 @@ import useResolution from '../../../hooks/useResolution';
 import { speakers } from './mockData';
 import Speaker from './Speaker';
 import Members from '../../Common/Members';
-import { mockWebinars } from '../Webinars/mockData';
 
-const WebinarInfo: FC = () => {
+const WebinarInfo: FC<RouteComponentProps<{ id: string }>> = ({
+  match: {
+    params: { id },
+  },
+  history,
+}) => {
+  const [webinar, setWebinar] = useState<IWebinar | null>(null);
   const styles = useStyles();
   const { t } = useTranslation();
   const size = useResolution();
   const isSmallLap = size.width <= 1300;
+
+  useEffect(() => {
+    getWebinar(+id)
+      .then((res) => setWebinar(res.data))
+      .catch(() => history.push('/webinars'));
+  }, [id]);
 
   return (
     <div className={styles.root}>
@@ -98,7 +112,7 @@ const WebinarInfo: FC = () => {
             <Typography weight="semibold" margin="0 0 12px">
               {t('webinar.members')}
             </Typography>
-            <Members members={mockWebinars[0].referrals} itemSize={44} />
+            <Members members={[]} itemSize={44} />
             <Typography weight="semibold" margin="44px 0 12px">
               {t('webinar.speakers')}
             </Typography>

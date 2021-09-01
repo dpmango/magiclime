@@ -14,9 +14,15 @@ interface IWebinarAuthor {
 export interface IWebinar {
   readonly id: number;
   title: string;
-  description: string;
   tags: string[];
   image?: string;
+  date: '2021-09-01T12:45:58.540Z';
+  speaker: 'string';
+  city: {
+    id: 0;
+    title: 'string';
+  };
+  zoom_url: 'string';
   referrals: IWebinarReferral[];
   author: IWebinarAuthor;
 }

@@ -1,32 +1,27 @@
-import React, { FC, useState } from 'react';
-import shuffle from 'lodash/shuffle';
+import React, { FC, useEffect, useState } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import { Button } from '@consta/uikit/Button';
+import { usePagination } from '../../../hooks/usePagination';
+import { getWebinarsList } from '../../../utils/api/routes/webinars';
 import WebinarsList from './WebinarsList';
 import Filters from './Filters';
 import { IWebinar } from './types';
 
-import { tags, mockWebinars } from './mockData';
 import useStyles from './styles';
 import Flex from '../../Common/Flex';
 
 const WebinarsPage: FC = () => {
   const styles = useStyles();
 
-  const [webinars, setCourses] = useState<IWebinar[]>(mockWebinars);
   const [activeTags, setActiveTags] = useState<number[]>([]);
+  const { data, PaginationButton } = usePagination<IWebinar>({
+    getList: getWebinarsList,
+    elName: 'вебинаров',
+  });
 
-  const getMore = () => {
-    const newWebinars = shuffle(
-      mockWebinars.map((x) => ({
-        ...x,
-        id: x.id + 1,
-      }))
-    );
-    setCourses([...webinars, ...newWebinars]);
-  };
+  useEffect(() => {}, []);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -80,7 +75,7 @@ const WebinarsPage: FC = () => {
       </Typography>
       <div className={styles.tags}>
         <Tags
-          tags={tags}
+          tags={[]}
           activeTags={activeTags}
           handleSelect={handleTagsToggle}
         />
@@ -88,7 +83,7 @@ const WebinarsPage: FC = () => {
 
       <Grid cols="4" gap="xl" className={styles.main}>
         <GridItem col="3">
-          <WebinarsList items={webinars} hasMore getMore={getMore} />
+          <WebinarsList items={[]} button={PaginationButton} />
         </GridItem>
 
         <GridItem col="1">
