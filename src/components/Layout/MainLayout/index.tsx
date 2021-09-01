@@ -11,6 +11,7 @@ import Courses from '../../pages/Courses';
 import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
+import Article from '../../pages/Article';
 import Chats from '../../pages/Chats';
 import Forum from '../../pages/Forum';
 import Rating from '../../pages/Rating';
@@ -61,6 +62,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route exact path="/courses/:course" component={Course} />
               <Route exact path="/courses/:course/:id" component={CourseTask} />
               <Route exact path="/faq" component={Articles} />
+              <Route exact path="/faq/:id" component={Article} />
               <Route path="/profile/:id" component={Profile} />
               <Route path="/forum" component={Forum} />
               <Route exact path="/webinars" component={Webinars} />

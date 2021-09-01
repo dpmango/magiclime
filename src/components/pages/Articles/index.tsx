@@ -9,7 +9,6 @@ import { RootState } from 'store/reducers/rootReducer';
 import { IArticle } from 'types/interfaces/article';
 
 import ArticleCard from './ArticleCard';
-import { tags } from './mockData';
 import useStyles from './styles';
 
 const ArticlePage: FC = () => {
@@ -18,6 +17,8 @@ const ArticlePage: FC = () => {
   const { t } = useTranslation();
 
   const { articles } = useSelector((state: RootState) => state.article);
+  const { tags } = useSelector((state: RootState) => state.meta);
+
   const [activeTags, setActiveTags] = useState<number[]>([]);
 
   const handleTagsToggle = (id: number) => {
