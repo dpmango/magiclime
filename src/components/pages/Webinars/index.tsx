@@ -1,14 +1,16 @@
 import React, { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
 import shuffle from 'lodash/shuffle';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import { Button } from '@consta/uikit/Button';
+import { RootState } from 'store/reducers/rootReducer';
 import WebinarsList from './WebinarsList';
 import Filters from './Filters';
 import { IWebinar } from './types';
 
-import { tags, mockWebinars } from './mockData';
+import { mockWebinars } from './mockData';
 import useStyles from './styles';
 import Flex from '../../Common/Flex';
 
@@ -17,6 +19,7 @@ const WebinarsPage: FC = () => {
 
   const [webinars, setCourses] = useState<IWebinar[]>(mockWebinars);
   const [activeTags, setActiveTags] = useState<number[]>([]);
+  const { tags } = useSelector((state: RootState) => state.meta);
 
   const getMore = () => {
     const newWebinars = shuffle(

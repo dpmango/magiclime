@@ -1,5 +1,6 @@
 // import { IArticle } from 'types/interfaces/article';
 
-export type CategoriesPayloadType = {
+export type PaginationPayloadType = {
   page?: number;
+  page_size?: number;
 };

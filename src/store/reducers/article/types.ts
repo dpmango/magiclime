@@ -1,5 +1,6 @@
 // import { IArticle } from 'types/interfaces/article';
 
 export type ArticlesPayloadType = {
-  page?: number;
+  page?: string;
+  tags?: number[];
 };

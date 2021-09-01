@@ -1,20 +1,4 @@
-import { IType } from 'types/interfaces/courses';
 import { IWebinar } from './types';
-
-export const tags: IType[] = [
-  {
-    id: 1,
-    label: 'Все вебинары',
-  },
-  {
-    id: 2,
-    label: 'Мероприятия',
-  },
-  {
-    id: 3,
-    label: 'Встречи',
-  },
-];
 
 export const mockWebinars: IWebinar[] = [
   {

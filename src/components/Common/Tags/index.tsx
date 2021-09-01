@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Button } from '@consta/uikit/Button';
-import { IType } from 'types/interfaces/courses';
+import { ITag } from 'types/interfaces/meta';
 import useStyles from './styles';
 
 interface IProps {
-  tags: IType[];
+  tags: ITag[];
   activeTags: number[];
   handleSelect: (id: number) => void;
 }
@@ -19,7 +19,7 @@ const Tags: FC<IProps> = ({ tags, activeTags, handleSelect }) => {
         return (
           <Button
             key={item.id}
-            label={item.label}
+            label={item.title}
             form="round"
             view={active ? 'primary' : 'ghost'}
             onClick={() => handleSelect(item.id)}
