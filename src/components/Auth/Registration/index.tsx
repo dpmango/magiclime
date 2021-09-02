@@ -25,7 +25,6 @@ import {
 import UserType from './Steps/UserType';
 import Additional from './Steps/Additional';
 import Preferences from './Steps/Preferences';
-import { registrationUser } from '../../../utils/api/routes/auth';
 import { registration } from '../../../store/reducers/user';
 
 const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
@@ -62,10 +61,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
     user_type: '',
     name: '',
     about: '',
-    avatar_id: {
-      id: 0,
-      image: '',
-    },
+    avatar_id: null,
   };
 
   const schema = Yup.object({
@@ -93,8 +89,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
     if (step !== 4) {
       setStep((step + 1) as StepType);
     } else {
-      const avatar = values.avatar_id.id ? +values.avatar_id.id : null;
-      const data = { ...values, avatar_id: avatar };
+      const data = { ...values };
       dispatch(
         registration({
           ...data,

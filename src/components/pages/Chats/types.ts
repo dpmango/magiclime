@@ -37,7 +37,7 @@ export interface IMessage {
 
 export interface ICreateChatForm {
   title: string;
-  avatar: IPhoto;
+  avatar: number | null;
   participants: number[];
 }
 

@@ -9,11 +9,8 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     display: 'grid',
-    maxWidth: '650px',
-    gridTemplateColumns: '1fr 1fr',
-    gridTemplateRows: 'repeat(3, 1fr)',
-    gridGap: '24px',
-    marginBottom: '24px',
+    gridTemplateColumns: '1fr 265px',
+    gridGap: '40px',
   },
 }));
 

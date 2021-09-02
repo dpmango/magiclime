@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: '10px',
     padding: '16px 0',
     marginRight: '20px',
+    position: 'relative',
     height: '200px',
     display: 'flex',
     flexWrap: 'wrap',
@@ -32,11 +33,6 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  hiddenInput: {
-    opacity: 0,
-    visibility: 'hidden',
-    position: 'absolute',
   },
   addPhoto: {
     background: 'var(--color-control-bg-ghost)',

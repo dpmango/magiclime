@@ -3,6 +3,7 @@ import { Field, FieldProps } from 'formik';
 import { IconCamera } from '@consta/uikit/IconCamera';
 import FormikInput from '../../../../Common/Controls/Formik/Input';
 import FormikTextarea from '../../../../Common/Controls/Formik/Textarea';
+import PhotoField from '../../../../Common/Controls/PhotoField';
 import Flex from '../../../../Common/Flex';
 import useStyles from './styles';
 import { UserIcon } from '../../../../../assets/icons';
@@ -26,19 +27,20 @@ const Additional: FC = () => {
       <div className={styles.photoField}>
         <Field name="avatar_id">
           {({ field: { value }, form: { setFieldValue } }: FieldProps) => (
-            <>
-              {value.id ? <img src={value.image} alt="avatar" /> : <UserIcon />}
-              <input
-                type="file"
-                id="user_photo_field"
-                onChange={(e) => handleChange(e, setFieldValue)}
-                className={styles.hiddenInput}
-              />
-              <label htmlFor="user_photo_field" className={styles.addPhoto}>
-                <IconCamera />
-                Загрузить фото
-              </label>
-            </>
+            <PhotoField
+              render={({ src, fieldId }) => (
+                <>
+                  {value ? <img src={src} alt="avatar" /> : <UserIcon />}
+                  <label htmlFor={fieldId} className={styles.addPhoto}>
+                    <IconCamera />
+                    Загрузить фото
+                  </label>
+                </>
+              )}
+              onChangeCallback={(avatar) => {
+                setFieldValue('avatar_id', avatar.id);
+              }}
+            />
           )}
         </Field>
       </div>

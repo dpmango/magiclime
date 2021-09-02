@@ -7,6 +7,7 @@ const useStyles = makeStyles({
       'var(--control-border-width) solid var(--color-control-bg-border-default)',
     '& *': {
       fontFamily: 'Gotham Pro, sans-serif',
+      boxShadow: 'none !important',
     },
   },
   editor: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles({
     '& span[style*="font-family: monospace"]': {
       background: 'var(--color-bg-system) !important',
     },
+    '& img': {
+      maxWidth: '400px',
+      maxHeight: '400px',
+    },
   },
   toolbar: {
     margin: 0,
@@ -29,7 +34,6 @@ const useStyles = makeStyles({
     '& div[aria-selected], .rdw-option-wrapper': {
       background: 'none',
       border: 'none',
-      boxShadow: 'none !important',
       transition: 'all .2s linear',
       '&:hover': {
         background: 'var(--color-bg-system)',

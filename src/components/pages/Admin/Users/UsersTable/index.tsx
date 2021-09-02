@@ -7,7 +7,7 @@ import BaseModal from '../../../../Common/BaseModal';
 import BaseTable from '../../../../Common/BaseTable';
 import { IUserListItem } from '../types';
 import Flex from '../../../../Common/Flex';
-import useStyles from '../styles';
+import useStyles from './styles';
 import UserInfo from '../UserInfo';
 
 interface IProps {

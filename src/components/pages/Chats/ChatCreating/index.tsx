@@ -1,4 +1,3 @@
-import { ProgressSpin } from '@consta/uikit/ProgressSpin';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { Button } from '@consta/uikit/Button';
@@ -9,13 +8,13 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { v4 as uuid } from 'uuid';
 import { IUser } from '../../../../types/interfaces/user';
 import { createChat, getUsers } from '../../../../utils/api/routes/chat';
+import PhotoField from '../../../Common/Controls/PhotoField';
 import { ICreateChatForm } from '../types';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import { ChatContext } from '../context';
-import { ChangeType, SetStateType } from '../../../../types/common';
-import { uploadImage } from '../../../../utils/api/routes/other';
+import { SetStateType } from '../../../../types/common';
 import FriendCard from './FriendCard';
 
 const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
@@ -23,18 +22,14 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
 }) => {
   const [form, setForm] = useState<ICreateChatForm>({
     title: '',
-    avatar: {
-      id: 0,
-      image: '',
-    },
+    avatar: null,
     participants: [] as number[],
   });
   const [users, setUsers] = useState<IUser[]>([]);
   const [search, setSearch] = useState('');
-  const [uploadAvatarLoading, setUploadAvatarLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const styles = useStyles({
-    haveAvatar: !!form.avatar.id,
+    haveAvatar: !!form.avatar,
   });
   const { chatContext, setChatContext } = useContext(ChatContext);
 
@@ -49,22 +44,8 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
       });
   }, [search]);
 
-  const addImage = (e: ChangeType) => {
-    setUploadAvatarLoading(true);
-    uploadImage(e.target!.files![0])
-      .then((res) => {
-        setForm({ ...form, avatar: res.data });
-      })
-      .finally(() => {
-        setUploadAvatarLoading(false);
-      });
-  };
-
   const handleSubmit = () => {
-    const avatar = form.avatar.id ? +form.avatar.id : null;
-    const data = { ...form, avatar };
-
-    createChat(data).then((res) => {
+    createChat(form).then((res) => {
       cancel();
       setActiveChatId(res.data.id);
     });
@@ -95,22 +76,21 @@ const ChatCreating: FC<{ setActiveChatId: SetStateType<number | null> }> = ({
         />
       </Flex>
       <Flex align="center" padding="0 16px">
-        <div>
-          <input
-            type="file"
-            id="chat_photo_field"
-            onChange={addImage}
-            className={styles.hiddenInput}
-          />
-          <label htmlFor="chat_photo_field" className={styles.addPhoto}>
-            {uploadAvatarLoading ? (
-              <ProgressSpin size="m" />
-            ) : form.avatar.id ? (
-              <img src={form.avatar.image} alt="avatar" />
-            ) : (
-              <IconCamera view="secondary" />
+        <div className={styles.photoWrapper}>
+          <PhotoField
+            render={({ src, fieldId }) => (
+              <label htmlFor={fieldId} className={styles.addPhoto}>
+                {form.avatar ? (
+                  <img src={src} alt="avatar" />
+                ) : (
+                  <IconCamera view="secondary" />
+                )}
+              </label>
             )}
-          </label>
+            onChangeCallback={(avatar) => {
+              setForm({ ...form, avatar: avatar.id });
+            }}
+          />
         </div>
         <TextField
           value={form.title}

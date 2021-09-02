@@ -1,24 +1,24 @@
 import React, { FC, useMemo } from 'react';
 import { Button } from '@consta/uikit/Button';
-import { useTranslation } from 'react-i18next';
 import { IconAdd } from '@consta/uikit/IconAdd';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { getCourses } from '../../../../utils/api/routes/admin';
 import BaseAdminPage from '../BaseAdminPage';
-import WebinarsTable from './WebinarsTable';
-import { getWebinars } from '../../../../utils/api/routes/admin';
+import CoursesTable from './CoursesTable';
 
-const Webinars: FC = () => {
+const Courses: FC = () => {
   const { t } = useTranslation();
   const history = useHistory();
 
   const button = useMemo(
     () => (
       <Button
-        label={t('admin.webinars.addWebinar')}
+        label="Добавить курс"
         size="s"
         view="primary"
         iconLeft={IconAdd}
-        onClick={() => history.push('/admin/webinars/create')}
+        onClick={() => history.push('/admin/courses/create')}
       />
     ),
     []
@@ -26,12 +26,12 @@ const Webinars: FC = () => {
 
   return (
     <BaseAdminPage
-      title={t('admin.webinars.webinarsList')}
-      apiFunc={getWebinars}
+      title="Список курсов"
+      apiFunc={getCourses}
       button={button}
-      tableComponent={WebinarsTable}
+      tableComponent={CoursesTable}
     />
   );
 };
 
-export default Webinars;
+export default Courses;
