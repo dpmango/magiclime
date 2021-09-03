@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core';
 import { COLORS } from '../../../../../../utils/constants/colors';
 
 const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: '650px',
+  },
   speaker: {
     display: 'grid',
     gridTemplateColumns: '72px 1fr 1fr',

@@ -26,6 +26,7 @@ const FormStepper = <T extends object>({
   isSubmit,
 }: IProps<T>) => {
   const styles = useStyles();
+
   return (
     <Flex direction="column">
       {steps.map((item) => (
@@ -50,7 +51,8 @@ const FormStepper = <T extends object>({
                 key={step.id}
                 className={cln(styles.step, {
                   [styles.activeStep]: step.id === currentStep,
-                  [styles.errorStep]: errors.hasOwnProperty(`step_${step.id}`),
+                  [styles.errorStep]:
+                    errors.hasOwnProperty(`step_${step.id}`) && isSubmit,
                 })}
                 onClick={() => setStep(step.id)}
               >

@@ -8,7 +8,7 @@ import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
-import { REQUIRED_STRING } from 'utils/formik/validation';
+import { REQUIRED } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
 import { dateMask } from 'utils/helpers/mask';
@@ -47,9 +47,9 @@ const Profile: FC = () => {
   };
 
   const schema = Yup.object({
-    name: REQUIRED_STRING,
-    country: REQUIRED_STRING,
-    city: REQUIRED_STRING,
+    name: REQUIRED,
+    country: REQUIRED,
+    city: REQUIRED,
   });
 
   return (

@@ -7,7 +7,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
-import { REQUIRED_STRING, validationMessages } from 'utils/formik/validation';
+import { REQUIRED, validationMessages } from 'utils/formik/validation';
 import { changePassword } from 'store/reducers/user';
 
 import useStyles from './styles';
@@ -47,8 +47,8 @@ const Profile: FC = () => {
   };
 
   const schema = Yup.object({
-    current_password: REQUIRED_STRING,
-    new_password: REQUIRED_STRING,
+    current_password: REQUIRED,
+    new_password: REQUIRED,
     repeatPassword: Yup.string()
       .required(validationMessages.required)
       .oneOf(

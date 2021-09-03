@@ -18,7 +18,7 @@ const Speakers: FC<{ speakers: IFormSpeaker[] }> = ({ speakers }) => {
     <FieldArray
       name="step_2.speakers"
       render={(arrayHelpers) => (
-        <Flex direction="column">
+        <Flex direction="column" className={styles.root}>
           {speakers.map((speaker, index) => (
             <div key={`speaker_${index}`} className={styles.speaker}>
               <Button

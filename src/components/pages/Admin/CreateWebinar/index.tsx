@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
+import { IPhoto } from '../../../../types/interfaces/common';
 import FormStepper, { StepsType } from '../../../Common/FormStepper';
 import BasicSettings from './Steps/BasicSettings';
 import Description from './Steps/Description';
@@ -10,7 +11,7 @@ import Speakers from './Steps/Speakers';
 import useStyles from './styles';
 import Typography from '../../../Common/Typography';
 import { createWebinar } from '../../../../utils/api/routes/admin';
-import { REQUIRED_STRING } from '../../../../utils/formik/validation';
+import { REQUIRED } from '../../../../utils/formik/validation';
 import { IFormSpeaker } from './types';
 
 const CreateWebinar: FC = () => {
@@ -32,48 +33,51 @@ const CreateWebinar: FC = () => {
     []
   );
 
-  const initialValues = {
-    step_1: {
-      banner: '',
-      type: '',
-      date: '',
-      title: '',
-      city: '',
-      zoom_url: '',
-    },
-    step_2: {
-      speakers: [
-        {
-          avatar: null,
-          name: '',
-          position: '',
-          description: '',
-        },
-      ],
-    },
-    step_3: {
-      description: '',
-    },
-  };
+  const initialValues = useMemo(
+    () => ({
+      step_1: {
+        banner: null,
+        type: '',
+        date: '',
+        title: '',
+        city: '',
+        zoom_url: '',
+      },
+      step_2: {
+        speakers: [
+          {
+            avatar: null,
+            name: '',
+            position: '',
+            description: '',
+          },
+        ],
+      },
+      step_3: {
+        description: '',
+      },
+    }),
+    []
+  );
 
   const schema = Yup.object({
     step_1: Yup.object({
-      type: REQUIRED_STRING,
-      date: REQUIRED_STRING,
-      title: REQUIRED_STRING,
-      zoom_url: REQUIRED_STRING,
-      city: REQUIRED_STRING,
+      type: REQUIRED,
+      date: REQUIRED,
+      title: REQUIRED,
+      zoom_url: REQUIRED,
+      city: REQUIRED,
     }),
     step_2: Yup.object({
       speakers: Yup.array().of(
         Yup.object({
-          name: REQUIRED_STRING,
-          position: REQUIRED_STRING,
+          name: REQUIRED,
+          position: REQUIRED,
         })
       ),
     }),
     step_3: Yup.object({
-      description: REQUIRED_STRING,
+      description: REQUIRED,
     }),
   });
 
@@ -91,7 +95,22 @@ const CreateWebinar: FC = () => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    createWebinar(values).then(() => {});
+    const speakers = values.step_2.speakers.map((item) =>
+      item.avatar
+        ? { ...item, avatar: (item.avatar as unknown as IPhoto).id }
+        : item
+    );
+    const banner = values.step_1.banner
+      ? (values.step_1.banner as unknown as IPhoto).id
+      : null;
+
+    const data = {
+      ...values.step_1,
+      ...values.step_3,
+      banner,
+      speakers,
+    };
+    createWebinar(data).then(() => {});
   };
 
   return (

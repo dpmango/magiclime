@@ -19,7 +19,7 @@ const BasicSettings: FC = () => {
             <PhotoField
               render={({ src, fieldId }) => (
                 <>
-                  {!!value && <img src={src} alt="banner" />}
+                  {!!value && <img src={value.image} alt="banner" />}
                   <label
                     htmlFor={fieldId}
                     className={cln(styles.addPhoto, {
@@ -32,7 +32,7 @@ const BasicSettings: FC = () => {
                 </>
               )}
               onChangeCallback={(avatar) => {
-                setFieldValue('step_1.banner', avatar.id);
+                setFieldValue('step_1.banner', avatar);
               }}
             />
           )}

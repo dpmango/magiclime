@@ -9,7 +9,7 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSwitch from 'components/Common/Controls/Formik/Switch';
-import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
+import { REQUIRED, EMAIL, PHONE } from 'utils/formik/validation';
 import cns from 'classnames';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
@@ -51,8 +51,8 @@ const Account: FC = () => {
   };
 
   const schema = Yup.object({
-    sponsor: REQUIRED_STRING,
-    login: REQUIRED_STRING,
+    sponsor: REQUIRED,
+    login: REQUIRED,
     email: EMAIL,
     phone: PHONE,
   });

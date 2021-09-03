@@ -20,7 +20,7 @@ import {
   PHONE,
   REGEXP_TEST,
   REQUIRED_CHECKBOX,
-  REQUIRED_STRING,
+  REQUIRED,
 } from '../../../utils/formik/validation';
 import UserType from './Steps/UserType';
 import Additional from './Steps/Additional';
@@ -65,7 +65,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const schema = Yup.object({
-    username: REQUIRED_STRING,
+    username: REQUIRED,
     email: EMAIL,
     password: REGEXP_TEST(
       'password',
@@ -75,9 +75,9 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       .min(8, 'Минимум 8 символов!')
       .max(30, 'Максимум 30 символов!'),
     passwordConfirm: CONFIRM,
-    media_sponsor: REQUIRED_STRING.length(40, 'Неверный формат кода!'),
+    media_sponsor: Yup.string().required().length(40, 'Неверный формат кода!'),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
-    name: step === 4 ? REQUIRED_STRING : Yup.string(),
+    name: step === 4 ? REQUIRED : Yup.string(),
   });
 
   const errorCallback = (error: string) => {

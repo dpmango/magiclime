@@ -11,7 +11,7 @@ import { Avatar } from '@consta/uikit/Avatar';
 import BaseModal from 'components/Common/BaseModal';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
-import { REQUIRED_STRING } from 'utils/formik/validation';
+import { REQUIRED } from 'utils/formik/validation';
 
 import useStyles from './styles';
 
@@ -55,7 +55,7 @@ const CreateForum: FC = () => {
   };
 
   const schema = Yup.object({
-    question: REQUIRED_STRING,
+    question: REQUIRED,
   });
 
   return (
