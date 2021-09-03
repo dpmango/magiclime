@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { RouteComponentProps, Route, Redirect } from 'react-router-dom';
-import { ComponentType } from '../../types/common';
+import { ComponentType } from '../../../types/common';
 
 interface IProps {
   component: ComponentType<RouteComponentProps>;
@@ -10,7 +10,7 @@ interface IProps {
   exact?: boolean;
 }
 
-const PrivateRoute: FC<IProps> = ({
+const OpenRoute: FC<IProps> = ({
   component: Component,
   access,
   redirect,
@@ -20,10 +20,10 @@ const PrivateRoute: FC<IProps> = ({
     <Route
       {...rest}
       render={(props) =>
-        access ? <Component {...props} /> : <Redirect to={redirect} />
+        !access ? <Component {...props} /> : <Redirect to={redirect} />
       }
     />
   );
 };
 
-export default PrivateRoute;
+export default OpenRoute;

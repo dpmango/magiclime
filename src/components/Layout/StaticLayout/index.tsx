@@ -39,14 +39,13 @@ const StaticLayout: FC = () => {
           path="/home"
           render={() => <Landing setAuthOpen={setAuthOpen} />}
         />
-        <Route exact path="/info/government" component={Government} />
+        <Route exact path="/home/info/government" component={Government} />
         <Route
           exact
           path="/info/government/request"
           component={GovernmentRequest}
         />
-        <Route exact path="/info/privacy" component={Policy} />
-        <Redirect to="/home" />
+        <Route exact path="/home/info/privacy" component={Policy} />
       </Switch>
 
       <StaticFooter />
