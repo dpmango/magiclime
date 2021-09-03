@@ -13,7 +13,7 @@ import { RootState } from 'store/reducers/rootReducer';
 
 import { setAuthToken } from '../utils/api';
 import PrivateRoute from './PrivateRoute';
-import Landing from './pages/Landing';
+import StaticLayout from './Layout/StaticLayout';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
@@ -39,7 +39,7 @@ const App: FC = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <Route exact path="/home" component={Landing} />
+        <StaticLayout />
         <PrivateRoute
           path="/"
           component={() => (

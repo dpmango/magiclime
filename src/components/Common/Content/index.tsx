@@ -51,7 +51,7 @@ const Content: FC<IProps> = ({ data }) => {
       <Typography
         as="h1"
         margin="16px 0 32px"
-        size="2xl m:4xl"
+        size="2xl s:4xl"
         weight="semibold"
         lineHeight="s"
       >
@@ -72,7 +72,7 @@ const Content: FC<IProps> = ({ data }) => {
           weight="semibold"
           lineHeight="s"
         >
-          {data.title}
+          Загрузка...
         </Typography>
       )}
     </div>

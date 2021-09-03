@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Subscribe from './Subscribe';
 import Apps from './Apps';
 import useStyles from './styles';
-import useRootStyles from '../styles';
+import useRootStyles from '../../pages/Landing/styles';
 
 interface ILink {
   id: number;
@@ -55,7 +55,7 @@ const menu: IMenu[] = [
       {
         id: 3,
         title: 'Система запросов для правоохранительных органов',
-        href: '/',
+        href: '/info/government',
       },
     ],
   },

@@ -70,7 +70,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route path="/rating" component={Rating} />
               <Route exact path="/webinars/:id" component={WebinarInfo} />
               <Route path="/webinars/:id/stream" component={Webinar} />
-              <Route path="/info/government" component={Government} />
             </Switch>
           ) : (
             <Admin />

@@ -11,11 +11,11 @@ import moment from 'moment';
 
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
-import Content from 'components/common/Content';
+import Content from 'components/Common/Content';
 
 import useStyles from './styles';
 
-const ArticlePage: FC = () => {
+const PolicyPage: FC = () => {
   const styles = useStyles();
 
   const contentData = {
@@ -39,4 +39,4 @@ const ArticlePage: FC = () => {
   );
 };
 
-export default ArticlePage;
+export default PolicyPage;

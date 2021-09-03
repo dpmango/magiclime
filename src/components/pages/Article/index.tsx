@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
-import Content from 'components/common/Content';
+import Content from 'components/Common/Content';
 import { getArticles } from 'store/reducers/article';
 import { getArticleByIdService } from 'utils/api/routes/article';
 import { IArticle } from 'types/interfaces/article';

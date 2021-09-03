@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   content: {
     width: '100%',
     flex: '0 1 auto',
-    maxWidth: '700px',
+    maxWidth: '552px',
     minWidth: 1,
     margin: '0 auto',
   },
