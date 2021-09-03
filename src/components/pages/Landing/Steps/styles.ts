@@ -19,12 +19,11 @@ const useStyles = makeStyles({
     marginLeft: 24,
     height: 70,
     width: 70,
-    background: 'var(--color-bg-stripe)',
     borderRadius: 10,
     textAlign: 'center',
     fontSize: 0,
     '& img': {
-      maxWidth: '100%',
+      width: '100%',
     },
   },
   titlecard: {

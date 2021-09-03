@@ -11,9 +11,15 @@ const useStyles = makeStyles({
     },
   },
   content: {
-    flex: '0 0 calc(100% - 288px)',
-    padding: '0 70px',
+    width: '100%',
+    flex: '0 1 auto',
+    maxWidth: '700px',
+    margin: '0 auto',
   },
+  checkbox: {
+    margin: '36px 0',
+  },
+  cta: {},
 });
 
 export default useStyles;
