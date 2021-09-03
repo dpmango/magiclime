@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
   tabTitle: {
     fontSize: 18,
-    letterSpacing: '0.5px',
+    // letterSpacing: '0.5px',
     fontWeight: 500,
   },
   tabDescription: {

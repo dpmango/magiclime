@@ -29,7 +29,7 @@ const menu: IMenu[] = [
     list: [
       { id: 1, title: 'О нас', href: '' },
       { id: 2, title: 'Сообщество', href: '' },
-      { id: 3, title: 'Список программ', href: '/courses' },
+      // { id: 3, title: 'Список программ', href: '/courses' },
       { id: 4, title: 'Вебинары', href: '/webinars' },
       { id: 5, title: 'Анонсы и новости', href: '/articles' },
       { id: 6, title: 'Сертифакты легальности', href: '' },
