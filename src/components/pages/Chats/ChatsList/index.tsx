@@ -1,11 +1,13 @@
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Socket } from 'socket.io-client';
 import { v4 as uuid } from 'uuid';
 import Flex from '../../../Common/Flex';
+import { renderNewMessage } from '../Chat/controller';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
-import { IChat, IGroup, IMessage } from '../types';
+import { IChat, IGroup } from '../types';
 import ChatCard from './ChatCard';
 import { SetStateType } from '../../../../types/common';
 import Header from './Header';
@@ -14,9 +16,10 @@ import { getChatsList } from '../../../../utils/api/routes/chat';
 interface IProps {
   chatId?: string;
   setActiveChatId: SetStateType<number | null>;
+  socket: Socket;
 }
 
-const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
+const ChatsList: FC<IProps> = ({ chatId, setActiveChatId, socket }) => {
   const [search, setSearch] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null);
   const [chats, setChats] = useState<IChat[]>([]);
@@ -39,6 +42,25 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
 
   useEffect(() => {
     if (chatId) {
+      socket.on('my_response', (msg) => {
+        if (msg.data.id) {
+          const arr = chats.map((chat) => {
+            if (chat.id === msg.data.chat) {
+              return {
+                ...chat,
+                unreaded_count:
+                  msg.data.chat === chatId
+                    ? chat.unreaded_count + 1
+                    : chat.unreaded_count,
+                last_message: msg.data,
+              };
+            }
+            return chat;
+          });
+          setChats(arr);
+        }
+      });
+
       const activeChat = chats.find((chat) => chat.id === +chatId);
       if (activeChat) setActiveChatId(activeChat.id);
       else {
@@ -46,13 +68,6 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId }) => {
       }
     }
   }, [chatId]);
-
-  // chatSocket.onmessage = (event) => {
-  //   const newMessage = JSON.parse(event.data) as IMessage;
-  //   if (newMessage) {
-  //     console.log(newMessage);
-  //   }
-  // };
 
   return (
     <div className={styles.root}>

@@ -1,65 +1,60 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
-import { v4 as uuid } from 'uuid';
 import { Attach } from '@consta/uikit/Attach';
 import moment from 'moment';
 import cn from 'classnames';
 import Container from '../../../../../Common/Container';
+import { MessageFile } from '../../../types';
 import useStyles from './style';
 import Flex from '../../../../../Common/Flex';
 import { SetStateType } from '../../../../../../types/common';
+import { IPhoto } from '../../../../../../types/interfaces/common';
 
 interface IProps {
-  files: File[];
-  setFiles: SetStateType<File[]>;
+  files: MessageFile[];
+  setFiles: SetStateType<MessageFile[]>;
 }
 
 const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
   const styles = useStyles();
 
-  const removeFile = (file: File) => {
-    setFiles([
-      ...files.filter(
-        (item) => !(item.name === file.name && item.size === file.size)
-      ),
-    ]);
+  const removeFile = (file: MessageFile) => {
+    setFiles([...files.filter((item) => item.id !== file.id)]);
   };
 
   const getExt = (file: File): string => file.name.split('.').pop() as string;
 
-  const isImage = (file: File): boolean =>
-    /(png|jpe?g|gif|ico)/.test(getExt(file));
-
-  const uploadFile = () => {};
+  const isImage = (file: MessageFile): file is IPhoto => {
+    return (file as IPhoto).image !== undefined;
+  };
 
   return (
     <Container className={styles.root}>
       <Flex align="center">
-        {files.map((file) => (
+        {files.map((item) => (
           <div
             className={cn(
               styles.file,
-              isImage(file) ? styles.image : styles.doc
+              item.hasOwnProperty('image') ? styles.image : styles.doc
             )}
-            key={uuid()}
+            key={item.id}
           >
-            {isImage(file) ? (
-              <img
-                src="https://fotointeres.ru/wp-content/uploads/2012/04/0_82594_6463591f_orig.jpg"
-                alt="file"
-              />
+            {isImage(item) ? (
+              <img src={item.image} alt="file" />
             ) : (
               <Attach
                 fileName={
-                  file.name.length > 50
-                    ? `${file.name.slice(0, 47)}...`
-                    : file.name
+                  item.file.name.length > 50
+                    ? `${item.file.name.slice(0, 47)}...`
+                    : item.file.name
                 }
-                fileExtension={getExt(file)}
-                fileDescription={`${(file.size / 1024 / 1024).toFixed(
+                fileExtension={getExt(item.file)}
+                fileDescription={`${(item.file.size / 1024 / 1024).toFixed(
                   1
-                )} МБ, ${moment(file.lastModified).format('DD.MM.YY, HH:mm')}`}
+                )} МБ, ${moment(item.file.lastModified).format(
+                  'DD.MM.YY, HH:mm'
+                )}`}
               />
             )}
             <Button
@@ -68,7 +63,7 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
               size="xs"
               form="round"
               className={styles.delete}
-              onClick={() => removeFile(file)}
+              onClick={() => removeFile(item)}
             />
           </div>
         ))}
@@ -77,4 +72,6 @@ const FilesBlock: FC<IProps> = ({ files, setFiles }) => {
   );
 };
 
-export default FilesBlock;
+export default React.memo(FilesBlock, (prevProps, nextProps) => {
+  return prevProps.files.length === nextProps.files.length;
+});

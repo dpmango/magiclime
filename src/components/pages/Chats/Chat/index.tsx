@@ -1,9 +1,11 @@
 import { Button } from '@consta/uikit/Button';
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
+import { Socket } from 'socket.io-client';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import debounce from 'lodash/debounce';
 import React, {
   FC,
+  MutableRefObject,
   useCallback,
   useEffect,
   useMemo,
@@ -13,9 +15,9 @@ import React, {
 import { v4 as uuid } from 'uuid';
 import { Avatar } from '@consta/uikit/Avatar';
 import { usePrevious } from '../../../../hooks/usePrevious';
-import { DOMAIN } from '../../../../utils/api';
 import { IChatDetail, IMessage } from '../types';
 import Flex from '../../../Common/Flex';
+import { onReplyClick, renderNewMessage } from './controller';
 import useStyles from './styles';
 import Typography from '../../../Common/Typography';
 import Message from './Message';
@@ -25,7 +27,7 @@ import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
   chatId: number | null;
-  socket: WebSocket;
+  socket: Socket;
 }
 
 const Chat: FC<IProps> = ({ chatId, socket }) => {
@@ -41,8 +43,9 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   const [scroll, setScroll] = useState(0);
   const [allMessagesCount, setAllMessageCount] = useState(0);
   const [finishGettingData, setFinishGettingData] = useState(false);
+  const [refAppoint, setRefAppoint] = useState(true);
   const [loading, setLoading] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null) as MutableRefObject<HTMLDivElement | null>;
   const styles = useStyles();
   const previousScroll = usePrevious(scroll);
 
@@ -68,6 +71,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
           // const page = Math.ceil(chat.unreaded_count / LIMIT);
           getChatMessages(chat.id, 1, LIMIT)
             .then((res) => {
+              // console.log(res);
               const elem = ref.current;
               elem!.scrollTop = elem!.scrollHeight - elem!.clientHeight;
               setAllMessageCount(res.data.count);
@@ -80,34 +84,20 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
             .finally(() => setLoading(false));
         });
     }
-  }, [chatId, ref.current]);
+  }, [chatId, refAppoint]);
 
-  const onReplyClick = useCallback((id: number) => {
-    const message = document.getElementById(`message_${id}`);
-    message?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    message?.classList.add(styles.replyAnimation);
-    setTimeout(() => {
-      message?.classList.remove(styles.replyAnimation);
-    }, 3000);
-  }, []);
-
-  socket.onmessage = (event) => {
-    const newMessage = JSON.parse(event.data) as IMessage;
-    const avatar = newMessage.creator.avatar
-      ? {
-          ...newMessage.creator.avatar,
-          image: DOMAIN + newMessage.creator.avatar.image,
-        }
-      : null;
-    setAllMessageCount((prev) => prev + 1);
-    setMessages((prev) => ({
-      array: [
-        ...prev.array,
-        { ...newMessage, creator: { ...newMessage.creator, avatar } },
-      ],
-      needScroll: true,
-    }));
-  };
+  useEffect(() => {
+    if (chatId) {
+      socket.emit('join', { room: chatId.toString() });
+      socket.on('my_response', (msg) => {
+        if (msg.data.id)
+          renderNewMessage(msg.data, setAllMessageCount, setMessages);
+      });
+    }
+    return () => {
+      chatId && socket.emit('leave', { room: chatId.toString() });
+    };
+  }, [chatId]);
 
   useEffect(() => {
     if (
@@ -147,11 +137,11 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, 300);
 
   useEffect(() => {
-    const elem = ref.current;
-    if (elem && !!messages.array.length && messages.needScroll) {
+    if (refAppoint && !!messages.array.length && messages.needScroll) {
+      const elem = ref.current!;
       elem.scrollTop = elem.scrollHeight - elem.clientHeight;
     }
-  }, [ref.current, messages.array.length]);
+  }, [refAppoint, messages.array.length]);
 
   // Скроллим окно сообщений вниз до непрочитанных сообщений
   // useEffect(() => {
@@ -215,7 +205,14 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
               </Typography>
             </div>
           </Flex>
-          <div className={styles.body} ref={ref} onScroll={scrollChat}>
+          <div
+            className={styles.body}
+            ref={(el) => {
+              ref.current = el;
+              setRefAppoint(true);
+            }}
+            onScroll={scrollChat}
+          >
             {loading &&
               Array.from({ length: 3 }).map(() => (
                 <div key={uuid()} className={styles.skeleton}>
@@ -239,7 +236,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
                 )}
                 <Message
                   message={message}
-                  onReplyClick={onReplyClick}
+                  onReplyClick={(id: number) => onReplyClick(id, styles)}
                   unread={array.length - index <= chat?.unreaded_count}
                 />
               </div>
@@ -252,7 +249,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
             iconLeft={IconArrowDown}
             className={styles.scrollToBottom}
           />
-          <Panel chatId={chat.id} />
+          <Panel chatId={chat.id} socket={socket} />
         </>
       )}
     </Flex>

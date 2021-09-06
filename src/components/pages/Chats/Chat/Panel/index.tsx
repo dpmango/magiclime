@@ -9,25 +9,51 @@ import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import { IconAttach } from '@consta/uikit/IconAttach';
 import { FileField } from '@consta/uikit/FileField';
+import { Socket } from 'socket.io-client';
+import { IPhoto } from '../../../../../types/interfaces/common';
+import { sendFile } from '../../../../../utils/api/routes/chat';
+import { uploadImage } from '../../../../../utils/api/routes/other';
+import { MessageFile } from '../../types';
 import useStyles from './styles';
 import Flex from '../../../../Common/Flex';
 import icons from './icons';
 import FilesBlock from './FilesBlock';
 import { ChatContext } from '../../context';
 import ReplyBlock from './ReplyBlock';
-import { sendMessage } from '../../../../../utils/api/routes/chat';
 
-const Panel: FC<{ chatId: number }> = ({ chatId }) => {
+interface IProps {
+  chatId: number;
+  socket: Socket;
+}
+
+const Panel: FC<IProps> = ({ chatId, socket }) => {
   const [message, setMessage] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<MessageFile[]>([]);
   const { chatContext, setChatContext } = useContext(ChatContext);
   const styles = useStyles();
 
   const submitMessage = () => {
     const reply = chatContext.replyMessage ? chatContext.replyMessage.id : null;
-    sendMessage({ text: message, chat: chatId, reply_to_id: reply }).then(
+    const attached_files = files
+      .filter((item) => item.hasOwnProperty('file'))
+      .map((file) => file.id);
+    const attached_images = files
+      .filter((item) => item.hasOwnProperty('image'))
+      .map((img) => img.id);
+    socket.emit(
+      'my_room_event',
+      {
+        room: chatId.toString(),
+        data: JSON.stringify({
+          text: message,
+          reply_to_id: reply,
+          attached_files,
+          attached_images,
+        }),
+      },
       () => {
         setMessage('');
+        setFiles([]);
         if (reply) setChatContext({ ...chatContext, replyMessage: null });
       }
     );
@@ -40,9 +66,20 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
     }
   };
 
+  const isImage = (file: File): boolean =>
+    /(png|jpe?g|gif|ico)/.test(file.name.split('.').pop() as string);
+
   const addFile = (e: DragEvent | React.ChangeEvent<Element>) => {
     const file = (e.target as HTMLInputElement).files![0];
-    if (file) setFiles([...files, file]);
+    if (isImage(file)) {
+      uploadImage(file).then((res) => {
+        setFiles([...files, res.data]);
+      });
+    } else {
+      sendFile(file).then((res) => {
+        setFiles([...files, { id: res.data.id, file }]);
+      });
+    }
   };
 
   const cancelReply = useCallback(() => {
@@ -90,4 +127,6 @@ const Panel: FC<{ chatId: number }> = ({ chatId }) => {
   );
 };
 
-export default Panel;
+export default React.memo(Panel, (prevProps, nextProps) => {
+  return prevProps.chatId === nextProps.chatId;
+});

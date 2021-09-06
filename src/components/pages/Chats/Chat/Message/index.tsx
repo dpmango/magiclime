@@ -102,6 +102,18 @@ const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
             </Typography>
           </div>
         )}
+        {message.attached_images.length > 0 && (
+          <Flex direction="column">
+            {message.attached_images.map((img) => (
+              <img
+                src={img.image}
+                key={img.id}
+                alt="chat_image"
+                className={styles.messageImage}
+              />
+            ))}
+          </Flex>
+        )}
         <Flex margin="0 0 8px" className={styles.container}>
           <Typography className={styles.text}>{message.text}</Typography>
         </Flex>

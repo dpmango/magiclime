@@ -24,12 +24,16 @@ const WebinarChat = () => {
       text: 'Hello',
       created_at: '2021-08-08 08:45',
       creator: { id: 1, name: 'Ivan Ivanov', avatar: null },
+      attached_images: [],
+      attached_files: [],
     },
     {
       id: 2,
       text: 'How are you?',
       created_at: '2021-08-08 08:53',
       creator: { id: 2, name: 'Petya Petrov', avatar: null },
+      attached_images: [],
+      attached_files: [],
     },
   ]);
   const ref = useRef<HTMLDivElement>(null);
