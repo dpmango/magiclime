@@ -20,26 +20,14 @@ type SelectItem = {
 
 const paymentSelectList: SelectItem[] = [
   {
-    label: 'Bitcoin',
-    icon: '/images/bitcoin.svg',
-    disabled: false,
-    id: 1,
-  },
-  {
     label: 'USDT',
     icon: '/images/bitlime.svg',
     disabled: true,
     id: 2,
   },
-  {
-    label: 'RUB',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 3,
-  },
 ];
 
-const Withdrawal: FC = () => {
+const Transfer: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -62,7 +50,7 @@ const Withdrawal: FC = () => {
   return (
     <div className={styles.root}>
       <Typography size="xl" weight="semibold" className={styles.title}>
-        {t('profile.balance.withdrawal.title')}
+        {t('profile.balance.transfer.title')}
       </Typography>
 
       <Formik
@@ -74,25 +62,25 @@ const Withdrawal: FC = () => {
           <div className={styles.uiGroup}>
             <FormikSelect
               items={paymentSelectList}
-              label={t('profile.balance.withdrawal.payment.label')}
+              label={t('profile.balance.transfer.payment.label')}
               name="payment"
               isRequired={false}
             />
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label={t('profile.balance.withdrawal.credentials.label')}
+              label={t('profile.balance.transfer.credentials.label')}
               name="credentials"
               placeholder={t(
-                'profile.balance.withdrawal.credentials.placeholder'
+                'profile.balance.transfer.credentials.placeholder'
               )}
             />
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label={t('profile.balance.withdrawal.amount.label')}
+              label={t('profile.balance.transfer.amount.label')}
               name="amount"
-              placeholder={t('profile.balance.withdrawal.amount.placeholder')}
+              placeholder={t('profile.balance.transfer.amount.placeholder')}
               onlyNumbers
             />
           </div>
@@ -101,7 +89,7 @@ const Withdrawal: FC = () => {
             width="full"
             view="primary"
             type="submit"
-            label={t('profile.balance.withdrawal.cta')}
+            label={t('profile.balance.transfer.cta')}
             className={styles.cta}
           />
         </Form>
@@ -110,4 +98,4 @@ const Withdrawal: FC = () => {
   );
 };
 
-export default Withdrawal;
+export default Transfer;

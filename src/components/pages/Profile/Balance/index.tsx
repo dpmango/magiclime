@@ -7,6 +7,7 @@ import { getBitcoinService } from 'utils/api/routes/bitcoin';
 import MyBalance from './MyBalance';
 import BalanceRefill from './Refill';
 import BalanceWidthdrawal from './Withdrawal';
+import BalanceTransfer from './Transfer';
 import useStyles from './styles';
 
 const Balance: FC = () => {
@@ -47,6 +48,11 @@ const Balance: FC = () => {
             <GridItem col="1">
               <div className={styles.box}>
                 <BalanceWidthdrawal />
+              </div>
+            </GridItem>
+            <GridItem col="1">
+              <div className={styles.box}>
+                <BalanceTransfer />
               </div>
             </GridItem>
           </Grid>

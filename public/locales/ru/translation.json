@@ -182,6 +182,24 @@
       },
       "withdrawal": {
         "title": "Вывод средств",
+        "payment": {
+          "label": "Выберите валюту"
+        },
+        "credentials": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите адрес кошелька"
+        },
+        "amount": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите сумму"
+        },
+        "cta": "Запросить вывод"
+      },
+      "transfer": {
+        "title": "Переводы",
+        "payment": {
+          "label": "Выберите валюту"
+        },
         "credentials": {
           "label": "Запросить вывод",
           "placeholder": "Введите адрес кошелька"
