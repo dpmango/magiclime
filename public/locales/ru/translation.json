@@ -74,7 +74,8 @@
       "price": "Цена",
       "difficulty": "Уровень сложности",
       "limeLevel": "Lime уровень",
-      "educationType": "Тип обучения"
+      "educationType": "Тип обучения",
+      "cta": "Поиск"
     },
     "page": {
       "buy": "Купить курс",
