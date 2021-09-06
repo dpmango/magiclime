@@ -56,6 +56,37 @@
       "cta": "Подробнее"
     }
   },
+  "govForm": {
+    "question": {
+      "label": "Пожалуйста, выберите свой вопрос из списка ниже.",
+      "placeholder": "Выбрать вопрос"
+    },
+    "country": {
+      "label": "Страна",
+      "placeholder": "Выбрать страну"
+    },
+    "email": {
+      "label": "Официальный имейл",
+      "helper": "@gmail, @hotmail, @yahoo, @naver @yandex @meta @protonmail, и другие не официальные имейлы не допустимы"
+    },
+    "name": {
+      "label": "Название правоохранительного органа",
+      "placeholder": ""
+    },
+    "transaction": {
+      "label": "Включите соответствующую транзакцию ID(s) (TXID), Wallet Address(es), Payment ID(s) / Memo(s) / Tag(s), и / или другие идентификаторы.",
+      "placeholder": "Предоставьте ваш адрес: 12cbQLTFMXRnSzktFkuoG3eHoMeFtpTu3S 3. Date: 2021-04-06"
+    },
+    "topic": {
+      "label": "Тема",
+      "placeholder": ""
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": ""
+    },
+    "cta": "Отправить запрос"
+  },
   "course": {
     "featured": {
       "tag": "рекомендованное",

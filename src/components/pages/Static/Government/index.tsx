@@ -50,7 +50,7 @@ const GovernmentPage: FC = () => {
             <Button
               label="Запросить доступ"
               disabled={!agreement}
-              onClick={() => history.push('/info/government/request')}
+              onClick={() => history.push('/home/info/government/request')}
             />
           </div>
         </div>
