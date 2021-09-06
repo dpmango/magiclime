@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
@@ -12,8 +12,9 @@ import { getAllMeta } from 'store/reducers/meta';
 import { RootState } from 'store/reducers/rootReducer';
 
 import { setAuthToken } from '../utils/api';
-import PrivateRoute from './PrivateRoute';
-import Landing from './pages/Landing';
+import PrivateRoute from './Layout/PrivateRoute';
+import OpenRoute from './Layout/OpenRoute';
+import StaticLayout from './Layout/StaticLayout';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
@@ -39,7 +40,13 @@ const App: FC = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <Route exact path="/home" component={Landing} />
+        <OpenRoute
+          path="/home"
+          component={() => <StaticLayout />}
+          redirect="/profile/me"
+          access={isLogged}
+        />
+
         <PrivateRoute
           path="/"
           component={() => (

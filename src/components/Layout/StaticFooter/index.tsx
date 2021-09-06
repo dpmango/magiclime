@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Subscribe from './Subscribe';
 import Apps from './Apps';
 import useStyles from './styles';
-import useRootStyles from '../styles';
+import useRootStyles from '../../pages/Landing/styles';
 
 interface ILink {
   id: number;
@@ -39,11 +39,15 @@ const menu: IMenu[] = [
     id: 2,
     title: 'Условия использования',
     list: [
-      { id: 1, title: 'Пользовательское соглашение', href: '/' },
-      { id: 2, title: 'Сертификаты', href: '/' },
-      { id: 3, title: 'Конфеденциальность', href: '/' },
-      { id: 4, title: 'Условия использования', href: '/' },
-      { id: 5, title: 'Реферальная программа', href: '/' },
+      {
+        id: 1,
+        title: 'Пользовательское соглашение',
+        href: '/home/info/agreement',
+      },
+      { id: 2, title: 'Сертификаты', href: '/home/info/certificates' },
+      { id: 3, title: 'Конфеденциальность', href: '/home/info/privacy' },
+      { id: 4, title: 'Условия использования', href: '/home/info/terms' },
+      { id: 5, title: 'Реферальная программа', href: '/home/info/referrals' },
     ],
   },
   {
@@ -55,7 +59,7 @@ const menu: IMenu[] = [
       {
         id: 3,
         title: 'Система запросов для правоохранительных органов',
-        href: '/',
+        href: '/home/info/government',
       },
     ],
   },

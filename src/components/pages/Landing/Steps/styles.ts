@@ -17,10 +17,14 @@ const useStyles = makeStyles({
   },
   cardImage: {
     marginLeft: 24,
-    height: 64,
-    width: 64,
-    background: 'var(--color-bg-border)',
+    height: 70,
+    width: 70,
     borderRadius: 10,
+    textAlign: 'center',
+    fontSize: 0,
+    '& img': {
+      width: '100%',
+    },
   },
   titlecard: {
     paddingLeft: 24,
