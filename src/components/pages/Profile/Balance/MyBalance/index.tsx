@@ -44,7 +44,7 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
         className={styles.options}
       >
         <GridItem col="1">
-          <BalanceWidget btcRate={btcRate} />
+          <BalanceWidget showRate={false} btcRate={btcRate} />
         </GridItem>
 
         {cells &&

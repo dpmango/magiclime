@@ -8,26 +8,29 @@ import useStyles from './styles';
 interface IProps {
   btcRate: number;
   inline?: boolean;
+  showRate?: boolean;
 }
 
-const BalanceWidget: FC<IProps> = ({ btcRate, inline }) => {
-  const styles = useStyles({ inline });
+const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
+  const styles = useStyles({ inline, showRate });
 
   return (
     <div className={styles.root}>
-      <Flex align="center">
-        <div className={styles.coinIcon}>
-          <img src="/images/bitcoin.png" alt="btc" />
-        </div>
-        <div className={styles.coinContent}>
-          <Typography className={styles.coinTitle16} view="brand" size="s">
-            BL/RUB
-          </Typography>
-          <Typography view="secondary" margin="2px 0 0" size="xs">
-            Курс 1 к {blToRub(1, btcRate)}
-          </Typography>
-        </div>
-      </Flex>
+      {showRate && (
+        <Flex align="center">
+          <div className={styles.coinIcon}>
+            <img src="/images/bitcoin.png" alt="btc" />
+          </div>
+          <div className={styles.coinContent}>
+            <Typography className={styles.coinTitle16} view="brand" size="s">
+              BL/RUB
+            </Typography>
+            <Typography view="secondary" margin="2px 0 0" size="xs">
+              Курс 1 к {blToRub(1, btcRate)}
+            </Typography>
+          </div>
+        </Flex>
+      )}
       {!inline && (
         <>
           <Typography
