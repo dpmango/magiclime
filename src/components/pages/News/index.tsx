@@ -1,10 +1,31 @@
-import React, { FC } from 'react';
+import { makeStyles } from '@material-ui/core';
+import React, { FC, useEffect, useState } from 'react';
+import Flex from '../../Common/Flex';
+import NewsItemCard from './NewsItemCard';
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: '1210px',
+  },
+});
 
 const News: FC = () => {
+  const [news, setNews] = useState([{ id: 1 }, { id: 2 }]);
+  const styles = useStyles();
+
+  useEffect(() => {}, []);
+
   return (
-    <div>
-      <p>Hello</p>
-    </div>
+    <Flex
+      direction="column"
+      margin="0 auto"
+      padding="48px 40px 50px"
+      className={styles.root}
+    >
+      {news.map((item) => (
+        <NewsItemCard key={item.id} newItem={item} />
+      ))}
+    </Flex>
   );
 };
 
