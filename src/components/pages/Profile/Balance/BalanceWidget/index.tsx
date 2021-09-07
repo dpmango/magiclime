@@ -24,7 +24,7 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline }) => {
             BTL/RUB
           </Typography>
           <Typography view="secondary" margin="2px 0 0" size="xs">
-            Курс 1 к {formatPrice(btcRate)}
+            Курс 1 к {btlToRub(1, btcRate)}
           </Typography>
         </div>
       </Flex>
