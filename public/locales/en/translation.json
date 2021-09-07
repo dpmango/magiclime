@@ -349,7 +349,8 @@
     "extra": "EXTRA",
     "faq": "Articles",
     "rating": "Users rating",
-    "games": "Games"
+    "games": "Games",
+    "news": "News"
   },
   "admin": {
     "users": "Пользователи",

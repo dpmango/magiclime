@@ -1,3 +1,4 @@
+import { IconLineAndBarChart } from '@consta/uikit/IconLineAndBarChart';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -68,6 +69,11 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
         path: '/calendar',
         name: t('menu.calendar'),
         icon: icons.CalendarIcon,
+      },
+      {
+        path: '/news',
+        name: t('menu.news'),
+        icon: IconLineAndBarChart,
       },
       { name: t('menu.education') },
       {

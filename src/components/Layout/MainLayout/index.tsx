@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import News from '../../pages/News';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType, Theme } from '../../../types/common';
@@ -69,6 +70,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route path="/rating" component={Rating} />
               <Route exact path="/webinars/:id" component={WebinarInfo} />
               <Route path="/webinars/:id/stream" component={Webinar} />
+              <Route path="/news" component={News} />
             </Switch>
           ) : (
             <Admin />
