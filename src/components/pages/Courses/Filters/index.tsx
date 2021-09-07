@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
+import { Button } from '@consta/uikit/Button';
 
 import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
@@ -51,6 +52,15 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
               />
             </div>
 
+            <div className={styles.ctaBlock}>
+              <Button
+                type="submit"
+                view="secondary"
+                size="s"
+                label={t('course.filter.cta')}
+              />
+            </div>
+
             <div className={styles.formBlock}>
               <FormikCheckboxGroup
                 label={t('course.filter.categories')}
@@ -97,6 +107,14 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
                 direction="column"
                 getLabel={(item) => item as string}
                 className={styles.group}
+              />
+            </div>
+
+            <div className={styles.ctaBlock}>
+              <Button
+                type="submit"
+                width="full"
+                label={t('course.filter.cta')}
               />
             </div>
           </Form>

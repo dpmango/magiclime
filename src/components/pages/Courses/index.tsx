@@ -22,18 +22,22 @@ const CoursesPage: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [loading, setLoading] = useState<boolean>(true);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [activeTags, setActiveTags] = useState<number[]>([]);
   const { tags } = useSelector((state: RootState) => state.meta);
 
-  const fetchCourses = useCallback(async () => {
-    const [err, data] = await getCoursesService();
+  const fetchCourses = useCallback(async (filter) => {
+    setLoading(true);
+    const [err, data] = await getCoursesService(filter);
 
     if (err) {
       console.log({ err });
     }
 
     setCourses(data!.results || []);
+
+    setLoading(false);
   }, []);
 
   const getMore = () => {
@@ -83,19 +87,19 @@ const CoursesPage: FC = () => {
 
     return {
       categories,
-      level: ['Любой', 'Для новичков', 'Для специалистов'],
+      level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
       types: ['Профессия', 'Программа', 'Курс'],
       priceRange,
       levelRange,
     };
   }, [courses]);
 
-  const handleFiltersChange = useCallback((filter) => {
-    console.log({ filter });
+  const handleFiltersChange = useCallback(async (filter) => {
+    await fetchCourses(filter);
   }, []);
 
   useEffect(() => {
-    fetchCourses();
+    fetchCourses(null);
   }, []);
 
   return (

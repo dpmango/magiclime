@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { isWhite: boolean }>(() => ({
   root: {
     position: 'absolute',
     top: 0,
@@ -11,12 +11,21 @@ const useStyles = makeStyles({
     // borderBottom: '1px solid var(--color-bg-border)',
   },
   logo: {
+    flex: '0 0 auto',
+    minWidth: 1,
+    display: 'inline-flex',
+    alignItems: 'center',
+    paddingRight: 24,
+  },
+  logoText: {
     // textTransform: 'uppercase',
+    display: 'inline-block',
     fontWeight: 900,
     fontSize: 18,
-    paddingRight: 24,
+    paddingLeft: 24,
     letterSpacing: 0.3,
-    color: 'var(--color-bg-default)',
+    color: ({ isWhite }) =>
+      isWhite ? 'var(--color-bg-default)' : 'var(--color-typo-primary)',
   },
   menu: {
     listStyle: 'none',
@@ -42,7 +51,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     letterSpacing: -0.1,
     // textShadow: '0 0 var(--color-bg-default)',
-    color: '#fafafa',
+    color: ({ isWhite }) => (isWhite ? '#fafafa' : 'var(--color-typo-primary)'),
     transition: 'color .25s ease',
     '&:hover': {
       background: 'hsla(0,0%,100%,0.2)',
@@ -61,19 +70,21 @@ const useStyles = makeStyles({
     },
   },
   enterbutton: {
-    background: 'hsla(0,0%,100%,0.2)',
+    background: ({ isWhite }) =>
+      isWhite ? 'hsla(0,0%,100%,0.2)' : 'var(--color-bg-brand)',
   },
   global: {
     padding: 16,
     marginRight: 8,
     fontSize: 0,
-    color: 'var(--color-bg-default)',
+    color: ({ isWhite }) =>
+      isWhite ? 'var(--color-bg-default)' : 'var(--color-typo-primary)',
     transition: 'color .25s ease',
     cursor: 'pointer',
     '&:hover': {
       color: 'var(--color-typo-brand)',
     },
   },
-});
+}));
 
 export default useStyles;

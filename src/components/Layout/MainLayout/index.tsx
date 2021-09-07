@@ -23,6 +23,7 @@ import WebinarInfo from '../../pages/WebinarInfo';
 import Admin from '../../pages/Admin';
 import { RootState } from '../../../store/reducers/rootReducer';
 import Webinar from '../../pages/Webinar';
+import Government from '../../pages/Static/Government';
 
 interface IProps {
   theme: Theme;

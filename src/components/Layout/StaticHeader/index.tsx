@@ -13,14 +13,17 @@ import { Language, Theme } from 'types/common';
 import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
-import useRootStyles from '../styles';
+import useRootStyles from '../../pages/Landing/styles';
 
 interface IProps {
+  isWhite: boolean;
   setAuthOpen: (v: boolean) => void;
 }
 
-const Header: FC<IProps> = ({ setAuthOpen }) => {
-  const styles = useStyles();
+const Header: FC<IProps> = ({ isWhite = false, setAuthOpen }) => {
+  const styles = useStyles({
+    isWhite,
+  });
   const rootStyles = useRootStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -45,7 +48,7 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
     <div className={styles.root}>
       <div className={rootStyles.container}>
         <Flex align="center">
-          <div className={styles.logo}>
+          <Link to="/home" className={styles.logo}>
             <svg
               width="25"
               height="31"
@@ -57,11 +60,11 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
                 width="6.8747"
                 height="30.2487"
                 rx="3.43735"
-                fill="#fafafa"
+                fill={isWhite ? '"#fafafa"' : '#1e2329'}
               />
               <path
                 d="M9.62476 12.7525C9.62476 11.0251 11.0251 9.62476 12.7525 9.62476V9.62476C14.4799 9.62476 15.8802 11.0251 15.8802 12.7525V21.0931C15.8802 22.8205 14.4799 24.2208 12.7525 24.2208V24.2208C11.0251 24.2208 9.62476 22.8205 9.62476 21.0931V12.7525Z"
-                fill="#fafafa"
+                fill={isWhite ? '"#fafafa"' : '#1e2329'}
               />
               <rect
                 x="9.62476"
@@ -69,7 +72,7 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
                 width="6.25544"
                 height="7.29801"
                 rx="3.12772"
-                fill="#FFA832"
+                fill={isWhite ? '"#FFA832"' : '#FFA832'}
               />
               <rect
                 x="18.7445"
@@ -77,11 +80,13 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
                 width="6.25544"
                 height="7.29801"
                 rx="3.12772"
-                fill="#FFA832"
+                fill={isWhite ? '"#FFA832"' : '#FFA832'}
               />
             </svg>
-          </div>
-          <div className={styles.logo}>MagicLime</div>
+
+            <div className={styles.logoText}>MagicLime</div>
+          </Link>
+
           <Flex as="ul" className={styles.menu}>
             <li>
               <Link to="/courses" className={styles.menuLink}>
@@ -99,7 +104,7 @@ const Header: FC<IProps> = ({ setAuthOpen }) => {
               </Link>
             </li>
             <li>
-              <Link to="/webinars" className={styles.menuLink}>
+              <Link to="/faq" className={styles.menuLink}>
                 {t('landing.header.menu.articles')}
               </Link>
             </li>
