@@ -59,7 +59,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName="3.130 mBTL"
+                personName="3.130 mBL"
                 personInfo="Баланс"
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}

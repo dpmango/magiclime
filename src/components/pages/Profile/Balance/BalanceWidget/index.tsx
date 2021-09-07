@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { formatPrice, btlToRub, btlToBtc } from 'utils/helpers/formatPrice';
+import { formatPrice, blToRub, blToBtc } from 'utils/helpers/formatPrice';
 
 import useStyles from './styles';
 
@@ -21,10 +21,10 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline }) => {
         </div>
         <div className={styles.coinContent}>
           <Typography className={styles.coinTitle16} view="brand" size="s">
-            BTL/RUB
+            BL/RUB
           </Typography>
           <Typography view="secondary" margin="2px 0 0" size="xs">
-            Курс 1 к {btlToRub(1, btcRate)}
+            Курс 1 к {blToRub(1, btcRate)}
           </Typography>
         </div>
       </Flex>
@@ -41,10 +41,10 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline }) => {
           </Typography>
           <Flex align="baseline" wrap="wrap">
             <Typography view="brand" size="2xl" weight="semibold">
-              232 BTL
+              232 BL
             </Typography>
             <Typography view="secondary" margin="0 0 0 4px" size="xs">
-              {btlToBtc(232, btcRate)} mBtc
+              {blToBtc(232, btcRate)} mBtc
             </Typography>
           </Flex>
         </>

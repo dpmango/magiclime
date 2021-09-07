@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
-import { btlToBtc } from 'utils/helpers/formatPrice';
+import { blToBtc } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 
@@ -19,18 +19,18 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
     return [
       {
         label: 'Доступно для вывода',
-        main: '232 BTL',
-        secondary: `${btlToBtc(232, btcRate)} mBtc`,
+        main: '232 BL',
+        secondary: `${blToBtc(232, btcRate)} mBtc`,
       },
       {
         label: 'Всего заработано',
-        main: '232 BTL',
-        secondary: `${btlToBtc(232, btcRate)} mBtc`,
+        main: '232 BL',
+        secondary: `${blToBtc(232, btcRate)} mBtc`,
       },
       {
         label: 'Всего выведено',
-        main: '232 BTL',
-        secondary: `${btlToBtc(232, btcRate)} mBtc`,
+        main: '232 BL',
+        secondary: `${blToBtc(232, btcRate)} mBtc`,
       },
     ];
   }, [btcRate]);

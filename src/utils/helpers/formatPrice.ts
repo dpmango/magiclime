@@ -17,11 +17,11 @@ export const formatPrice = (num: number): string => {
   return '';
 };
 
-export const btlToRub = (num: number, rate: number) => {
+export const blToRub = (num: number, rate: number) => {
   return formatPrice((num / 1000 / 100) * rate);
 };
 
-export const btlToBtc = (num: number, rate: number) => {
+export const blToBtc = (num: number, rate: number) => {
   return formatPrice(num / 100);
 };
 

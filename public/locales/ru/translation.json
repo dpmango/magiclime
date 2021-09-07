@@ -207,7 +207,7 @@
         "paymentAmount": "Сумма пополнения",
         "amount": {
           "label": "Сумма пополнения",
-          "placeholder": "Введите сумму в BTL"
+          "placeholder": "Введите сумму в BL"
         },
         "cta": "Пополнить баланс",
         "toast": {
