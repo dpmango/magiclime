@@ -377,6 +377,15 @@
       "title": "Форум",
       "view": "Читать форум"
     },
+    "topic": {
+      "head": {
+        "topic": "Тема",
+        "author": "Автор",
+        "answers": "Ответы",
+        "views": "Просмотры",
+        "date": "Активность"
+      }
+    },
     "filter": {
       "searchPlaceholder": "Поиск по форуму",
       "categories": "По темам"

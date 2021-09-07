@@ -9,6 +9,10 @@ const useStyles = makeStyles({
     background: 'var(--color-bg-default)',
     borderTop: '1px solid var(--color-bg-border)',
     padding: '16px 0',
+    '&.head': {
+      borderTop: 0,
+      padding: '8px 0',
+    },
     '&:last-child': {
       borderBottom: '1px solid var(--color-bg-border)',
     },
@@ -17,6 +21,7 @@ const useStyles = makeStyles({
       flexWrap: 'wrap',
     },
   },
+
   cardTitle: {
     flex: '0 0 calc(100% - 160px - 140px - 140px)',
     maxWidth: 'calc(100% - 160px - 140px - 140px)',
@@ -47,10 +52,17 @@ const useStyles = makeStyles({
       flex: '0 0 auto',
     },
   },
-  cardMeta: {
+  cardUnread: {
     flex: '0 0 70px',
+    maxWidth: 70,
+    paddingRight: 8,
   },
-  cardContent: {
+  cardViews: {
+    flex: '0 0 100px',
+    maxWidth: 100,
+    paddingRight: 8,
+  },
+  cardDate: {
     flex: '0 0 140px',
     maxWidth: '140px',
   },

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState, useMemo, ReactElement } from 'react';
 import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
+import cns from 'classnames';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -23,6 +24,34 @@ const ForumList: FC = () => {
 
   return (
     <div className={styles.root}>
+      <Flex align="center" className={cns(styles.card, 'head')}>
+        <div className={styles.cardTitle}>
+          <Typography size="2xs m:xs" view="secondary">
+            {t('forum.topic.head.topic')}
+          </Typography>
+        </div>
+
+        <div className={styles.cardUser}>
+          <Typography size="2xs m:xs" view="secondary">
+            {t('forum.topic.head.author')}
+          </Typography>
+        </div>
+        <div className={styles.cardUnread}>
+          <Typography size="2xs m:xs" view="secondary">
+            {t('forum.topic.head.answers')}
+          </Typography>
+        </div>
+        <div className={styles.cardViews}>
+          <Typography size="2xs m:xs" view="secondary">
+            {t('forum.topic.head.views')}
+          </Typography>
+        </div>
+        <div className={styles.cardDate}>
+          <Typography size="2xs m:xs" view="secondary">
+            {t('forum.topic.head.date')}
+          </Typography>
+        </div>
+      </Flex>
       {list &&
         list.map(
           (x): ReactElement => (
@@ -41,28 +70,28 @@ const ForumList: FC = () => {
                 />
                 <Typography
                   margin="0 0 0 6px"
-                  size="2x m:s"
+                  size="xs m:s"
                   className={styles.cardUserTitle}
                 >
                   {x.author.name}
                 </Typography>
               </Flex>
 
-              <div className={styles.cardMeta}>
-                <Typography size="2x m:s" view="secondary">
+              <div className={styles.cardUnread}>
+                <Typography size="xs m:s" view="secondary">
                   {x.unread}
                 </Typography>
               </div>
 
-              <div className={styles.cardMeta}>
-                <Typography size="2x m:s" view="secondary">
+              <div className={styles.cardViews}>
+                <Typography size="xs m:s" view="secondary">
                   {x.views}
                 </Typography>
               </div>
 
-              <div className={styles.cardContent}>
+              <div className={styles.cardDate}>
                 <Flex align="center" wrap="wrap" margin="8px 0 0">
-                  <Typography size="2x m:s" view="secondary">
+                  <Typography size="xs m:s" view="secondary">
                     {x.timestamp}
                   </Typography>
                 </Flex>

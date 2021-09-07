@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { getForumTopic } from 'utils/api/routes/forum';
 
 import ForumList from './ForumList';
 import FilterForums from './FilterForums';
@@ -16,7 +18,20 @@ const ForumTopicPage: FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    console.log({ topic });
+    const fetchTopic = async (id: string): Promise<unknown> => {
+      const [err, data] = await getForumTopic(id);
+
+      if (err) {
+        toast('Error loading topic. Please tye again');
+        return {};
+      }
+
+      console.log('FETCH topic responsce', data);
+
+      return data;
+    };
+
+    fetchTopic(topic);
   }, [topic]);
 
   return (
