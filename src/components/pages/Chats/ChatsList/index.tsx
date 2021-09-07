@@ -42,25 +42,6 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId, socket }) => {
 
   useEffect(() => {
     if (chatId) {
-      socket.on('my_response', (msg) => {
-        if (msg.data.id) {
-          const arr = chats.map((chat) => {
-            if (chat.id === msg.data.chat) {
-              return {
-                ...chat,
-                unreaded_count:
-                  msg.data.chat === chatId
-                    ? chat.unreaded_count + 1
-                    : chat.unreaded_count,
-                last_message: msg.data,
-              };
-            }
-            return chat;
-          });
-          setChats(arr);
-        }
-      });
-
       const activeChat = chats.find((chat) => chat.id === +chatId);
       if (activeChat) setActiveChatId(activeChat.id);
       else {
@@ -68,6 +49,25 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId, socket }) => {
       }
     }
   }, [chatId]);
+
+  socket.on('my_response', (msg) => {
+    if (msg.data.id) {
+      const arr = chats.map((chat) => {
+        if (chat.id === msg.data.chat) {
+          return {
+            ...chat,
+            unreaded_count:
+              msg.data.chat === chatId
+                ? chat.unreaded_count
+                : chat.unreaded_count + 1,
+            last_message: msg.data,
+          };
+        }
+        return chat;
+      });
+      setChats(arr);
+    }
+  });
 
   return (
     <div className={styles.root}>

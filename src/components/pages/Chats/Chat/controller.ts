@@ -6,10 +6,7 @@ import { IMessage } from '../types';
 export const renderNewMessage = (
   message: IMessage,
   increaseCount: SetStateType<number>,
-  setMessages: SetStateType<{
-    array: IMessage[];
-    needScroll: boolean;
-  }>
+  setMessages: SetStateType<IMessage[]>
 ) => {
   const avatar = message.creator.avatar
     ? {
@@ -22,13 +19,10 @@ export const renderNewMessage = (
     image: DOMAIN + img.image,
   }));
   increaseCount((prev) => prev + 1);
-  setMessages((prev) => ({
-    array: [
-      ...prev.array,
-      { ...message, creator: { ...message.creator, avatar }, attached_images },
-    ],
-    needScroll: true,
-  }));
+  setMessages((prev) => [
+    ...prev,
+    { ...message, creator: { ...message.creator, avatar }, attached_images },
+  ]);
 };
 
 export const onReplyClick = (id: number, styles: ClassNameMap) => {
@@ -39,3 +33,5 @@ export const onReplyClick = (id: number, styles: ClassNameMap) => {
     message?.classList.remove(styles.replyAnimation);
   }, 3000);
 };
+
+export const scrollToBottom = () => {};

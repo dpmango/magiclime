@@ -11,22 +11,6 @@ const useStyles = makeStyles(() => ({
       width: '25%',
     },
   },
-  header: {
-    width: 'calc(100% - 24px)',
-    borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    paddingBottom: '26px',
-    marginLeft: '24px',
-  },
-  avatarWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '56px',
-    height: '56px',
-    marginRight: '16px',
-    border: `1px solid #E8E8E8`,
-    borderRadius: '8px',
-  },
   body: {
     flex: 1,
     overflowY: 'auto',
@@ -70,7 +54,7 @@ const useStyles = makeStyles(() => ({
       height: '32px',
     },
   },
-  skeleton: {
+  messagesSkeleton: {
     display: 'flex',
     width: '300px',
     marginBottom: '30px',
@@ -78,6 +62,22 @@ const useStyles = makeStyles(() => ({
       marginRight: '16px',
       flex: 'none',
     },
+  },
+  headerSkeleton: {
+    display: 'flex',
+    width: '200px',
+    '& > div:first-of-type': {
+      marginRight: '16px',
+      flex: 'none',
+    },
+  },
+  loader: {
+    width: '100%',
+    height: '45px',
+    position: 'absolute',
+    top: '5px',
+    left: 0,
+    transform: 'none',
   },
 }));
 
