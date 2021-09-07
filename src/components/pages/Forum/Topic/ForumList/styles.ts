@@ -7,49 +7,52 @@ const useStyles = makeStyles({
   card: {
     position: 'relative',
     background: 'var(--color-bg-default)',
-    border: '1px solid var(--color-bg-border)',
-    borderRadius: 16,
-    padding: 24,
-    marginBottom: 12,
+    borderTop: '1px solid var(--color-bg-border)',
+    padding: '16px 0',
+    '&:last-child': {
+      borderBottom: '1px solid var(--color-bg-border)',
+    },
     '@media screen and (max-width: 639px)': {
       padding: '18px 12px',
       flexWrap: 'wrap',
     },
   },
-  cardAvatar: {
-    flex: '0 0 80px',
+  cardTitle: {
+    flex: '0 0 calc(100% - 160px - 140px - 140px)',
+    maxWidth: 'calc(100% - 160px - 140px - 140px)',
+    paddingRight: 24,
+    minWidth: 1,
+    '& $Typography': {
+      whiteSpace: 'nowrap',
+      maxWidth: '100%',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+    },
+  },
+  cardUserTitle: {
+    whiteSpace: 'nowrap',
+    maxWidth: '100%',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  cardUser: {
+    flex: '0 0 160px',
+    maxWidth: '160px',
     paddingRight: 16,
     '@media screen and (max-width: 768px)': {
-      flex: '0 0 60px',
+      flex: '0 0 100px',
       paddingRight: 12,
     },
     '& .Avatar': {
-      width: 64,
-      height: 64,
-      lineHeight: '64px',
-      fontSize: 18,
-      '@media screen and (max-width: 768px)': {
-        width: 48,
-        height: 48,
-        lineHeight: '48px',
-        fontSize: 14,
-      },
-    },
-  },
-  cardContent: {
-    flex: '1 1 auto',
-    paddingRight: 24,
-    '@media screen and (max-width: 639px)': {
-      paddingTop: 12,
+      flex: '0 0 auto',
     },
   },
   cardMeta: {
-    flex: '0 0 auto',
-    '@media screen and (max-width: 639px)': {
-      position: 'absolute',
-      top: 18,
-      right: 18,
-    },
+    flex: '0 0 70px',
+  },
+  cardContent: {
+    flex: '0 0 140px',
+    maxWidth: '140px',
   },
 });
 

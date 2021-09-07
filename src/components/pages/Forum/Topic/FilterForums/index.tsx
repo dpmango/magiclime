@@ -7,26 +7,26 @@ import ConstaIcons from 'assets/icons/ConstaIcons';
 
 import useStyles from './styles';
 
-interface ICategory {
-  id: number;
-  name: string;
-}
+// interface ICategory {
+//   id: number;
+//   name: string;
+// }
 
 const Filters: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const categories = [
-    { id: 1, name: 'Маркетинг' },
-    { id: 2, name: 'Финансы' },
-    { id: 3, name: 'Управление' },
-    { id: 4, name: 'Личный рост' },
-    { id: 5, name: 'Бизнес' },
-    { id: 6, name: 'Маркетинг1' },
-    { id: 7, name: 'Маркетинг32' },
-    { id: 8, name: 'Маркетинг4' },
-    { id: 9, name: 'Маркетинг5' },
-  ] as ICategory[];
+  // const categories = [
+  //   { id: 1, name: 'Маркетинг' },
+  //   { id: 2, name: 'Финансы' },
+  //   { id: 3, name: 'Управление' },
+  //   { id: 4, name: 'Личный рост' },
+  //   { id: 5, name: 'Бизнес' },
+  //   { id: 6, name: 'Маркетинг1' },
+  //   { id: 7, name: 'Маркетинг32' },
+  //   { id: 8, name: 'Маркетинг4' },
+  //   { id: 9, name: 'Маркетинг5' },
+  // ] as ICategory[];
 
   return (
     <>
@@ -44,20 +44,18 @@ const Filters: FC = () => {
       >
         {({ values, setFieldValue }) => (
           <Form>
-            <div className={styles.formBlock}>
-              <Field
-                placeholder={t('forum.filter.searchPlaceholder')}
-                name="search"
-                component={TextField}
-                rightSide={ConstaIcons.Search}
-                value={values.search}
-                onChange={({ value }: { value: string }) =>
-                  setFieldValue('search', value)
-                }
-              />
-            </div>
+            <Field
+              placeholder={t('forum.filter.searchPlaceholder')}
+              name="search"
+              component={TextField}
+              rightSide={ConstaIcons.Search}
+              value={values.search}
+              onChange={({ value }: { value: string }) =>
+                setFieldValue('search', value)
+              }
+            />
 
-            <div className={styles.formBlock}>
+            {/* <div className={styles.formBlock}>
               <FormikCheckboxGroup
                 label={t('forum.filter.categories')}
                 name="categories"
@@ -66,7 +64,7 @@ const Filters: FC = () => {
                 getLabel={(item) => (item as ICategory).name}
                 className={styles.group}
               />
-            </div>
+            </div> */}
           </Form>
         )}
       </Formik>

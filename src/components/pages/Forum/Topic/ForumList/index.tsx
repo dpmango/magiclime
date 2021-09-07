@@ -10,11 +10,7 @@ import ConstaIcons from 'assets/icons/ConstaIcons';
 import useStyles from './styles';
 import { list } from './mockData';
 
-interface IProps {
-  sort?: string;
-}
-
-const ForumList: FC<IProps> = ({ sort }) => {
+const ForumList: FC = () => {
   const styles = useStyles();
   const { path } = useRouteMatch();
   const { t } = useTranslation();
@@ -30,32 +26,44 @@ const ForumList: FC<IProps> = ({ sort }) => {
       {list &&
         list.map(
           (x): ReactElement => (
-            <Flex className={styles.card} key={x.id}>
-              <div className={styles.cardAvatar}>
-                <Avatar url={x.author.avatar || ''} name={x.author.name} />
-              </div>
-              <div className={styles.cardContent}>
+            <Flex align="center" className={styles.card} key={x.id}>
+              <div className={styles.cardTitle}>
                 <Link to={`/forum/${topicID}/${x.id}`}>
-                  <Typography size="l m:xl" weight="semibold">
-                    {x.title}
-                  </Typography>
+                  <Typography size="s">{x.title}</Typography>
                 </Link>
-
-                <Flex align="center" wrap="wrap" margin="8px 0 0">
-                  <Typography size="s m:m" view="ghost">
-                    {x.timestamp}
-                  </Typography>
-
-                  <Typography margin="0 0 0 12px" size="s m:m" view="ghost">
-                    {t('forum.card.from')} {x.author.name}
-                  </Typography>
-                </Flex>
               </div>
+
+              <Flex className={styles.cardUser}>
+                <Avatar
+                  size="s"
+                  url={x.author.avatar || ''}
+                  name={x.author.name}
+                />
+                <Typography
+                  margin="0 0 0 6px"
+                  size="2x m:s"
+                  className={styles.cardUserTitle}
+                >
+                  {x.author.name}
+                </Typography>
+              </Flex>
+
               <div className={styles.cardMeta}>
-                <Flex align="baseline">
-                  <ConstaIcons.Comment size="m" view="ghost" />
-                  <Typography margin="0 0 0 6px" size="m" view="ghost">
-                    {x.unread}
+                <Typography size="2x m:s" view="secondary">
+                  {x.unread}
+                </Typography>
+              </div>
+
+              <div className={styles.cardMeta}>
+                <Typography size="2x m:s" view="secondary">
+                  {x.views}
+                </Typography>
+              </div>
+
+              <div className={styles.cardContent}>
+                <Flex align="center" wrap="wrap" margin="8px 0 0">
+                  <Typography size="2x m:s" view="secondary">
+                    {x.timestamp}
                   </Typography>
                 </Flex>
               </div>
