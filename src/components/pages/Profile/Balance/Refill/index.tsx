@@ -1,14 +1,18 @@
 import React, { FC } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED_STRING } from 'utils/formik/validation';
-import { useTranslation } from 'react-i18next';
-
+import { RootState } from 'store/reducers/rootReducer';
+import { postRefillBalance } from 'utils/api/routes/payment';
 import useStyles from './styles';
 
 type SelectItem = {
@@ -52,15 +56,28 @@ const Refill: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const { profile } = useSelector((state: RootState) => state.user);
+
   const initialValues = {
     currency: currencySelectList[0],
     payment: paymentSelectList[0],
     amount: '',
   };
 
-  const handleSubmit = (values: typeof initialValues) => {
+  const handleSubmit = async (values: typeof initialValues) => {
     // eslint-disable-next-line no-console
-    console.log('TODO - form submit', values);
+    const [err, data] = await postRefillBalance({
+      storeId: '9jUsN6vk2jnBcXqA7fUbTa6eqoGGuaRZkWiSdUWrqW9o',
+      checkoutQueryString: `${profile.id}`,
+      currency: 'USD',
+    });
+
+    if (err) {
+      toast(t('profile.balance.refill.toast.error'));
+      return;
+    }
+
+    console.log('submit data', data);
   };
 
   const schema = Yup.object({

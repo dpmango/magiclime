@@ -37,28 +37,22 @@ const Balance: FC = () => {
         Операции с балансом
       </Typography>
 
-      <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 4 } }}>
-        <GridItem col="3">
-          <Grid cols="1" gap="xl" breakpoints={{ s: { cols: 2 } }}>
-            <GridItem col="1">
-              <div className={styles.box}>
-                <BalanceRefill />
-              </div>
-            </GridItem>
-            <GridItem col="1">
-              <div className={styles.box}>
-                <BalanceWidthdrawal />
-              </div>
-            </GridItem>
-            <GridItem col="1">
-              <div className={styles.box}>
-                <BalanceTransfer />
-              </div>
-            </GridItem>
-          </Grid>
+      <Grid cols="1" gap="xl" breakpoints={{ s: { cols: 2 }, m: { cols: 3 } }}>
+        <GridItem col="1">
+          <div className={styles.box}>
+            <BalanceRefill />
+          </div>
         </GridItem>
-
-        <GridItem col="1" />
+        <GridItem col="1">
+          <div className={styles.box}>
+            <BalanceWidthdrawal />
+          </div>
+        </GridItem>
+        <GridItem col="1">
+          <div className={styles.box}>
+            <BalanceTransfer />
+          </div>
+        </GridItem>
       </Grid>
     </Flex>
   );
