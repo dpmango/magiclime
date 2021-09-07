@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     marginBottom: 16,
   },
   cardContent: {
-    '@media screen and (max-width: 1439px)': {
+    '@media screen and (max-width: 1279px)': {
       flexWrap: 'wrap',
     },
   },
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     paddingLeft: 24,
     paddingTop: 8,
     borderRight: '1px solid var(--color-bg-border)',
-    '@media screen and (max-width: 1439px)': {
+    '@media screen and (max-width: 1279px)': {
       flexBasis: 'calc(100% - 165px)',
       borderRight: 0,
       paddingRight: 0,
@@ -58,7 +58,7 @@ const useStyles = makeStyles({
     minWidth: 1,
     paddingLeft: 24,
     paddingTop: 16,
-    '@media screen and (max-width: 1439px)': {
+    '@media screen and (max-width: 1279px)': {
       flexBasis: '100%',
       maxWidth: '100%',
       paddingLeft: 0,
@@ -70,7 +70,7 @@ const useStyles = makeStyles({
   },
   cardStatsCol: {
     flex: '0 0 33.33%',
-    '@media screen and (max-width: 1439px)': {
+    '@media screen and (max-width: 1279px)': {
       paddingTop: 12,
       flexBasis: '100%',
     },

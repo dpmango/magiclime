@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Webinars from '../../pages/Webinars';
 import useStyles from './styles';
 import Header from '../Header';
 import { SetStateType, Theme } from '../../../types/common';
@@ -11,16 +12,14 @@ import Courses from '../../pages/Courses';
 import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
+import Article from '../../pages/Article';
 import Chats from '../../pages/Chats';
 import Forum from '../../pages/Forum';
 import Rating from '../../pages/Rating';
 import Profile from '../../pages/Profile';
 import { ChatContextProvider } from '../../pages/Chats/context';
-import Webinars from '../../pages/Webinars';
-import WebinarInfo from '../../pages/WebinarInfo';
 import Admin from '../../pages/Admin';
 import { RootState } from '../../../store/reducers/rootReducer';
-import Webinar from '../../pages/Webinar';
 
 interface IProps {
   theme: Theme;
@@ -61,12 +60,11 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route exact path="/courses/:course" component={Course} />
               <Route exact path="/courses/:course/:id" component={CourseTask} />
               <Route exact path="/faq" component={Articles} />
+              <Route exact path="/faq/:id" component={Article} />
               <Route path="/profile/:id" component={Profile} />
               <Route path="/forum" component={Forum} />
-              <Route exact path="/webinars" component={Webinars} />
+              <Route path="/webinars" component={Webinars} />
               <Route path="/rating" component={Rating} />
-              <Route exact path="/webinars/:id" component={WebinarInfo} />
-              <Route path="/webinars/:id/stream" component={Webinar} />
             </Switch>
           ) : (
             <Admin />

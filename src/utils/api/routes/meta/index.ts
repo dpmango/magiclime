@@ -1,7 +1,7 @@
 import { instance } from 'utils/api/index';
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
-import { ICategory } from 'types/interfaces/meta';
+import { ICategory, ITag } from 'types/interfaces/meta';
 
 export const getCategoriesService = (
   page?: number
@@ -29,7 +29,7 @@ export const getCountriesService = (
 
 export const getTagsService = (
   page?: number
-): AxiosPromise<IAxiosPaginatedResponse<ICategory>> => {
+): AxiosPromise<IAxiosPaginatedResponse<ITag>> => {
   return instance.get('tags/', {
     params: { page },
   });

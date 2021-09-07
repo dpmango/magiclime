@@ -16,5 +16,5 @@ export const getWebinarsList = (
 };
 
 export const getWebinar = (id: number): AxiosPromise<IWebinar> => {
-  return instance.get(`/webinars/${id}`);
+  return instance.get(`/webinars/${id}/`);
 };

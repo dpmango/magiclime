@@ -1,10 +1,12 @@
 import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import groupBy from 'lodash/groupBy';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { ICourse } from 'types/interfaces/courses';
 import { getCoursesService } from 'utils/api/routes/courses';
 import { IFilter, ICategory } from 'components/pages/Courses/types';
+import { RootState } from 'store/reducers/rootReducer';
 
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
@@ -13,24 +15,29 @@ import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
 
-import { tags, mockProfileCourses } from './mockData';
+import { mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [loading, setLoading] = useState<boolean>(true);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [activeTags, setActiveTags] = useState<number[]>([]);
+  const { tags } = useSelector((state: RootState) => state.meta);
 
-  const fetchCourses = useCallback(async () => {
-    const [err, data] = await getCoursesService();
+  const fetchCourses = useCallback(async (filter) => {
+    setLoading(true);
+    const [err, data] = await getCoursesService(filter);
 
     if (err) {
       console.log({ err });
     }
 
     setCourses(data!.results || []);
+
+    setLoading(false);
   }, []);
 
   const getMore = () => {
@@ -80,19 +87,19 @@ const CoursesPage: FC = () => {
 
     return {
       categories,
-      level: ['Любой', 'Для новичков', 'Для специалистов'],
+      level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
       types: ['Профессия', 'Программа', 'Курс'],
       priceRange,
       levelRange,
     };
   }, [courses]);
 
-  const handleFiltersChange = useCallback((filter) => {
-    console.log({ filter });
+  const handleFiltersChange = useCallback(async (filter) => {
+    await fetchCourses(filter);
   }, []);
 
   useEffect(() => {
-    fetchCourses();
+    fetchCourses(null);
   }, []);
 
   return (

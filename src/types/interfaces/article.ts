@@ -20,10 +20,3 @@ export interface IArticle {
     image: string;
   };
 }
-
-export interface IArticlesList {
-  count?: number;
-  next?: number;
-  previous?: number;
-  results: IArticle[];
-}

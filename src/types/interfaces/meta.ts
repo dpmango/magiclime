@@ -3,9 +3,7 @@ export interface ICategory {
   title: string;
 }
 
-export interface ICategoryList {
-  count?: number;
-  next?: number;
-  previous?: number;
-  results: ICategory[];
+export interface ITag {
+  id: number;
+  title: string;
 }

@@ -14,15 +14,26 @@ interface IWebinarAuthor {
 export interface IWebinar {
   readonly id: number;
   title: string;
-  tags: string[];
+  categories: Array<{ id: number; title: string }>;
   image?: string;
-  date: '2021-09-01T12:45:58.540Z';
-  speaker: 'string';
+  date: string;
+  speakers: ISpeaker[];
+  description: string;
   city: {
-    id: 0;
-    title: 'string';
+    id: number;
+    title: string;
   };
-  zoom_url: 'string';
+  connect_url: string;
   referrals: IWebinarReferral[];
   author: IWebinarAuthor;
+}
+
+export interface ISpeaker {
+  readonly id: number;
+  city: string;
+  company: string;
+  name: string;
+  surname: string;
+  avatar: IPhoto;
+  description: string;
 }
