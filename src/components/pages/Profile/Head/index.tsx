@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
@@ -6,8 +7,10 @@ import { Avatar } from '@consta/uikit/Avatar';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { IUser } from 'types/interfaces/user';
+import { RootState } from 'store/reducers/rootReducer';
 
 import Uploader from './Uploader';
+import BalanceWidget from '../Balance/BalanceWidget';
 import useStyles from './styles';
 
 interface IProps {
@@ -18,6 +21,8 @@ interface IProps {
 const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const { rates } = useSelector((state: RootState) => state.meta);
 
   const handleCopyRefClick = useCallback(
     (e) => {
@@ -58,17 +63,22 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
       </div>
 
       <div className={styles.content}>
-        <Typography weight="semibold" lineHeight="s" size="4xl">
-          {profile.name}
-        </Typography>
-        <Typography
-          view="secondary"
-          weight="semibold"
-          onClick={handleCopyRefClick}
-          className={styles.refLink}
-        >
-          {t('profile.head.copyRefLink')}
-        </Typography>
+        <Flex align="center" justify="space-between">
+          <div>
+            <Typography weight="semibold" lineHeight="s" size="4xl">
+              {profile.name}
+            </Typography>
+            <Typography
+              view="secondary"
+              weight="semibold"
+              onClick={handleCopyRefClick}
+              className={styles.refLink}
+            >
+              {t('profile.head.copyRefLink')}
+            </Typography>
+          </div>
+          <BalanceWidget btcRate={rates.price} inline />
+        </Flex>
       </div>
     </Flex>
   );

@@ -7,10 +7,11 @@ import useStyles from './styles';
 
 interface IProps {
   btcRate: number;
+  inline?: boolean;
 }
 
-const BalanceWidget: FC<IProps> = ({ btcRate }) => {
-  const styles = useStyles();
+const BalanceWidget: FC<IProps> = ({ btcRate, inline }) => {
+  const styles = useStyles({ inline });
 
   return (
     <div className={styles.root}>
@@ -27,23 +28,27 @@ const BalanceWidget: FC<IProps> = ({ btcRate }) => {
           </Typography>
         </div>
       </Flex>
-      <Typography
-        className={styles.coinBalance}
-        margin="8px 0 2px"
-        lineHeight="2xs"
-        size="s"
-        weight="semibold"
-      >
-        Баланс:
-      </Typography>
-      <Flex align="baseline" wrap="wrap">
-        <Typography view="brand" size="2xl" weight="semibold">
-          232 BTL
-        </Typography>
-        <Typography view="secondary" margin="0 0 0 4px" size="xs">
-          {btlToRub(232, btcRate)} RUB
-        </Typography>
-      </Flex>
+      {!inline && (
+        <>
+          <Typography
+            className={styles.coinBalance}
+            margin="8px 0 2px"
+            lineHeight="2xs"
+            size="s"
+            weight="semibold"
+          >
+            Баланс:
+          </Typography>
+          <Flex align="baseline" wrap="wrap">
+            <Typography view="brand" size="2xl" weight="semibold">
+              232 BTL
+            </Typography>
+            <Typography view="secondary" margin="0 0 0 4px" size="xs">
+              {btlToRub(232, btcRate)} RUB
+            </Typography>
+          </Flex>
+        </>
+      )}
     </div>
   );
 };

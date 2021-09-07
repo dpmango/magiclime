@@ -3,6 +3,7 @@ import {
   getCategoriesService,
   getCitiesService,
   getCountriesService,
+  getRatesService,
   getTagsService,
 } from 'utils/api/routes/meta';
 import { ICategory, ITag } from 'types/interfaces/meta';
@@ -11,6 +12,9 @@ import { PaginationPayloadType } from './types';
 const initialState = {
   categories: [] as ICategory[],
   tags: [] as ITag[],
+  rates: {
+    price: 0,
+  },
 };
 
 const metaSlice = createSlice({
@@ -23,10 +27,13 @@ const metaSlice = createSlice({
     setTags: (state, action: PayloadAction<ITag[]>) => {
       state.tags = action.payload;
     },
+    setRates: (state, action: PayloadAction<{ price: number }>) => {
+      state.rates = action.payload;
+    },
   },
 });
 
-export const { setCategories, setTags } = metaSlice.actions;
+export const { setCategories, setTags, setRates } = metaSlice.actions;
 
 export const getCategories = createAsyncThunk<unknown, PaginationPayloadType>(
   'meta/getArticles',
@@ -59,6 +66,22 @@ export const getTags = createAsyncThunk<unknown, PaginationPayloadType>(
   }
 );
 
+export const getRates = createAsyncThunk<unknown>(
+  'meta/getRates',
+  async (x, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await getRatesService();
+
+      if (response?.status === 200) {
+        dispatch(setRates(response.data));
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getAllMeta = createAsyncThunk<unknown, null>(
   'meta/getAllMeta',
   async (payload, { dispatch, rejectWithValue }) => {
@@ -67,6 +90,7 @@ export const getAllMeta = createAsyncThunk<unknown, null>(
       // dispatch(getCities({}));
       // dispatch(getCountries({}));
       dispatch(getTags({}));
+      dispatch(getRates());
 
       return true;
     } catch (err) {

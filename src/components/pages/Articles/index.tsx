@@ -1,10 +1,10 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import { getArticles } from 'store/reducers/article';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/reducers/rootReducer';
 import { IArticle } from 'types/interfaces/article';
 
