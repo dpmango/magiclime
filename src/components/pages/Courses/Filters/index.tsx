@@ -28,7 +28,6 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
         initialValues={{
           difficult: 'Любой',
           categories: [],
-          education_types: [],
           search: '',
           price: [null, null],
           lime: [null, null],
@@ -96,17 +95,6 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
                 name="lime"
                 title={t('course.filter.limeLevel')}
                 placeholders={filter.levelRange}
-              />
-            </div>
-
-            <div className={styles.formBlock}>
-              <FormikCheckboxGroup
-                label={t('course.filter.educationType')}
-                name="education_types"
-                items={filter.types}
-                direction="column"
-                getLabel={(item) => item as string}
-                className={styles.group}
               />
             </div>
 
