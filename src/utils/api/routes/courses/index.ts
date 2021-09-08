@@ -1,15 +1,9 @@
 import { AxiosPromise } from 'types/common';
 import { ICourse } from 'types/interfaces/courses';
 import { ICourseFull } from 'components/pages/CourseTask/types';
+import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
-
-interface ICoursesResponce {
-  count: number;
-  next: number | null;
-  previous: number | null;
-  results: ICourse[];
-}
 
 export interface IFilter {
   search?: string;
@@ -25,25 +19,26 @@ export interface ICoursesParams {
   categories?: string;
   sub_categories?: string;
   student_level?: 1 | 2 | 3;
-  // todo - education types
   price_max?: string;
   price_min?: string;
   level_max?: string;
   level_min?: string;
 }
 
-export const getCoursesService = async (
-  filter: IFilter
-): Promise<[Error | null, ICoursesResponce | null]> => {
-  try {
-    const params: ICoursesParams = filterToParams(filter, {});
+export const getCoursesService = (
+  page: number,
+  limit: number,
+  queries: IFilter
+): AxiosPromise<IAxiosPaginatedResponse<ICourse>> => {
+  const params: ICoursesParams = filterToParams(queries, {});
 
-    const { data } = await $api.get('/courses/', { params });
-
-    return [null, data];
-  } catch (error) {
-    return [error, null];
-  }
+  return $api.get('/courses/', {
+    params: {
+      page: page || null,
+      page_size: limit || null,
+      ...params,
+    },
+  });
 };
 
 export const getCourseModule = async (

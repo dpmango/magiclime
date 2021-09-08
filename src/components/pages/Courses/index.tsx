@@ -10,6 +10,7 @@ import { RootState } from 'store/reducers/rootReducer';
 
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
+import Pagination from 'components/Common/Pagination';
 import ProfileCourses from 'components/pages/Profile/Courses';
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
@@ -22,29 +23,10 @@ const CoursesPage: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const [loading, setLoading] = useState<boolean>(true);
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
   const { tags } = useSelector((state: RootState) => state.meta);
-
-  const fetchCourses = useCallback(async (filter) => {
-    setLoading(true);
-
-    const [err, data] = await getCoursesService(filter);
-
-    if (err) {
-      console.log({ err });
-    }
-
-    setCourses(data!.results || []);
-
-    setLoading(false);
-  }, []);
-
-  const getMore = () => {
-    // const newCourses = [];
-    // setCourses([...courses, ...newCourses]);
-  };
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -104,14 +86,10 @@ const CoursesPage: FC = () => {
           }
         : null;
 
-      await fetchCourses(params);
+      setFilterRequest(params);
     },
     [activeTags]
   );
-
-  useEffect(() => {
-    fetchCourses(null);
-  }, []);
 
   return (
     <div className={styles.root}>
@@ -133,7 +111,11 @@ const CoursesPage: FC = () => {
 
         <Grid cols="4" gap="xl" className={styles.main}>
           <GridItem col="3">
-            <CoursesList items={courses} hasMore getMore={getMore} />
+            <Pagination
+              getList={getCoursesService}
+              listComponent={CoursesList}
+              queries={filterRequest}
+            />
           </GridItem>
 
           <GridItem col="1">

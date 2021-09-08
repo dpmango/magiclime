@@ -19,35 +19,23 @@ const useStyles = makeStyles({
 });
 
 interface IProps {
-  items: ICourse[];
-  getMore: () => void;
-  hasMore?: boolean;
+  data: ICourse[];
 }
 
-const CoursesList: FC<IProps> = ({ items, hasMore = false, getMore }) => {
+const CoursesList: FC<IProps> = ({ data }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   return (
     <div className={styles.root}>
       <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2, gap: 'xl' } }}>
-        {items.map((item) => (
+        {data.map((item) => (
           <GridItem col="1" key={item.id}>
             <Course item={item} />
             {/* <SkeletonBrick height={180} /> */}
           </GridItem>
         ))}
       </Grid>
-
-      {hasMore && (
-        <Button
-          label={t('course.list.more')}
-          view="secondary"
-          onClick={getMore}
-          className={styles.button}
-          iconLeft={ConstaIcons.Refresh}
-        />
-      )}
     </div>
   );
 };
