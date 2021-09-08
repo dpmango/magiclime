@@ -11,7 +11,6 @@ import Header from './Header';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import useResolution from '../../../../hooks/useResolution';
-import { speakers } from './mockData';
 import Speaker from './Speaker';
 import Members from '../../../Common/Members';
 
@@ -118,11 +117,11 @@ const Webinar: FC<RouteComponentProps<{ id: string }>> = ({
             <Typography weight="semibold" margin="0 0 12px">
               {t('webinar.members')}
             </Typography>
-            <Members members={[]} itemSize={44} />
+            <Members members={webinar.participants} itemSize={44} />
             <Typography weight="semibold" margin="44px 0 12px">
               {t('webinar.speakers')}
             </Typography>
-            {speakers.map((speaker) => (
+            {webinar.speakers.map((speaker) => (
               <Speaker key={speaker.id} speaker={speaker} short />
             ))}
             <Button
@@ -141,7 +140,7 @@ const Webinar: FC<RouteComponentProps<{ id: string }>> = ({
           >
             {t('webinar.aboutSpeakers')}
           </Typography>
-          {speakers.map((speaker) => (
+          {webinar.speakers.map((speaker) => (
             <Speaker speaker={speaker} short={false} key={speaker.id} />
           ))}
         </div>

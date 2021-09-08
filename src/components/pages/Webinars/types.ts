@@ -2,20 +2,24 @@ import { IPhoto } from '../../../types/interfaces/common';
 
 interface IWebinarReferral {
   readonly id: number;
-  avatar: IPhoto | null;
+  username: string;
+  avatar: IPhoto;
   name: string;
+  email: string;
+  about: string;
 }
 
 interface IWebinarAuthor {
+  readonly id: number;
   name: string;
-  avatar?: string;
+  avatar: IPhoto;
 }
 
 export interface IWebinar {
   readonly id: number;
   title: string;
   categories: Array<{ id: number; title: string }>;
-  image?: string;
+  banner: string;
   date: string;
   speakers: ISpeaker[];
   description: string;
@@ -24,8 +28,8 @@ export interface IWebinar {
     title: string;
   };
   connect_url: string;
-  referrals: IWebinarReferral[];
-  author: IWebinarAuthor;
+  participants: IWebinarReferral[];
+  creator: IWebinarAuthor | null;
 }
 
 export interface ISpeaker {
@@ -36,4 +40,10 @@ export interface ISpeaker {
   surname: string;
   avatar: IPhoto;
   description: string;
+}
+
+export interface IFilters {
+  search: string;
+  categories: number[];
+  city: number;
 }

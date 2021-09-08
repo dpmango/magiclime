@@ -1,47 +1,33 @@
-import React, { FC } from 'react';
+import { Button } from '@consta/uikit/Button';
+import React, { FC, useCallback } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import ConstaIcons from 'assets/icons/ConstaIcons';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../store/reducers/rootReducer';
+import { SetStateType } from '../../../../../types/common';
+import { ICategory, ICity } from '../../../../../types/interfaces/meta';
+import { IFilters } from '../../types';
 import useStyles from './styles';
 
-interface ICategory {
-  id: number;
-  name: string;
-}
-
-type SelectItem = {
-  label: string;
-  id: number;
+type FormValues = {
+  search: string;
+  city: ICity;
+  categories: ICategory[];
 };
 
-const Filters: FC = () => {
+const Filters: FC<{ setFilters: SetStateType<IFilters> }> = ({
+  setFilters,
+}) => {
   const styles = useStyles();
+  const { cities, categories } = useSelector((state: RootState) => state.meta);
 
-  const categories: ICategory[] = [
-    { id: 1, name: 'Маркетинг' },
-    { id: 2, name: 'Финансы' },
-    { id: 3, name: 'Управление' },
-    { id: 4, name: 'Личный рост' },
-    { id: 5, name: 'Бизнес' },
-    { id: 6, name: 'Маркетинг1' },
-    { id: 7, name: 'Маркетинг32' },
-    { id: 8, name: 'Маркетинг4' },
-    { id: 9, name: 'Маркетинг5' },
-  ];
-
-  const citySelectList: SelectItem[] = [
-    {
-      label: 'Город 1',
-      id: 1,
-    },
-    {
-      label: 'Город 2',
-      id: 2,
-    },
-  ];
+  const handleSubmit = useCallback((values: FormValues) => {
+    const categories = values.categories.map((item) => item.id);
+    setFilters({ search: values.search, city: values.city.id, categories });
+  }, []);
 
   return (
     <>
@@ -50,12 +36,11 @@ const Filters: FC = () => {
         initialValues={{
           categories: [],
           search: '',
-          city: [],
+          city: {} as ICity,
         }}
         enableReinitialize
-        onSubmit={(data) => {
-          // eslint-disable-next-line no-console
-          console.log(data);
+        onSubmit={(data: FormValues) => {
+          handleSubmit(data);
         }}
       >
         {({ values, setFieldValue }) => (
@@ -79,20 +64,24 @@ const Filters: FC = () => {
                 name="categories"
                 items={categories}
                 direction="column"
-                getLabel={(item) => (item as ICategory).name}
+                getLabel={(item) => (item as ICategory).title}
                 className={styles.group}
               />
             </div>
 
             <div className={styles.formBlock}>
               <FormikSelect
-                items={citySelectList}
+                items={cities.map((city) => ({
+                  id: city.id,
+                  label: city.title,
+                }))}
                 label="Город"
                 name="city"
                 placeholder="Любой"
                 isRequired={false}
               />
             </div>
+            <Button label="Искать" view="primary" type="submit" width="full" />
           </Form>
         )}
       </Formik>

@@ -26,12 +26,13 @@ interface IProps extends Omit<SelectProps<ISelectItem>, 'onChange'> {
 
 const cn = withNaming({ e: '-', m: '_', v: '_' });
 
-const FormikSelectComponent = MemoWrapper(
+const FormikSelectComponent = MemoWrapper<IProps>(
   ({
     field: { value, onChange, ...field },
     form: { setFieldValue, errors, touched },
     label,
     isRequired = true,
+    placeholder,
     ...props
   }: IProps & FieldProps) => {
     const styles = useStyles();
@@ -42,7 +43,6 @@ const FormikSelectComponent = MemoWrapper(
       },
       []
     );
-
     const fieldError = getNestedValue(errors, field.name);
     const fieldTouched = getNestedValue(touched, field.name);
 

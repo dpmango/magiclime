@@ -5,12 +5,13 @@ import {
   getCountriesService,
   getTagsService,
 } from 'utils/api/routes/meta';
-import { ICategory, ITag } from 'types/interfaces/meta';
+import { ICategory, ICity, ITag } from 'types/interfaces/meta';
 import { PaginationPayloadType } from './types';
 
 const initialState = {
   categories: [] as ICategory[],
   tags: [] as ITag[],
+  cities: [] as ICity[],
 };
 
 const metaSlice = createSlice({
@@ -23,10 +24,13 @@ const metaSlice = createSlice({
     setTags: (state, action: PayloadAction<ITag[]>) => {
       state.tags = action.payload;
     },
+    setCities: (state, action: PayloadAction<ICity[]>) => {
+      state.cities = action.payload;
+    },
   },
 });
 
-export const { setCategories, setTags } = metaSlice.actions;
+export const { setCategories, setTags, setCities } = metaSlice.actions;
 
 export const getCategories = createAsyncThunk<unknown, PaginationPayloadType>(
   'meta/getArticles',
@@ -59,12 +63,28 @@ export const getTags = createAsyncThunk<unknown, PaginationPayloadType>(
   }
 );
 
+export const getCities = createAsyncThunk<unknown, PaginationPayloadType>(
+  'meta/getCities',
+  async (payload, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await getCitiesService(payload.page);
+
+      if (response?.status === 200) {
+        dispatch(setCities(response.data.results));
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getAllMeta = createAsyncThunk<unknown, null>(
   'meta/getAllMeta',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
       dispatch(getCategories({}));
-      // dispatch(getCities({}));
+      dispatch(getCities({}));
       // dispatch(getCountries({}));
       dispatch(getTags({}));
 

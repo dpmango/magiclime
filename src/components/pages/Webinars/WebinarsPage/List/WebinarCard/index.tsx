@@ -44,7 +44,7 @@ const WebinarCard: FC<IProps> = ({ item }) => {
     <Flex direction="column" className={styles.root}>
       <div className={styles.image}>
         <img
-          src={item.image || '/images/couse-placeholder.png'}
+          src={item.banner || '/images/couse-placeholder.png'}
           alt={item.title}
         />
       </div>
@@ -104,28 +104,37 @@ const WebinarCard: FC<IProps> = ({ item }) => {
         </div>
 
         <Flex align="center" justify="space-between" className={styles.cta}>
+          {/* <Button */}
+          {/*  onClick={() => history.push(`/webinars/${item.id}/`)} */}
+          {/*  form="round" */}
+          {/*  size="s" */}
+          {/*  label={t('common.moreDetails')} */}
+          {/* /> */}
           <Button
-            onClick={() => history.push(`/webinars/${item.id}/`)}
+            as="a"
+            href={item.connect_url}
             form="round"
             size="s"
             label={t('common.moreDetails')}
           />
 
-          {/* <Flex align="center" className={styles.referralWrapper}> */}
-          {/*  {item.referrals && ( */}
-          {/*    <Members */}
-          {/*      members={item.referrals} */}
-          {/*      className={styles.referralUsers} */}
-          {/*    /> */}
-          {/*  )} */}
-          {/*  <Avatar */}
-          {/*    className={styles.author} */}
-          {/*    name={item.author.name} */}
-          {/*    form="default" */}
-          {/*    url={item.author.avatar} */}
-          {/*    size="m" */}
-          {/*  /> */}
-          {/* </Flex> */}
+          <Flex align="center" className={styles.referralWrapper}>
+            {item.participants && (
+              <Members
+                members={item.participants}
+                className={styles.referralUsers}
+              />
+            )}
+            {item.creator && (
+              <Avatar
+                className={styles.author}
+                name={item.creator.name}
+                form="default"
+                url={item.creator.avatar ? item.creator.avatar.image : ''}
+                size="m"
+              />
+            )}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

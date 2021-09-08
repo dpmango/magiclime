@@ -5,11 +5,11 @@ import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import { Button } from '@consta/uikit/Button';
 import { RootState } from 'store/reducers/rootReducer';
-import { usePagination } from '../../../../hooks/usePagination';
 import { getWebinarsList } from '../../../../utils/api/routes/webinars';
+import Pagination from '../../../Common/Pagination';
+import { IFilters } from '../types';
 import List from './List';
 import Filters from './Filters';
-import { IWebinar } from '../types';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 
@@ -17,9 +17,10 @@ const WebinarsPage: FC = () => {
   const styles = useStyles();
 
   const [activeTags, setActiveTags] = useState<number[]>([]);
-  const { data, PaginationButton } = usePagination<IWebinar>({
-    getList: getWebinarsList,
-    elName: 'вебинаров',
+  const [filters, setFilters] = useState<IFilters>({
+    search: '',
+    categories: [],
+    city: 0,
   });
   const { tags } = useSelector((state: RootState) => state.meta);
 
@@ -83,11 +84,15 @@ const WebinarsPage: FC = () => {
 
       <Grid cols="4" gap="xl" className={styles.main}>
         <GridItem col="3">
-          <List items={data} button={PaginationButton} />
+          <Pagination
+            getList={getWebinarsList}
+            listComponent={List}
+            queries={filters}
+          />
         </GridItem>
 
         <GridItem col="1">
-          <Filters />
+          <Filters setFilters={setFilters} />
         </GridItem>
       </Grid>
     </div>
