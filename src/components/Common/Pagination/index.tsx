@@ -25,8 +25,8 @@ interface IProps<T, U> {
   listComponent: FC<ComponentProps<T>>;
   queries?: U;
   limit?: number;
-  successCallback?: VoidFunction;
-  errorCallback?: (err?: AxiosError) => VoidFunction;
+  successCallback?: (data: any) => void;
+  errorCallback?: (err?: AxiosError) => void;
 }
 
 const Pagination = <T extends object, U extends DefaultQueries>({
@@ -58,7 +58,6 @@ const Pagination = <T extends object, U extends DefaultQueries>({
               ? res.data.results
               : [...prev.data, ...res.data.results],
         }));
-        successCallback && successCallback();
       })
       .catch((err) => {
         errorCallback && errorCallback(err);
@@ -67,6 +66,10 @@ const Pagination = <T extends object, U extends DefaultQueries>({
         setLoading(false);
       });
   }, [page, queries]);
+
+  useEffect(() => {
+    successCallback && successCallback(state.data);
+  }, [state]);
 
   return (
     <div className={styles.root}>

@@ -2,20 +2,21 @@ import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import groupBy from 'lodash/groupBy';
+import toast from 'react-hot-toast';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import { ICourse } from 'types/interfaces/courses';
-import { getCoursesService } from 'utils/api/routes/courses';
-import { IFilter, ICategory } from 'components/pages/Courses/types';
-import { RootState } from 'store/reducers/rootReducer';
 
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
 import Pagination from 'components/Common/Pagination';
 import ProfileCourses from 'components/pages/Profile/Courses';
+import { ICourse } from 'types/interfaces/courses';
+import { getCoursesService } from 'utils/api/routes/courses';
+import { IFilter, ICategory } from 'components/pages/Courses/types';
+import { RootState } from 'store/reducers/rootReducer';
+
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
-
 import { mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
@@ -115,6 +116,8 @@ const CoursesPage: FC = () => {
               getList={getCoursesService}
               listComponent={CoursesList}
               queries={filterRequest}
+              successCallback={(data) => setCourses(data)}
+              errorCallback={(err) => toast('Ошибка при получении курсов')}
             />
           </GridItem>
 

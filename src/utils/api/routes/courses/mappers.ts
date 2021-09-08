@@ -9,8 +9,8 @@ export const filterToParams = (filter: IFilter, params: ICoursesParams) => {
       categories,
       difficult,
       tags,
-      lime = ['0', '0'],
-      price = ['0', '0'],
+      lime = [null, null],
+      price = [null, null],
     } = filter;
 
     const [level_min, level_max] = lime;
