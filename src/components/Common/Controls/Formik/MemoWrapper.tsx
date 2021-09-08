@@ -33,7 +33,8 @@ const MemoWrapper = <T extends DefaultProps>(Component: ComponentType<any>) =>
 
       return (
         prevProps.field.value === nextProps.field.value &&
-        prevProps.items.length === nextProps.items.length &&
+        (prevProps.items && prevProps.items.length) ===
+          (nextProps.items && nextProps.items.length) &&
         containsNestedErrorPrev === containsNestedErrorNext &&
         containsNestedTouchedPrev === containsNestedTouchedNext
       );
