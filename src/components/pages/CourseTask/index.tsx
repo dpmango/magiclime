@@ -3,107 +3,79 @@
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 // import { useTranslation } from 'react-i18next';
+
 // import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { getCourseModule } from 'utils/api/routes/courses';
 import { ScrollTo } from 'utils/helpers/scroll';
-import { ISection } from 'components/pages/CourseTask/types';
+import {
+  ISection,
+  ICourseFull,
+  IChapter,
+  IExercis,
+} from 'components/pages/CourseTask/types';
 
 import useSharedStyles from 'assets/styles/Shared';
 import Navigation from './Navigation';
 import AnswerBox from './AnswerBox';
-
 import useStyles from './styles';
-import {
-  htmlContentIntro1,
-  htmlContentIntro2,
-  htmlContentIntro3,
-  htmlContentIntro4,
-  htmlContentIntro5,
-  htmlContentIntro6,
-  htmlContentIntro7,
-  htmlContentIntro8,
-  htmlContentIntro9,
-} from './mockData';
 
 const CoursePage: FC = () => {
-  const [sections, setSections] = useState<ISection[]>([
-    {
-      id: 1,
-      module: 1,
-      compleated: false,
-      available: true,
-      current: true,
-      label: '1. Как запустить продажи и масштабировать бизнес',
-    },
-    {
-      id: 2,
-      module: 1,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '2. Вторичные выгоды',
-    },
-    {
-      id: 3,
-      module: 1,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '3. Как привести покупателя в ресурс. Каналы восприятия',
-    },
+  const [loading, setLoading] = useState<boolean>(true);
+  const [course, setCourse] = useState<ICourseFull | null>(null);
+  const [sections, setSections] = useState<ISection[]>([]);
+  const { id }: { id: string } = useParams();
+  const history = useHistory();
 
-    {
-      id: 4,
-      module: 2,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '4. Пирамида успеха',
-    },
-    {
-      id: 5,
-      module: 2,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '5. Как воздействовать на покупателя',
-    },
+  const styles = useStyles();
+  const sharedStyles = useSharedStyles({});
 
-    {
-      id: 6,
-      module: 3,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '6. Уровень нормы. Как «‎пробить потолок»',
-    },
-    {
-      id: 7,
-      module: 3,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '7. Повышаем уровень нормы',
-    },
+  // fetch actions
+  const setSectionsFromCourse = useCallback(
+    (course) => {
+      const returnable: ISection[] = [];
 
-    {
-      id: 8,
-      module: 4,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '8. Эффект заражения. Формула ресурсности',
-    },
-    {
-      id: 9,
-      module: 4,
-      compleated: false,
-      available: false,
-      current: false,
-      label: '9. Ошибки и выводы',
-    },
-  ]);
+      if (course && course.chapters) {
+        course.chapters.forEach((chapter: IChapter, chapterIdx: number) => {
+          if (chapter.exercises && chapter.exercises.length) {
+            chapter.exercises.forEach(
+              (exercis: IExercis, exercisIdx: number) => {
+                returnable.push({
+                  id: exercis.id,
+                  chapter: chapter.id,
+                  chapterLabel: chapter.content,
+                  label: exercis.title,
+                  compleated: false,
+                  available: true,
+                  current: chapterIdx === 0 && exercisIdx === 0,
+                });
+              }
+            );
+          }
+        });
+      }
 
+      setSections(returnable);
+    },
+    [setSections]
+  );
+
+  const fetchCourse = useCallback(async (id: string) => {
+    setLoading(true);
+
+    const [err, data] = await getCourseModule(id);
+
+    if (err) {
+      console.log({ err });
+    }
+
+    setCourse(data || null);
+    setSectionsFromCourse(data || null);
+
+    setLoading(false);
+  }, []);
+
+  // memos and getters
   const activeSectionId = useMemo(() => {
     return sections.find((s) => s.current)?.id || 0;
   }, [sections]);
@@ -115,37 +87,24 @@ const CoursePage: FC = () => {
     return nextSection ? nextSection.id : null;
   }, [sections]);
 
-  // getter for dummy content (temp)
-  // might be a good idea to change on router-based navigation
-  const getContent = useMemo(() => {
-    switch (activeSectionId) {
-      case 1:
-        return htmlContentIntro1;
-      case 2:
-        return htmlContentIntro2;
-      case 3:
-        return htmlContentIntro3;
-      case 4:
-        return htmlContentIntro4;
-      case 5:
-        return htmlContentIntro5;
-      case 6:
-        return htmlContentIntro6;
-      case 7:
-        return htmlContentIntro7;
-      case 8:
-        return htmlContentIntro8;
-      case 9:
-        return htmlContentIntro9;
-      default:
-        return '';
-    }
-  }, [activeSectionId]);
+  const getExercis = useMemo((): IExercis | null => {
+    if (course && course.chapters) {
+      const chapter = course.chapters.find((x) =>
+        x.exercises.map((e) => e.id).includes(activeSectionId)
+      );
 
-  const styles = useStyles();
-  const sharedStyles = useSharedStyles({});
-  // const { course, id } = useParams();
-  const history = useHistory();
+      if (chapter && chapter.exercises) {
+        const exercis = chapter.exercises.find((x) => x.id === activeSectionId);
+        return exercis || null;
+      }
+    }
+
+    return null;
+  }, [activeSectionId, course]);
+
+  const getContent = useMemo(() => {
+    return getExercis?.content || '';
+  }, [getExercis]);
 
   const handleContinue = useCallback(() => {
     if (nextSectionId) {
@@ -183,10 +142,11 @@ const CoursePage: FC = () => {
     [sections]
   );
 
-  // useEffect(() => {
-  //   // eslint-disable-next-line no-console
-  //   console.log(`should fetch course ${course} : ${id}`);
-  // }, [id]);
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(`should fetch course ${id}`);
+    fetchCourse(id);
+  }, [id]);
 
   return (
     <div className={styles.root}>

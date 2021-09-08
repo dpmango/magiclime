@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
+import { Button } from '@consta/uikit/Button';
 
 import FormikRadiobuttons from 'components/Common/Controls/Formik/Radiobuttons';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
@@ -27,7 +28,6 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
         initialValues={{
           difficult: 'Любой',
           categories: [],
-          education_types: [],
           search: '',
           price: [null, null],
           lime: [null, null],
@@ -48,6 +48,15 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
                 onChange={({ value }: { value: string }) =>
                   setFieldValue('search', value)
                 }
+              />
+            </div>
+
+            <div className={styles.ctaBlock}>
+              <Button
+                type="submit"
+                view="secondary"
+                size="s"
+                label={t('course.filter.cta')}
               />
             </div>
 
@@ -89,14 +98,11 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
               />
             </div>
 
-            <div className={styles.formBlock}>
-              <FormikCheckboxGroup
-                label={t('course.filter.educationType')}
-                name="education_types"
-                items={filter.types}
-                direction="column"
-                getLabel={(item) => item as string}
-                className={styles.group}
+            <div className={styles.ctaBlock}>
+              <Button
+                type="submit"
+                width="full"
+                label={t('course.filter.cta')}
               />
             </div>
           </Form>

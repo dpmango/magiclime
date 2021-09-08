@@ -11,6 +11,7 @@ export interface IForum {
   title: string;
   timestamp: string;
   unread: number;
+  views: number;
   author: {
     id: number;
     name: string;

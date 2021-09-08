@@ -8,6 +8,10 @@ const useStyles = makeStyles({
       width: '100%',
     },
   },
+  ctaBlock: {
+    marginTop: 24,
+    marginBottom: 12,
+  },
   small: {
     marginBottom: '6px',
   },

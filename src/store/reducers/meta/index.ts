@@ -3,14 +3,19 @@ import {
   getCategoriesService,
   getCitiesService,
   getCountriesService,
+  getRatesService,
   getTagsService,
 } from 'utils/api/routes/meta';
-import { ICategory, ITag } from 'types/interfaces/meta';
+import { ICategory, ICity, ITag } from 'types/interfaces/meta';
 import { PaginationPayloadType } from './types';
 
 const initialState = {
   categories: [] as ICategory[],
   tags: [] as ITag[],
+  rates: {
+    price: 0,
+  },
+  cities: [] as ICity[],
 };
 
 const metaSlice = createSlice({
@@ -23,10 +28,17 @@ const metaSlice = createSlice({
     setTags: (state, action: PayloadAction<ITag[]>) => {
       state.tags = action.payload;
     },
+    setRates: (state, action: PayloadAction<{ price: number }>) => {
+      state.rates = action.payload;
+    },
+    setCities: (state, action: PayloadAction<ICity[]>) => {
+      state.cities = action.payload;
+    },
   },
 });
 
-export const { setCategories, setTags } = metaSlice.actions;
+export const { setCategories, setTags, setRates, setCities } =
+  metaSlice.actions;
 
 export const getCategories = createAsyncThunk<unknown, PaginationPayloadType>(
   'meta/getArticles',
@@ -59,14 +71,47 @@ export const getTags = createAsyncThunk<unknown, PaginationPayloadType>(
   }
 );
 
+export const getRates = createAsyncThunk<unknown>(
+  'meta/getRates',
+  async (x, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await getRatesService();
+
+      if (response?.status === 200) {
+        dispatch(setRates(response.data));
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const getCities = createAsyncThunk<unknown, PaginationPayloadType>(
+  'meta/getCities',
+  async (payload, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await getCitiesService(payload.page);
+
+      if (response?.status === 200) {
+        dispatch(setCities(response.data.results));
+      }
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 export const getAllMeta = createAsyncThunk<unknown, null>(
   'meta/getAllMeta',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
       dispatch(getCategories({}));
-      // dispatch(getCities({}));
+      dispatch(getCities({}));
       // dispatch(getCountries({}));
       dispatch(getTags({}));
+      dispatch(getRates());
 
       return true;
     } catch (err) {

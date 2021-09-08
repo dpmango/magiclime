@@ -14,13 +14,6 @@ const useStyles = makeStyles({
     flex: '0 0 calc(100% - 288px)',
     padding: '0 70px',
   },
-  user: {
-    width: 'auto',
-    flex: '0 0 auto',
-  },
-  date: {
-    width: 'auto',
-  },
 });
 
 export default useStyles;

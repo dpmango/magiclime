@@ -56,6 +56,37 @@
       "cta": "Подробнее"
     }
   },
+  "govForm": {
+    "question": {
+      "label": "Пожалуйста, выберите свой вопрос из списка ниже.",
+      "placeholder": "Выбрать вопрос"
+    },
+    "country": {
+      "label": "Страна",
+      "placeholder": "Выбрать страну"
+    },
+    "email": {
+      "label": "Официальный имейл",
+      "helper": "@gmail, @hotmail, @yahoo, @naver @yandex @meta @protonmail, и другие не официальные имейлы не допустимы"
+    },
+    "name": {
+      "label": "Название правоохранительного органа",
+      "placeholder": ""
+    },
+    "transaction": {
+      "label": "Включите соответствующую транзакцию ID(s) (TXID), Wallet Address(es), Payment ID(s) / Memo(s) / Tag(s), и / или другие идентификаторы.",
+      "placeholder": "Предоставьте ваш адрес: 12cbQLTFMXRnSzktFkuoG3eHoMeFtpTu3S 3. Date: 2021-04-06"
+    },
+    "topic": {
+      "label": "Тема",
+      "placeholder": ""
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": ""
+    },
+    "cta": "Отправить запрос"
+  },
   "course": {
     "featured": {
       "tag": "рекомендованное",
@@ -74,7 +105,8 @@
       "price": "Цена",
       "difficulty": "Уровень сложности",
       "limeLevel": "Lime уровень",
-      "educationType": "Тип обучения"
+      "educationType": "Тип обучения",
+      "cta": "Поиск"
     },
     "page": {
       "buy": "Купить курс",
@@ -117,7 +149,8 @@
     "complain": "Пожаловаться",
     "back": "Назад",
     "next": "Дальше",
-    "finalize": "Завершить"
+    "finalize": "Завершить",
+    "signup": "Зарегистрироваться"
   },
   "profile": {
     "tabs": {
@@ -174,12 +207,33 @@
         "paymentAmount": "Сумма пополнения",
         "amount": {
           "label": "Сумма пополнения",
-          "placeholder": "Введите сумму в BTL"
+          "placeholder": "Введите сумму в BL"
         },
-        "cta": "Пополнить баланс"
+        "cta": "Пополнить баланс",
+        "toast": {
+          "error": "Не удалось пополнить баланс"
+        }
       },
       "withdrawal": {
         "title": "Вывод средств",
+        "payment": {
+          "label": "Выберите валюту"
+        },
+        "credentials": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите адрес кошелька"
+        },
+        "amount": {
+          "label": "Запросить вывод",
+          "placeholder": "Введите сумму"
+        },
+        "cta": "Запросить вывод"
+      },
+      "transfer": {
+        "title": "Переводы",
+        "payment": {
+          "label": "Выберите валюту"
+        },
         "credentials": {
           "label": "Запросить вывод",
           "placeholder": "Введите адрес кошелька"
@@ -257,6 +311,11 @@
           "label": "Телефон",
           "placeholder": "+7 (___) ___ ____"
         },
+        "upload": {
+          "label": "Зарузка документов KYC",
+          "cta": "Выбрать файл",
+          "ctaAlt": "Выбрать другой файл"
+        },
         "export": "Экспортировать мои данные",
         "logout": "Выйти"
       },
@@ -317,6 +376,15 @@
     "page": {
       "title": "Форум",
       "view": "Читать форум"
+    },
+    "topic": {
+      "head": {
+        "topic": "Тема",
+        "author": "Автор",
+        "answers": "Ответы",
+        "views": "Просмотры",
+        "date": "Активность"
+      }
     },
     "filter": {
       "searchPlaceholder": "Поиск по форуму",

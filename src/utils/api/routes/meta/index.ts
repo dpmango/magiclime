@@ -1,7 +1,7 @@
 import { instance } from 'utils/api/index';
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
-import { ICategory, ITag } from 'types/interfaces/meta';
+import { ICategory, ICity, ITag } from 'types/interfaces/meta';
 
 export const getCategoriesService = (
   page?: number
@@ -13,7 +13,7 @@ export const getCategoriesService = (
 
 export const getCitiesService = (
   page?: number
-): AxiosPromise<IAxiosPaginatedResponse<ICategory>> => {
+): AxiosPromise<IAxiosPaginatedResponse<ICity>> => {
   return instance.get('cities/', {
     params: { page },
   });
@@ -33,4 +33,10 @@ export const getTagsService = (
   return instance.get('tags/', {
     params: { page },
   });
+};
+
+export const getRatesService = (
+  page?: number
+): AxiosPromise<{ price: number }> => {
+  return instance.get('bitcoin/');
 };

@@ -62,60 +62,61 @@ const CreateForum: FC = () => {
     <div className={styles.root}>
       <Button
         label={t('forum.create.openModal')}
-        width="full"
         onClick={(): void => setModalOpen(true)}
       />
 
-      <BaseModal
-        isOpen={modalOpen}
-        setModalOpen={(x: boolean) => setModalOpen(x)}
-        title={t('forum.create.title')}
-      >
-        <div className={styles.form}>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={schema}
-          >
-            {({ isValid, touched }) => (
-              <Form>
-                <Flex align="center" wrap="wrap" className={styles.topline}>
-                  <Flex align="center" className={styles.formUser}>
-                    <Avatar name="User name" />
-                    <Typography margin="0 0 0 8px" size="m" lineHeight="xs">
-                      User name
-                    </Typography>
+      <div className={styles.modal}>
+        <BaseModal
+          isOpen={modalOpen}
+          setModalOpen={(x: boolean) => setModalOpen(x)}
+          title={t('forum.create.title')}
+        >
+          <div className={styles.form}>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={schema}
+            >
+              {({ isValid, touched }) => (
+                <Form>
+                  <Flex align="center" wrap="wrap" className={styles.topline}>
+                    <Flex align="center" className={styles.formUser}>
+                      <Avatar name="User name" />
+                      <Typography margin="0 0 0 8px" size="m" lineHeight="xs">
+                        User name
+                      </Typography>
+                    </Flex>
+                    <div className={styles.formSelect}>
+                      <FormikSelect
+                        items={themeSelectList}
+                        placeholder="Выберите тему"
+                        name="theme"
+                        isRequired={false}
+                      />
+                    </div>
                   </Flex>
-                  <div className={styles.formSelect}>
-                    <FormikSelect
-                      items={themeSelectList}
-                      placeholder="Выберите тему"
-                      name="theme"
-                      isRequired={false}
-                    />
-                  </div>
-                </Flex>
 
-                <div className={styles.formInputs}>
-                  <FormikTextarea
-                    label={t('forum.create.question.label')}
-                    placeholder={t('forum.create.question.placeholder')}
-                    name="question"
-                    rows={5}
-                  />
-                  <Flex margin="24px 0 0" justify="flex-end">
-                    <Button
-                      disabled={!Object.keys(touched).length || !isValid}
-                      label={t('forum.create.cta')}
-                      type="submit"
+                  <div className={styles.formInputs}>
+                    <FormikTextarea
+                      label={t('forum.create.question.label')}
+                      placeholder={t('forum.create.question.placeholder')}
+                      name="question"
+                      rows={5}
                     />
-                  </Flex>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      </BaseModal>
+                    <Flex margin="24px 0 0" justify="flex-end">
+                      <Button
+                        disabled={!Object.keys(touched).length || !isValid}
+                        label={t('forum.create.cta')}
+                        type="submit"
+                      />
+                    </Flex>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </BaseModal>
+      </div>
     </div>
   );
 };

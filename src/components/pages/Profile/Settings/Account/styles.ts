@@ -20,6 +20,10 @@ const useStyles = makeStyles({
   },
   uiGroup: {
     marginBottom: 24,
+    '& > label': {
+      display: 'block',
+      marginBottom: 12,
+    },
     '&:last-child': {
       marginBottom: 0,
     },
