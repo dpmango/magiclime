@@ -2,21 +2,48 @@ import { IPhoto } from '../../../types/interfaces/common';
 
 interface IWebinarReferral {
   readonly id: number;
-  avatar: IPhoto | null;
+  username: string;
+  avatar: IPhoto;
   name: string;
+  email: string;
+  about: string;
 }
 
 interface IWebinarAuthor {
+  readonly id: number;
   name: string;
-  avatar?: string;
+  avatar: IPhoto;
 }
 
 export interface IWebinar {
   readonly id: number;
   title: string;
+  categories: Array<{ id: number; title: string }>;
+  banner: string;
+  date: string;
+  speakers: ISpeaker[];
   description: string;
-  tags: string[];
-  image?: string;
-  referrals: IWebinarReferral[];
-  author: IWebinarAuthor;
+  city: {
+    id: number;
+    title: string;
+  };
+  connect_url: string;
+  participants: IWebinarReferral[];
+  creator: IWebinarAuthor | null;
+}
+
+export interface ISpeaker {
+  readonly id: number;
+  city: string;
+  company: string;
+  name: string;
+  surname: string;
+  avatar: IPhoto;
+  description: string;
+}
+
+export interface IFilters {
+  search: string;
+  categories: number[];
+  city: number;
 }

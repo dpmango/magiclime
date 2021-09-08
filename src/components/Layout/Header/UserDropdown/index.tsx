@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Switch } from '@consta/uikit/Switch';
 import { IconMoon } from '@consta/uikit/IconMoon';
-import Cookies from 'js-cookie';
 import { IconSettings } from '@consta/uikit/IconSettings';
 import { IconQuestion } from '@consta/uikit/IconQuestion';
 import { IconRouble } from '@consta/uikit/IconRouble';
@@ -17,8 +16,6 @@ import { useTranslation } from 'react-i18next';
 import useStyles from '../styles';
 import { Language } from '../../../../types/common';
 import { setLanguage } from '../../../../store/reducers/settings';
-import { deleteAuthHeader } from '../../../../utils/api';
-import { logout } from '../../../../store/reducers/user';
 import { IUserDropdownProps, UserDropdownItem } from './types';
 import { logoutFunc } from '../../../../utils/helpers/logout';
 
@@ -75,7 +72,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
         path: '/profile/me/settings',
         group: 1,
       },
-      { name: 'Помощь', icon: IconQuestion, path: '/help', group: 1 },
+      { name: 'Помощь', icon: IconQuestion, path: '/faq', group: 1 },
       {
         name: 'Тёмная тема',
         switch: true,

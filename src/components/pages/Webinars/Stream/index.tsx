@@ -2,12 +2,12 @@ import React, { FC, useState } from 'react';
 import { IconWatch } from '@consta/uikit/IconWatch';
 import { Button } from '@consta/uikit/Button';
 import useStyles from './styles';
-import Flex from '../../Common/Flex';
-import Typography from '../../Common/Typography';
-import WebinarChat from './WebinarChat';
-import ConstaIcons from '../../../assets/icons/ConstaIcons';
+import Flex from '../../../Common/Flex';
+import Typography from '../../../Common/Typography';
+import StreamChat from './StreamChat';
+import ConstaIcons from '../../../../assets/icons/ConstaIcons';
 
-const Webinar: FC = () => {
+const Stream: FC = () => {
   const [isFull, setFull] = useState(false);
   const styles = useStyles({ isFull });
 
@@ -30,7 +30,7 @@ const Webinar: FC = () => {
               alt="Webinar banner"
               className={styles.banner}
             />
-            <WebinarChat />
+            <StreamChat />
           </Flex>
           <div className={styles.videoContainer}>
             <Button
@@ -48,4 +48,4 @@ const Webinar: FC = () => {
   );
 };
 
-export default Webinar;
+export default Stream;
