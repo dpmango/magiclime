@@ -1,10 +1,9 @@
+import React, { FC, useEffect, useState, memo } from 'react';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
-import React, { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import { v4 as uuid } from 'uuid';
 import Flex from '../../../Common/Flex';
-import { renderNewMessage } from '../Chat/controller';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IChat, IGroup } from '../types';
@@ -91,4 +90,6 @@ const ChatsList: FC<IProps> = ({ chatId, setActiveChatId, socket }) => {
   );
 };
 
-export default ChatsList;
+export default memo(ChatsList, (prevProps, nextProps) => {
+  return prevProps.chatId === nextProps.chatId;
+});

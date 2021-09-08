@@ -40,4 +40,6 @@ const Header: FC<IProps> = ({ chat, loading }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header, (prevProps, nextProps) => {
+  return prevProps.loading === nextProps.loading;
+});

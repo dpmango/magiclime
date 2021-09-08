@@ -1,9 +1,9 @@
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { v4 as uuid } from 'uuid';
 import useStyles from '../styles';
 
-export const MessagesSkeleton: FC = () => {
+export const MessagesSkeleton: FC = memo(() => {
   const styles = useStyles();
   return (
     <>
@@ -15,9 +15,9 @@ export const MessagesSkeleton: FC = () => {
       ))}
     </>
   );
-};
+});
 
-export const HeaderSkeleton: FC = () => {
+export const HeaderSkeleton: FC = memo(() => {
   const styles = useStyles();
   return (
     <div className={styles.headerSkeleton}>
@@ -25,4 +25,4 @@ export const HeaderSkeleton: FC = () => {
       <SkeletonText rows={2} fontSize="s" lineHeight="s" />
     </div>
   );
-};
+});

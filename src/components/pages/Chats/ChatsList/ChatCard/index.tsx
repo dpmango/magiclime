@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
 import moment from 'moment';
 import { NavLink } from 'react-router-dom';
@@ -57,4 +57,6 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
   );
 };
 
-export default ChatCard;
+export default memo(ChatCard, (prevProps, nextProps) => {
+  return prevProps.chat.id === nextProps.chat.id;
+});

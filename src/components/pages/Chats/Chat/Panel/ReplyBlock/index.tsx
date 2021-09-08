@@ -40,4 +40,6 @@ const ReplyBlock: FC<IProps> = ({ message, cancelReply }) => {
   );
 };
 
-export default ReplyBlock;
+export default React.memo(ReplyBlock, (prevProps, nextProps) => {
+  return prevProps.message.id === nextProps.message.id;
+});

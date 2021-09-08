@@ -10,7 +10,6 @@ import { Button } from '@consta/uikit/Button';
 import { IconAttach } from '@consta/uikit/IconAttach';
 import { FileField } from '@consta/uikit/FileField';
 import { Socket } from 'socket.io-client';
-import { IPhoto } from '../../../../../types/interfaces/common';
 import { sendFile } from '../../../../../utils/api/routes/chat';
 import { uploadImage } from '../../../../../utils/api/routes/other';
 import { MessageFile } from '../../types';
@@ -40,23 +39,20 @@ const Panel: FC<IProps> = ({ chatId, socket }) => {
     const attached_images = files
       .filter((item) => item.hasOwnProperty('image'))
       .map((img) => img.id);
-    socket.emit(
-      'my_room_event',
-      {
-        room: chatId.toString(),
-        data: JSON.stringify({
-          text: message,
-          reply_to_id: reply,
-          attached_files,
-          attached_images,
-        }),
-      },
-      () => {
-        setMessage('');
-        setFiles([]);
-        if (reply) setChatContext({ ...chatContext, replyMessage: null });
-      }
-    );
+
+    socket.emit('my_room_event', {
+      room: chatId.toString(),
+      data: JSON.stringify({
+        text: message,
+        reply_to_id: reply,
+        attached_files,
+        attached_images,
+      }),
+    });
+
+    // setMessage('');
+    if (files.length > 0) setFiles([]);
+    if (reply) setChatContext({ ...chatContext, replyMessage: null });
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -66,21 +62,27 @@ const Panel: FC<IProps> = ({ chatId, socket }) => {
     }
   };
 
-  const isImage = (file: File): boolean =>
-    /(png|jpe?g|gif|ico)/.test(file.name.split('.').pop() as string);
+  const isImage = useCallback(
+    (file: File): boolean =>
+      /(png|jpe?g|gif|ico)/.test(file.name.split('.').pop() as string),
+    []
+  );
 
-  const addFile = (e: DragEvent | React.ChangeEvent<Element>) => {
-    const file = (e.target as HTMLInputElement).files![0];
-    if (isImage(file)) {
-      uploadImage(file).then((res) => {
-        setFiles([...files, res.data]);
-      });
-    } else {
-      sendFile(file).then((res) => {
-        setFiles([...files, { id: res.data.id, file }]);
-      });
-    }
-  };
+  const addFile = useCallback(
+    (e: DragEvent | React.ChangeEvent<Element>) => {
+      const file = (e.target as HTMLInputElement).files![0];
+      if (isImage(file)) {
+        uploadImage(file).then((res) => {
+          setFiles([...files, res.data]);
+        });
+      } else {
+        sendFile(file).then((res) => {
+          setFiles([...files, { id: res.data.id, file }]);
+        });
+      }
+    },
+    [files.length]
+  );
 
   const cancelReply = useCallback(() => {
     setChatContext({ ...chatContext, replyMessage: null });
