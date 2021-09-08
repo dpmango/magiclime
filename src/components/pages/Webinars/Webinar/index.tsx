@@ -1,32 +1,51 @@
-import React, { FC } from 'react';
+import { Loader } from '@consta/uikit/Loader';
+import moment from 'moment';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
+import { RouteComponentProps } from 'react-router-dom';
+import { getWebinar } from '../../../../utils/api/routes/webinars';
+import { IWebinar } from '../types';
 import useStyles from './styles';
 import Header from './Header';
-import Flex from '../../Common/Flex';
-import Typography from '../../Common/Typography';
-import useResolution from '../../../hooks/useResolution';
-import { speakers } from './mockData';
+import Flex from '../../../Common/Flex';
+import Typography from '../../../Common/Typography';
+import useResolution from '../../../../hooks/useResolution';
 import Speaker from './Speaker';
-import Members from '../../Common/Members';
-import { mockWebinars } from '../Webinars/mockData';
+import Members from '../../../Common/Members';
 
-const WebinarInfo: FC = () => {
+const Webinar: FC<RouteComponentProps<{ id: string }>> = ({
+  match: {
+    params: { id },
+  },
+  history,
+}) => {
+  const [webinar, setWebinar] = useState<IWebinar | null>(null);
   const styles = useStyles();
   const { t } = useTranslation();
   const size = useResolution();
   const isSmallLap = size.width <= 1300;
 
+  useEffect(() => {
+    getWebinar(+id)
+      .then((res) => setWebinar(res.data))
+      .catch(() => history.push('/webinars'));
+  }, [id]);
+
+  if (!webinar) return <Loader />;
+
   return (
     <div className={styles.root}>
-      <Header />
+      <Header webinar={webinar} />
       <div className={styles.content}>
         <div className={styles.details}>
           <div>
             <Typography view="ghost" size="xs" margin="0 0 8px">
               {t('webinar.dateTime')}
             </Typography>
-            <Typography weight="semibold">13 августа, 15:00</Typography>
+            <Typography weight="semibold">
+              {moment(webinar.date).format('D MMMM, HH:mm')}
+            </Typography>
           </div>
           <div>
             <Typography view="ghost" size="xs" margin="0 0 8px">
@@ -38,7 +57,7 @@ const WebinarInfo: FC = () => {
             <Typography view="ghost" size="xs" margin="0 0 8px">
               {t('webinar.city')}
             </Typography>
-            <Typography weight="semibold">Санкт-Петербург</Typography>
+            <Typography weight="semibold">{webinar.city.title}</Typography>
           </div>
         </div>
 
@@ -98,12 +117,12 @@ const WebinarInfo: FC = () => {
             <Typography weight="semibold" margin="0 0 12px">
               {t('webinar.members')}
             </Typography>
-            <Members members={mockWebinars[0].referrals} itemSize={44} />
+            <Members members={webinar.participants} itemSize={44} />
             <Typography weight="semibold" margin="44px 0 12px">
               {t('webinar.speakers')}
             </Typography>
-            {speakers.map((speaker) => (
-              <Speaker speaker={speaker} short />
+            {webinar.speakers.map((speaker) => (
+              <Speaker key={speaker.id} speaker={speaker} short />
             ))}
             <Button
               size="l"
@@ -121,8 +140,8 @@ const WebinarInfo: FC = () => {
           >
             {t('webinar.aboutSpeakers')}
           </Typography>
-          {speakers.map((speaker) => (
-            <Speaker speaker={speaker} short={false} />
+          {webinar.speakers.map((speaker) => (
+            <Speaker speaker={speaker} short={false} key={speaker.id} />
           ))}
         </div>
       </div>
@@ -130,4 +149,4 @@ const WebinarInfo: FC = () => {
   );
 };
 
-export default WebinarInfo;
+export default Webinar;

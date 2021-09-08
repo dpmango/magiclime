@@ -1,9 +1,10 @@
-export interface ICategory {
+interface IMeta {
   id: number;
   title: string;
 }
 
-export interface ITag {
-  id: number;
-  title: string;
-}
+export type ICategory = IMeta;
+
+export type ITag = IMeta;
+
+export type ICity = IMeta;

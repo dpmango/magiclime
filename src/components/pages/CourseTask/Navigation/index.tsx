@@ -21,10 +21,10 @@ const CourseNavigation: FC<IProps> = ({
   onSectionClick,
 }) => {
   const groupedSections = useMemo(() => {
-    const grouped = groupBy(sections, (x) => x.module);
+    const grouped = groupBy(sections, (x) => x.chapter);
 
     return Object.keys(grouped).map((key) => ({
-      label: `Раздел ${key}`,
+      label: grouped[key][0].chapterLabel,
       sections: grouped[key],
     }));
   }, [sections]);
@@ -48,10 +48,6 @@ const CourseNavigation: FC<IProps> = ({
     activeTab: activeSectionInGroup,
     darkmode: !isDefaultTheme,
   });
-
-  // useEffect(() => {
-  //   const groupIndex
-  // }, [activeSectionId])
 
   // TODO - @consta Collapse is not toggable (even on clean example), only manual isOpen state toggle works
   const [collapseState, setCollapseState] = useState<{

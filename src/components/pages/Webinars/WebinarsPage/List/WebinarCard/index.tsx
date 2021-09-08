@@ -13,9 +13,9 @@ import { IconWarning } from '@consta/uikit/IconWarning';
 import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
-import { ComponentType } from '../../../../../types/common';
+import { ComponentType } from '../../../../../../types/common';
 import useStyles from './styles';
-import Members from '../../../../Common/Members';
+import Members from '../../../../../Common/Members';
 
 interface IProps {
   item: IWebinar;
@@ -26,7 +26,7 @@ type DropdownItem = {
   icon: ComponentType;
 };
 
-const Webinar: FC<IProps> = ({ item }) => {
+const WebinarCard: FC<IProps> = ({ item }) => {
   const styles = useStyles();
   const history = useHistory();
   const [open, setOpen] = useState(false);
@@ -44,15 +44,15 @@ const Webinar: FC<IProps> = ({ item }) => {
     <Flex direction="column" className={styles.root}>
       <div className={styles.image}>
         <img
-          src={item.image || '/images/couse-placeholder.png'}
+          src={item.banner || '/images/couse-placeholder.png'}
           alt={item.title}
         />
       </div>
 
       <Flex justify="space-between" align="center" margin="6px 0">
         <Flex className={styles.tagsContainer} wrap="wrap">
-          {item.tags.map((tag) => (
-            <Badge label={tag} status="warning" key={uuid()} />
+          {item.categories.map((tag) => (
+            <Badge label={tag.title} status="warning" key={tag.id} />
           ))}
         </Flex>
         <Button
@@ -90,36 +90,50 @@ const Webinar: FC<IProps> = ({ item }) => {
             view="brand"
             weight="semibold"
           >
-            10 августа, 12:00
+            {moment(item.date).format('D MMMM, HH:mm')}
           </Typography>
           <Typography size="s" margin="8px 0 0">
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
-            Елена Анатольевна, Анна Ахматова
+            {item.speakers.map((speaker, index, array) => (
+              <span key={speaker.id}>
+                {speaker.name}{' '}
+                {`${speaker.surname}${index === array.length - 1 ? '' : ' ,'}`}
+              </span>
+            ))}
           </Typography>
         </div>
 
         <Flex align="center" justify="space-between" className={styles.cta}>
+          {/* <Button */}
+          {/*  onClick={() => history.push(`/webinars/${item.id}/`)} */}
+          {/*  form="round" */}
+          {/*  size="s" */}
+          {/*  label={t('common.moreDetails')} */}
+          {/* /> */}
           <Button
-            onClick={() => history.push(`/webinars/${item.id}/`)}
+            as="a"
+            href={item.connect_url}
             form="round"
             size="s"
             label={t('common.moreDetails')}
           />
 
           <Flex align="center" className={styles.referralWrapper}>
-            {item.referrals && (
+            {item.participants && (
               <Members
-                members={item.referrals}
+                members={item.participants}
                 className={styles.referralUsers}
               />
             )}
-            <Avatar
-              className={styles.author}
-              name={item.author.name}
-              form="default"
-              url={item.author.avatar}
-              size="m"
-            />
+            {item.creator && (
+              <Avatar
+                className={styles.author}
+                name={item.creator.name}
+                form="default"
+                url={item.creator.avatar ? item.creator.avatar.image : ''}
+                size="m"
+              />
+            )}
           </Flex>
         </Flex>
       </Flex>
@@ -127,4 +141,4 @@ const Webinar: FC<IProps> = ({ item }) => {
   );
 };
 
-export default Webinar;
+export default WebinarCard;

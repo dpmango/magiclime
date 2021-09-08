@@ -9,13 +9,13 @@ import { TextField } from '@consta/uikit/TextField';
 import { Button } from '@consta/uikit/Button';
 import moment from 'moment';
 import useStyles from './styles';
-import Flex from '../../../Common/Flex';
-import Message from '../../Chats/Chat/Message';
-import { IMessage } from '../../Chats/types';
-import icons from '../../Chats/Chat/Panel/icons';
-import Typography from '../../../Common/Typography';
+import Flex from '../../../../Common/Flex';
+import Message from '../../../Chats/Chat/Message';
+import { IMessage } from '../../../Chats/types';
+import icons from '../../../Chats/Chat/Panel/icons';
+import Typography from '../../../../Common/Typography';
 
-const WebinarChat = () => {
+const StreamChat = () => {
   const styles = useStyles();
   const [value, setValue] = useState('');
   const [messages, setMessages] = useState<IMessage[]>([
@@ -102,4 +102,4 @@ const WebinarChat = () => {
   );
 };
 
-export default WebinarChat;
+export default StreamChat;

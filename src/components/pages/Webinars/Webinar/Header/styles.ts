@@ -9,9 +9,17 @@ const useStyles = makeStyles(() => ({
       maxWidth: '1210px',
     },
   },
+  w100: {
+    flex: 1,
+  },
   title: {
     fontSize: '56px',
     lineHeight: '64px',
+  },
+  tagsContainer: {
+    '& > button:not(:last-of-type)': {
+      marginRight: '15px',
+    },
   },
   signUp: {
     color: '#fafafa',

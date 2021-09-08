@@ -6,6 +6,8 @@ import NewsItemCard from './NewsItemCard';
 const useStyles = makeStyles({
   root: {
     maxWidth: '1210px',
+    borderLeft: '1px solid #4247700f',
+    borderRight: '1px solid #4247700f',
   },
 });
 

@@ -17,9 +17,12 @@ export const formatPrice = (num: number): string => {
   return '';
 };
 
-export const btlToRub = (num: number, rate: number) => {
-  // was it meant 1mBtc ?
-  return formatPrice((num / 1000) * rate);
+export const blToRub = (num: number, rate: number) => {
+  return formatPrice((num / 1000 / 100) * rate);
+};
+
+export const blToBtc = (num: number, rate: number) => {
+  return formatPrice(num / 100);
 };
 
 export const priceShort = (num: number, digits = 2) => {

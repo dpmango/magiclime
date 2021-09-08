@@ -42,7 +42,7 @@ const StaticLayout: FC = () => {
         <Route exact path="/home/info/government" component={Government} />
         <Route
           exact
-          path="/info/government/request"
+          path="/home/info/government/request"
           component={GovernmentRequest}
         />
         <Route exact path="/home/info/privacy" component={Policy} />

@@ -78,7 +78,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       return root ? { width: 72, height: 72, lineHeight: '72px' } : {};
     })(),
   }),
-  referralBtl: {
+  referralBl: {
     flex: '0 0 23%',
     paddingRight: 12,
   },

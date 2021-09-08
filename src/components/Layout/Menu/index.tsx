@@ -65,11 +65,11 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
         name: t('menu.chats'),
         icon: icons.ChatsIcon,
       },
-      {
-        path: '/calendar',
-        name: t('menu.calendar'),
-        icon: icons.CalendarIcon,
-      },
+      // {
+      //   path: '/calendar',
+      //   name: t('menu.calendar'),
+      //   icon: icons.CalendarIcon,
+      // },
       {
         path: '/news',
         name: t('menu.news'),

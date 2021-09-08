@@ -17,6 +17,15 @@ const useStyles = makeStyles({
     minWidth: 1,
     margin: '0 auto',
   },
+  form: {
+    marginTop: 36,
+  },
+  group: {
+    marginBottom: 24,
+    '&:last-child': {
+      marginBottom: 24,
+    },
+  },
 });
 
 export default useStyles;

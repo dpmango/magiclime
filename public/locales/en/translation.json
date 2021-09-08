@@ -144,7 +144,7 @@
         "paymentAmount": "Сумма пополнения",
         "amount": {
           "label": "Refill amount",
-          "placeholder": "Enter amount in BTL"
+          "placeholder": "Enter amount in BL"
         },
         "cta": "Refill balance"
       },

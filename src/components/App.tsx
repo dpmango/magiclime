@@ -12,8 +12,7 @@ import { getAllMeta } from 'store/reducers/meta';
 import { RootState } from 'store/reducers/rootReducer';
 
 import { setAuthToken } from '../utils/api';
-import PrivateRoute from './Layout/PrivateRoute';
-import OpenRoute from './Layout/OpenRoute';
+import PrivateRoute from './PrivateRoute';
 import StaticLayout from './Layout/StaticLayout';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
@@ -40,11 +39,11 @@ const App: FC = () => {
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
       <Switch>
-        <OpenRoute
+        <PrivateRoute
           path="/home"
           component={() => <StaticLayout />}
           redirect="/profile/me"
-          access={isLogged}
+          access={!isLogged}
         />
 
         <PrivateRoute

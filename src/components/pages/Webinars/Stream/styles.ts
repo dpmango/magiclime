@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core';
-import { COLORS } from '../../../utils/constants/colors';
+import { COLORS } from '../../../../utils/constants/colors';
 
 const useStyles = makeStyles<null, { isFull: boolean }>(() => ({
   root: {
