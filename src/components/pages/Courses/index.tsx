@@ -29,6 +29,7 @@ const CoursesPage: FC = () => {
 
   const fetchCourses = useCallback(async (filter) => {
     setLoading(true);
+
     const [err, data] = await getCoursesService(filter);
 
     if (err) {
@@ -61,11 +62,11 @@ const CoursesPage: FC = () => {
     let priceRange: [string, string] = ['0 ₽', '0 ₽'];
     let levelRange: [string, string] = ['1', '1'];
 
-    const groupedCategories = groupBy(courses, (x) => x.subcategory.id);
+    const groupedSubCategories = groupBy(courses, (x) => x.subcategory.id);
 
-    if (groupedCategories) {
-      categories = Object.keys(groupedCategories).map((key) => {
-        const { subcategory } = groupedCategories[key][0];
+    if (groupedSubCategories) {
+      categories = Object.keys(groupedSubCategories).map((key) => {
+        const { subcategory } = groupedSubCategories[key][0];
 
         return subcategory;
       });
@@ -94,9 +95,19 @@ const CoursesPage: FC = () => {
     };
   }, [courses]);
 
-  const handleFiltersChange = useCallback(async (filter) => {
-    await fetchCourses(filter);
-  }, []);
+  const handleFiltersChange = useCallback(
+    async (filter) => {
+      const params = filter
+        ? {
+            ...filter,
+            tags: activeTags,
+          }
+        : null;
+
+      await fetchCourses(params);
+    },
+    [activeTags]
+  );
 
   useEffect(() => {
     fetchCourses(null);

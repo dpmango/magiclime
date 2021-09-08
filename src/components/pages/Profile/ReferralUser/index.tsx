@@ -64,13 +64,13 @@ const ReferralUser: FC<IProps> = ({
           )}
         </div>
       </Flex>
-      <div className={styles.referralBtl}>
+      <div className={styles.referralBl}>
         <Typography
           size={root ? 'l' : 's'}
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          TODO BTL
+          TODO BL
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">

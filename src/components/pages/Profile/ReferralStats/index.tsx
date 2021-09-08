@@ -96,7 +96,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
                 153.130
               </Typography>
               <Typography size="xl" weight="light" view="brand">
-                &nbsp;BTL
+                &nbsp;BL
               </Typography>
             </Flex>
           </div>

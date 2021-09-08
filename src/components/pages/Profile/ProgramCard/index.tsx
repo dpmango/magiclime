@@ -51,7 +51,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
               lineHeight="s"
               view="secondary"
             >
-              + {data.profit} mBTL
+              + {data.profit} mBL
             </Typography>
           </div>
           <div className={styles.image}>

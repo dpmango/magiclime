@@ -1,18 +1,14 @@
 import React, { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
-
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED_STRING } from 'utils/formik/validation';
-import { RootState } from 'store/reducers/rootReducer';
-import { postRefillBalance } from 'utils/api/routes/payment';
+import { useTranslation } from 'react-i18next';
+
 import useStyles from './styles';
 
 type SelectItem = {
@@ -22,72 +18,39 @@ type SelectItem = {
   icon?: string;
 };
 
-const currencySelectList: SelectItem[] = [
-  {
-    label: 'Bitcoin',
-    icon: '/images/bitcoin.svg',
-    disabled: false,
-    id: 1,
-  },
+const paymentSelectList: SelectItem[] = [
   {
     label: 'USDT',
     icon: '/images/bitlime.svg',
     disabled: true,
     id: 2,
   },
-  {
-    label: 'RUB',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 3,
-  },
 ];
 
-const paymentSelectList: SelectItem[] = [
-  {
-    label: 'BtcPAY',
-    icon: '/images/bitlime.svg',
-    disabled: false,
-    id: 1,
-  },
-];
-
-const Refill: FC = () => {
+const Transfer: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { profile } = useSelector((state: RootState) => state.user);
-
   const initialValues = {
-    currency: currencySelectList[0],
     payment: paymentSelectList[0],
+    credentials: '',
     amount: '',
   };
 
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = (values: typeof initialValues) => {
     // eslint-disable-next-line no-console
-    const [err, data] = await postRefillBalance({
-      storeId: '9jUsN6vk2jnBcXqA7fUbTa6eqoGGuaRZkWiSdUWrqW9o',
-      checkoutQueryString: `${profile.id}`,
-      currency: 'USD',
-    });
-
-    if (err) {
-      toast(t('profile.balance.refill.toast.error'));
-      return;
-    }
-
-    console.log('submit data', data);
+    console.log('TODO - form submit', values);
   };
 
   const schema = Yup.object({
+    credentials: REQUIRED_STRING,
     amount: REQUIRED_STRING,
   });
 
   return (
     <div className={styles.root}>
       <Typography size="xl" weight="semibold" className={styles.title}>
-        {t('profile.balance.refill.title')}
+        {t('profile.balance.transfer.title')}
       </Typography>
 
       <Formik
@@ -98,25 +61,26 @@ const Refill: FC = () => {
         <Form>
           <div className={styles.uiGroup}>
             <FormikSelect
-              items={currencySelectList}
-              label={t('profile.balance.refill.inputLabel')}
-              name="currency"
-              isRequired={false}
-            />
-          </div>
-          <div className={styles.uiGroup}>
-            <FormikSelect
               items={paymentSelectList}
-              label={t('profile.balance.refill.pamentLabel')}
+              label={t('profile.balance.transfer.payment.label')}
               name="payment"
               isRequired={false}
             />
           </div>
           <div className={styles.uiGroup}>
             <FormikInput
-              label={t('profile.balance.refill.amount.label')}
+              label={t('profile.balance.transfer.credentials.label')}
+              name="credentials"
+              placeholder={t(
+                'profile.balance.transfer.credentials.placeholder'
+              )}
+            />
+          </div>
+          <div className={styles.uiGroup}>
+            <FormikInput
+              label={t('profile.balance.transfer.amount.label')}
               name="amount"
-              placeholder={t('profile.balance.refill.amount.placeholder')}
+              placeholder={t('profile.balance.transfer.amount.placeholder')}
               onlyNumbers
             />
           </div>
@@ -125,7 +89,7 @@ const Refill: FC = () => {
             width="full"
             view="primary"
             type="submit"
-            label={t('profile.balance.refill.cta')}
+            label={t('profile.balance.transfer.cta')}
             className={styles.cta}
           />
         </Form>
@@ -134,4 +98,4 @@ const Refill: FC = () => {
   );
 };
 
-export default Refill;
+export default Transfer;

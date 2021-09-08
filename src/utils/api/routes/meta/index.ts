@@ -34,3 +34,9 @@ export const getTagsService = (
     params: { page },
   });
 };
+
+export const getRatesService = (
+  page?: number
+): AxiosPromise<{ price: number }> => {
+  return instance.get('bitcoin/');
+};

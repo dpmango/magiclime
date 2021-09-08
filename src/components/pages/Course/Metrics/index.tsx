@@ -50,7 +50,7 @@ const CourseMetrics: FC = () => {
               weight="semibold"
               lineHeight="xs"
             >
-              4 567 BTL
+              4 567 BL
             </Typography>
           </div>
         </Flex>

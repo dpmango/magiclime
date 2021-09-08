@@ -1,12 +1,12 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { inline?: boolean; showRate?: boolean }>({
   root: {
     background: 'var(--color-bg-default)',
-    border: '1px solid var(--color-bg-border)',
     borderRadius: 4,
-    padding: '20px 20px 12px',
     height: '100%',
+    padding: ({ inline }) => (!inline ? '32px 20px 12px' : 0),
+    border: ({ inline }) => (!inline ? '1px solid var(--color-bg-border)' : 0),
   },
   coinIcon: {
     flex: '0 0 42px',
