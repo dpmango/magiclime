@@ -1,5 +1,6 @@
 import { AxiosPromise } from 'types/common';
 import { ICourse } from 'types/interfaces/courses';
+import { ICourseFull } from 'components/pages/CourseTask/types';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
 
@@ -38,6 +39,18 @@ export const getCoursesService = async (
     const params: ICoursesParams = filterToParams(filter, {});
 
     const { data } = await $api.get('/courses/', { params });
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const getCourseModule = async (
+  id: string
+): Promise<[Error | null, ICourseFull | null]> => {
+  try {
+    const { data } = await $api.get(`/courses/${id}/`);
 
     return [null, data];
   } catch (error) {

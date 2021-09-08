@@ -8,7 +8,7 @@ import Menu from '../Menu';
 import Flex from '../../Common/Flex';
 import Container from '../../Common/Container';
 import Courses from '../../pages/Courses';
-import Course from '../../pages/Course';
+// import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
 import Article from '../../pages/Article';
@@ -60,8 +60,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
                 )}
               />
               <Route exact path="/courses" component={Courses} />
-              <Route exact path="/courses/:course" component={Course} />
-              <Route exact path="/courses/:course/:id" component={CourseTask} />
+              <Route exact path="/courses/:id" component={CourseTask} />
+              {/* <Route exact path="/courses/:course/:id" component={CourseTask} /> */}
               <Route exact path="/faq" component={Articles} />
               <Route exact path="/faq/:id" component={Article} />
               <Route path="/profile/:id" component={Profile} />
