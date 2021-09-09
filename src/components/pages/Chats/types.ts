@@ -31,8 +31,9 @@ export interface IMessage {
       avatar: IPhoto | null;
     };
   };
-  attached_files?: [];
-  attached_images?: IPhoto[];
+  attached_files: [];
+  attached_images: IPhoto[];
+  chat: number;
 }
 
 export interface ICreateChatForm {
@@ -45,3 +46,5 @@ export interface IGroup {
   readonly id: number;
   title: string;
 }
+
+export type MessageFile = { id: number; file: File } | IPhoto;

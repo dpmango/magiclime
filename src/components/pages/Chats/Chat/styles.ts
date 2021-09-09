@@ -7,25 +7,6 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     width: '200px',
     height: 'calc(100vh - 64px)',
-    '& > svg': {
-      width: '25%',
-    },
-  },
-  header: {
-    width: 'calc(100% - 24px)',
-    borderBottom: `1px solid ${COLORS.layoutBorderColor}`,
-    paddingBottom: '26px',
-    marginLeft: '24px',
-  },
-  avatarWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '56px',
-    height: '56px',
-    marginRight: '16px',
-    border: `1px solid #E8E8E8`,
-    borderRadius: '8px',
   },
   body: {
     flex: 1,
@@ -33,6 +14,15 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     padding: '24px 0 0 24px',
     position: 'relative',
+  },
+  empty: {
+    width: '100%',
+    textAlign: 'center',
+    marginTop: '50%',
+    transform: 'translateY(-50%)',
+    '& > svg': {
+      width: '25%',
+    },
   },
   chooseChat: {
     maxWidth: 510,
@@ -70,7 +60,7 @@ const useStyles = makeStyles(() => ({
       height: '32px',
     },
   },
-  skeleton: {
+  messagesSkeleton: {
     display: 'flex',
     width: '300px',
     marginBottom: '30px',
@@ -78,6 +68,22 @@ const useStyles = makeStyles(() => ({
       marginRight: '16px',
       flex: 'none',
     },
+  },
+  headerSkeleton: {
+    display: 'flex',
+    width: '200px',
+    '& > div:first-of-type': {
+      marginRight: '16px',
+      flex: 'none',
+    },
+  },
+  loader: {
+    width: '100%',
+    height: '45px',
+    position: 'absolute',
+    top: '5px',
+    left: 0,
+    transform: 'none',
   },
 }));
 

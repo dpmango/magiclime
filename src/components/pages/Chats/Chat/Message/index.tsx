@@ -15,9 +15,9 @@ import { ContextMenu } from '@consta/uikit/ContextMenu';
 import { IconWarning } from '@consta/uikit/IconWarning';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { Text } from '@consta/uikit/Text';
 import { ComponentType } from '../../../../../types/common';
 import { ChatContext } from '../../context';
-import Typography from '../../../../Common/Typography';
 import useStyles from './styles';
 import Flex from '../../../../Common/Flex';
 import { IMessage } from '../../types';
@@ -75,35 +75,46 @@ const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
       <div className={styles.w100}>
         <Flex align="center" margin="0 0 4px">
           <Link to={`/profile/${message.creator.id}`}>
-            <Typography size="s" weight="semibold">
+            <Text size="s" weight="semibold">
               {message.creator.name}
-            </Typography>
+            </Text>
           </Link>
           <div className={styles.dot} />
-          <Typography className={styles.date} view="secondary">
+          <Text className={styles.date} view="secondary">
             {moment(message.created_at).format(format)}
-          </Typography>
+          </Text>
         </Flex>
         {message.reply_to && (
           <div
             className={styles.replyFrom}
             onClick={() => onReplyClick(message.reply_to?.id as number)}
           >
-            <Typography
+            <Text
               weight="semibold"
-              margin="0 0 4px"
               className={styles.replyCreator}
               view="brand"
             >
               {message.reply_to.creator.name}
-            </Typography>
-            <Typography className={styles.text} size="s">
+            </Text>
+            <Text className={styles.text} size="s">
               {message.reply_to.text}
-            </Typography>
+            </Text>
           </div>
         )}
+        {message.attached_images.length > 0 && (
+          <Flex direction="column">
+            {message.attached_images.map((img) => (
+              <img
+                src={img.image}
+                key={img.id}
+                alt="chat_image"
+                className={styles.messageImage}
+              />
+            ))}
+          </Flex>
+        )}
         <Flex margin="0 0 8px" className={styles.container}>
-          <Typography className={styles.text}>{message.text}</Typography>
+          <Text className={styles.text}>{message.text}</Text>
         </Flex>
         <Flex className={styles.buttons}>
           <Button

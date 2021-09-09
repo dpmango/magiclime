@@ -52,6 +52,15 @@ const useStyles = makeStyles(() => ({
   },
   replyCreator: {
     fontSize: '13px',
+    marginBottom: '4px',
+  },
+  messageImage: {
+    width: '100%',
+    maxWidth: '630px',
+    maxHeight: '630px',
+    objectFit: 'cover',
+    borderRadius: '10px',
+    marginBottom: '15px',
   },
   '@media screen and (max-width: 1300px)': {
     container: {
