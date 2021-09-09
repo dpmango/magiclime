@@ -72,11 +72,18 @@ const Achievements: FC<IProps> = ({ profile, isMyProfile }) => {
               {groups.map((group) => (
                 <Flex className={styles.group} key={group.id}>
                   <div className={styles.groupImage}>
-                    {group.image && <img src={group.image} alt={group.title} />}
+                    {group.image && (
+                      <img src={group.image.image} alt={group.title} />
+                    )}
                   </div>
                   <div className={styles.groupContent}>
-                    <Flex align="center">
-                      <Typography weight="semibold" lineHeight="s" size="m">
+                    <Flex align="center" justify="space-between">
+                      <Typography
+                        weight="semibold"
+                        lineHeight="s"
+                        size="m"
+                        className={styles.groupTitle}
+                      >
                         {group.title}
                       </Typography>
                       <div className={styles.groupStats}>

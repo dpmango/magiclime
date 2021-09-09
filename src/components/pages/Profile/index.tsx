@@ -11,10 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
-import { RootState } from 'store/reducers/rootReducer';
 
 import Typography from 'components/Common/Typography';
 import { useFirstRender } from 'hooks/useFirstRender';
+import { RootState } from 'store/reducers/rootReducer';
+import { IUser } from 'types/interfaces/user';
+
 import Head from './Head';
 import ProgramList from './ProgramList';
 import Achievements from './Achievements';
@@ -25,9 +27,8 @@ import BalanceHistory from './BalanceHistory';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
-
 import useStyles from './styles';
-import { mockPrograms, mockEvents, mockCourses } from './mockData';
+import { mockPrograms, mockEvents } from './mockData';
 
 interface ITab {
   id: number;
@@ -44,20 +45,20 @@ const ProfilePage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  console.log('render');
-
   const { profile, foreignProfile } = useSelector(
     (state: RootState) => state.user
   );
 
+  // getting profile
   const isMyProfile = useMemo(() => {
     return params.id === 'me';
   }, [params.id]);
 
-  const viewingProfile = useMemo(() => {
+  const viewingProfile: IUser = useMemo(() => {
     return isMyProfile ? profile : foreignProfile;
   }, [profile, foreignProfile, isMyProfile]);
 
+  // tabs
   const tabs: ITab[] = useMemo(() => {
     if (isMyProfile) {
       return [
@@ -103,6 +104,7 @@ const ProfilePage: FC = () => {
 
   const [tab, setTab] = useState<ITab>(getTabWithRouter);
 
+  // effects
   useEffect(() => {
     if (!firstRender) {
       history.push(tab.slug);
@@ -156,7 +158,7 @@ const ProfilePage: FC = () => {
                 </Grid>
               </div>
               <div className={styles.section}>
-                <Courses list={mockCourses} />
+                <Courses list={viewingProfile.courses || null} />
               </div>
             </>
           )}

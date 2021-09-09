@@ -17,7 +17,6 @@ import { RootState } from 'store/reducers/rootReducer';
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
-import { mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
@@ -28,6 +27,7 @@ const CoursesPage: FC = () => {
   const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
   const { tags } = useSelector((state: RootState) => state.meta);
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -96,7 +96,7 @@ const CoursesPage: FC = () => {
     <div className={styles.root}>
       <FeaturedCourse />
 
-      <ProfileCourses view="compact" list={mockProfileCourses} />
+      <ProfileCourses view="compact" list={profile.courses || null} />
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">

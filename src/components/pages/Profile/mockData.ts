@@ -1,4 +1,4 @@
-import { IProgram, IActivementsGrouped, IEvent, ICourse } from './types';
+import { IProgram, IEvent } from './types';
 
 export const mockPrograms: IProgram[] = [
   {
@@ -169,89 +169,10 @@ export const mockPrograms: IProgram[] = [
   },
 ];
 
-export const mockAchievements: IActivementsGrouped[] = [
-  {
-    id: 1,
-    image: '/images/achievement-1.svg',
-    title: 'Заголовок группы достижений',
-    stats: {
-      completed: 2,
-      total: 10,
-    },
-    list: [
-      {
-        id: 1,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: true,
-      },
-      {
-        id: 2,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    image: '/images/achievement-2.svg',
-    title: 'Заголовок группы достижений',
-    stats: {
-      completed: 1,
-      total: 35,
-    },
-    list: [
-      {
-        id: 3,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: true,
-      },
-      {
-        id: 4,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: true,
-      },
-    ],
-  },
-  {
-    id: 3,
-    image: '/images/achievement-2.svg',
-    title: 'Заголовок группы достижений',
-    stats: {
-      completed: 1,
-      total: 35,
-    },
-    list: [
-      {
-        id: 3,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: true,
-      },
-      {
-        id: 4,
-        title: 'Lorem ipsum dolor sit amet, consectetur adipiscing',
-        opened: true,
-      },
-    ],
-  },
-];
-
 export const mockEvents: IEvent[] = [
   { id: 1, title: '+ 15 опыта' },
   { id: 2, title: 'Вебинар “SEO-специалист” скоро начнётся' },
   { id: 3, title: 'Вы не окончили курс “Instagram-маркетолог”' },
   { id: 4, title: '+ 15 опыта' },
   { id: 5, title: '+ 15 опыта' },
-];
-
-export const mockCourses: ICourse[] = [
-  {
-    id: 1,
-    image: '/images/course-image.jpg',
-    tag: 'Маркетинг',
-    title: 'SEO-специалист с нуля до PRO',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commod...',
-    progress: 'Не отслеживается',
-    rate: [7.5, 10],
-  },
 ];

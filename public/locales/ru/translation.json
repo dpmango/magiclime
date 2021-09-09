@@ -195,7 +195,11 @@
     },
     "courses": {
       "title": "Мои курсы",
-      "process": "Прогресс",
+      "process": {
+        "label": "Прогресс",
+        "passed": "Пройдено",
+        "notPassed": "Не пройдено"
+      },
       "rate": "Оценка",
       "rateFrom": "из"
     },

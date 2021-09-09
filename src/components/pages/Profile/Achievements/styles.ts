@@ -45,12 +45,17 @@ const useStyles = makeStyles({
     },
   },
   groupContent: {
+    width: '100%',
     paddingLeft: 16,
+  },
+  groupTitle: {
+    width: 'auto',
+    paddingRight: 12,
   },
   groupStats: {
     background: 'var(--color-bg-system)',
     borderRadius: '50px',
-    marginLeft: 12,
+    marginLeft: 'auto',
     padding: '4px 8px',
   },
   achievement: {

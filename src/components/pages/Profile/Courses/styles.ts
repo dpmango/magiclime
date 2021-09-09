@@ -24,6 +24,7 @@ const useStyles = makeStyles<null, { view?: string }>(() => ({
     zIndex: 1,
     overflow: 'hidden',
     width: 160,
+    padding: 24,
     borderRadius: 8,
     '& img': {
       width: '100%',

@@ -1,4 +1,4 @@
-import { IAchievement } from 'components/pages/Profile/types';
+import { IAchievement, ICourse } from 'components/pages/Profile/types';
 import { IPhoto } from './common';
 
 export interface IUser {
@@ -19,7 +19,7 @@ export interface IUser {
   animation: boolean;
   listening: boolean;
   motivating_tips: boolean;
-  courses: string;
+  courses: ICourse[];
   achievements: IAchievement[];
   level: number;
   experience: number;
