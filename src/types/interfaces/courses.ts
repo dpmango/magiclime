@@ -1,20 +1,14 @@
+import { IPhoto, ICategory } from './common';
+
 export interface ICourse {
   readonly id: number; // used
-  title: string; //
-  status: number;
+  title: string;
+  image: IPhoto;
+  category: ICategory;
+  subcategory: ICategory;
+  status: number; // 1 | 2 | 3 ?
   price: string;
-  category: {
-    id: number;
-    title: string;
-  };
-  subcategory: {
-    id: number;
-    title: string;
-  };
   student_level: number;
   level: number;
-  image: {
-    id: number;
-    image: string;
-  };
+  is_bought: boolean;
 }

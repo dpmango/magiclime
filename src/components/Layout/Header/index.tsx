@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useRef, useState, useMemo } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
   HeaderModule,
   HeaderButton,
@@ -10,11 +10,9 @@ import {
 } from '@consta/uikit/Header';
 import { IconHamburger } from '@consta/uikit/IconHamburger';
 
-import { getBalance } from 'utils/api/routes/payment';
-
+import { RootState } from 'store/reducers/rootReducer';
+import { SetStateType, Theme } from 'types/common';
 import useResolution from '../../../hooks/useResolution';
-import { RootState } from '../../../store/reducers/rootReducer';
-import { SetStateType, Theme } from '../../../types/common';
 import bitcoin from '../../../assets/images/bitcoin.png';
 import UserDropdown from './UserDropdown';
 import Logo from '../../../assets/images/logo.svg';
@@ -28,24 +26,18 @@ interface IHeaderProps {
 
 const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
   const styles = useStyles();
-  const [isOpen, setOpen] = useState(false);
-  const { isLogged, profile } = useSelector((state: RootState) => state.user);
   const ref = useRef<HTMLDivElement>(null);
+  const history = useHistory();
   const size = useResolution();
   const isMobile = size.width <= 480;
 
-  useEffect(() => {
-    const fetchFunc = async () => {
-      const [err, data] = await getBalance();
-      if (err) {
-        console.log('error getting balance', err);
-      }
+  const [isOpen, setOpen] = useState(false);
+  const { isLogged, profile } = useSelector((state: RootState) => state.user);
+  const { balance } = useSelector((state: RootState) => state.profile);
 
-      console.log(data);
-    };
-
-    fetchFunc();
-  }, []);
+  const myBalance = useMemo(() => {
+    return `${balance.bitlimes || `${0}`} Bl`;
+  }, [balance]);
 
   return (
     <div className={styles.root}>
@@ -75,10 +67,11 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName="3.130 mBL"
+                personName={myBalance}
                 personInfo="Баланс"
                 personAvatarUrl={bitcoin}
                 className={styles.clickBlock}
+                onClick={() => history.push('/profile/me/balance/')}
               />
             </HeaderModule>
 
@@ -86,12 +79,12 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <div ref={ref}>
                 <HeaderLogin
                   isLogged={isLogged}
-                  onClick={() => setOpen(!isOpen)}
                   isMinified={isMobile}
                   personName={profile.name}
                   personAvatarUrl={profile.avatar && profile.avatar.image}
                   personInfo="8 уровень"
                   className={styles.clickBlock}
+                  onClick={() => setOpen(!isOpen)}
                 />
                 <a id="specialButton" href="/" className={styles.poorVision}>
                   {' '}

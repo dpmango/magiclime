@@ -1,22 +1,18 @@
+import { AxiosPromise } from 'types/common';
+import { IBalance } from 'types/interfaces/profile';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
-export interface IRequest {
+export interface IRequestRefill {
   amount: number;
 }
 
-export const getBalance = async (): Promise<[Error | null, any | null]> => {
-  try {
-    const { data } = await $api.get(endpoints.payments.balance);
-
-    return [null, data];
-  } catch (error) {
-    return [error, null];
-  }
+export const getBalanceService = (): AxiosPromise<IBalance> => {
+  return $api.get(endpoints.payments.balance);
 };
 
 export const postRefillBalance = async (
-  request: IRequest
+  request: IRequestRefill
 ): Promise<[Error | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.payments.buy, request);

@@ -1,7 +1,11 @@
 import React, { FC, useState, useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { formatPrice, blToRub, blToBtc } from 'utils/helpers/formatPrice';
+import { RootState } from 'store/reducers/rootReducer';
 
 import useStyles from './styles';
 
@@ -13,6 +17,9 @@ interface IProps {
 
 const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
   const styles = useStyles({ inline, showRate });
+  const { t } = useTranslation();
+
+  const { balance } = useSelector((state: RootState) => state.profile);
 
   return (
     <div className={styles.root}>
@@ -26,7 +33,7 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
               BL/RUB
             </Typography>
             <Typography view="secondary" margin="2px 0 0" size="xs">
-              Курс 1 к {blToRub(1, btcRate)}
+              {t('profile.balance.widget.coursePer')} {blToRub(1, btcRate)}
             </Typography>
           </div>
         </Flex>
@@ -40,14 +47,14 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
             size="s"
             weight="semibold"
           >
-            Баланс:
+            {t('profile.balance.widget.title')}
           </Typography>
           <Flex align="baseline" wrap="wrap">
             <Typography view="brand" size="2xl" weight="semibold">
-              232 BL
+              {balance.bitlimes} BL
             </Typography>
             <Typography view="secondary" margin="0 0 0 4px" size="xs">
-              {blToBtc(232, btcRate)} mBtc
+              {blToBtc(balance.bitlimes, btcRate)} mBtc
             </Typography>
           </Flex>
         </>

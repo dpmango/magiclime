@@ -3,6 +3,11 @@ export interface IPhoto {
   image: string;
 }
 
+export interface ICategory {
+  id: number;
+  title: string;
+}
+
 export interface IStyleInterface {
   darkmode?: boolean;
 }

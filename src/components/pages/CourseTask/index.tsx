@@ -128,7 +128,7 @@ const CoursePage: FC = () => {
 
       ScrollTo(0);
     } else {
-      console.log('you are done here - moving to next course');
+      console.log('TODO - cshould be POST when changing sections?');
       history.push('/courses');
     }
   }, [nextSectionId, activeSectionId, sections]);

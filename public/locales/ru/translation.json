@@ -97,7 +97,9 @@
       "more": "Показать еще 20 курсов"
     },
     "card": {
-      "month": "месяцев"
+      "price": "Цена",
+      "bought": "Куплено",
+      "level": "Уровень"
     },
     "filter": {
       "searchPlaceholder": "Поиск по курсам",
@@ -206,6 +208,15 @@
       "rateFrom": "из"
     },
     "balance": {
+      "my": {
+        "available": "Доступно для вывода",
+        "earned": "Всего заработано",
+        "output": "Всего выведено"
+      },
+      "widget": {
+        "title": "Баланс",
+        "coursePer": "Курс 1 к"
+      },
       "refill": {
         "title": "Пополнение счёта",
         "inputLabel": "Валюта ввода",

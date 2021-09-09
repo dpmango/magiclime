@@ -21,7 +21,6 @@ export const filterToParams = (filter: IFilter, params: ICoursesParams) => {
     }
 
     if (tags && tags.length) {
-      console.log('tags', tags);
       buildParams.categories = tags.join(',');
     }
 

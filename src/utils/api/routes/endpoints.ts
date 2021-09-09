@@ -23,6 +23,6 @@ export default {
     root: '/payments/',
     balance: '/payments/balance/',
     buy: '/payments/buy/',
-    sell: '/payments/sell', // todo
+    sell: '/payments/sell/', // todo
   },
 };
