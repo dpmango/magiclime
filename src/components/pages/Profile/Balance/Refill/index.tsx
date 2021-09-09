@@ -66,7 +66,7 @@ const Refill: FC = () => {
 
   const handleSubmit = async (values: typeof initialValues) => {
     const [err, data] = await postRefillBalance({
-      amount: values.amount,
+      amount: parseFloat(values.amount) / 100000,
     });
 
     if (err) {

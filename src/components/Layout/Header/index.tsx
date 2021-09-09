@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -9,13 +9,16 @@ import {
   Header as ConstaHeader,
 } from '@consta/uikit/Header';
 import { IconHamburger } from '@consta/uikit/IconHamburger';
+
+import { getBalance } from 'utils/api/routes/payment';
+
 import useResolution from '../../../hooks/useResolution';
-import useStyles from './styles';
 import { RootState } from '../../../store/reducers/rootReducer';
 import { SetStateType, Theme } from '../../../types/common';
 import bitcoin from '../../../assets/images/bitcoin.png';
 import UserDropdown from './UserDropdown';
 import Logo from '../../../assets/images/logo.svg';
+import useStyles from './styles';
 
 interface IHeaderProps {
   theme: Theme;
@@ -30,6 +33,19 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const size = useResolution();
   const isMobile = size.width <= 480;
+
+  useEffect(() => {
+    const fetchFunc = async () => {
+      const [err, data] = await getBalance();
+      if (err) {
+        console.log('error getting balance', err);
+      }
+
+      console.log(data);
+    };
+
+    fetchFunc();
+  }, []);
 
   return (
     <div className={styles.root}>

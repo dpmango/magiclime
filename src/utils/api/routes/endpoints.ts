@@ -16,5 +16,13 @@ export default {
       root: '/profile/options/',
       avatar: '/profile/options/avatar/',
     },
+    achievements: '/profile/achievements/', // todo
+    events: '/profile/events/', // todo
+  },
+  payments: {
+    root: '/payments/',
+    balance: '/payments/balance/',
+    buy: '/payments/buy/',
+    sell: '/payments/sell', // todo
   },
 };
