@@ -1,15 +1,12 @@
+import { Dispatch } from 'react';
 import { ClassNameMap } from '@material-ui/styles';
-import { SetStateType } from '../../../../types/common';
 import { DOMAIN } from '../../../../utils/api';
 import { IMessage } from '../types';
+import { ActionType } from './reducer';
 
 export const renderNewMessage = (
   message: IMessage,
-  increaseCount: SetStateType<number>,
-  setMessages: SetStateType<{
-    array: IMessage[];
-    needScroll: boolean;
-  }>
+  dispatch: Dispatch<ActionType>
 ) => {
   const avatar = message.creator.avatar
     ? {
@@ -17,18 +14,18 @@ export const renderNewMessage = (
         image: DOMAIN + message.creator.avatar.image,
       }
     : null;
+
   const attached_images = message.attached_images.map((img) => ({
     ...img,
     image: DOMAIN + img.image,
   }));
-  increaseCount((prev) => prev + 1);
-  setMessages((prev) => ({
-    array: [
-      ...prev.array,
-      { ...message, creator: { ...message.creator, avatar }, attached_images },
-    ],
-    needScroll: true,
-  }));
+
+  const newMessage = {
+    ...message,
+    creator: { ...message.creator, avatar },
+    attached_images,
+  };
+  dispatch({ type: 'ADD_MESSAGE', message: newMessage });
 };
 
 export const onReplyClick = (id: number, styles: ClassNameMap) => {
@@ -39,3 +36,5 @@ export const onReplyClick = (id: number, styles: ClassNameMap) => {
     message?.classList.remove(styles.replyAnimation);
   }, 3000);
 };
+
+export const scrollToBottom = () => {};

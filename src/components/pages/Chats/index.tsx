@@ -1,17 +1,23 @@
 import Cookies from 'js-cookie';
 import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Flex from '../../Common/Flex';
+import Empty from './Chat/Empty';
+import useStyles from './Chat/styles';
 import ChatsList from './ChatsList';
 import Chat from './Chat';
 import { ChatContext } from './context';
 import ChatCreating from './ChatCreating';
 
-const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
-  const [activeChatId, setActiveChatId] = useState<number | null>(null);
-  const { id } = match.params;
+const Chats: FC<RouteComponentProps<{ id?: string }>> = ({
+  match: {
+    params: { id },
+  },
+}) => {
   const { chatContext } = useContext(ChatContext);
+  const [activeChat, setActiveChat] = useState(id || 0);
+  const styles = useStyles();
 
   const socket = useMemo(
     () =>
@@ -33,14 +39,16 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({ match }) => {
     <Flex>
       {chatContext.mode === 'list' ? (
         <ChatsList
-          chatId={id}
-          setActiveChatId={setActiveChatId}
           socket={socket}
+          setActiveChat={setActiveChat}
+          chatId={activeChat}
         />
       ) : (
-        <ChatCreating setActiveChatId={setActiveChatId} />
+        <ChatCreating />
       )}
-      <Chat chatId={activeChatId} socket={socket} />
+      <Flex direction="column" className={styles.root} align="center">
+        {activeChat ? <Chat socket={socket} chatId={activeChat} /> : <Empty />}
+      </Flex>
     </Flex>
   );
 };

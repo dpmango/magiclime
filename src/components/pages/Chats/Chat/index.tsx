@@ -1,53 +1,42 @@
 import { Button } from '@consta/uikit/Button';
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
+import { Loader } from '@consta/uikit/Loader';
+import { RouteComponentProps } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
-import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import debounce from 'lodash/debounce';
 import React, {
   FC,
-  MutableRefObject,
+  memo,
   useCallback,
   useEffect,
   useMemo,
+  useReducer,
   useRef,
   useState,
 } from 'react';
-import { v4 as uuid } from 'uuid';
-import { Avatar } from '@consta/uikit/Avatar';
-import { usePrevious } from '../../../../hooks/usePrevious';
-import { IChatDetail, IMessage } from '../types';
-import Flex from '../../../Common/Flex';
-import { onReplyClick, renderNewMessage } from './controller';
+import { IMessage } from '../types';
+import { MessagesSkeleton } from './ChatSkeletons';
+import { renderNewMessage, scrollToBottom } from './controller';
+import Header from './Header';
+import List from './List';
+import { initialState, reducer } from './reducer';
 import useStyles from './styles';
-import Typography from '../../../Common/Typography';
-import Message from './Message';
 import Panel from './Panel';
 import { getChat, getChatMessages } from '../../../../utils/api/routes/chat';
-import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
-  chatId: number | null;
   socket: Socket;
+  chatId: string | number;
 }
 
-const Chat: FC<IProps> = ({ chatId, socket }) => {
-  const [chat, setChat] = useState<IChatDetail | null>(null);
-  const [messages, setMessages] = useState<{
-    array: IMessage[];
-    needScroll: boolean;
-  }>({
-    array: [],
-    needScroll: true,
-  });
-  const [page, setPage] = useState(1);
-  const [scroll, setScroll] = useState(0);
-  const [allMessagesCount, setAllMessageCount] = useState(0);
-  const [finishGettingData, setFinishGettingData] = useState(false);
-  const [refAppoint, setRefAppoint] = useState(true);
+const Chat: FC<IProps> = ({ socket, chatId }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(false);
-  const ref = useRef(null) as MutableRefObject<HTMLDivElement | null>;
+  const [loadingScrollTop, setLoadingScrollTop] = useState(false);
+  const [loadingScrollBottom, setLoadingScrollBottom] = useState(false);
+
+  const ref = useRef<HTMLDivElement>(null);
   const styles = useStyles();
-  const previousScroll = usePrevious(scroll);
 
   const LIMIT = useMemo(() => {
     if (chatId && ref.current) {
@@ -60,69 +49,66 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, [chatId, ref.current]);
 
   useEffect(() => {
-    if (chatId) {
-      getChat(chatId)
-        .then((res) => {
-          setChat(res.data);
-          return res.data;
-        })
-        .then((chat) => {
-          setLoading(true);
-          // const page = Math.ceil(chat.unreaded_count / LIMIT);
-          getChatMessages(chat.id, 1, LIMIT)
-            .then((res) => {
-              // console.log(res);
-              const elem = ref.current;
-              elem!.scrollTop = elem!.scrollHeight - elem!.clientHeight;
-              setAllMessageCount(res.data.count);
-              setMessages({
-                array: res.data.results.reverse(),
-                needScroll: true,
-              });
-              setTimeout(() => setFinishGettingData(true), 1000);
-            })
-            .finally(() => setLoading(false));
-        });
-    }
-  }, [chatId, refAppoint]);
+    const listener = (msg: any) => {
+      if (msg.data.id) {
+        renderNewMessage(msg.data, dispatch);
+      }
+    };
 
-  useEffect(() => {
     if (chatId) {
-      socket.emit('join', { room: chatId.toString() });
-      socket.on('my_response', (msg) => {
-        if (msg.data.id)
-          renderNewMessage(msg.data, setAllMessageCount, setMessages);
+      setLoading(true);
+      getChat(+chatId).then((res) => {
+        dispatch({ type: 'SET_CHAT', payload: res.data });
       });
+
+      socket.emit('join', { room: chatId.toString() });
+      socket.on('my_response', listener);
     }
     return () => {
-      chatId && socket.emit('leave', { room: chatId.toString() });
+      if (chatId) {
+        socket.emit('leave', { room: chatId.toString() });
+        socket.off('my_response', listener);
+      }
     };
   }, [chatId]);
 
   useEffect(() => {
-    if (
-      finishGettingData &&
-      previousScroll !== undefined &&
-      (Math.abs(previousScroll - scroll) <= 300 || scroll === 0)
-    ) {
+    if (state.chat && ref.current) {
+      const page = Math.ceil(state.chat.unreaded_count / LIMIT) || 1;
+      getChatMessages(state.chat.id, page, LIMIT)
+        .then((res) => {
+          dispatch({
+            type: 'RENDER_HISTORY',
+            count: res.data.count,
+            messages: res.data.results.reverse(),
+            page,
+          });
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [state.chat, ref.current]);
+
+  useEffect(() => {
+    if (state.scroll !== null && state.allMessagesCount !== 0) {
       const lastElement = ref.current!.lastElementChild! as HTMLDivElement;
 
       if (!lastElement) return;
 
-      if (scroll - 300 <= 0 && page * LIMIT < allMessagesCount) {
-        setLoading(true);
-        getChatMessages(chat!.id, page + 1, LIMIT)
+      if (
+        state.scroll - 300 <= 0 &&
+        state.page * LIMIT < state.allMessagesCount
+      ) {
+        setLoadingScrollTop(true);
+        getChatMessages(state.chat!.id, state.page + 1, LIMIT)
           .then((res) => {
-            setPage(page + 1);
-            setMessages((prev) => ({
-              array: [...res.data.results, ...prev.array],
-              needScroll: false,
-            }));
+            dispatch({ type: 'ADD_PREV_PAGE', messages: res.data.results });
           })
-          .finally(() => setLoading(false));
+          .finally(() => {
+            setLoadingScrollTop(false);
+          });
       } else if (
-        scroll + 300 >= lastElement.offsetTop &&
-        page > allMessagesCount
+        state.scroll + 300 >= lastElement.offsetTop &&
+        state.page > state.allMessagesCount
       ) {
         // getChatMessages(chat!.id, page + 1, LIMIT).then((res) => {
         //   setPage(page - 1);
@@ -130,130 +116,82 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
         // });
       }
     }
-  }, [scroll, page]);
+  }, [state.scroll, state.allMessagesCount]);
 
   const scrollChat = debounce(() => {
-    setScroll(ref.current!.scrollTop);
+    dispatch({ type: 'SET_SCROLL', payload: ref.current!.scrollTop });
   }, 300);
 
   useEffect(() => {
-    if (refAppoint && !!messages.array.length && messages.needScroll) {
-      const elem = ref.current!;
-      elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+    if (state.messages.length && ref.current && state.scroll !== null) {
+      ref.current.scrollTop =
+        ref.current.scrollHeight - state.prevBodyHeight + state.scroll;
+      dispatch({ type: 'SET_BODY_HEIGHT', payload: ref.current.scrollHeight });
     }
-  }, [refAppoint, messages.array.length]);
+  }, [state.messages.length]);
 
   // Скроллим окно сообщений вниз до непрочитанных сообщений
-  // useEffect(() => {
-  //   // if (ref.current && chat && messages.length && messages.length < LIMIT) {
-  //   const elem = ref.current;
-  //   //   if (!chat.unreaded_count) {
-  //     elem.scrollTop = elem.scrollHeight - elem.clientHeight;
-  //   // } else {
-  //   //   const firstIndex =
-  //   //     chat.unreaded_count >= LIMIT
-  //   //       ? 0
-  //   //       : messages.length - chat.unreaded_count;
-  //   //   const firstUnread = elem.children[firstIndex] as HTMLDivElement;
-  //   //   console.log(firstUnread);
-  //   //   if (firstUnread.offsetTop > elem.clientHeight) {
-  //   //     elem.scrollTop =
-  //   //       firstUnread.offsetTop -
-  //   //       elem.clientHeight +
-  //   //       firstUnread.clientHeight;
-  //   //   }
-  //   // }
-  //   //}
-  // }, [ref.current, messages.length]);
+  useEffect(() => {
+    if (ref.current && state.chat && !loading) {
+      const elem = ref.current;
+      if (!state.chat.unreaded_count) {
+        elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+      } else {
+        const firstIndex =
+          state.chat.unreaded_count >= LIMIT
+            ? 0
+            : state.messages.length - state.chat.unreaded_count;
+        const firstUnread = elem.children[firstIndex] as HTMLDivElement;
+        if (firstUnread.offsetTop > elem.clientHeight) {
+          elem.scrollTop =
+            firstUnread.offsetTop -
+            elem.clientHeight +
+            firstUnread.clientHeight +
+            36;
+        }
+      }
+      dispatch({ type: 'SET_BODY_HEIGHT', payload: elem.scrollHeight });
+    }
+  }, [ref.current, loading]);
 
   return (
-    <Flex
-      direction="column"
-      className={styles.root}
-      align="center"
-      justify={chatId && chat ? 'flex-start' : 'center'}
-    >
-      {!chatId || !chat ? (
-        <>
-          <EmptyChat />
-          <Typography
-            lineHeight="l"
-            align="center"
-            className={styles.chooseChat}
-            size="xl"
-            margin="30px 0 0"
-          >
-            Выберите чат, чтобы начать переписку или создайте новую беседу
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Flex className={styles.header}>
-            <div className={styles.avatarWrapper}>
-              <Avatar
-                form="round"
-                name={chat.title}
-                url={chat.avatar ? chat.avatar.image : ''}
-              />
-            </div>
-            <div>
-              <Typography size="xl" weight="bold">
-                {chat.title}
-              </Typography>
-              <Typography view="secondary">
-                {chat.participants_count} members
-              </Typography>
-            </div>
-          </Flex>
-          <div
-            className={styles.body}
-            ref={(el) => {
-              ref.current = el;
-              setRefAppoint(true);
-            }}
-            onScroll={scrollChat}
-          >
-            {loading &&
-              Array.from({ length: 3 }).map(() => (
-                <div key={uuid()} className={styles.skeleton}>
-                  <SkeletonCircle size={52} />
-                  <SkeletonText rows={3} fontSize="xs" lineHeight="s" />
-                </div>
-              ))}
-            {messages.array.map((message, index, array) => (
-              <div key={uuid()}>
-                {(array.length - index === chat?.unreaded_count ||
-                  (LIMIT < chat?.unreaded_count &&
-                    index === 0 &&
-                    page === 1)) && (
-                  <Flex align="center" margin="15px 0">
-                    <div className={styles.line} />
-                    <Typography margin="0 15px" size="xs" view="secondary">
-                      Непрочитанные сообщения
-                    </Typography>
-                    <div className={styles.line} />
-                  </Flex>
-                )}
-                <Message
-                  message={message}
-                  onReplyClick={(id: number) => onReplyClick(id, styles)}
-                  unread={array.length - index <= chat?.unreaded_count}
-                />
-              </div>
-            ))}
-          </div>
+    <>
+      <Header chat={state.chat} loading={loading} />
+      <div className={styles.body} ref={ref} onScroll={scrollChat}>
+        {loadingScrollTop && state.scroll === 0 && (
+          <Loader className={styles.loader} />
+        )}
+        {loading || !state.chat ? (
+          <MessagesSkeleton />
+        ) : (
+          <List
+            messages={state.messages}
+            page={state.page}
+            limit={LIMIT}
+            unreadCount={state.chat!.unreaded_count}
+          />
+        )}
+        {loadingScrollBottom && <Loader className={styles.loader} />}
+      </div>
+
+      {ref.current &&
+        (state.page !== 1 ||
+          ref.current!.scrollTop + 100 <=
+            ref.current!.scrollHeight - ref.current!.clientHeight) && (
           <Button
             view="primary"
             form="round"
             size="l"
             iconLeft={IconArrowDown}
             className={styles.scrollToBottom}
+            onClick={() => scrollToBottom()}
           />
-          <Panel chatId={chat.id} socket={socket} />
-        </>
-      )}
-    </Flex>
+        )}
+      {state.chat && <Panel chatId={state.chat.id} socket={socket} />}
+    </>
   );
 };
 
-export default Chat;
+export default memo(Chat, (prevProps, nextProps) => {
+  return prevProps.chatId === nextProps.chatId;
+});
