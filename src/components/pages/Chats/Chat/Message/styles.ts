@@ -52,6 +52,7 @@ const useStyles = makeStyles(() => ({
   },
   replyCreator: {
     fontSize: '13px',
+    marginBottom: '4px',
   },
   messageImage: {
     width: '100%',

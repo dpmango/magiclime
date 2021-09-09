@@ -15,6 +15,7 @@ interface IProps {
 
 const List: FC<IProps> = ({ messages, page, unreadCount, limit }) => {
   const styles = useStyles();
+
   return (
     <>
       {messages.map((message, index, array) => (

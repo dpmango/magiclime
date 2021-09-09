@@ -26,6 +26,7 @@ const StreamChat = () => {
       creator: { id: 1, name: 'Ivan Ivanov', avatar: null },
       attached_images: [],
       attached_files: [],
+      chat: 10,
     },
     {
       id: 2,
@@ -34,6 +35,7 @@ const StreamChat = () => {
       creator: { id: 2, name: 'Petya Petrov', avatar: null },
       attached_images: [],
       attached_files: [],
+      chat: 10,
     },
   ]);
   const ref = useRef<HTMLDivElement>(null);

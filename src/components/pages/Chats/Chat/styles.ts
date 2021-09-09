@@ -7,9 +7,6 @@ const useStyles = makeStyles(() => ({
     flex: 1,
     width: '200px',
     height: 'calc(100vh - 64px)',
-    '& > svg': {
-      width: '25%',
-    },
   },
   body: {
     flex: 1,
@@ -17,6 +14,15 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     padding: '24px 0 0 24px',
     position: 'relative',
+  },
+  empty: {
+    width: '100%',
+    textAlign: 'center',
+    marginTop: '50%',
+    transform: 'translateY(-50%)',
+    '& > svg': {
+      width: '25%',
+    },
   },
   chooseChat: {
     maxWidth: 510,

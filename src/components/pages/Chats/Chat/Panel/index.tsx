@@ -50,7 +50,7 @@ const Panel: FC<IProps> = ({ chatId, socket }) => {
       }),
     });
 
-    // setMessage('');
+    setMessage('');
     if (files.length > 0) setFiles([]);
     if (reply) setChatContext({ ...chatContext, replyMessage: null });
   };

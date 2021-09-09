@@ -1,35 +1,35 @@
 import { Button } from '@consta/uikit/Button';
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
 import { Loader } from '@consta/uikit/Loader';
+import { RouteComponentProps } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import debounce from 'lodash/debounce';
 import React, {
   FC,
   memo,
+  useCallback,
   useEffect,
   useMemo,
   useReducer,
   useRef,
   useState,
 } from 'react';
-import Flex from '../../../Common/Flex';
+import { IMessage } from '../types';
 import { MessagesSkeleton } from './ChatSkeletons';
 import { renderNewMessage, scrollToBottom } from './controller';
 import Header from './Header';
 import List from './List';
 import { initialState, reducer } from './reducer';
 import useStyles from './styles';
-import Typography from '../../../Common/Typography';
 import Panel from './Panel';
 import { getChat, getChatMessages } from '../../../../utils/api/routes/chat';
-import EmptyChat from '../../../../assets/images/empty-chat.svg';
 
 interface IProps {
-  chatId: number | null;
   socket: Socket;
+  chatId: string | number;
 }
 
-const Chat: FC<IProps> = ({ chatId, socket }) => {
+const Chat: FC<IProps> = ({ socket, chatId }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(false);
   const [loadingScrollTop, setLoadingScrollTop] = useState(false);
@@ -49,21 +49,26 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, [chatId, ref.current]);
 
   useEffect(() => {
+    const listener = (msg: any) => {
+      if (msg.data.id) {
+        renderNewMessage(msg.data, dispatch);
+      }
+    };
+
     if (chatId) {
       setLoading(true);
-      getChat(chatId).then((res) => {
+      getChat(+chatId).then((res) => {
         dispatch({ type: 'SET_CHAT', payload: res.data });
       });
 
       socket.emit('join', { room: chatId.toString() });
-      socket.on('my_response', (msg) => {
-        if (msg.data.id) {
-          renderNewMessage(msg.data, dispatch);
-        }
-      });
+      socket.on('my_response', listener);
     }
     return () => {
-      chatId && socket.emit('leave', { room: chatId.toString() });
+      if (chatId) {
+        socket.emit('leave', { room: chatId.toString() });
+        socket.off('my_response', listener);
+      }
     };
   }, [chatId]);
 
@@ -84,7 +89,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, [state.chat, ref.current]);
 
   useEffect(() => {
-    if (state.scroll !== null) {
+    if (state.scroll !== null && state.allMessagesCount !== 0) {
       const lastElement = ref.current!.lastElementChild! as HTMLDivElement;
 
       if (!lastElement) return;
@@ -111,7 +116,7 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
         // });
       }
     }
-  }, [state.scroll]);
+  }, [state.scroll, state.allMessagesCount]);
 
   const scrollChat = debounce(() => {
     dispatch({ type: 'SET_SCROLL', payload: ref.current!.scrollTop });
@@ -150,62 +155,40 @@ const Chat: FC<IProps> = ({ chatId, socket }) => {
   }, [ref.current, loading]);
 
   return (
-    <Flex
-      direction="column"
-      className={styles.root}
-      align="center"
-      justify={chatId && state.chat ? 'flex-start' : 'center'}
-    >
-      {!chatId ? (
-        <>
-          <EmptyChat />
-          <Typography
-            lineHeight="l"
-            align="center"
-            className={styles.chooseChat}
-            size="xl"
-            margin="30px 0 0"
-          >
-            Выберите чат, чтобы начать переписку или создайте новую беседу
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Header chat={state.chat} loading={loading} />
-          <div className={styles.body} ref={ref} onScroll={scrollChat}>
-            {loadingScrollTop && state.scroll === 0 && (
-              <Loader className={styles.loader} />
-            )}
-            {loading || !state.chat ? (
-              <MessagesSkeleton />
-            ) : (
-              <List
-                messages={state.messages}
-                page={state.page}
-                limit={LIMIT}
-                unreadCount={state.chat!.unreaded_count}
-              />
-            )}
-            {loadingScrollBottom && <Loader className={styles.loader} />}
-          </div>
+    <>
+      <Header chat={state.chat} loading={loading} />
+      <div className={styles.body} ref={ref} onScroll={scrollChat}>
+        {loadingScrollTop && state.scroll === 0 && (
+          <Loader className={styles.loader} />
+        )}
+        {loading || !state.chat ? (
+          <MessagesSkeleton />
+        ) : (
+          <List
+            messages={state.messages}
+            page={state.page}
+            limit={LIMIT}
+            unreadCount={state.chat!.unreaded_count}
+          />
+        )}
+        {loadingScrollBottom && <Loader className={styles.loader} />}
+      </div>
 
-          {ref.current &&
-            (state.page !== 1 ||
-              ref.current!.scrollTop + 100 <=
-                ref.current!.scrollHeight - ref.current!.clientHeight) && (
-              <Button
-                view="primary"
-                form="round"
-                size="l"
-                iconLeft={IconArrowDown}
-                className={styles.scrollToBottom}
-                onClick={() => scrollToBottom()}
-              />
-            )}
-          {state.chat && <Panel chatId={state.chat.id} socket={socket} />}
-        </>
-      )}
-    </Flex>
+      {ref.current &&
+        (state.page !== 1 ||
+          ref.current!.scrollTop + 100 <=
+            ref.current!.scrollHeight - ref.current!.clientHeight) && (
+          <Button
+            view="primary"
+            form="round"
+            size="l"
+            iconLeft={IconArrowDown}
+            className={styles.scrollToBottom}
+            onClick={() => scrollToBottom()}
+          />
+        )}
+      {state.chat && <Panel chatId={state.chat.id} socket={socket} />}
+    </>
   );
 };
 
