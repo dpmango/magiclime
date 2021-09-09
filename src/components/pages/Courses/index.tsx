@@ -92,6 +92,7 @@ const CoursesPage: FC = () => {
     [activeTags]
   );
 
+  console.log(profile.courses);
   return (
     <div className={styles.root}>
       <FeaturedCourse />
