@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
     padding: '12px 16px 5px 18px',
     '& > div:first-of-type': {
       marginRight: '12px',
+      borderRadius: '50%',
       flex: 'none',
     },
   },

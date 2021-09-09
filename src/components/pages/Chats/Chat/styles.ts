@@ -66,6 +66,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '30px',
     '& > div:first-of-type': {
       marginRight: '16px',
+      borderRadius: '50%',
       flex: 'none',
     },
   },
@@ -74,6 +75,7 @@ const useStyles = makeStyles(() => ({
     width: '200px',
     '& > div:first-of-type': {
       marginRight: '16px',
+      borderRadius: '50%',
       flex: 'none',
     },
   },

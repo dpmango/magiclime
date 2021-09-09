@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -10,6 +10,7 @@ import {
 } from '@consta/uikit/Header';
 import { IconHamburger } from '@consta/uikit/IconHamburger';
 import useResolution from '../../../hooks/useResolution';
+import { MenuContext } from '../Menu/context';
 import useStyles from './styles';
 import { RootState } from '../../../store/reducers/rootReducer';
 import { SetStateType, Theme } from '../../../types/common';
@@ -20,13 +21,13 @@ import Logo from '../../../assets/images/logo.svg';
 interface IHeaderProps {
   theme: Theme;
   setTheme: SetStateType<Theme>;
-  toggleMenu: VoidFunction;
 }
 
-const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
+const Header = ({ theme, setTheme }: IHeaderProps) => {
   const styles = useStyles();
   const [isOpen, setOpen] = useState(false);
   const { isLogged, profile } = useSelector((state: RootState) => state.user);
+  const { isFull, setFull } = useContext(MenuContext);
   const ref = useRef<HTMLDivElement>(null);
   const size = useResolution();
   const isMobile = size.width <= 480;
@@ -39,7 +40,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
           <>
             <HeaderModule>
               <HeaderButton
-                onClick={toggleMenu}
+                onClick={() => setFull(!isFull)}
                 iconSize="m"
                 iconLeft={IconHamburger}
               />
