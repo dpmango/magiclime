@@ -62,7 +62,9 @@ const PorifleHeadUploader: FC = () => {
         const sizeInMb = bytesToMegaBytes(file.size);
 
         if (sizeInMb > uploader.maxSize) {
-          toast(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
+          toast(
+            `${t('profile.head.uploader.limitSize')} ${uploader.maxSize}Мб`
+          );
           clearInput(e.target);
           return false;
         }
@@ -79,8 +81,12 @@ const PorifleHeadUploader: FC = () => {
       dispatch(
         updateProfileAvatar({
           file,
-          successCallback: () => {},
-          errorCallback: (message: string) => {},
+          successCallback: () => {
+            toast(t('profile.head.uploader.success'));
+          },
+          errorCallback: (message: string) => {
+            toast(t('profile.head.uploader.error'));
+          },
         })
       );
 

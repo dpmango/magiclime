@@ -216,6 +216,12 @@ export const updateProfileAvatar = createAsyncThunk<
         dispatch(setUserProfile(response.data));
         successCallback && successCallback();
       }
+      if (response?.status === 201) {
+        dispatch(getProfile({})).then(() => {
+          successCallback && successCallback();
+        });
+      }
+
       return response.data;
     } catch (err) {
       if (errorCallback) {
