@@ -71,15 +71,15 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
       //   icon: icons.CalendarIcon,
       // },
       {
-        path: '/news',
-        name: t('menu.news'),
-        icon: IconLineAndBarChart,
+        path: '/faq',
+        name: t('menu.faq'),
+        icon: icons.KnowledgeIcon,
       },
       { name: t('menu.education') },
       {
-        path: '/marketplace',
-        name: t('menu.marketplace'),
-        icon: icons.MarketIcon,
+        path: '/news',
+        name: t('menu.news'),
+        icon: IconLineAndBarChart,
       },
       {
         path: '/webinars',
@@ -98,9 +98,9 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
       },
       { name: t('menu.extra') },
       {
-        path: '/faq',
-        name: t('menu.faq'),
-        icon: icons.KnowledgeIcon,
+        path: '/marketplace',
+        name: t('menu.marketplace'),
+        icon: icons.MarketIcon,
       },
       {
         path: '/rating',

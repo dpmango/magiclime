@@ -1,39 +1,43 @@
+import moment from 'moment';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
+import { INewsItem } from '../types';
 import useStyles from './styles';
 
-const NewsItemCard: FC<{ newItem: any }> = ({ newItem }) => {
+const NewsItemCard: FC<{ newsItem: INewsItem }> = ({ newsItem }) => {
   const styles = useStyles();
 
   return (
     <div className={styles.root}>
-      <Flex className={styles.newsFlex} justify="flex-start" margin="0 0 20px">
-        <div>
+      <Flex justify="space-between" margin="0 0 20px">
+        <div className={styles.titleContainer}>
           <Typography weight="semibold" view="link" className={styles.tag}>
             Команда Разработки
           </Typography>
           <Typography margin="0 16px" className={styles.title}>
-            Stripe’s payments APIs: the first ten years
+            {newsItem.title}
           </Typography>
         </div>
         <div>
           <Typography view="secondary" className={styles.tag}>
-            8 сентября, 2021 года
+            {moment(newsItem.date).format('D MMMM, YYYY')} года
           </Typography>
           <Flex margin="0 0 0 16px">
-            <img
-              src="https://images.ctfassets.net/fzn2n1nzq965/6s4ypZDDqYxacNiyMYYFQc/684e706be67f300bb952affc28d6fb4b/Grace_Goo_HS.png?w=96&h=96"
-              alt="author"
-              className={styles.author}
-            />
+            {newsItem.creator.avatar && (
+              <img
+                src={newsItem.creator.avatar.image}
+                alt="author"
+                className={styles.author}
+              />
+            )}
             <div>
               <Typography weight="semibold" size="s">
-                Мария Кирин
+                {newsItem.creator.name}
               </Typography>
               <Typography size="s" view="secondary">
-                Сотрудник Команды
+                {newsItem.creator.category.title}
               </Typography>
             </div>
           </Flex>
@@ -41,12 +45,9 @@ const NewsItemCard: FC<{ newItem: any }> = ({ newItem }) => {
       </Flex>
       <Flex>
         <Typography className={styles.text} margin="0 65px 0 16px">
-          Abstracting away the complexity of payments has driven the evolution
-          of our APIs over the last decade. This post provides the context and
-          conceptual frameworks behind our API design—and the milestones that
-          led to the
+          {newsItem.description}
           <br />
-          <Link to={`/news/${newItem.id}`} className={styles.readMore}>
+          <Link to={`/news/${newsItem.id}`} className={styles.readMore}>
             <span>Читать далее</span>
             <svg
               width="5"
@@ -63,10 +64,7 @@ const NewsItemCard: FC<{ newItem: any }> = ({ newItem }) => {
           </Link>
         </Typography>
         <div className={styles.banner}>
-          <img
-            src="https://cherepah.ru/wp-content/uploads/c/5/6/c56eb4eb130e107e74c58a3154f37476.jpeg"
-            alt="banner"
-          />
+          <img src={newsItem.image} alt="banner" />
         </div>
       </Flex>
     </div>

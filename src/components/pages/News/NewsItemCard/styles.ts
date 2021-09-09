@@ -5,8 +5,8 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     marginBottom: '95px',
   },
-  newsFlex: {
-    gridGap: 25,
+  titleContainer: {
+    flex: 1,
   },
   tag: {
     borderLeft: '1px solid #635bff',

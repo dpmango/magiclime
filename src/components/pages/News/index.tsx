@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 import React, { FC, useEffect, useState } from 'react';
+import { getNews } from '../../../utils/api/routes/news';
 import Flex from '../../Common/Flex';
 import NewsItemCard from './NewsItemCard';
+import { INewsItem } from './types';
 
 const useStyles = makeStyles({
   root: {
@@ -12,10 +14,14 @@ const useStyles = makeStyles({
 });
 
 const News: FC = () => {
-  const [news, setNews] = useState([{ id: 1 }, { id: 2 }]);
+  const [news, setNews] = useState<INewsItem[]>([]);
   const styles = useStyles();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getNews().then((res) => {
+      setNews(res.data.results);
+    });
+  }, []);
 
   return (
     <Flex
@@ -25,7 +31,7 @@ const News: FC = () => {
       className={styles.root}
     >
       {news.map((item) => (
-        <NewsItemCard key={item.id} newItem={item} />
+        <NewsItemCard key={item.id} newsItem={item} />
       ))}
     </Flex>
   );
