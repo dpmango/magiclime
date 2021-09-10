@@ -96,8 +96,8 @@ const WebinarCard: FC<IProps> = ({ item }) => {
             <span className={styles.speakers}>{t('webinar.speakers')}:</span>
             {item.speakers.map((speaker, index, array) => (
               <span key={speaker.id}>
-                {speaker.name}{' '}
-                {`${speaker.surname}${index === array.length - 1 ? '' : ' ,'}`}
+                {speaker.name}
+                {index !== array.length - 1 && ' ,'}
               </span>
             ))}
           </Typography>
