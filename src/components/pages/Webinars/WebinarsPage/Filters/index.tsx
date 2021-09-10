@@ -30,62 +30,60 @@ const Filters: FC<{ setFilters: SetStateType<IFilters> }> = ({
   }, []);
 
   return (
-    <>
-      <Formik
-        validateOnChange
-        initialValues={{
-          categories: [],
-          search: '',
-          city: {} as ICity,
-        }}
-        enableReinitialize
-        onSubmit={(data: FormValues) => {
-          handleSubmit(data);
-        }}
-      >
-        {({ values, setFieldValue }) => (
-          <Form>
-            <div className={styles.formBlock}>
-              <Field
-                placeholder="Поиск по вебинарам"
-                name="search"
-                component={TextField}
-                rightSide={ConstaIcons.Search}
-                value={values.search}
-                onChange={({ value }: { value: string }) =>
-                  setFieldValue('search', value)
-                }
-              />
-            </div>
+    <Formik
+      validateOnChange
+      initialValues={{
+        categories: [],
+        search: '',
+        city: {} as ICity,
+      }}
+      enableReinitialize
+      onSubmit={(data: FormValues) => {
+        handleSubmit(data);
+      }}
+    >
+      {({ values, setFieldValue }) => (
+        <Form>
+          <div className={styles.formBlock}>
+            <Field
+              placeholder="Поиск по вебинарам"
+              name="search"
+              component={TextField}
+              rightSide={ConstaIcons.Search}
+              value={values.search}
+              onChange={({ value }: { value: string }) =>
+                setFieldValue('search', value)
+              }
+            />
+          </div>
 
-            <div className={styles.formBlock}>
-              <FormikCheckboxGroup
-                label="Категории"
-                name="categories"
-                items={categories}
-                direction="column"
-                getLabel={(item) => (item as ICategory).title}
-                className={styles.group}
-              />
-            </div>
+          <div className={styles.formBlock}>
+            <FormikCheckboxGroup
+              label="Категории"
+              name="categories"
+              items={categories}
+              direction="column"
+              getLabel={(item) => (item as ICategory).title}
+              className={styles.group}
+            />
+          </div>
 
-            <div className={styles.formBlock}>
-              <FormikSelect
-                items={cities.map((city) => ({
-                  id: city.id,
-                  label: city.title,
-                }))}
-                label="Город"
-                name="city"
-                placeholder="Любой"
-                isRequired={false}
-              />
-            </div>
-            <Button label="Искать" view="primary" type="submit" width="full" />
-          </Form>
-        )}
-      </Formik>
-    </>
+          <div className={styles.formBlock}>
+            <FormikSelect
+              items={cities.map((city) => ({
+                id: city.id,
+                label: city.title,
+              }))}
+              label="Город"
+              name="city"
+              placeholder="Любой"
+              isRequired={false}
+            />
+          </div>
+          <Button label="Искать" view="primary" type="submit" width="full" />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
