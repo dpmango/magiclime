@@ -18,6 +18,7 @@ import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
+import { getPdfService } from 'utils/api/routes/auth';
 import { logoutFunc } from 'utils/helpers/logout';
 import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
@@ -70,6 +71,7 @@ const Account: FC = () => {
     phone: PHONE,
   });
 
+  // actions
   const handleLogoutClick = () => {
     logoutFunc();
   };
@@ -89,7 +91,7 @@ const Account: FC = () => {
         // limit mime
         if (uploader.allowedMime) {
           if (!uploader.allowedMime.includes(file.type.split('/')[0])) {
-            toast(t('profile.head.uploader.mimeLocked'));
+            toast.error(t('profile.head.uploader.mimeLocked'));
             clearInput(e.target);
             return false;
           }
@@ -100,7 +102,7 @@ const Account: FC = () => {
           const sizeInMb = bytesToMegaBytes(file.size);
 
           if (sizeInMb > uploader.maxSize) {
-            toast(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
+            toast.error(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
             clearInput(e.target);
             return false;
           }
@@ -115,6 +117,16 @@ const Account: FC = () => {
     },
     []
   );
+
+  const handleExportClick = useCallback(async () => {
+    const [err, data] = await getPdfService(profile.id);
+
+    if (err) {
+      toast.error(t('profile.settings.export.error'));
+    }
+
+    console.log('export data', data);
+  }, [profile.id]);
 
   return (
     <div className={styles.root}>
@@ -241,7 +253,7 @@ const Account: FC = () => {
               </div>
             </div>
 
-            <div className={styles.section}>
+            <div className={styles.section} style={{ opacity: 0.5 }}>
               <div className={styles.uiGroup}>
                 <FormikSwitch
                   label="Lorem ipsum dolor sit amet"
@@ -259,6 +271,7 @@ const Account: FC = () => {
                   view="clear"
                   size="s"
                   label={t('profile.settings.account.export')}
+                  onClick={handleExportClick}
                 />
               </div>
               <div className={styles.uiButton}>

@@ -47,3 +47,15 @@ export const changeUserPassword = (data: {
 }): AxiosPromise => {
   return instance.post(endpoints.users.password, data);
 };
+
+export const getPdfService = async (
+  id: string | number
+): Promise<[Error | null, any | null]> => {
+  try {
+    const { data } = await instance.get(endpoints.admin.exportUser(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};

@@ -1,4 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
 export default {
   auth: {
     root: '/auth/',
@@ -7,7 +6,7 @@ export default {
   },
   admin: {
     root: '/admin/',
-    exportUser: (id: number | string) => `/admin​/users​/${id}​/export_pdf​/`,
+    exportUser: (id: number | string) => `/admin/users/${id}/export_pdf/`,
   },
   users: {
     root: '/auth/users/',
