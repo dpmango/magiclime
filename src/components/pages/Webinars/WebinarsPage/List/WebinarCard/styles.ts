@@ -10,6 +10,8 @@ const useStyles = makeStyles({
   },
   image: {
     position: 'relative',
+    height: '100px',
+    width: '100%',
     flex: '0 0 auto',
     zIndex: 1,
     borderRadius: 8,
@@ -29,6 +31,9 @@ const useStyles = makeStyles({
   },
   cta: {
     marginTop: 32,
+    '& > a': {
+      color: '#fff !important',
+    },
   },
   referralWrapper: {
     flex: '0 0 auto',

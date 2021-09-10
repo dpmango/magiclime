@@ -32,7 +32,7 @@ interface IProps<T, U> {
 const Pagination = <T extends object, U extends DefaultQueries>({
   getList,
   listComponent: Component,
-  limit = 20,
+  limit = 10,
   successCallback,
   errorCallback,
   queries = {} as U,
@@ -47,7 +47,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   const styles = useStyles();
 
   useEffect(() => {
-    setLoading(true);
+    page === 1 && setLoading(true);
 
     getList(page, limit, queries)
       .then((res) => {
@@ -63,7 +63,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
         errorCallback && errorCallback(err);
       })
       .finally(() => {
-        setLoading(false);
+        page === 1 && setLoading(false);
       });
   }, [page, queries]);
 
@@ -79,6 +79,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
         <InfiniteScroll
           dataLength={state.count}
           next={() => setPage(page + 1)}
+          className={styles.scroll}
           hasMore={page * limit < state.count}
           loader={<Loader className={styles.loader} />}
         >
