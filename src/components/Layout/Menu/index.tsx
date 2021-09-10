@@ -1,4 +1,5 @@
-import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState, useContext } from 'react';
+import { IconLineAndBarChart } from '@consta/uikit/IconLineAndBarChart';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
@@ -60,16 +61,21 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
         name: t('menu.chats'),
         icon: icons.ChatsIcon,
       },
+      // {
+      //   path: '/calendar',
+      //   name: t('menu.calendar'),
+      //   icon: icons.CalendarIcon,
+      // },
       {
-        path: '/calendar',
-        name: t('menu.calendar'),
-        icon: icons.CalendarIcon,
+        path: '/faq',
+        name: t('menu.faq'),
+        icon: icons.KnowledgeIcon,
       },
       { name: t('menu.education') },
       {
-        path: '/marketplace',
-        name: t('menu.marketplace'),
-        icon: icons.MarketIcon,
+        path: '/news',
+        name: t('menu.news'),
+        icon: IconLineAndBarChart,
       },
       {
         path: '/webinars',
@@ -88,9 +94,9 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
       },
       { name: t('menu.extra') },
       {
-        path: '/faq',
-        name: t('menu.faq'),
-        icon: icons.KnowledgeIcon,
+        path: '/marketplace',
+        name: t('menu.marketplace'),
+        icon: icons.MarketIcon,
       },
       {
         path: '/rating',

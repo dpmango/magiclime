@@ -9,7 +9,7 @@ interface IProps {
 const useStyles = makeStyles<null, IProps>(() => ({
   root: {
     width: '100%',
-    padding: '12px 16px 5px 18px',
+    padding: '8px 16px 8px 18px',
     display: 'flex',
     fontSize: '15px !important',
     // transition: 'all 0.3s',

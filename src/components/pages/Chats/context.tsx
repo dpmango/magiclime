@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import React, { FC, useState } from 'react';
 import { IMessage } from './types';
 import { SetStateType } from '../../../types/common';

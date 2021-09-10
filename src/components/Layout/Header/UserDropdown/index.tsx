@@ -14,7 +14,7 @@ import { IconEye } from '@consta/uikit/IconEye';
 import { IconWorld } from '@consta/uikit/IconWorld';
 import { useTranslation } from 'react-i18next';
 import useStyles from '../styles';
-import { Language } from '../../../../types/common';
+import { Language, Theme } from '../../../../types/common';
 import { setLanguage } from '../../../../store/reducers/settings';
 import { IUserDropdownProps, UserDropdownItem } from './types';
 import { logoutFunc } from '../../../../utils/helpers/logout';
@@ -76,7 +76,7 @@ const UserDropdown: FC<IUserDropdownProps> = ({
       {
         name: 'Тёмная тема',
         switch: true,
-        switchCondition: theme === 'dark',
+        switchCondition: theme === Theme.Dark,
         icon: IconMoon,
         clickCallback: changeTheme,
         group: 2,

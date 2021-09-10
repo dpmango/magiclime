@@ -60,6 +60,17 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
+                personName={`${profile.experience} опыта`}
+                personInfo="127 место"
+                personAvatarUrl="/images/experience.svg"
+                className={styles.clickBlock}
+              />
+            </HeaderModule>
+
+            <HeaderModule indent="m">
+              <HeaderLogin
+                isLogged={isLogged}
+                isMinified={isMobile}
                 personName="3.130 mBL"
                 personInfo="Баланс"
                 personAvatarUrl={bitcoin}
@@ -75,7 +86,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                   isMinified={isMobile}
                   personName={profile.name}
                   personAvatarUrl={profile.avatar && profile.avatar.image}
-                  personInfo="8 уровень"
+                  personInfo={`${profile.level} уровень`}
                   className={styles.clickBlock}
                 />
                 <a id="specialButton" href="/" className={styles.poorVision}>

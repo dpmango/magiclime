@@ -27,6 +27,7 @@ const StreamChat = () => {
       attached_images: [],
       attached_files: [],
       chat: 10,
+      read_by_users: [],
     },
     {
       id: 2,
@@ -36,6 +37,7 @@ const StreamChat = () => {
       attached_images: [],
       attached_files: [],
       chat: 10,
+      read_by_users: [],
     },
   ]);
   const ref = useRef<HTMLDivElement>(null);
