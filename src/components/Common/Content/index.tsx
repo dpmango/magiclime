@@ -3,6 +3,7 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { Avatar } from '@consta/uikit/Avatar';
+import { Loader } from '@consta/uikit/Loader';
 
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
@@ -66,14 +67,7 @@ const Content: FC<IProps> = ({ data }) => {
           }}
         />
       ) : (
-        <Typography
-          margin="16px 0 32px"
-          size="2xl"
-          weight="semibold"
-          lineHeight="s"
-        >
-          Загрузка...
-        </Typography>
+        <Loader className={styles.loader} />
       )}
     </div>
   );

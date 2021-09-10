@@ -14,6 +14,7 @@ import { SetStateType, Theme } from '../../../types/common';
 import Admin from '../../pages/Admin';
 import Profile from '../../pages/Profile';
 import Courses from '../../pages/Courses';
+import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
 import Article from '../../pages/Article';
@@ -65,7 +66,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route path="/profile/:id" component={Profile} />
               <Route exact path="/courses" component={Courses} />
               <Route exact path="/courses/:id" component={CourseTask} />
-              {/* <Route exact path="/courses/:course/:id" component={CourseTask} /> */}
+              <Route exact path="/courses/:id/info" component={Course} />
               <Route exact path="/faq" component={Articles} />
               <Route exact path="/faq/:id" component={Article} />
               <Route path="/forum" component={Forum} />
