@@ -7,6 +7,10 @@ export interface IRequestRefill {
   amount: number;
 }
 
+export interface IRequestWithdrawal {
+  amount: number;
+}
+
 export const getBalanceService = (): AxiosPromise<IBalance> => {
   return $api.get(endpoints.payments.balance);
 };
@@ -16,6 +20,18 @@ export const postRefillBalance = async (
 ): Promise<[Error | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.payments.buy, request);
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const postWithdrawalBalance = async (
+  request: IRequestWithdrawal
+): Promise<[Error | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.payments.sell, request);
 
     return [null, data];
   } catch (error) {

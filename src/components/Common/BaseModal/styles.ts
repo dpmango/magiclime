@@ -1,10 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<null, { theme?: string }>({
   modal: {
     position: 'relative',
     width: '100%',
     minWidth: '696px',
+    maxWidth: ({ theme }) => (theme === 'narrow' ? '480px' : '100%'),
     padding: '32px 24px 24px',
   },
   close: {

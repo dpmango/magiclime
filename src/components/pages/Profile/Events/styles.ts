@@ -4,6 +4,7 @@ const useStyles = makeStyles({
   root: {
     position: 'relative',
     height: '100%',
+    opacity: 0.5,
   },
   box: {
     flex: '1 0 auto',

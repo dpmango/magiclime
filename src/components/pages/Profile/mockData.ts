@@ -2,6 +2,7 @@ import { IProgram, IEvent } from './types';
 
 export const mockPrograms: IProgram[] = [
   {
+    disabled: true,
     id: 1,
     profit: 3.13,
     background: 'green',

@@ -10,6 +10,16 @@ export default {
     byId: (id: number | string) => `/auth/users/${id}/`,
     password: '/auth/users/set_password/',
   },
+  courses: {
+    root: '/courses/',
+    byId: (id: number | string) => `/courses/${id}/`,
+    buy: (id: number | string) => `/courses/${id}/buy/`,
+    status: (id: number | string) => `/courses/${id}/status/`, // todo
+    active: '/courses/active/', // todo
+    actual: '/courses/actual/', // todo
+    my: '/courses/my/', // todo
+    passed: '/courses/passed/', // todo
+  },
   profile: {
     root: '/profile/',
     options: {

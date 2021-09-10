@@ -11,6 +11,7 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
       borderRadius: '10px',
       height: '100%',
       minHeight: '180px',
+      cursor: 'pointer',
       transition: 'opacity .25s ease-in-out',
       backgroundColor: (() => {
         switch (props.category) {

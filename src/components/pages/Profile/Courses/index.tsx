@@ -19,7 +19,7 @@ const Courses: FC<IProps> = ({ list, view }) => {
   const styles = useStyles({ view });
   const { t } = useTranslation();
 
-  return (
+  return list && list.length ? (
     <Flex direction="column" className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="3xl">
         {t('profile.courses.title')}
@@ -34,7 +34,7 @@ const Courses: FC<IProps> = ({ list, view }) => {
           ))}
       </Grid>
     </Flex>
-  );
+  ) : null;
 };
 
 export default Courses;

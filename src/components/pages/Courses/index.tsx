@@ -117,7 +117,7 @@ const CoursesPage: FC = () => {
               listComponent={CoursesList}
               queries={filterRequest}
               successCallback={(data) => setCourses(data)}
-              errorCallback={(err) => toast('Ошибка при получении курсов')}
+              errorCallback={(err) => toast.error(t('course.list.error'))}
             />
           </GridItem>
 

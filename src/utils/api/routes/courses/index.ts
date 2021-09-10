@@ -4,6 +4,7 @@ import { ICourseFull } from 'components/pages/CourseTask/types';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
+import endpoints from '../endpoints';
 
 export interface IFilter {
   search?: string;
@@ -32,7 +33,7 @@ export const getCoursesService = (
 ): AxiosPromise<IAxiosPaginatedResponse<ICourse>> => {
   const params: ICoursesParams = filterToParams(queries, {});
 
-  return $api.get('/courses/', {
+  return $api.get(endpoints.courses.root, {
     params: {
       page: page || null,
       page_size: limit || null,
@@ -45,7 +46,19 @@ export const getCourseModule = async (
   id: string
 ): Promise<[Error | null, ICourseFull | null]> => {
   try {
-    const { data } = await $api.get(`/courses/${id}/`);
+    const { data } = await $api.get(endpoints.courses.byId(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const buyCourseService = async (
+  id: number | string
+): Promise<[Error | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.buy(id));
 
     return [null, data];
   } catch (error) {

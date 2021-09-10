@@ -13,9 +13,10 @@ import useStyles from './styles';
 
 interface IProps {
   item: ICourse;
+  openModal: (id: number) => void;
 }
 
-const CourseCard: FC<IProps> = ({ item }) => {
+const CourseCard: FC<IProps> = ({ item, openModal }) => {
   const isDefaultTheme = useCheckDefaultTheme();
   const styles = useStyles({
     category: item.subcategory.id,
@@ -28,7 +29,7 @@ const CourseCard: FC<IProps> = ({ item }) => {
     if (item.is_bought) {
       history.push(`/courses/${item.id}`);
     } else {
-      alert('modal');
+      openModal(item.id);
     }
   }, [item]);
 

@@ -93,7 +93,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
-                153.130
+                0
               </Typography>
               <Typography size="xl" weight="light" view="brand">
                 &nbsp;BL
@@ -113,7 +113,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
             </Typography>
 
             <Typography size="xl" weight="semibold">
-              26
+              0
             </Typography>
           </div>
         </GridItem>
