@@ -1,5 +1,3 @@
-import { IPhoto } from '../../../types/interfaces/common';
-
 export interface INewsItem {
   readonly id: number;
   theme: {
@@ -12,7 +10,7 @@ export interface INewsItem {
   creator: {
     readonly id: number;
     name: string;
-    avatar: IPhoto | null;
+    avatar: string | null;
     category: {
       readonly id: number;
       title: string;

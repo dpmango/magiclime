@@ -6,7 +6,6 @@ import { IconClose } from '@consta/uikit/IconClose';
 import { TextField } from '@consta/uikit/TextField';
 import { IconCamera } from '@consta/uikit/IconCamera';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import { useHistory } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { IUser } from '../../../../types/interfaces/user';
 import { createChat, getUsers } from '../../../../utils/api/routes/chat';
@@ -15,11 +14,15 @@ import useStyles from './styles';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import { ChatContext } from '../context';
-import { ChangeType } from '../../../../types/common';
+import { ChangeType, SetStateType } from '../../../../types/common';
 import { uploadImage } from '../../../../utils/api/routes/other';
 import FriendCard from './FriendCard';
 
-const ChatCreating: FC = () => {
+interface IProps {
+  setActiveChat: SetStateType<string | number>;
+}
+
+const ChatCreating: FC<IProps> = ({ setActiveChat }) => {
   const [form, setForm] = useState<ICreateChatForm>({
     title: '',
     avatar: {
@@ -36,7 +39,6 @@ const ChatCreating: FC = () => {
     haveAvatar: !!form.avatar.id,
   });
   const { chatContext, setChatContext } = useContext(ChatContext);
-  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -65,8 +67,8 @@ const ChatCreating: FC = () => {
     const data = { ...form, avatar };
 
     createChat(data).then((res) => {
-      cancel();
-      history.push(`/chats/${res.data.id}`);
+      setChatContext({ ...chatContext, mode: 'list', newChat: res.data });
+      setActiveChat(res.data.id);
     });
   };
 

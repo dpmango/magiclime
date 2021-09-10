@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import isEqual from 'lodash/isEqual';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,7 +14,6 @@ import { SetStateType, Theme } from '../../../types/common';
 import Admin from '../../pages/Admin';
 import Profile from '../../pages/Profile';
 import Courses from '../../pages/Courses';
-// import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
 import Article from '../../pages/Article';
@@ -43,13 +43,9 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      <Header
-        theme={theme}
-        setTheme={setTheme}
-        toggleMenu={() => setIsFullMenu(!isFullMenu)}
-      />
+      <Header theme={theme} setTheme={setTheme} />
       <Flex className={styles.container}>
-        <Menu isFull={isFullMenu} isAdmin={is_staff} />
+        <Menu isAdmin={is_staff} />
         <Container className={styles.content}>
           {!is_staff ? (
             <Switch>

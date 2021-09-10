@@ -1,27 +1,23 @@
+import React, { FC, useEffect, useMemo, useState, useContext } from 'react';
 import { IconLineAndBarChart } from '@consta/uikit/IconLineAndBarChart';
-import React, { FC, useEffect, useMemo, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
-import { Collapse } from '@consta/uikit/Collapse';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
 import Flex from '../../Common/Flex';
 import Typography from '../../Common/Typography';
 import Container from '../../Common/Container';
+import { MenuContext } from './context';
 import useStyles from './styles';
 import icons from './icons';
 
-interface IProps {
-  isFull: boolean;
-  isAdmin: boolean;
-}
-
-const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
+const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
   const [activeLink, setActiveLink] = useState({
     path: isAdmin ? '/admin/users' : '/profile/me',
     index: 1,
   });
+  const { isFull } = useContext(MenuContext);
 
   const isDefault = useCheckDefaultTheme();
   const { t } = useTranslation();
@@ -190,4 +186,4 @@ const Menu: FC<IProps> = ({ isFull, isAdmin }) => {
   );
 };
 
-export default Menu;
+export default React.memo(Menu);

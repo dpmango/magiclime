@@ -3,8 +3,8 @@ import { IChatDetail, IMessage } from '../types';
 export type StateType = {
   chat: IChatDetail | null;
   page: number;
+  scroll: null | number;
   messages: IMessage[];
-  scroll: number | null;
   allMessagesCount: number;
   prevBodyHeight: number;
 };
@@ -19,16 +19,16 @@ export type ActionType =
   | { type: 'ADD_MESSAGE'; message: IMessage }
   | { type: 'ADD_PREV_PAGE'; messages: IMessage[] }
   | { type: 'ADD_NEXT_PAGE'; messages: IMessage[] }
-  | { type: 'SET_SCROLL'; payload: number }
   | { type: 'SET_BODY_HEIGHT'; payload: number }
+  | { type: 'SET_SCROLL'; payload: number }
   | { type: 'SET_CHAT'; payload: IChatDetail };
 
 export const initialState: StateType = {
   chat: null,
   page: 1,
   messages: [],
-  scroll: null,
   allMessagesCount: 0,
+  scroll: null,
   prevBodyHeight: 0,
 };
 
@@ -59,15 +59,15 @@ export const reducer = (state: StateType, action: ActionType): StateType => {
         messages: [...state.messages, ...action.messages],
         page: state.page - 1,
       };
-    case 'SET_SCROLL':
-      return {
-        ...state,
-        scroll: action.payload,
-      };
     case 'SET_BODY_HEIGHT':
       return {
         ...state,
         prevBodyHeight: action.payload,
+      };
+    case 'SET_SCROLL':
+      return {
+        ...state,
+        scroll: action.payload,
       };
     case 'SET_CHAT':
       return {

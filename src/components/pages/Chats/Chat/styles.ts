@@ -18,8 +18,7 @@ const useStyles = makeStyles(() => ({
   empty: {
     width: '100%',
     textAlign: 'center',
-    marginTop: '50%',
-    transform: 'translateY(-50%)',
+    transform: 'translateY(50%)',
     '& > svg': {
       width: '25%',
     },
@@ -66,6 +65,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '30px',
     '& > div:first-of-type': {
       marginRight: '16px',
+      borderRadius: '50%',
       flex: 'none',
     },
   },
@@ -74,6 +74,7 @@ const useStyles = makeStyles(() => ({
     width: '200px',
     '& > div:first-of-type': {
       marginRight: '16px',
+      borderRadius: '50%',
       flex: 'none',
     },
   },

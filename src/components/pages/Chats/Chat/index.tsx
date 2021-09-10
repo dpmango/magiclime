@@ -1,20 +1,17 @@
 import { Button } from '@consta/uikit/Button';
 import { IconArrowDown } from '@consta/uikit/IconArrowDown';
 import { Loader } from '@consta/uikit/Loader';
-import { RouteComponentProps } from 'react-router-dom';
 import { Socket } from 'socket.io-client';
 import debounce from 'lodash/debounce';
 import React, {
   FC,
   memo,
-  useCallback,
   useEffect,
   useMemo,
   useReducer,
   useRef,
   useState,
 } from 'react';
-import { IMessage } from '../types';
 import { MessagesSkeleton } from './ChatSkeletons';
 import { renderNewMessage, scrollToBottom } from './controller';
 import Header from './Header';
@@ -107,13 +104,18 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
             setLoadingScrollTop(false);
           });
       } else if (
-        state.scroll + 300 >= lastElement.offsetTop &&
-        state.page > state.allMessagesCount
+        state.scroll + 300 + ref.current!.clientHeight >=
+          lastElement.offsetTop &&
+        state.page * LIMIT < state.allMessagesCount
       ) {
-        // getChatMessages(chat!.id, page + 1, LIMIT).then((res) => {
-        //   setPage(page - 1);
-        //   setMessages((prev) => [...prev, ...res.data.results]);
-        // });
+        setLoadingScrollBottom(true);
+        getChatMessages(state.chat!.id, state.page - 1, LIMIT)
+          .then((res) => {
+            dispatch({ type: 'ADD_NEXT_PAGE', messages: res.data.results });
+          })
+          .finally(() => {
+            setLoadingScrollBottom(false);
+          });
       }
     }
   }, [state.scroll, state.allMessagesCount]);
@@ -168,25 +170,29 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
             messages={state.messages}
             page={state.page}
             limit={LIMIT}
+            scroll={state.scroll}
+            bodyRef={ref}
+            socket={socket}
             unreadCount={state.chat!.unreaded_count}
           />
         )}
         {loadingScrollBottom && <Loader className={styles.loader} />}
       </div>
 
-      {ref.current &&
-        (state.page !== 1 ||
-          ref.current!.scrollTop + 100 <=
-            ref.current!.scrollHeight - ref.current!.clientHeight) && (
-          <Button
-            view="primary"
-            form="round"
-            size="l"
-            iconLeft={IconArrowDown}
-            className={styles.scrollToBottom}
-            onClick={() => scrollToBottom()}
-          />
-        )}
+      {/* {ref.current && */}
+      {/*  state.scroll !== null && */}
+      {/*  (state.page !== 1 || */}
+      {/*    state.scroll + 100 <= */}
+      {/*      ref.current!.scrollHeight - ref.current!.clientHeight) && ( */}
+      {/*    <Button */}
+      {/*      view="primary" */}
+      {/*      form="round" */}
+      {/*      size="l" */}
+      {/*      iconLeft={IconArrowDown} */}
+      {/*      className={styles.scrollToBottom} */}
+      {/*      onClick={() => scrollToBottom()} */}
+      {/*    /> */}
+      {/*  )} */}
       {state.chat && <Panel chatId={state.chat.id} socket={socket} />}
     </>
   );

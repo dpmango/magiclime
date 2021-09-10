@@ -44,7 +44,7 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({
           chatId={activeChat}
         />
       ) : (
-        <ChatCreating />
+        <ChatCreating setActiveChat={setActiveChat} />
       )}
       <Flex direction="column" className={styles.root} align="center">
         {activeChat ? <Chat socket={socket} chatId={activeChat} /> : <Empty />}

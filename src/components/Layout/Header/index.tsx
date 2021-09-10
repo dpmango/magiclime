@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useContext, useRef, useState, useMemo } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import {
@@ -12,20 +12,21 @@ import { IconHamburger } from '@consta/uikit/IconHamburger';
 
 import { RootState } from 'store/reducers/rootReducer';
 import { SetStateType, Theme } from 'types/common';
-import useResolution from '../../../hooks/useResolution';
-import bitcoin from '../../../assets/images/bitcoin.png';
+import useResolution from 'hooks/useResolution';
+import { MenuContext } from '../Menu/context';
 import UserDropdown from './UserDropdown';
+import bitcoin from '../../../assets/images/bitcoin.png';
 import Logo from '../../../assets/images/logo.svg';
 import useStyles from './styles';
 
 interface IHeaderProps {
   theme: Theme;
   setTheme: SetStateType<Theme>;
-  toggleMenu: VoidFunction;
 }
 
-const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
+const Header = ({ theme, setTheme }: IHeaderProps) => {
   const styles = useStyles();
+  const { isFull, setFull } = useContext(MenuContext);
   const ref = useRef<HTMLDivElement>(null);
   const history = useHistory();
   const size = useResolution();
@@ -47,7 +48,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
           <>
             <HeaderModule>
               <HeaderButton
-                onClick={toggleMenu}
+                onClick={() => setFull(!isFull)}
                 iconSize="m"
                 iconLeft={IconHamburger}
               />
@@ -67,6 +68,17 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
+                personName={`${profile.experience} опыта`}
+                personInfo="127 место"
+                personAvatarUrl="/images/experience.svg"
+                className={styles.clickBlock}
+              />
+            </HeaderModule>
+
+            <HeaderModule indent="m">
+              <HeaderLogin
+                isLogged={isLogged}
+                isMinified={isMobile}
                 personName={myBalance}
                 personInfo="Баланс"
                 personAvatarUrl={bitcoin}
@@ -82,7 +94,7 @@ const Header = ({ theme, setTheme, toggleMenu }: IHeaderProps) => {
                   isMinified={isMobile}
                   personName={profile.name}
                   personAvatarUrl={profile.avatar && profile.avatar.image}
-                  personInfo="8 уровень"
+                  personInfo={`${profile.level} уровень`}
                   className={styles.clickBlock}
                   onClick={() => setOpen(!isOpen)}
                 />

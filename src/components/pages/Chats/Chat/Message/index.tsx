@@ -2,6 +2,7 @@ import React, {
   FC,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -30,14 +31,12 @@ type DropdownItem = {
 interface IProps {
   message: IMessage;
   onReplyClick: (id: number) => void;
-  unread: boolean;
 }
 
-const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
+const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const styles = useStyles();
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const ref = useRef<HTMLDivElement>(null);
   const { chatContext, setChatContext } = useContext(ChatContext);
   const { t } = useTranslation();
 
@@ -61,7 +60,6 @@ const Message: FC<IProps> = ({ message, onReplyClick, unread }) => {
     <Flex
       margin="0 0 36px"
       onDoubleClick={replyMessage}
-      elRef={ref}
       id={`message_${message.id}`}
     >
       <Link to={`/profile/${message.creator.id}`}>

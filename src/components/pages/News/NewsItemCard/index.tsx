@@ -27,7 +27,7 @@ const NewsItemCard: FC<{ newsItem: INewsItem }> = ({ newsItem }) => {
           <Flex margin="0 0 0 16px">
             {newsItem.creator.avatar && (
               <img
-                src={newsItem.creator.avatar.image}
+                src={newsItem.creator.avatar}
                 alt="author"
                 className={styles.author}
               />

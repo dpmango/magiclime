@@ -34,6 +34,7 @@ export interface IMessage {
   attached_files: [];
   attached_images: IPhoto[];
   chat: number;
+  read_by_users: number[];
 }
 
 export interface ICreateChatForm {

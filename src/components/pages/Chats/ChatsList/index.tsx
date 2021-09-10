@@ -1,9 +1,18 @@
-import React, { FC, useEffect, useState, memo } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useState,
+  memo,
+  useCallback,
+  useContext,
+} from 'react';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
+import debounce from 'lodash/debounce';
 import { Socket } from 'socket.io-client';
 import { v4 as uuid } from 'uuid';
 import { SetStateType } from '../../../../types/common';
 import Flex from '../../../Common/Flex';
+import { ChatContext } from '../context';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IChat, IGroup, IMessage } from '../types';
@@ -22,42 +31,66 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
   const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null);
   const [chats, setChats] = useState<IChat[]>([]);
   const [loading, setLoading] = useState(false);
-  const [newMessage, setNewMessage] = useState<IMessage | null>(null);
+  const { chatContext } = useContext(ChatContext);
 
   const styles = useStyles();
 
   const debouncedSearch = useDebounce(search, 300);
 
-  const updateChat = (msg: IMessage) => {
-    const arr = chats.map((chat) => {
-      if (chat.id === msg.chat) {
-        return {
-          ...chat,
-          unreaded_count:
-            msg.chat === +chatId
-              ? chat.unreaded_count
-              : chat.unreaded_count + 1,
-          last_message: msg,
-        };
-      }
-      return chat;
-    });
-    setChats(arr);
-  };
+  const updateChat = useCallback(
+    (msg: IMessage) => {
+      const arr = chats.map((chat) => {
+        if (chat.id === msg.chat) {
+          return {
+            ...chat,
+            unreaded_count:
+              msg.chat === +chatId
+                ? chat.unreaded_count
+                : chat.unreaded_count + 1,
+            last_message: msg,
+          };
+        }
+        return chat;
+      });
+      setChats(arr);
+    },
+    [chats]
+  );
+
+  const decreaseCount = useCallback(
+    (chatId: number) => {
+      const arr = chats.map((chat) => {
+        if (chat.id === chatId) {
+          return {
+            ...chat,
+            unreaded_count: chat.unreaded_count - 1,
+          };
+        }
+        return chat;
+      });
+      setChats(arr);
+    },
+    [chats]
+  );
 
   useEffect(() => {
-    socket.on('my_response', (msg) => {
+    const responseListener = (msg: any) => {
       if (msg.data.id) {
-        setNewMessage(msg.data);
+        updateChat(msg.data);
       }
-    });
-  }, []);
+    };
 
-  useEffect(() => {
-    if (newMessage) {
-      updateChat(newMessage);
-    }
-  }, [newMessage]);
+    const readListener = (data: any) => {
+      decreaseCount(data.readed);
+    };
+
+    socket.on('my_response', responseListener);
+    socket.on('read_message_event', readListener);
+    return () => {
+      socket.off('my_response', responseListener);
+      socket.off('read_message_event', readListener);
+    };
+  }, [chats]);
 
   useEffect(() => {
     setLoading(true);
@@ -69,6 +102,12 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
         setLoading(false);
       });
   }, [debouncedSearch, selectedGroup]);
+
+  useEffect(() => {
+    if (chatContext.newChat) {
+      setChats((prev) => [chatContext.newChat!, ...prev]);
+    }
+  }, [chatContext.newChat]);
 
   return (
     <div className={styles.root}>
