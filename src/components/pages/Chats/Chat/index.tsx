@@ -104,7 +104,8 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
             setLoadingScrollTop(false);
           });
       } else if (
-        state.scroll + 300 >= lastElement.offsetTop &&
+        state.scroll + 300 + ref.current!.clientHeight >=
+          lastElement.offsetTop &&
         state.page * LIMIT < state.allMessagesCount
       ) {
         setLoadingScrollBottom(true);

@@ -18,8 +18,7 @@ const useStyles = makeStyles(() => ({
   empty: {
     width: '100%',
     textAlign: 'center',
-    marginTop: '50%',
-    transform: 'translateY(-50%)',
+    transform: 'translateY(50%)',
     '& > svg': {
       width: '25%',
     },
