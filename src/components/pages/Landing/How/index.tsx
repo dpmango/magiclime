@@ -23,23 +23,22 @@ const How: FC = () => {
     {
       id: 1,
       title: 'Видеокурсы',
-      description: `Видеокурсы для самостоятельного изучения, которые систематизированы по принципу от простого к сложному
-      Вебинары и мастер-классы в online-режиме (доступны после оплаты навсегда)`,
+      description: `Видеокурсы различной сложности (от новичка до профессионала)  с дополнительными материалами и тестовыми заданиями для усвоения и закрепления знаний.`,
     },
     {
       id: 2,
       title: 'Монетизация знаний',
-      description: `Мы объединили теорию и практику в уникальную систему, благодаря которой наши партнёры ОБУЧАЯСЬ ЗАРАБАТЫВАЮТ!`,
+      description: `Мы объединили теорию и практику в уникальную систему, благодаря которой наши ученики  начинают зарабатывать уже во время обучения!`,
     },
     {
       id: 3,
       title: 'Обучающие материалы',
-      description: `Тысячи книг, лекций, методических пособий к вашим услугам. Библиотека Лайм содержит обучающие материалы по множеству тем.`,
+      description: `Тысячи статей, лекций, заданий к вашим услугам. Библиотека Лайм содержит обучающие материалы по множеству тем.`,
     },
     {
       id: 4,
       title: 'Поддержка 24/7',
-      description: `Опытные кураторы, доказавшие свою эффективность опытом и результатом, и дружная команда всегда на связи! Индивидуальный подход.`,
+      description: `Команда опытных специалистов всегда на связи! Индивидуальный подход к решению ваших проблем.`,
     },
   ];
 
@@ -92,19 +91,6 @@ const How: FC = () => {
               >
                 Tab 1
               </Typography>
-
-              <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
-                All information about projects, tasks, financial transactions
-                and team progress is available in a single workspace. This
-                allows you to better navigate the processes, faster make
-                decisions and complete work on time.
-              </Typography>
-              <Typography as="p" margin="12px 0 0" size="m" lineHeight="m">
-                All information about projects, tasks, financial transactions
-                and team progress is available in a single workspace. This
-                allows you to better navigate the processes, faster make
-                decisions and complete work on time.
-              </Typography>
             </div>
           )}
 
@@ -116,7 +102,7 @@ const How: FC = () => {
                 weight="semibold"
                 lineHeight="m"
               >
-                Tab 2:: All information abou
+                Tab 2
               </Typography>
             </div>
           )}
@@ -129,7 +115,7 @@ const How: FC = () => {
                 weight="semibold"
                 lineHeight="m"
               >
-                Tab 3:: All information abou
+                Tab 3
               </Typography>
             </div>
           )}
@@ -142,7 +128,7 @@ const How: FC = () => {
                 weight="semibold"
                 lineHeight="m"
               >
-                Tab 4:: All information abou
+                Tab 4å
               </Typography>
             </div>
           )}

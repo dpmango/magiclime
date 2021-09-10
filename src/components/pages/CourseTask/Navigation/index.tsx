@@ -52,15 +52,21 @@ const CourseNavigation: FC<IProps> = ({
   // TODO - @consta Collapse is not toggable (even on clean example), only manual isOpen state toggle works
   const [collapseState, setCollapseState] = useState<{
     [key: string]: boolean;
-  }>(
-    groupedSections.reduce(
-      (acc, x) => ({
-        ...acc,
-        [x.label]: Object.keys(acc).length < 2,
-      }),
-      {}
-    )
-  );
+  }>({});
+
+  useEffect(() => {
+    if (groupedSections && groupedSections.length) {
+      setCollapseState(
+        groupedSections.reduce(
+          (acc, x) => ({
+            ...acc,
+            [x.label]: true,
+          }),
+          {}
+        )
+      );
+    }
+  }, [groupedSections]);
 
   const manuallyToggleCollapse = (key: string) => {
     setCollapseState({
@@ -75,7 +81,7 @@ const CourseNavigation: FC<IProps> = ({
         groupedSections.map((group) => (
           <Collapse
             key={group.label}
-            label={group.label}
+            label={`${collapseState[group.label]} ${group.label}`}
             iconPosition="right"
             size="xs"
             className={styles.navGroup}

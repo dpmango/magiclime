@@ -65,11 +65,8 @@ const Refill: FC = () => {
   };
 
   const handleSubmit = async (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
     const [err, data] = await postRefillBalance({
-      storeId: '9jUsN6vk2jnBcXqA7fUbTa6eqoGGuaRZkWiSdUWrqW9o',
-      checkoutQueryString: `${profile.id}`,
-      currency: 'USD',
+      amount: parseFloat(values.amount) / 100000,
     });
 
     if (err) {
@@ -77,7 +74,11 @@ const Refill: FC = () => {
       return;
     }
 
-    console.log('submit data', data);
+    // open new window with payment, watch redirect
+    toast(t('profile.balance.refill.toast.redirect'));
+    window.open(data.url);
+
+    // TODO watch redirect
   };
 
   const schema = Yup.object({

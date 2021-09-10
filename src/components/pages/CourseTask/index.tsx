@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 // import { useTranslation } from 'react-i18next';
+// import ReactPlayer from 'react-player';
 
 // import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -106,6 +108,10 @@ const CoursePage: FC = () => {
     return getExercis?.content || '';
   }, [getExercis]);
 
+  const getFile = useMemo(() => {
+    return getExercis?.file || '';
+  }, [getExercis]);
+
   const handleContinue = useCallback(() => {
     if (nextSectionId) {
       // move to next section (compleate current, make next available and set current to next)
@@ -122,7 +128,7 @@ const CoursePage: FC = () => {
 
       ScrollTo(0);
     } else {
-      console.log('you are done here - moving to next course');
+      console.log('TODO - cshould be POST when changing sections?');
       history.push('/courses');
     }
   }, [nextSectionId, activeSectionId, sections]);
@@ -156,6 +162,17 @@ const CoursePage: FC = () => {
             className={sharedStyles.wysiwyg}
             dangerouslySetInnerHTML={{ __html: getContent }}
           />
+
+          {getFile && (
+            <div className={sharedStyles.wysiwyg}>
+              <div className="scaler" data-ar="16:9">
+                <video controls>
+                  <source src={getFile} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+          )}
 
           <AnswerBox
             onContinue={handleContinue}

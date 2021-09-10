@@ -1,11 +1,15 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid, GridItem } from '@consta/uikit/Grid';
+import { Button } from '@consta/uikit/Button';
+
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
+import Pagination from 'components/Common/Pagination';
+import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
-import { getWebinarsList } from '../../../../utils/api/routes/webinars';
-import Pagination from '../../../Common/Pagination';
+import { getWebinarsList } from 'utils/api/routes/webinars';
+
 import { IFilters } from '../types';
 import List from './List';
 import Filters from './Filters';

@@ -99,7 +99,7 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
       position: 'relative',
       fontSize: 0,
       margin: '32px 0',
-      '& iframe, & img': {
+      '& iframe, & video, & img': {
         position: 'absolute',
         height: '100%',
         width: '100%',

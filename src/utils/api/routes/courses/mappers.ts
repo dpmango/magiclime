@@ -4,17 +4,23 @@ export const filterToParams = (filter: IFilter, params: ICoursesParams) => {
   const buildParams = params;
 
   if (filter) {
-    // console.log(filter);
-    const { search, categories, difficult, tags } = filter;
-    const [level_min, level_max] = filter.lime;
-    const [price_min, price_max] = filter.price;
+    const {
+      search,
+      categories,
+      difficult,
+      tags,
+      lime = [null, null],
+      price = [null, null],
+    } = filter;
+
+    const [level_min, level_max] = lime;
+    const [price_min, price_max] = price;
 
     if (search) {
       buildParams.search = search;
     }
 
     if (tags && tags.length) {
-      console.log('tags', tags);
       buildParams.categories = tags.join(',');
     }
 

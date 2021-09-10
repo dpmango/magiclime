@@ -1,21 +1,37 @@
+import { AxiosPromise } from 'types/common';
+import { IBalance } from 'types/interfaces/profile';
 import { instance as $api } from '../../index';
+import endpoints from '../endpoints';
 
-export interface IRequest {
-  storeId: string;
-  checkoutQueryString: string;
-  currency: string;
+export interface IRequestRefill {
+  amount: number;
 }
 
+export interface IRequestWithdrawal {
+  amount: number;
+}
+
+export const getBalanceService = (): AxiosPromise<IBalance> => {
+  return $api.get(endpoints.payments.balance);
+};
+
 export const postRefillBalance = async (
-  request: IRequest
+  request: IRequestRefill
 ): Promise<[Error | null, any | null]> => {
   try {
-    const { data } = await $api({
-      baseURL: 'https://btcpay.magiclime.academy/api/v1',
-      url: '/invoices/',
-      method: 'post',
-      data: request,
-    });
+    const { data } = await $api.post(endpoints.payments.buy, request);
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const postWithdrawalBalance = async (
+  request: IRequestWithdrawal
+): Promise<[Error | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.payments.sell, request);
 
     return [null, data];
   } catch (error) {

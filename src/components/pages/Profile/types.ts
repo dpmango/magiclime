@@ -25,7 +25,7 @@ export interface IProgram {
 export interface IAchievementGroup {
   readonly id: number;
   title: string;
-  image?: string;
+  image?: IPhoto;
 }
 export interface IAchievement {
   readonly id: number;
@@ -37,7 +37,7 @@ export interface IAchievement {
 export interface IActivementsGrouped {
   readonly id: number;
   title: string;
-  image?: string;
+  image?: IPhoto;
   list: IAchievement[];
   stats: {
     completed: number;
@@ -52,10 +52,12 @@ export interface IEvent {
 
 export interface ICourse {
   readonly id: number;
-  image: string;
-  tag: string;
+  image: IPhoto;
   title: string;
   description: string;
-  progress: string;
+  category: { id: number; title: string };
+  subcategory: { id: number; title: string };
+  passed: boolean;
+  passed_chapters: number;
   rate: [number, number];
 }

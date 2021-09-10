@@ -2,49 +2,32 @@ import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import groupBy from 'lodash/groupBy';
+import toast from 'react-hot-toast';
 import { Grid, GridItem } from '@consta/uikit/Grid';
+
+import Typography from 'components/Common/Typography';
+import Tags from 'components/Common/Tags';
+import Pagination from 'components/Common/Pagination';
+import ProfileCourses from 'components/pages/Profile/Courses';
 import { ICourse } from 'types/interfaces/courses';
 import { getCoursesService } from 'utils/api/routes/courses';
 import { IFilter, ICategory } from 'components/pages/Courses/types';
 import { RootState } from 'store/reducers/rootReducer';
 
-import Typography from 'components/Common/Typography';
-import Tags from 'components/Common/Tags';
-import ProfileCourses from 'components/pages/Profile/Courses';
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
-
-import { mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const [loading, setLoading] = useState<boolean>(true);
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
   const { tags } = useSelector((state: RootState) => state.meta);
-
-  const fetchCourses = useCallback(async (filter) => {
-    setLoading(true);
-
-    const [err, data] = await getCoursesService(filter);
-
-    if (err) {
-      console.log({ err });
-    }
-
-    setCourses(data!.results || []);
-
-    setLoading(false);
-  }, []);
-
-  const getMore = () => {
-    // const newCourses = [];
-    // setCourses([...courses, ...newCourses]);
-  };
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -104,20 +87,16 @@ const CoursesPage: FC = () => {
           }
         : null;
 
-      await fetchCourses(params);
+      setFilterRequest(params);
     },
     [activeTags]
   );
-
-  useEffect(() => {
-    fetchCourses(null);
-  }, []);
 
   return (
     <div className={styles.root}>
       <FeaturedCourse />
 
-      <ProfileCourses view="compact" list={mockProfileCourses} />
+      <ProfileCourses view="compact" list={profile.courses || null} />
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">
@@ -133,7 +112,13 @@ const CoursesPage: FC = () => {
 
         <Grid cols="4" gap="xl" className={styles.main}>
           <GridItem col="3">
-            <CoursesList items={courses} hasMore getMore={getMore} />
+            <Pagination
+              getList={getCoursesService}
+              listComponent={CoursesList}
+              queries={filterRequest}
+              successCallback={(data) => setCourses(data)}
+              errorCallback={(err) => toast.error(t('course.list.error'))}
+            />
           </GridItem>
 
           <GridItem col="1">

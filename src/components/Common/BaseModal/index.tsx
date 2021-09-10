@@ -10,12 +10,19 @@ import useStyles from './styles';
 interface IProps {
   title: string;
   isOpen: boolean;
+  theme?: 'default' | 'narrow';
   children?: ReactNode;
   setModalOpen: (x: boolean) => void;
 }
 
-const BaseModal: FC<IProps> = ({ title, isOpen, setModalOpen, children }) => {
-  const styles = useStyles();
+const BaseModal: FC<IProps> = ({
+  title,
+  isOpen,
+  setModalOpen,
+  children,
+  theme = 'default',
+}) => {
+  const styles = useStyles({ theme });
 
   return (
     <div className={styles.modal}>

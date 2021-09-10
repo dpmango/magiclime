@@ -1,15 +1,10 @@
 import { AxiosPromise } from 'types/common';
 import { ICourse } from 'types/interfaces/courses';
 import { ICourseFull } from 'components/pages/CourseTask/types';
+import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
-
-interface ICoursesResponce {
-  count: number;
-  next: number | null;
-  previous: number | null;
-  results: ICourse[];
-}
+import endpoints from '../endpoints';
 
 export interface IFilter {
   search?: string;
@@ -25,20 +20,33 @@ export interface ICoursesParams {
   categories?: string;
   sub_categories?: string;
   student_level?: 1 | 2 | 3;
-  // todo - education types
   price_max?: string;
   price_min?: string;
   level_max?: string;
   level_min?: string;
 }
 
-export const getCoursesService = async (
-  filter: IFilter
-): Promise<[Error | null, ICoursesResponce | null]> => {
-  try {
-    const params: ICoursesParams = filterToParams(filter, {});
+export const getCoursesService = (
+  page: number,
+  limit: number,
+  queries: IFilter
+): AxiosPromise<IAxiosPaginatedResponse<ICourse>> => {
+  const params: ICoursesParams = filterToParams(queries, {});
 
-    const { data } = await $api.get('/courses/', { params });
+  return $api.get(endpoints.courses.root, {
+    params: {
+      page: page || null,
+      page_size: limit || null,
+      ...params,
+    },
+  });
+};
+
+export const getCourseModule = async (
+  id: string
+): Promise<[Error | null, ICourseFull | null]> => {
+  try {
+    const { data } = await $api.get(endpoints.courses.byId(id));
 
     return [null, data];
   } catch (error) {
@@ -46,11 +54,11 @@ export const getCoursesService = async (
   }
 };
 
-export const getCourseModule = async (
-  id: string
-): Promise<[Error | null, ICourseFull | null]> => {
+export const buyCourseService = async (
+  id: number | string
+): Promise<[Error | null, any | null]> => {
   try {
-    const { data } = await $api.get(`/courses/${id}/`);
+    const { data } = await $api.post(endpoints.courses.buy(id));
 
     return [null, data];
   } catch (error) {

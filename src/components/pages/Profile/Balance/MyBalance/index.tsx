@@ -1,9 +1,12 @@
 import React, { FC, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
-import { blToBtc } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { blToBtc } from 'utils/helpers/formatPrice';
+import { RootState } from 'store/reducers/rootReducer';
 
 import BalanceWidget from '../BalanceWidget';
 import useStyles from './styles';
@@ -14,26 +17,29 @@ interface IProps {
 
 const MyBalance: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
+
+  const { balance } = useSelector((state: RootState) => state.profile);
 
   const cells = useMemo(() => {
     return [
       {
-        label: 'Доступно для вывода',
-        main: '232 BL',
-        secondary: `${blToBtc(232, btcRate)} mBtc`,
+        label: t('profile.balance.my.available'),
+        main: `${balance.available_for_withdrawal} BL`,
+        secondary: `${blToBtc(balance.available_for_withdrawal, btcRate)} mBtc`,
       },
       {
-        label: 'Всего заработано',
-        main: '232 BL',
-        secondary: `${blToBtc(232, btcRate)} mBtc`,
+        label: t('profile.balance.my.earned'),
+        main: `${balance.total_earned} BL`,
+        secondary: `${blToBtc(balance.total_earned, btcRate)} mBtc`,
       },
       {
-        label: 'Всего выведено',
-        main: '232 BL',
-        secondary: `${blToBtc(232, btcRate)} mBtc`,
+        label: t('profile.balance.my.output'),
+        main: `${balance.total_output} BL`,
+        secondary: `${blToBtc(balance.total_output, btcRate)} mBtc`,
       },
     ];
-  }, [btcRate]);
+  }, [btcRate, balance]);
 
   return (
     <div className={styles.root}>
