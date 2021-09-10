@@ -1,10 +1,18 @@
-import React, { FC, useEffect, useState, memo, useCallback } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useState,
+  memo,
+  useCallback,
+  useContext,
+} from 'react';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
 import debounce from 'lodash/debounce';
 import { Socket } from 'socket.io-client';
 import { v4 as uuid } from 'uuid';
 import { SetStateType } from '../../../../types/common';
 import Flex from '../../../Common/Flex';
+import { ChatContext } from '../context';
 import useStyles from './styles';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { IChat, IGroup, IMessage } from '../types';
@@ -23,6 +31,7 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
   const [selectedGroup, setSelectedGroup] = useState<IGroup | null>(null);
   const [chats, setChats] = useState<IChat[]>([]);
   const [loading, setLoading] = useState(false);
+  const { chatContext } = useContext(ChatContext);
 
   const styles = useStyles();
 
@@ -93,6 +102,12 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
         setLoading(false);
       });
   }, [debouncedSearch, selectedGroup]);
+
+  useEffect(() => {
+    if (chatContext.newChat) {
+      setChats((prev) => [chatContext.newChat!, ...prev]);
+    }
+  }, [chatContext.newChat]);
 
   return (
     <div className={styles.root}>
