@@ -81,7 +81,7 @@ const CourseNavigation: FC<IProps> = ({
         groupedSections.map((group) => (
           <Collapse
             key={group.label}
-            label={`${collapseState[group.label]} ${group.label}`}
+            label={group.label}
             iconPosition="right"
             size="xs"
             className={styles.navGroup}

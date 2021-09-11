@@ -60,27 +60,32 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
           xl: { cols: 6 },
         }}
       >
-        <GridItem col="2">
-          <div className={styles.box}>
-            <Typography
-              size="xs"
-              weight="semibold"
-              margin="0 0 4px"
-              view="secondary"
-            >
-              {t('profile.referral.stats.link')}
-            </Typography>
-            <TextField
-              name="name"
-              size="s"
-              form="round"
-              value={`https://magiclime.academy/?ref=${profile.referral_number}`}
-              leftSide={IconCopy}
-              className={styles.input}
-              onClick={handleCopyRefClick}
-            />
-          </div>
-        </GridItem>
+        {isMyProfile && (
+          <>
+            <GridItem col="2">
+              <div className={styles.box}>
+                <Typography
+                  size="xs"
+                  weight="semibold"
+                  margin="0 0 4px"
+                  view="secondary"
+                >
+                  {t('profile.referral.stats.link')}
+                </Typography>
+                <TextField
+                  name="name"
+                  size="s"
+                  form="round"
+                  value={`https://magiclime.academy/?ref=${profile.referral_number}`}
+                  leftSide={IconCopy}
+                  className={styles.input}
+                  onClick={handleCopyRefClick}
+                />
+              </div>
+            </GridItem>
+          </>
+        )}
+
         <GridItem>
           <div className={styles.box} style={{ opacity: 0.5 }}>
             <Typography

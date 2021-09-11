@@ -74,8 +74,7 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
 
             <Button
               size="xs"
-              view="primary"
-              disabled={item.is_bought}
+              view={item.is_bought ? 'clear' : 'primary'}
               label={ctaButtonLabel}
             />
           </Flex>

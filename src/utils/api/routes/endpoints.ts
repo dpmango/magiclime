@@ -6,7 +6,10 @@ export default {
   },
   admin: {
     root: '/admin/',
-    exportUser: (id: number | string) => `/admin/users/${id}/export_pdf/`,
+    users: '/admin/users/',
+    usersExport: '/admin/users/export/',
+    webinars: '/admin/webinars/',
+    blockUser: (id: string) => `/admin/users/${id}/block/`,
   },
   users: {
     root: '/auth/users/',
@@ -26,6 +29,7 @@ export default {
   },
   profile: {
     root: '/profile/',
+    pdf: '/profile/pdf/',
     options: {
       root: '/profile/options/',
       avatar: '/profile/options/avatar/',

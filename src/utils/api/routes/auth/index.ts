@@ -48,11 +48,9 @@ export const changeUserPassword = (data: {
   return instance.post(endpoints.users.password, data);
 };
 
-export const getPdfService = async (
-  id: string | number
-): Promise<[Error | null, any | null]> => {
+export const getProfilePdf = async (): Promise<[Error | null, any | null]> => {
   try {
-    const { data } = await instance.get(endpoints.admin.exportUser(id));
+    const { data } = await instance.get(endpoints.profile.pdf);
 
     return [null, data];
   } catch (error) {

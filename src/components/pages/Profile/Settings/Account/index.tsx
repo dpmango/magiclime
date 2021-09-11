@@ -18,7 +18,7 @@ import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
-import { getPdfService } from 'utils/api/routes/auth';
+import { getProfilePdf } from 'utils/api/routes/auth';
 import { logoutFunc } from 'utils/helpers/logout';
 import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
@@ -119,14 +119,14 @@ const Account: FC = () => {
   );
 
   const handleExportClick = useCallback(async () => {
-    const [err, data] = await getPdfService(profile.id);
+    const [err, data] = await getProfilePdf();
 
     if (err) {
       toast.error(t('profile.settings.export.error'));
     }
 
     console.log('export data', data);
-  }, [profile.id]);
+  }, []);
 
   return (
     <div className={styles.root}>

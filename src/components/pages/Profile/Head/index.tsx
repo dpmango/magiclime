@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
+import { Button } from '@consta/uikit/Button';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -51,6 +52,12 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
     [profile.referral_number]
   );
 
+  const handleSendMessage = useCallback(() => {
+    const { id } = profile;
+
+    console.log('TODO - start dialog', id);
+  }, []);
+
   return (
     <Flex align="center" className={styles.root} margin="0 0px">
       <div className={styles.avatarWrapper}>
@@ -68,16 +75,25 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
             <Typography weight="semibold" lineHeight="s" size="4xl">
               {profile.name}
             </Typography>
-            <Typography
-              view="secondary"
-              weight="semibold"
-              onClick={handleCopyRefClick}
-              className={styles.refLink}
-            >
-              {t('profile.head.copyRefLink')}
-            </Typography>
+            {isMyProfile && (
+              <Typography
+                view="secondary"
+                weight="semibold"
+                onClick={handleCopyRefClick}
+                className={styles.refLink}
+              >
+                {t('profile.head.copyRefLink')}
+              </Typography>
+            )}
           </div>
-          <BalanceWidget btcRate={rates.price} inline />
+          {isMyProfile ? (
+            <BalanceWidget btcRate={rates.price} inline />
+          ) : (
+            <Button
+              onClick={handleSendMessage}
+              label={t('profile.head.sendMessage')}
+            />
+          )}
         </Flex>
       </div>
     </Flex>
