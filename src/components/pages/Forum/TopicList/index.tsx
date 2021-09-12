@@ -1,55 +1,18 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
 import { Avatar } from '@consta/uikit/Avatar';
+import { Loader } from '@consta/uikit/Loader';
+
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
 import Members from 'components/Common/Members';
-import { useTranslation } from 'react-i18next';
+import { getForums } from 'utils/api/routes/forum';
+import { IForum } from 'types/interfaces/forum';
 
 import useStyles from './styles';
-
-const list = [
-  {
-    id: 1,
-    cover: '/images/forum-topic-page.svg',
-    title: 'Личный рост',
-    description:
-      'Форум о приобретении навыков, которые помогают поднять жизнь на новый уровень',
-    last_message: {
-      avatar: null,
-      name: 'A B',
-      content:
-        'В моей жизни был момент, когда я перестала работать над собо...',
-    },
-  },
-  {
-    id: 2,
-    cover: '/images/forum-topic-page.svg',
-    title: 'Личный рост',
-    description:
-      'Форум о приобретении навыков, которые помогают поднять жизнь на новый уровень',
-    last_message: {
-      avatar: null,
-      name: 'B F',
-      content:
-        'В моей жизни был момент, когда я перестала работать над собо...',
-    },
-  },
-  {
-    id: 3,
-    cover: '/images/forum-topic-page.svg',
-    title: 'Личный рост',
-    description:
-      'Форум о приобретении навыков, которые помогают поднять жизнь на новый уровень',
-    last_message: {
-      avatar: null,
-      name: 'D J',
-      content:
-        'В моей жизни был момент, когда я перестала работать над собо...',
-    },
-  },
-];
 
 const members = [
   {
@@ -89,9 +52,29 @@ const members = [
     },
   },
 ];
+
 const ForumTopics: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const [list, setList] = useState<IForum[]>([]);
+
+  useEffect(() => {
+    const fetchTopics = async (): Promise<unknown> => {
+      const [err, data] = await getForums();
+
+      if (err) {
+        toast(t('forum.page.loading.error'));
+        return {};
+      }
+
+      setList(data!.results);
+
+      return data;
+    };
+
+    fetchTopics();
+  }, [setList]);
 
   return (
     <div className={styles.root}>
@@ -100,98 +83,110 @@ const ForumTopics: FC = () => {
       </Typography>
 
       <div className={styles.content}>
-        {list.map((x) => (
-          <div className={styles.card}>
-            <Flex className={styles.cardContent}>
-              <div className={styles.cardAvatar}>
-                <img src={x.cover} alt={x.title} />
-              </div>
+        {list ? (
+          list.map((x) => (
+            <div className={styles.card} key={x.id}>
+              <Flex className={styles.cardContent}>
+                <div className={styles.cardAvatar}>
+                  {x.image && <img src={x.image.image} alt={x.name} />}
+                </div>
 
-              <div className={styles.cardMain}>
-                <Typography size="xl s:2xl" weight="semibold">
-                  {x.title}
-                </Typography>
-                <Typography
-                  margin="8px 0 16px"
-                  size="m s:l"
-                  view="secondary"
-                  lineHeight="s"
-                >
-                  {x.description}
-                </Typography>
-                <Link to={`/forum/${x.id}`}>
-                  <Button size="s" label={t('forum.page.view')} />
-                </Link>
-              </div>
+                <div className={styles.cardMain}>
+                  <Typography size="xl s:2xl" weight="semibold">
+                    {x.name}
+                  </Typography>
+                  <Typography
+                    margin="8px 0 16px"
+                    size="m s:l"
+                    view="secondary"
+                    lineHeight="s"
+                  >
+                    {x.description}
+                  </Typography>
+                  <Link to={`/forum/${x.id}`}>
+                    <Button size="s" label={t('forum.page.view')} />
+                  </Link>
+                </div>
 
-              {/* right side */}
-              <Flex
-                align="stretch"
-                direction="column"
-                className={styles.cardMeta}
-              >
+                {/* right side */}
                 <Flex
-                  align="flex-start"
-                  wrap="wrap"
-                  className={styles.cardStats}
+                  align="stretch"
+                  direction="column"
+                  className={styles.cardMeta}
                 >
-                  <div className={styles.cardStatsCol}>
-                    <Typography size="xs" view="ghost" lineHeight="m">
-                      Тем на форуме
-                    </Typography>
-                    <Typography
-                      margin="8px 0 0"
-                      size="xl"
-                      lineHeight="m"
-                      weight="semibold"
-                    >
-                      1123
-                    </Typography>
-                  </div>
-                  <div className={styles.cardStatsCol}>
-                    <Typography size="xs" view="ghost" lineHeight="m">
-                      Участники
-                    </Typography>
-                    <div className={styles.cardMembers}>
-                      <Members members={members} />
+                  <Flex
+                    align="flex-start"
+                    wrap="wrap"
+                    className={styles.cardStats}
+                  >
+                    <div className={styles.cardStatsCol}>
+                      <Typography size="xs" view="ghost" lineHeight="m">
+                        {t('forum.page.topicsCount')}
+                      </Typography>
+                      <Typography
+                        margin="8px 0 0"
+                        size="xl"
+                        lineHeight="m"
+                        weight="semibold"
+                      >
+                        {x.topics_count}
+                      </Typography>
                     </div>
-                  </div>
-                  <div className={styles.cardStatsCol}>
-                    <Typography size="xs" view="ghost" lineHeight="m">
-                      Активность
-                    </Typography>
-                    <Typography margin="11px 0 0" size="s" lineHeight="m">
-                      сегодня 15:34
-                    </Typography>
+                    <div className={styles.cardStatsCol}>
+                      <Typography size="xs" view="ghost" lineHeight="m">
+                        {t('forum.page.members')}
+                      </Typography>
+                      <div className={styles.cardMembers}>
+                        <Members members={members} />
+                      </div>
+                    </div>
+                    <div className={styles.cardStatsCol}>
+                      <Typography size="xs" view="ghost" lineHeight="m">
+                        {t('forum.page.activity')}
+                      </Typography>
+                      <Typography margin="11px 0 0" size="s" lineHeight="m">
+                        {x.last_activity_date}
+                      </Typography>
+                    </div>
+                  </Flex>
+
+                  <div className={styles.cardLast}>
+                    {x.last_answer ? (
+                      <>
+                        <Typography size="xs" view="ghost" lineHeight="m">
+                          {t('forum.page.lastMessage.label')}
+                        </Typography>
+                        <Flex align="center" margin="12px 0 0">
+                          <div className={styles.cardLastAvatar}>
+                            <Avatar
+                              size="xs"
+                              url={x.last_answer.avatar || ''}
+                              name="x.last_message.name"
+                            />
+                          </div>
+                          <Typography
+                            margin="0 0 0 8px"
+                            size="s"
+                            lineHeight="m"
+                            className={styles.cardLastContent}
+                          >
+                            {x.last_answer.content}
+                          </Typography>
+                        </Flex>
+                      </>
+                    ) : (
+                      <Typography size="s" view="ghost" lineHeight="m">
+                        {t('forum.page.lastMessage.empty')}
+                      </Typography>
+                    )}
                   </div>
                 </Flex>
-
-                <div className={styles.cardLast}>
-                  <Typography size="xs" view="ghost" lineHeight="m">
-                    Последнее сообщение
-                  </Typography>
-                  <Flex align="center" margin="12px 0 0">
-                    <div className={styles.cardLastAvatar}>
-                      <Avatar
-                        size="xs"
-                        url={x.last_message.avatar || ''}
-                        name="x.last_message.name"
-                      />
-                    </div>
-                    <Typography
-                      margin="0 0 0 8px"
-                      size="s"
-                      lineHeight="m"
-                      className={styles.cardLastContent}
-                    >
-                      {x.last_message.content}
-                    </Typography>
-                  </Flex>
-                </div>
               </Flex>
-            </Flex>
-          </div>
-        ))}
+            </div>
+          ))
+        ) : (
+          <Loader className={styles.loader} />
+        )}
       </div>
     </div>
   );

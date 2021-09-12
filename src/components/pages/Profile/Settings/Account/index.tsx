@@ -139,7 +139,6 @@ const Account: FC = () => {
       link.href = data;
       link.download = 'myprofile.pdf';
       link.click();
-      console.log(link);
       setTimeout(() => {
         window.URL.revokeObjectURL(data);
       }, 100);

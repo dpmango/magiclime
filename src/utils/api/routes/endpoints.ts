@@ -17,16 +17,6 @@ export default {
     byId: (id: number | string) => `/auth/users/${id}/`,
     password: '/auth/users/set_password/',
   },
-  courses: {
-    root: '/courses/',
-    byId: (id: number | string) => `/courses/${id}/`,
-    buy: (id: number | string) => `/courses/${id}/buy/`,
-    status: (id: number | string) => `/courses/${id}/status/`, // todo
-    active: '/courses/active/', // todo
-    actual: '/courses/actual/', // todo
-    my: '/courses/my/', // todo
-    passed: '/courses/passed/', // todo
-  },
   profile: {
     root: '/profile/',
     pdf: '/profile/pdf/',
@@ -42,5 +32,19 @@ export default {
     balance: '/payments/balance/',
     buy: '/payments/buy/',
     sell: '/payments/sell/', // todo
+  },
+  courses: {
+    root: '/courses/',
+    byId: (id: number | string) => `/courses/${id}/`,
+    buy: (id: number | string) => `/courses/${id}/buy/`,
+    status: (id: number | string) => `/courses/${id}/status/`, // todo
+    active: '/courses/active/', // todo
+    actual: '/courses/actual/', // todo
+    my: '/courses/my/', // todo
+    passed: '/courses/passed/', // todo
+  },
+  forum: {
+    root: '/forum/',
+    byId: (id: number | string) => `/forum/${id}/`,
   },
 };
