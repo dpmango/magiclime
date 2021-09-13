@@ -39,11 +39,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: ({ root }) => ({
+  referralUser: ({ root, nested }) => ({
     flex: '0 0 50%',
     minWidth: 1,
     paddingRight: 12,
-    // paddingLeft: ({ nested }) => (nested ? 0 : 30),
+    paddingLeft: !nested ? 0 : 30,
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
