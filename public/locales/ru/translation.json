@@ -474,6 +474,7 @@
     },
     "card": {
       "experience": "очков опыта",
+      "experienceShort": "очков",
       "rankChangePlural": {
         "one": "позиция",
         "two": "позиции",

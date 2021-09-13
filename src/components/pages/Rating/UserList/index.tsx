@@ -1,5 +1,6 @@
 import React, { FC, useMemo, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Grid, GridItem } from '@consta/uikit/Grid';
 
 import { IUserRating } from 'types/interfaces/rating';
 
@@ -22,14 +23,26 @@ const RatingList: FC = () => {
 
   return (
     <div className={styles.root}>
-      <UserRatingCard data={listSorted[0]} view="primary" />
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{ m: { cols: 3 } }}
+        className={styles.leaders}
+      >
+        {listSorted &&
+          listSorted.slice(0, 3).map((x: IUserRating) => (
+            <GridItem col="1" key={x.id}>
+              <UserRatingCard data={x} view="featured" />
+            </GridItem>
+          ))}
+      </Grid>
 
       {listSorted &&
-        listSorted.map(
-          (x: IUserRating): ReactElement => (
+        listSorted
+          .slice(3, listSorted.length)
+          .map((x: IUserRating) => (
             <UserRatingCard key={x.id} data={x} view="default" />
-          )
-        )}
+          ))}
     </div>
   );
 };

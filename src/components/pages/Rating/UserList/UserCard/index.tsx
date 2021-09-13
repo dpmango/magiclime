@@ -12,11 +12,11 @@ import useStyles from './styles';
 
 interface IProps {
   data: IUserRating;
-  view?: string;
+  view?: 'default' | 'featured';
 }
 
 const UserRatingCard: FC<IProps> = ({ data, view = 'default' }) => {
-  const styles = useStyles();
+  const styles = useStyles({ rank: data.rank });
   const { t } = useTranslation();
 
   const positionPlural = useMemo(() => {
@@ -96,6 +96,62 @@ const UserRatingCard: FC<IProps> = ({ data, view = 'default' }) => {
             </Typography>
           </Flex>
         </Flex>
+      )}
+
+      {view === 'featured' && (
+        <div className={styles.featured}>
+          <div className={styles.featuredNumber}>
+            <span>{data.rank}</span>
+          </div>
+          <div className={styles.featuredCover} />
+          <Flex
+            direction="column"
+            align="center"
+            className={styles.featuredMain}
+          >
+            <Avatar
+              url={data.avatar ? data.avatar.image : ''}
+              name={data.name}
+              className={styles.featuredAvatar}
+            />
+            <Typography
+              size="xl"
+              weight="semibold"
+              margin="8px 0 0"
+              className={styles.cardUserName}
+            >
+              {data.name}
+            </Typography>
+          </Flex>
+
+          <Flex align="center" className={styles.featuredStats}>
+            <Flex direction="column">
+              <Typography
+                view="ghost"
+                size="xs"
+                lineHeight="s"
+                weight="semibold"
+              >
+                Лига
+              </Typography>
+              <Typography size="s">{data.league}</Typography>
+            </Flex>
+
+            <Flex direction="column" align="flex-end">
+              <Typography
+                view="ghost"
+                size="xs"
+                lineHeight="s"
+                weight="semibold"
+              >
+                Опыт
+              </Typography>
+              <Typography size="s">
+                {data.experience} {t('rating.card.experienceShort')}
+              </Typography>
+            </Flex>
+          </Flex>
+        </div>
       )}
     </>
   );
