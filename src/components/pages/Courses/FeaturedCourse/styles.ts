@@ -15,15 +15,12 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   image: {
     position: 'relative',
     overflow: 'hidden',
-    // paddingBottom: '55.5%',
-    height: '290px',
     wodth: '100%',
     fontSize: '0',
-    background:
-      'linear-gradient(90deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
     borderRadius: 'var(--control-radius)',
-    '@media screen and (max-width: 768px)': {
-      height: '195px',
+    textAlign: 'center',
+    '& img': {
+      maxWidth: '100%',
     },
   },
   recomended: {

@@ -42,6 +42,17 @@ export const getCoursesService = (
   });
 };
 
+export const getRecommendedCourseService = async (): Promise<
+  [Error | null, ICourse[] | null]
+> => {
+  try {
+    const { data } = await $api.get(endpoints.courses.recommended);
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
 export const getCourseModule = async (
   id: string
 ): Promise<[Error | null, ICourseFull | null]> => {

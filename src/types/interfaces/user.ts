@@ -1,4 +1,5 @@
-import { IAchievement, ICourse } from 'components/pages/Profile/types';
+import { ICourse } from 'components/pages/Profile/types';
+import { IAchievement } from 'types/interfaces/profile';
 import { IPhoto } from './common';
 
 export interface IUser {

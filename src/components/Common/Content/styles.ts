@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   date: {
     width: 'auto',
   },
+  loader: {
+    margin: '15px 0',
+  },
 });
 
 export default useStyles;

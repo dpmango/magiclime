@@ -18,6 +18,7 @@ import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED_STRING, EMAIL, PHONE } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
+import { getProfilePdf } from 'utils/api/routes/auth';
 import { logoutFunc } from 'utils/helpers/logout';
 import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
@@ -70,6 +71,7 @@ const Account: FC = () => {
     phone: PHONE,
   });
 
+  // actions
   const handleLogoutClick = () => {
     logoutFunc();
   };
@@ -89,7 +91,7 @@ const Account: FC = () => {
         // limit mime
         if (uploader.allowedMime) {
           if (!uploader.allowedMime.includes(file.type.split('/')[0])) {
-            toast(t('profile.head.uploader.mimeLocked'));
+            toast.error(t('profile.head.uploader.mimeLocked'));
             clearInput(e.target);
             return false;
           }
@@ -100,7 +102,7 @@ const Account: FC = () => {
           const sizeInMb = bytesToMegaBytes(file.size);
 
           if (sizeInMb > uploader.maxSize) {
-            toast(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
+            toast.error(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
             clearInput(e.target);
             return false;
           }
@@ -115,6 +117,35 @@ const Account: FC = () => {
     },
     []
   );
+
+  const handleExportClick = useCallback(async () => {
+    const [err, data] = await getProfilePdf();
+
+    if (err) {
+      toast.error(t('profile.settings.export.error'));
+    }
+
+    const showFile = (blob: Blob) => {
+      const newBlob = new Blob([blob], { type: 'application/pdf' });
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(newBlob);
+        return;
+      }
+
+      // Create a link pointing to the ObjectURL containing the blob.
+      const data = window.URL.createObjectURL(newBlob);
+      const link = document.createElement('a');
+      link.href = data;
+      link.download = 'myprofile.pdf';
+      link.click();
+      setTimeout(() => {
+        window.URL.revokeObjectURL(data);
+      }, 100);
+    };
+
+    showFile(data);
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -241,7 +272,7 @@ const Account: FC = () => {
               </div>
             </div>
 
-            <div className={styles.section}>
+            <div className={styles.section} style={{ opacity: 0.5 }}>
               <div className={styles.uiGroup}>
                 <FormikSwitch
                   label="Lorem ipsum dolor sit amet"
@@ -259,6 +290,7 @@ const Account: FC = () => {
                   view="clear"
                   size="s"
                   label={t('profile.settings.account.export')}
+                  onClick={handleExportClick}
                 />
               </div>
               <div className={styles.uiButton}>

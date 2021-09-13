@@ -144,9 +144,14 @@ const ProfilePage: FC = () => {
           path={path}
           render={() => (
             <>
-              <div className={styles.section}>
-                <ProgramList list={mockPrograms} />
-              </div>
+              {isMyProfile ? (
+                <div className={styles.section}>
+                  <ProgramList list={mockPrograms} />
+                </div>
+              ) : (
+                <ReferralStats {...profileProps} />
+              )}
+
               <div className={styles.section}>
                 <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>

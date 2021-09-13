@@ -21,30 +21,6 @@ export interface IProgram {
   referralsTotal: number;
 }
 
-// achievements
-export interface IAchievementGroup {
-  readonly id: number;
-  title: string;
-  image?: IPhoto;
-}
-export interface IAchievement {
-  readonly id: number;
-  title: string;
-  opened: boolean;
-  group?: IAchievementGroup;
-}
-
-export interface IActivementsGrouped {
-  readonly id: number;
-  title: string;
-  image?: IPhoto;
-  list: IAchievement[];
-  stats: {
-    completed: number;
-    total: number;
-  };
-}
-
 export interface IEvent {
   readonly id: number;
   title: string;

@@ -9,46 +9,17 @@ import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
-const content = [
-  {
-    title: 'Анализировать финансовую отчётность',
-    description:
-      'Узнаете, как проводить анализ структуры и динамики показателей отчётности. Поймёте, как найти точки роста финансового результата и факторы устойчивости бизнеса',
-  },
-  {
-    title: 'Оценивать финансовые риски',
-    description:
-      'Научитесь вовремя определять виды рисков, рассчитывать величину финансовых потерь компании и разрабатывать стратегию их минимизации',
-  },
-  {
-    title: 'Строить финансовую модель',
-    description:
-      'Узнаете, как прогнозировать операционный бюджет, анализировать инвестиционную привлекательность компании и чувствительность финансовой модели к разным факторам',
-  },
-  {
-    title: 'Формировать инвест-портфель',
-    description:
-      'Научитесь рассчитывать прибыль от инвестиций и правильно выбирать активы на рынке капитала. Поймёте, как учитывать факторы, влияющие на стоимость ценных бумаг',
-  },
-  {
-    title: 'Строить систему анализа  информации',
-    description:
-      'Узнаете, как автоматизировать процесс сбора и обработки информации. Сможете выбрать подходящую систему под задачи компании и написать регламенты аналитической работы',
-  },
-  {
-    title: 'Создавать финансовую стратегию',
-    description:
-      'Научитесь выбирать источники финансирования. Сможете рассчитать средневзвешенную стоимость капитала компании и определить эффективный план финансирования',
-  },
-];
+interface IProps {
+  content?: { title: string; description: string }[];
+}
 
-const CourseSkills: FC = () => {
+const CourseSkills: FC<IProps> = ({ content }) => {
   const isDefaultTheme = useCheckDefaultTheme();
   const styles = useStyles({ darkmode: !isDefaultTheme });
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 
-  return (
+  return content && content.length ? (
     <div className={styles.root}>
       <div className={rootStyles.container}>
         <Typography
@@ -57,6 +28,7 @@ const CourseSkills: FC = () => {
           weight="semibold"
           lineHeight="s"
         >
+          {t('course.page.skills.main')}&nbsp;
           <Typography
             as="span"
             view="brand"
@@ -66,7 +38,6 @@ const CourseSkills: FC = () => {
           >
             {t('course.page.skills.accent')}
           </Typography>
-          &nbsp;{t('course.page.skills.main')}
         </Typography>
 
         <Grid cols="3" colGap="xl" rowGap="2xl">
@@ -74,15 +45,16 @@ const CourseSkills: FC = () => {
             <GridItem key={x.title}>
               <Flex className={styles.item}>
                 <div className={styles.icon}>
-                  <ConstaIcons.ServicesOutline size="m" />
+                  <ConstaIcons.ServicesOutline view="success" />
                 </div>
                 <div className={styles.content}>
-                  <Typography size="2xl" weight="semibold" lineHeight="s">
+                  <Typography size="l m:xl" weight="semibold" lineHeight="s">
                     {x.title}
                   </Typography>
                   <Typography
                     margin="12px 0 0"
-                    size="s"
+                    size="xs m:s"
+                    view="secondary"
                     className={styles.description}
                   >
                     {x.description}
@@ -94,7 +66,7 @@ const CourseSkills: FC = () => {
         </Grid>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default CourseSkills;

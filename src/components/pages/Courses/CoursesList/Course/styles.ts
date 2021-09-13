@@ -69,8 +69,8 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
         fontWeight: 600,
       },
     },
-    customBadge: {
-      background: 'var(--color-bg-soft)',
+    ctaButton: {
+      background: 'var(--color-bg-link)',
       color: 'var(--color-typo-primary)',
       textTransform: 'none',
     },

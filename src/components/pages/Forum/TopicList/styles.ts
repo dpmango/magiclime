@@ -7,6 +7,9 @@ const useStyles = makeStyles({
   content: {
     marginTop: 36,
   },
+  loader: {
+    margin: '15px 0',
+  },
   card: {
     background: 'var(--color-bg-default)',
     border: '1px solid var(--color-bg-border)',
@@ -70,6 +73,7 @@ const useStyles = makeStyles({
   },
   cardStatsCol: {
     flex: '0 0 33.33%',
+    paddingRight: 16,
     '@media screen and (max-width: 1279px)': {
       paddingTop: 12,
       flexBasis: '100%',
