@@ -3,7 +3,7 @@ import isEqual from 'lodash/isEqual';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getBalance } from 'store/reducers/profile';
+import { getAllProfile } from 'store/reducers/profile';
 import Flex from 'components/Common/Flex';
 import Container from 'components/Common/Container';
 import Menu from '../Menu';
@@ -39,7 +39,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const { is_staff } = useSelector((state: RootState) => state.user.profile);
 
   useEffect(() => {
-    dispatch(getBalance());
+    dispatch(getAllProfile());
   }, []);
 
   return (

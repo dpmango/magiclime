@@ -5,53 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Loader } from '@consta/uikit/Loader';
+import moment from 'moment';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import Members from 'components/Common/Members';
 import { getForums } from 'utils/api/routes/forum';
-import { IForum } from 'types/interfaces/forum';
+import { timeToTimeStamp } from 'utils/helpers/formatDate';
+import { IForum, IForumMember } from 'types/interfaces/forum';
 
 import useStyles from './styles';
-
-const members = [
-  {
-    id: 1,
-    avatar: {
-      id: 1,
-      image: 'https://randomuser.me/api/portraits/women/15.jpg',
-    },
-  },
-  { id: 2, avatar: { id: 2, image: '' }, name: 'A B ' },
-  {
-    id: 3,
-    avatar: {
-      id: 3,
-      image: 'https://randomuser.me/api/portraits/women/15.jpg',
-    },
-  },
-  {
-    id: 4,
-    avatar: {
-      id: 4,
-      image: 'https://randomuser.me/api/portraits/men/19.jpg',
-    },
-  },
-  {
-    id: 5,
-    avatar: {
-      id: 5,
-      image: 'https://randomuser.me/api/portraits/men/1.jpg',
-    },
-  },
-  {
-    id: 6,
-    avatar: {
-      id: 6,
-      image: 'https://randomuser.me/api/portraits/men/1.jpg',
-    },
-  },
-];
 
 const ForumTopics: FC = () => {
   const styles = useStyles();
@@ -75,6 +38,20 @@ const ForumTopics: FC = () => {
 
     fetchTopics();
   }, [setList]);
+
+  // TODO - поменять api на выдачу как в DefaultMember, функцию удалить, d шаблонах передать x.members
+  const todoFixMembers = (list: IForumMember[]): any[] => {
+    return list.map((x: IForumMember, idx: number) => ({
+      id: 999 + idx,
+      name: x.username,
+      avatar: x.avatar
+        ? {
+            id: 999 + idx,
+            image: x.avatar,
+          }
+        : null,
+    }));
+  };
 
   return (
     <div className={styles.root}>
@@ -137,7 +114,7 @@ const ForumTopics: FC = () => {
                         {t('forum.page.members')}
                       </Typography>
                       <div className={styles.cardMembers}>
-                        <Members members={members} />
+                        <Members members={todoFixMembers(x.members)} />
                       </div>
                     </div>
                     <div className={styles.cardStatsCol}>
@@ -145,7 +122,7 @@ const ForumTopics: FC = () => {
                         {t('forum.page.activity')}
                       </Typography>
                       <Typography margin="11px 0 0" size="s" lineHeight="m">
-                        {x.last_activity_date}
+                        {timeToTimeStamp(x.last_activity_date)}
                       </Typography>
                     </div>
                   </Flex>
@@ -160,8 +137,8 @@ const ForumTopics: FC = () => {
                           <div className={styles.cardLastAvatar}>
                             <Avatar
                               size="xs"
-                              url={x.last_answer.avatar || ''}
-                              name="x.last_message.name"
+                              url={x.last_answer.author_avatar || ''}
+                              // name="x.last_message.name"
                             />
                           </div>
                           <Typography
@@ -170,7 +147,7 @@ const ForumTopics: FC = () => {
                             lineHeight="m"
                             className={styles.cardLastContent}
                           >
-                            {x.last_answer.content}
+                            {x.last_answer.text}
                           </Typography>
                         </Flex>
                       </>

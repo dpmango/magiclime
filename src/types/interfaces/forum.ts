@@ -1,15 +1,20 @@
 import { IPhoto } from './common';
 
+export interface IForumMember {
+  avatar?: string;
+  username: string;
+}
+
 export interface IForum {
   readonly id: number;
   name: string;
   description: string;
   topics_count: number;
-  members: any[];
+  members: IForumMember[];
   last_activity_date?: any;
   last_answer?: {
-    avatar: string;
-    content: string;
+    author_avatar?: string;
+    text: string;
   };
   image: IPhoto;
 }

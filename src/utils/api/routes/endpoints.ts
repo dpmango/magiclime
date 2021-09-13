@@ -24,8 +24,8 @@ export default {
       root: '/profile/options/',
       avatar: '/profile/options/avatar/',
     },
-    achievements: '/profile/achievements/', // todo
-    events: '/profile/events/', // todo
+    achievements: '/profile/achievements/',
+    events: '/profile/events/',
   },
   payments: {
     root: '/payments/',
@@ -38,6 +38,7 @@ export default {
     byId: (id: number | string) => `/courses/${id}/`,
     buy: (id: number | string) => `/courses/${id}/buy/`,
     status: (id: number | string) => `/courses/${id}/status/`, // todo
+    recommended: '/courses/recommended/',
     active: '/courses/active/', // todo
     actual: '/courses/actual/', // todo
     my: '/courses/my/', // todo

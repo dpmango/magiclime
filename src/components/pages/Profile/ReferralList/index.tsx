@@ -144,7 +144,7 @@ const Referrals: FC = () => {
         ...defaultCrumbs,
         ...(referralsTree.ancestors
           ? referralsTree.ancestors.map((a) => ({
-              label: a.username,
+              label: a.username || 'unknown',
               link: `${a.id}`,
             }))
           : []),
@@ -172,7 +172,7 @@ const Referrals: FC = () => {
               <Breadcrumbs
                 className={styles.breadcrumbs}
                 pages={mappedData.crumbs}
-                maxCount={5}
+                maxCount={999}
                 getLabel={(x) => x.label}
                 getLink={(x) => x.link}
                 getIcon={(x) => x.icon}
