@@ -172,7 +172,7 @@ const Referrals: FC = () => {
               <Breadcrumbs
                 className={styles.breadcrumbs}
                 pages={mappedData.crumbs}
-                maxCount={999}
+                maxCount={8}
                 getLabel={(x) => x.label}
                 getLink={(x) => x.link}
                 getIcon={(x) => x.icon}
@@ -184,7 +184,7 @@ const Referrals: FC = () => {
                 <ReferralUser data={mappedData.root} root />
 
                 {mappedData.childrens &&
-                  mappedData.childrens.map((group: IReferralTree) => (
+                  mappedData.childrens.map((group: IReferralTree, idx) => (
                     <div key={group.id} className={styles.referralGroup}>
                       <ReferralUser
                         onReferralClick={handleReferralClick}
@@ -200,6 +200,8 @@ const Referrals: FC = () => {
                             nested
                           />
                         ))}
+
+                      {idx === 0 && <Button label="купить место" />}
                     </div>
                   ))}
               </div>

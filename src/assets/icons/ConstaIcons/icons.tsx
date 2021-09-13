@@ -186,6 +186,50 @@ const Camera: FC<SVGProps<SVGSVGElement>> = (props) => (
   </ConstaIconsBuilder>
 );
 
+const Upwards: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <ConstaIconsBuilder size={[16, 14]} {...props}>
+    <path
+      d="M7.32365 0.400657C7.63664 -0.133552 8.36336 -0.133552 8.67635 0.400657L15.8766 12.6901C16.2103 13.2597 15.828 14 15.2002 14H0.799783C0.171954 14 -0.210293 13.2597 0.123432 12.6901L7.32365 0.400657Z"
+      fill="url(#Upwards_gradient)"
+    />
+    <defs>
+      <linearGradient
+        id="Upwards_gradient"
+        x1="4.27851e-07"
+        y1="14"
+        x2="13.2677"
+        y2="-2.9174"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#58CC01" />
+        <stop offset="1" stopColor="#57D4F6" />
+      </linearGradient>
+    </defs>
+  </ConstaIconsBuilder>
+);
+
+const Downwards: FC<SVGProps<SVGSVGElement>> = (props) => (
+  <ConstaIconsBuilder size={[16, 14]} {...props}>
+    <path
+      d="M8.67635 13.5993C8.36336 14.1336 7.63664 14.1336 7.32365 13.5993L0.123432 1.30992C-0.210294 0.740318 0.171952 1.38373e-06 0.799782 1.32885e-06L15.2002 6.99193e-08C15.828 1.50327e-08 16.2103 0.740316 15.8766 1.30992L8.67635 13.5993Z"
+      fill="url(#Downwards_gradient)"
+    />
+    <defs>
+      <linearGradient
+        id="Downwards_gradient"
+        x1="8"
+        y1="14"
+        x2="8"
+        y2="-5.52315e-07"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#F093FB" />
+        <stop offset="1" stopColor="#F5576C" />
+      </linearGradient>
+    </defs>
+  </ConstaIconsBuilder>
+);
+
 const createIcon = (name: string, component: FC) => {
   return {
     [name]: createConstaIcon(component, name),
@@ -208,6 +252,8 @@ const icons = {
   ...createIcon('Lime', Lime),
   ...createIcon('Expand', Expand),
   ...createIcon('Camera', Camera),
+  ...createIcon('Upwards', Upwards),
+  ...createIcon('Downwards', Downwards),
 };
 
 export default icons;

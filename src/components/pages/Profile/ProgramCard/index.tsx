@@ -1,12 +1,11 @@
 import React, { FC, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@consta/uikit/Button';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import Members from 'components/Common/Members';
-import { Avatar } from '@consta/uikit/Avatar';
-import { Button } from '@consta/uikit/Button';
 import { Plurize } from 'utils/helpers/plurize';
-import cns from 'classnames';
-import { useTranslation } from 'react-i18next';
 
 import { IProgram } from 'components/pages/Profile/types';
 import useStyles from './styles';

@@ -1,5 +1,5 @@
 import { AxiosPromise } from 'types/common';
-import { ICourse } from 'types/interfaces/courses';
+import { ICourse, ICourseRecommended } from 'types/interfaces/courses';
 import { ICourseFull } from 'components/pages/CourseTask/types';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
@@ -43,7 +43,7 @@ export const getCoursesService = (
 };
 
 export const getRecommendedCourseService = async (): Promise<
-  [Error | null, ICourse[] | null]
+  [Error | null, ICourseRecommended[] | null]
 > => {
   try {
     const { data } = await $api.get(endpoints.courses.recommended);

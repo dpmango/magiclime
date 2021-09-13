@@ -1,9 +1,10 @@
-import React, { FC, ReactElement } from 'react';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
-import { Avatar } from '@consta/uikit/Avatar';
+import React, { FC, useMemo, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Grid, GridItem } from '@consta/uikit/Grid';
 
+import { IUserRating } from 'types/interfaces/rating';
+
+import UserRatingCard from './UserCard';
 import useStyles from './styles';
 import { list } from './mockData';
 
@@ -11,58 +12,37 @@ const RatingList: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  // todo - sorting should be backed based
+  const listSorted = useMemo(() => {
+    if (list && list.length) {
+      return list.sort((a, b) => a.rank - b.rank);
+    }
+
+    return [];
+  }, [list]);
+
   return (
     <div className={styles.root}>
-      {list &&
-        list.map(
-          (x): ReactElement => (
-            <Flex align="center" className={styles.card} key={x.id}>
-              <Typography
-                size="l"
-                view="secondary"
-                weight="semibold"
-                className={styles.cardNumber}
-              >
-                №{x.id}
-              </Typography>
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{ m: { cols: 3 } }}
+        className={styles.leaders}
+      >
+        {listSorted &&
+          listSorted.slice(0, 3).map((x: IUserRating) => (
+            <GridItem col="1" key={x.id}>
+              <UserRatingCard data={x} view="featured" />
+            </GridItem>
+          ))}
+      </Grid>
 
-              <Flex align="center" className={styles.cardUser}>
-                <Avatar
-                  url={x.avatar ? x.avatar.image : ''}
-                  name={x.name}
-                  className={styles.cardAvatar}
-                />
-                <Typography
-                  margin="0 0 0 8px"
-                  size="xl"
-                  weight="semibold"
-                  className={styles.cardUserName}
-                >
-                  {x.name}
-                </Typography>
-              </Flex>
-
-              <Flex align="center" className={styles.cardLeague}>
-                {x.league.icon && (
-                  <img src={x.league.icon} alt={x.league.title} />
-                )}
-
-                <Typography margin="0 0 0 6px" size="s">
-                  {x.league.title}
-                </Typography>
-              </Flex>
-
-              <Typography
-                view="secondary"
-                size="s"
-                align="right"
-                className={styles.cardStat}
-              >
-                {x.stat}
-              </Typography>
-            </Flex>
-          )
-        )}
+      {listSorted &&
+        listSorted
+          .slice(3, listSorted.length)
+          .map((x: IUserRating) => (
+            <UserRatingCard key={x.id} data={x} view="default" />
+          ))}
     </div>
   );
 };

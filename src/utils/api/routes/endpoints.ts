@@ -23,6 +23,7 @@ export default {
     options: {
       root: '/profile/options/',
       avatar: '/profile/options/avatar/',
+      programs: '/profile/options/programs/', // todo
     },
     achievements: '/profile/achievements/',
     events: '/profile/events/',
