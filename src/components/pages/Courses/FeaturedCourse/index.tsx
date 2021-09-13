@@ -8,7 +8,7 @@ import { Loader } from '@consta/uikit/Loader';
 
 import Typography from 'components/Common/Typography';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
-import { ICourse } from 'types/interfaces/courses';
+import { ICourseRecommended } from 'types/interfaces/courses';
 import { getRecommendedCourseService } from 'utils/api/routes/courses';
 
 import useStyles from './styles';
@@ -18,7 +18,7 @@ const FeaturedCourse: FC = () => {
   const styles = useStyles({ darkmode: !isDefaultTheme });
   const { t } = useTranslation();
 
-  const [data, setData] = useState<ICourse>();
+  const [data, setData] = useState<ICourseRecommended>();
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -54,10 +54,7 @@ const FeaturedCourse: FC = () => {
           {data.title}
         </Typography>
         <Typography as="p" view="secondary" className={styles.description}>
-          Ваш универсальный путеводитель в мире криптовалют. Независимо от того,
-          являетесь ли вы новичком, пытающимся разобраться в майнинге, или
-          опытным пользователем, желающим разработать торговую стратегию, мы
-          сможем вам помочь.
+          {data.description}
         </Typography>
         <Link to={`/courses/${data.id}/`}>
           <Button
@@ -77,7 +74,7 @@ const FeaturedCourse: FC = () => {
             size="xl"
             weight="semibold"
           >
-            {data.title}
+            {data.subtitle}
           </Typography>
           <div className={styles.details}>
             <Typography size="m" as="span" view="ghost">

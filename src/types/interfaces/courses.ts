@@ -12,3 +12,10 @@ export interface ICourse {
   level: number;
   is_bought: boolean;
 }
+
+export interface ICourseRecommended extends ICourse {
+  subtitle: string;
+  description: string;
+  chapters_count: number;
+  exercises_count: number;
+}

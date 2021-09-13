@@ -167,8 +167,9 @@
     "tabs": {
       "main": "Основное",
       "balance": "Баланс",
-      "referrals": "Рефералы",
-      "settings": "Настройки"
+      "partenrs": "Партнеры",
+      "settings": "Настройки",
+      "referrals": "Рефералы"
     },
     "referralPlural": {
       "one": "реферал",
@@ -471,6 +472,14 @@
     "page": {
       "title": "Рейтинг пользователей"
     },
+    "card": {
+      "experience": "очков опыта",
+      "rankChangePlural": {
+        "one": "позиция",
+        "two": "позиции",
+        "five": "позиций"
+      }
+    },  
     "filter": {
       "searchPlaceholder": "Поиск по пользователям",
       "leagues": "По лигам"
