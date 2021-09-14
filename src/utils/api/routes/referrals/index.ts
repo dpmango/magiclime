@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { AxiosPromise } from 'types/common';
 import { IReferralTree } from 'types/interfaces/referrals';
 import { instance } from '../../index';
@@ -36,7 +35,7 @@ export const buyMatricesService = async ({
 }: {
   level: number;
   program: number;
-}): Promise<[AxiosError | null, any | null]> => {
+}): Promise<[{ status: number } | null, any | null]> => {
   try {
     const { data } = await instance.post(endpoints.referrals.buy, null, {
       params: {

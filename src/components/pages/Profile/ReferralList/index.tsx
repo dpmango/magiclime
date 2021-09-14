@@ -197,14 +197,14 @@ const Referrals: FC = () => {
     });
 
     if (err) {
-      if (err!.response!.status === 400) {
+      console.log(err);
+      if (err!.status === 400) {
         toast.error(t('profile.referral.buy.toast.error400'));
       } else {
         toast.error(t('profile.referral.buy.toast.error500'));
       }
 
       setBuyProcessing(false);
-
       return;
     }
 
@@ -285,13 +285,6 @@ const Referrals: FC = () => {
                             nested
                           />
                         ))}
-
-                      {idx === 0 && (
-                        <Button
-                          onClick={handleBuyClick}
-                          label={t('profile.referral.buy.cta')}
-                        />
-                      )}
                     </div>
                   ))}
               </div>
@@ -306,12 +299,15 @@ const Referrals: FC = () => {
               >
                 {error}
               </Typography>
-              <Button
-                onClick={handleBuyClick}
-                label={t('profile.referral.buy.cta')}
-              />
             </>
           )}
+
+          <div className={styles.cta}>
+            <Button
+              onClick={handleBuyClick}
+              label={t('profile.referral.buy.cta')}
+            />
+          </div>
 
           {loading && (
             <div className={sharedStyles.loader}>
