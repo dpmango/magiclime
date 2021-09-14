@@ -70,13 +70,18 @@ const ProfilePage: FC = () => {
         },
         {
           id: 3,
-          slug: `/profile/${params.id}/referrals`,
-          label: t('profile.tabs.referrals'),
+          slug: `/profile/${params.id}/partners`,
+          label: t('profile.tabs.partners'),
         },
         {
           id: 4,
           slug: `/profile/${params.id}/settings`,
           label: t('profile.tabs.settings'),
+        },
+        {
+          id: 5,
+          slug: `/profile/${params.id}/referrals`,
+          label: t('profile.tabs.referrals'),
         },
       ];
     }
@@ -169,7 +174,7 @@ const ProfilePage: FC = () => {
           )}
         />
         <Route
-          path={`${path}/referrals`}
+          path={`${path}/partners`}
           render={() => (
             <>
               <ReferralStats {...profileProps} />
@@ -199,6 +204,11 @@ const ProfilePage: FC = () => {
             <Route path={`${path}/settings`} render={() => <Settings />} />
           </>
         )}
+
+        <Route
+          path={`${path}/referrals`}
+          render={() => <Typography size="l">Пусто</Typography>}
+        />
 
         <Route
           path={`${path}`}

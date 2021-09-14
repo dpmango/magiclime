@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 interface IProps {
   nested?: boolean;
   root?: boolean;
+  clone?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
@@ -13,7 +14,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
-    cursor: ({ root }) => (root ? 'default' : 'pointer'),
+    cursor: ({ root, clone }) => (root || clone ? 'default' : 'pointer'),
     '&:first-child': {
       borderTopWidth: 0,
     },
@@ -39,11 +40,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: ({ root, nested }) => ({
+  referralUser: ({ root, nested, clone }) => ({
     flex: '0 0 50%',
     minWidth: 1,
     paddingRight: 12,
     paddingLeft: !nested ? 0 : 30,
+    '& .Avatar': {
+      backgroundColor: clone ? 'var(--color-bg-default)' : 'inherit',
+    },
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
@@ -89,6 +93,10 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralCount: {
     flex: '0 0 15%',
     textAlign: 'left',
+  },
+  clone: {
+    paddingLeft: 30,
+    marginLeft: 'auto',
   },
 }));
 

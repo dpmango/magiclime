@@ -70,7 +70,7 @@ const Refill: FC = () => {
     });
 
     if (err) {
-      toast(t('profile.balance.refill.toast.error'));
+      toast.error(t('profile.balance.refill.toast.error'));
       return;
     }
 

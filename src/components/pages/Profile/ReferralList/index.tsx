@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
@@ -16,6 +17,7 @@ import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
+import isEmpty from 'lodash/isEmpty';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -25,6 +27,7 @@ import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
 import { IUser } from 'types/interfaces/user';
+import { buyMatricesService } from 'utils/api/routes/referrals';
 
 import useSharedStyles from 'assets/styles/Shared';
 import useStyles from './styles';
@@ -64,18 +67,68 @@ const Referrals: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { referralsTree, loading, error } = useSelector(
-    (state: RootState) => state.referrals
-  );
-
-  const matrixLevels: number[] = [...Array(17).keys()].map((x) => x + 1);
-
   const [filterSearch, setFilterSearch] = useState<string | null>('');
   const [filterProgram, setFilterProgram] = useState<IProgram>(
     programOptions[0]
   );
   const [selectedLevel, setSelectedLevels] = useState<number>(1);
+  const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
+  const { referralsTree, loading, error } = useSelector(
+    (state: RootState) => state.referrals
+  );
 
+  const { profile } = useSelector((state: RootState) => state.user);
+
+  const matrixLevels: number[] = useMemo(() => {
+    let levels = 0;
+    switch (filterProgram.id) {
+      case 1:
+        levels = 17;
+        break;
+      case 2:
+        levels = 5;
+        break;
+      case 3:
+        levels = 5;
+        break;
+      case 4:
+        levels = 5;
+        break;
+      case 5:
+        levels = 6;
+        break;
+      case 6:
+        levels = 7;
+        break;
+      default:
+        break;
+    }
+
+    return [...Array(levels).keys()].map((x) => x + 1);
+  }, [filterProgram]);
+
+  // reset level when program changed
+  useEffect(() => {
+    setSelectedLevels(1);
+  }, [filterProgram]);
+
+  // get & set program from initial url params
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const program = urlParams.get('program');
+
+    if (program) {
+      const targetProgramOption = programOptions.find(
+        (x) => x.id === parseInt(program, 10)
+      );
+
+      if (targetProgramOption) {
+        setFilterProgram(targetProgramOption);
+      }
+    }
+  }, []);
+
+  // api actions
   const requestReferrals = useCallback(
     ({
       id,
@@ -97,6 +150,15 @@ const Referrals: FC = () => {
     []
   );
 
+  useEffect(() => {
+    requestReferrals({
+      id: params.id,
+      program: filterProgram.id,
+      level: selectedLevel,
+    });
+  }, [selectedLevel, filterProgram, params.id]);
+
+  // click handlers
   const handleBreadcrumbClick = useCallback(
     (page: ICrumbsPage, e: MouseEvent): void => {
       e.preventDefault();
@@ -128,36 +190,110 @@ const Referrals: FC = () => {
     [selectedLevel]
   );
 
-  useEffect(() => {
-    requestReferrals({
-      id: params.id,
-      program: filterProgram.id,
-      level: selectedLevel,
-    });
-  }, [selectedLevel, filterProgram, params.id]);
+  const handleBuyClick = useCallback(
+    async (id) => {
+      setBuyProcessing(true);
 
+      const [err, res] = await buyMatricesService({
+        level: selectedLevel,
+        program: filterProgram.id,
+        matrixUserId: id,
+      });
+
+      if (err) {
+        if (err!.status === 400) {
+          toast.error(t('profile.referral.buy.toast.error400'));
+        } else {
+          toast.error(t('profile.referral.buy.toast.error500'));
+        }
+
+        setBuyProcessing(false);
+        return;
+      }
+
+      toast.success(t('profile.referral.buy.toast.success'));
+      requestReferrals({
+        id: params.id,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+
+      setBuyProcessing(false);
+    },
+    [selectedLevel, filterProgram, params.id]
+  );
+
+  // main data getter
   const mappedData = useMemo(() => {
+    const withClones = (childs: IReferralTree[]) => {
+      let childsCopy = childs;
+      const rootUserId = referralsTree && referralsTree.user_id;
+
+      if (profile.id !== rootUserId) {
+        return childs;
+      }
+
+      const mainClone = {
+        is_clone: true,
+        clone_id: rootUserId,
+        children: [],
+      };
+
+      // firstly, create space wrapper for main referal based on array length
+      if (childs.length === 0) {
+        childsCopy = [mainClone, mainClone];
+      }
+
+      if (childs.length === 1) {
+        childsCopy = [...childsCopy, mainClone];
+      }
+
+      // then append child clones if < 2 items
+      childsCopy = [
+        ...childsCopy.map((x) => {
+          let clones: any[] = [];
+          const clone = { is_clone: true, clone_id: x.id || rootUserId };
+
+          if (x.children && x.children.length === 0) {
+            clones = [clone, clone];
+          } else if (x.children && x.children.length < 2) {
+            clones = [clone];
+          }
+          return {
+            ...x,
+            children: [...x.children, ...clones],
+          };
+        }),
+      ];
+
+      console.log({ childsCopy });
+
+      return childsCopy;
+    };
+
     return {
-      root: referralsTree,
-      childrens: referralsTree.children,
+      root: !isEmpty(referralsTree) ? referralsTree : null,
+      childrens: !isEmpty(referralsTree)
+        ? withClones(referralsTree.children)
+        : [],
       crumbs: [
         ...defaultCrumbs,
         ...(referralsTree.ancestors
           ? referralsTree.ancestors.map((a) => ({
               label: a.username || 'unknown',
-              link: `${a.id}`,
+              link: `${a.id}` || '#',
             }))
           : []),
         ...[
           {
-            label: referralsTree.username,
-            link: `${referralsTree.id}`,
+            label: referralsTree.username || 'unknown',
+            link: `${referralsTree.id}` || '#',
             isActive: true,
           },
         ],
       ],
     };
-  }, [referralsTree]);
+  }, [referralsTree, profile.id]);
 
   return (
     <div className={styles.root}>
@@ -181,45 +317,64 @@ const Referrals: FC = () => {
                 onClick={handleBreadcrumbClick}
               />
               <div className={styles.referrals}>
-                <ReferralUser data={mappedData.root} root />
+                {mappedData.root && (
+                  <ReferralUser data={mappedData.root} root />
+                )}
 
                 {mappedData.childrens &&
                   mappedData.childrens.map((group: IReferralTree, idx) => (
-                    <div key={group.id} className={styles.referralGroup}>
+                    <div key={group.id || idx} className={styles.referralGroup}>
                       <ReferralUser
-                        onReferralClick={handleReferralClick}
-                        key={group.id}
                         data={group}
+                        onReferralClick={handleReferralClick}
+                        onBuyClick={handleBuyClick}
                       />
                       {group.children &&
-                        group.children.map((referral: IReferralTree) => (
+                        group.children.map((referral: IReferralTree, cidx) => (
                           <ReferralUser
-                            key={referral.id}
-                            onReferralClick={handleReferralClick}
+                            key={referral.id || cidx}
                             data={referral}
+                            onReferralClick={handleReferralClick}
+                            onBuyClick={handleBuyClick}
                             nested
                           />
                         ))}
-
-                      {idx === 0 && <Button label="купить место" />}
                     </div>
                   ))}
               </div>
             </>
           ) : (
-            <Typography
-              view="alert"
-              align="center"
-              weight="semibold"
-              margin="0 0 12px"
-            >
-              {error}
-            </Typography>
+            <>
+              <Typography
+                view="alert"
+                align="center"
+                weight="semibold"
+                margin="0 0 12px"
+              >
+                {error}
+              </Typography>
+            </>
           )}
+
+          <div className={styles.cta}>
+            <Button
+              onClick={handleBuyClick}
+              label={t('profile.referral.buy.cta')}
+            />
+          </div>
 
           {loading && (
             <div className={sharedStyles.loader}>
               <Loader />
+            </div>
+          )}
+
+          {buyProcessing && (
+            <div className={sharedStyles.loader}>
+              <Loader />
+              <Typography size="l" margin="32px 0 0" align="center">
+                {t('profile.referral.buy.service.longawait')}
+              </Typography>
             </div>
           )}
         </GridItem>

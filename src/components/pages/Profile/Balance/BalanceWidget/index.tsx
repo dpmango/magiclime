@@ -50,10 +50,15 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
             {t('profile.balance.widget.title')}
           </Typography>
           <Flex align="baseline" wrap="wrap">
-            <Typography view="brand" size="2xl" weight="semibold">
-              {balance.bitlimes} BL
+            <Typography
+              margin="0 4px 0 0"
+              view="brand"
+              size="2xl"
+              weight="semibold"
+            >
+              {formatPrice(balance.bitlimes)} BL
             </Typography>
-            <Typography view="secondary" margin="0 0 0 4px" size="xs">
+            <Typography view="secondary" size="xs">
               {blToBtc(balance.bitlimes, btcRate)} mBtc
             </Typography>
           </Flex>

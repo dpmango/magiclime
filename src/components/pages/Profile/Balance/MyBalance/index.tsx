@@ -5,7 +5,7 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { blToBtc } from 'utils/helpers/formatPrice';
+import { formatPrice, blToBtc } from 'utils/helpers/formatPrice';
 import { RootState } from 'store/reducers/rootReducer';
 
 import BalanceWidget from '../BalanceWidget';
@@ -25,17 +25,17 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
     return [
       {
         label: t('profile.balance.my.available'),
-        main: `${balance.available_for_withdrawal} BL`,
+        main: `${formatPrice(balance.available_for_withdrawal)} BL`,
         secondary: `${blToBtc(balance.available_for_withdrawal, btcRate)} mBtc`,
       },
       {
         label: t('profile.balance.my.earned'),
-        main: `${balance.total_earned} BL`,
+        main: `${formatPrice(balance.total_earned)} BL`,
         secondary: `${blToBtc(balance.total_earned, btcRate)} mBtc`,
       },
       {
         label: t('profile.balance.my.output'),
-        main: `${balance.total_output} BL`,
+        main: `${formatPrice(balance.total_output)} BL`,
         secondary: `${blToBtc(balance.total_output, btcRate)} mBtc`,
       },
     ];
@@ -66,11 +66,16 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
                 >
                   {cell.label}
                 </Typography>
-                <Flex align="baseline">
-                  <Typography view="brand" size="2xl" weight="semibold">
+                <Flex align="baseline" wrap="wrap">
+                  <Typography
+                    margin="0 4px 0 0px"
+                    view="brand"
+                    size="2xl"
+                    weight="semibold"
+                  >
                     {cell.main}
                   </Typography>
-                  <Typography margin="0 0 0 4px" view="secondary" size="xs">
+                  <Typography view="secondary" size="xs">
                     {cell.secondary}
                   </Typography>
                 </Flex>
