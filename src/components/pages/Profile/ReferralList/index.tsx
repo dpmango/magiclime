@@ -77,6 +77,8 @@ const Referrals: FC = () => {
     (state: RootState) => state.referrals
   );
 
+  const { profile } = useSelector((state: RootState) => state.user);
+
   const matrixLevels: number[] = useMemo(() => {
     let levels = 0;
     switch (filterProgram.id) {
@@ -188,59 +190,110 @@ const Referrals: FC = () => {
     [selectedLevel]
   );
 
-  const handleBuyClick = useCallback(async () => {
-    setBuyProcessing(true);
+  const handleBuyClick = useCallback(
+    async (id) => {
+      setBuyProcessing(true);
 
-    const [err, res] = await buyMatricesService({
-      level: selectedLevel,
-      program: filterProgram.id,
-    });
+      const [err, res] = await buyMatricesService({
+        level: selectedLevel,
+        program: filterProgram.id,
+        matrixUserId: id,
+      });
 
-    if (err) {
-      console.log(err);
-      if (err!.status === 400) {
-        toast.error(t('profile.referral.buy.toast.error400'));
-      } else {
-        toast.error(t('profile.referral.buy.toast.error500'));
+      if (err) {
+        if (err!.status === 400) {
+          toast.error(t('profile.referral.buy.toast.error400'));
+        } else {
+          toast.error(t('profile.referral.buy.toast.error500'));
+        }
+
+        setBuyProcessing(false);
+        return;
       }
 
+      toast.success(t('profile.referral.buy.toast.success'));
+      requestReferrals({
+        id: params.id,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+
       setBuyProcessing(false);
-      return;
-    }
-
-    toast.success(t('profile.referral.buy.toast.success'));
-    requestReferrals({
-      id: params.id,
-      program: filterProgram.id,
-      level: selectedLevel,
-    });
-
-    setBuyProcessing(false);
-  }, [selectedLevel, filterProgram, params.id]);
+    },
+    [selectedLevel, filterProgram, params.id]
+  );
 
   // main data getter
   const mappedData = useMemo(() => {
+    const withClones = (childs: IReferralTree[]) => {
+      let childsCopy = childs;
+      const rootUserId = referralsTree && referralsTree.user_id;
+
+      if (profile.id !== rootUserId) {
+        return childs;
+      }
+
+      const mainClone = {
+        is_clone: true,
+        clone_id: rootUserId,
+        children: [],
+      };
+
+      // firstly, create space wrapper for main referal based on array length
+      if (childs.length === 0) {
+        childsCopy = [mainClone, mainClone];
+      }
+
+      if (childs.length === 1) {
+        childsCopy = [...childsCopy, mainClone];
+      }
+
+      // then append child clones if < 2 items
+      childsCopy = [
+        ...childsCopy.map((x) => {
+          let clones: any[] = [];
+          const clone = { is_clone: true, clone_id: x.id || rootUserId };
+
+          if (x.children && x.children.length === 0) {
+            clones = [clone, clone];
+          } else if (x.children && x.children.length < 2) {
+            clones = [clone];
+          }
+          return {
+            ...x,
+            children: [...x.children, ...clones],
+          };
+        }),
+      ];
+
+      console.log({ childsCopy });
+
+      return childsCopy;
+    };
+
     return {
-      root: isEmpty(referralsTree) ? null : referralsTree,
-      childrens: referralsTree.children,
+      root: !isEmpty(referralsTree) ? referralsTree : null,
+      childrens: !isEmpty(referralsTree)
+        ? withClones(referralsTree.children)
+        : [],
       crumbs: [
         ...defaultCrumbs,
         ...(referralsTree.ancestors
           ? referralsTree.ancestors.map((a) => ({
               label: a.username || 'unknown',
-              link: `${a.id}`,
+              link: `${a.id}` || '#',
             }))
           : []),
         ...[
           {
-            label: referralsTree.username,
-            link: `${referralsTree.id}`,
+            label: referralsTree.username || 'unknown',
+            link: `${referralsTree.id}` || '#',
             isActive: true,
           },
         ],
       ],
     };
-  }, [referralsTree]);
+  }, [referralsTree, profile.id]);
 
   return (
     <div className={styles.root}>
@@ -270,18 +323,19 @@ const Referrals: FC = () => {
 
                 {mappedData.childrens &&
                   mappedData.childrens.map((group: IReferralTree, idx) => (
-                    <div key={group.id} className={styles.referralGroup}>
+                    <div key={group.id || idx} className={styles.referralGroup}>
                       <ReferralUser
-                        onReferralClick={handleReferralClick}
-                        key={group.id}
                         data={group}
+                        onReferralClick={handleReferralClick}
+                        onBuyClick={handleBuyClick}
                       />
                       {group.children &&
-                        group.children.map((referral: IReferralTree) => (
+                        group.children.map((referral: IReferralTree, cidx) => (
                           <ReferralUser
-                            key={referral.id}
-                            onReferralClick={handleReferralClick}
+                            key={referral.id || cidx}
                             data={referral}
+                            onReferralClick={handleReferralClick}
+                            onBuyClick={handleBuyClick}
                             nested
                           />
                         ))}

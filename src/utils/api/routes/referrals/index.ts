@@ -32,15 +32,18 @@ export const getReferralsService = (data: {
 export const buyMatricesService = async ({
   level,
   program,
+  matrixUserId,
 }: {
   level: number;
   program: number;
+  matrixUserId: number;
 }): Promise<[{ status: number } | null, any | null]> => {
   try {
     const { data } = await instance.post(endpoints.referrals.buy, null, {
       params: {
         level,
         program,
+        matrixUserId,
       },
     });
     return [null, data];
