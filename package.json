@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config webpack.config.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build_dev": "cross-env NODE_ENV=production webpack --env SERVER=dev --config webpack.config.prod.js",
+    "build_prod": "cross-env NODE_ENV=production webpack --env SERVER=prod --config webpack.config.prod.js",
     "lint": "eslint ./src --fix --color",
     "deploy": "node scripts/deploy.js"
   },

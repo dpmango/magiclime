@@ -29,11 +29,8 @@ const devConfig = {
 
 const REMOTE_PATH = '/var/www/html';
 
-const command = `${
-  process.argv[2] === 'prod'
-    ? 'set REACT_APP_API_URL=https://magiclime.academy&&'
-    : ''
-}npm run build`;
+const command =
+  process.argv[2] === 'prod' ? 'npm run build_prod' : 'npm run build_dev';
 
 exec(command, (error, stdout, stderr) => {
   if (error) {
