@@ -8,6 +8,7 @@ const useStyles = makeStyles({
     margin: '0px 0 36px',
   },
   option: {
+    height: '100%',
     padding: '40px 24px 30px',
     borderRadius: 4,
     border: '1px solid var(--color-bg-border)',
