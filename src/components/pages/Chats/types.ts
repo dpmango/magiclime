@@ -8,8 +8,21 @@ export interface IChat {
   unreaded_count: number;
 }
 
+interface IImageMessage extends IPhoto {
+  name: string;
+  size: number;
+}
+
+interface IFileMessage {
+  readonly id: number;
+  file: string;
+  name: string;
+  size: number;
+}
+
 export interface IChatDetail extends Omit<IChat, 'last_message'> {
   participants_count: string;
+  count_of_messages: number;
 }
 
 export interface IMessage {
@@ -31,8 +44,8 @@ export interface IMessage {
       avatar: IPhoto | null;
     };
   };
-  attached_files: [];
-  attached_images: IPhoto[];
+  attached_files: IFileMessage[];
+  attached_images: IImageMessage[];
   chat: number;
   read_by_users: number[];
 }

@@ -82,9 +82,22 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '45px',
     position: 'absolute',
-    top: '5px',
     left: 0,
     transform: 'none',
+  },
+  loaderTop: {
+    top: '5px',
+  },
+  loaderBottom: {
+    top: '100%',
+  },
+  mark: {
+    width: '100%',
+    height: '1px',
+    background: 'transparent',
+    position: 'absolute',
+    left: 0,
+    top: '24px',
   },
 }));
 

@@ -54,23 +54,23 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
       });
       setChats(arr);
     },
-    [chats]
+    [chats, chatId]
   );
 
   const decreaseCount = useCallback(
-    (chatId: number) => {
+    ({ chat_id: chatId, readed }: { chat_id: number; readed: number }) => {
       const arr = chats.map((chat) => {
         if (chat.id === chatId) {
           return {
             ...chat,
-            unreaded_count: chat.unreaded_count - 1,
+            unreaded_count: chat.unreaded_count - readed,
           };
         }
         return chat;
       });
       setChats(arr);
     },
-    [chats]
+    [chats, chatId]
   );
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
     };
 
     const readListener = (data: any) => {
-      decreaseCount(data.readed);
+      decreaseCount(data);
     };
 
     socket.on('my_response', responseListener);
@@ -90,7 +90,7 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
       socket.off('my_response', responseListener);
       socket.off('read_message_event', readListener);
     };
-  }, [chats]);
+  }, [chats, chatId]);
 
   useEffect(() => {
     setLoading(true);

@@ -1,3 +1,4 @@
+import { IconDocBlank } from '@consta/uikit/IconDocBlank';
 import React, {
   FC,
   useCallback,
@@ -98,6 +99,21 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
               {message.reply_to.text}
             </Text>
           </div>
+        )}
+        {message.attached_files.length > 0 && (
+          <Flex direction="column">
+            {message.attached_files.map((file) => (
+              <div key={file.id} className={styles.file}>
+                <Button iconLeft={IconDocBlank} size="l" form="round" />
+                <div>
+                  <Text weight="semibold">{file.name}</Text>
+                  <Text view="secondary">
+                    {(file.size / 1024 / 1024).toFixed(2)} Мб
+                  </Text>
+                </div>
+              </div>
+            ))}
+          </Flex>
         )}
         {message.attached_images.length > 0 && (
           <Flex direction="column">

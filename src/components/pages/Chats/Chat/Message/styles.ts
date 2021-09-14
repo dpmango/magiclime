@@ -54,6 +54,19 @@ const useStyles = makeStyles(() => ({
     fontSize: '13px',
     marginBottom: '4px',
   },
+  file: {
+    display: 'flex',
+    padding: '16px',
+    width: '100%',
+    maxWidth: '350px',
+    alignItems: 'center',
+    borderRadius: '12px',
+    background: 'var(--color-bg-ghost)',
+    marginBottom: '10px',
+    '& > button': {
+      marginRight: '15px',
+    },
+  },
   messageImage: {
     width: '100%',
     maxWidth: '630px',

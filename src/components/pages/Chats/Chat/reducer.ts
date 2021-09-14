@@ -7,6 +7,9 @@ export type StateType = {
   messages: IMessage[];
   allMessagesCount: number;
   prevBodyHeight: number;
+  lastTopRenderPage: number;
+  lastBottomRenderPage: number;
+  lastPaginationDirection: 'top' | 'bottom' | '';
 };
 
 export type ActionType =
@@ -16,11 +19,16 @@ export type ActionType =
       messages: IMessage[];
       count: number;
     }
+  | {
+      type: 'SCROLL_TO_BOTTOM';
+      messages: IMessage[];
+    }
   | { type: 'ADD_MESSAGE'; message: IMessage }
-  | { type: 'ADD_PREV_PAGE'; messages: IMessage[] }
-  | { type: 'ADD_NEXT_PAGE'; messages: IMessage[] }
+  | { type: 'ADD_PREV_PAGE'; messages: IMessage[]; page: number }
+  | { type: 'ADD_NEXT_PAGE'; messages: IMessage[]; page: number }
   | { type: 'SET_BODY_HEIGHT'; payload: number }
-  | { type: 'SET_SCROLL'; payload: number }
+  | { type: 'SET_SCROLL'; payload: number | null }
+  | { type: 'MARK_PASSED'; payload: number }
   | { type: 'SET_CHAT'; payload: IChatDetail };
 
 export const initialState: StateType = {
@@ -30,6 +38,9 @@ export const initialState: StateType = {
   allMessagesCount: 0,
   scroll: null,
   prevBodyHeight: 0,
+  lastTopRenderPage: 0,
+  lastBottomRenderPage: 0,
+  lastPaginationDirection: '',
 };
 
 export const reducer = (state: StateType, action: ActionType): StateType => {
@@ -40,6 +51,17 @@ export const reducer = (state: StateType, action: ActionType): StateType => {
         page: action.page,
         messages: action.messages,
         allMessagesCount: action.count,
+        lastTopRenderPage: action.page,
+        lastBottomRenderPage: action.page,
+      };
+    case 'SCROLL_TO_BOTTOM':
+      return {
+        ...state,
+        page: 1,
+        messages: action.messages,
+        lastTopRenderPage: 0,
+        lastBottomRenderPage: 0,
+        lastPaginationDirection: '',
       };
     case 'ADD_MESSAGE':
       return {
@@ -51,13 +73,17 @@ export const reducer = (state: StateType, action: ActionType): StateType => {
       return {
         ...state,
         messages: [...action.messages, ...state.messages],
-        page: state.page + 1,
+        page: action.page,
+        lastTopRenderPage: state.lastTopRenderPage + 1,
+        lastPaginationDirection: 'top',
       };
     case 'ADD_NEXT_PAGE':
       return {
         ...state,
         messages: [...state.messages, ...action.messages],
-        page: state.page - 1,
+        page: action.page,
+        lastBottomRenderPage: state.lastBottomRenderPage - 1,
+        lastPaginationDirection: 'bottom',
       };
     case 'SET_BODY_HEIGHT':
       return {
@@ -68,6 +94,11 @@ export const reducer = (state: StateType, action: ActionType): StateType => {
       return {
         ...state,
         scroll: action.payload,
+      };
+    case 'MARK_PASSED':
+      return {
+        ...state,
+        page: action.payload,
       };
     case 'SET_CHAT':
       return {
