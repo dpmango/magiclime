@@ -49,4 +49,8 @@ export default {
     root: '/forum/',
     byId: (id: number | string) => `/forum/${id}/`,
   },
+  referrals: {
+    list: '/auth/users/me/referrals/',
+    buy: '/matrices/buy/',
+  },
 };

@@ -1,5 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Button } from '@consta/uikit/Button';
 
 import Typography from 'components/Common/Typography';
@@ -38,6 +39,10 @@ const ProgramCard: FC<IProps> = ({ data }) => {
 
     return `${data.referralsTotal} ${plural}`;
   }, [data.referralsTotal]);
+
+  const partnerLink = useMemo(() => {
+    return `/profile/me/partners?program=${data.id}`;
+  }, [data.id]);
 
   return (
     <Flex direction="column" className={styles.card}>
@@ -141,7 +146,9 @@ const ProgramCard: FC<IProps> = ({ data }) => {
           >
             {t('profile.programCard.blocked.title')}
           </Typography>
-          <Button size="m" label={t('profile.programCard.blocked.cta')} />
+          <Link to={partnerLink}>
+            <Button size="m" label={t('profile.programCard.blocked.cta')} />
+          </Link>
         </div>
       )}
     </Flex>
