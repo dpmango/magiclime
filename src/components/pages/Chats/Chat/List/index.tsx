@@ -1,4 +1,11 @@
-import React, { FC, memo, RefObject, useEffect, Fragment } from 'react';
+import React, {
+  FC,
+  memo,
+  RefObject,
+  useEffect,
+  Fragment,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { Socket } from 'socket.io-client';
 import { RootState } from '../../../../../store/reducers/rootReducer';
@@ -12,8 +19,8 @@ import useStyles from '../styles';
 
 interface IProps {
   messages: IMessage[];
-  page: number;
   unreadCount: number;
+  chatId: number;
   limit: number;
   scroll: number | null;
   bodyRef: RefObject<HTMLDivElement>;
@@ -22,59 +29,61 @@ interface IProps {
 
 const List: FC<IProps> = ({
   messages,
-  page,
   unreadCount,
   limit,
+  chatId,
   bodyRef,
   scroll,
   socket,
 }) => {
+  const [readMessages, setReadMessages] = useState<number[]>([]);
   const { id } = useSelector((state: RootState) => state.user.profile);
   const styles = useStyles();
-
-  // scrollTop, scrollTop + clientHeight
-  // offsetTop
 
   useEffect(() => {
     if (bodyRef.current && scroll) {
       const visibleNodes = Array.from(bodyRef.current.children)
         .filter(
           (item) =>
+            item.id &&
             (item as HTMLDivElement).offsetTop >= scroll &&
             (item as HTMLDivElement).offsetTop <=
               scroll + bodyRef.current!.clientHeight
         )
         .map((item) => +item.id.match(/\d+/)![0]);
-
-      visibleNodes.forEach((messageId) => {
-        if (
+      const unreadMessages = visibleNodes.filter((messageId) => {
+        return (
+          !readMessages.includes(messageId) &&
           messages.find(
             (msg) =>
               msg.id === messageId &&
-              msg.read_by_users.includes(id) &&
+              !msg.read_by_users.includes(id) &&
               msg.creator.id !== id
           )
-        ) {
-          socket.emit('read_message_event', { data: messageId });
-        }
+        );
       });
+      if (unreadMessages.length) {
+        setReadMessages((prev) => [...prev, ...unreadMessages]);
+        socket.emit('read_message_event', {
+          data: { messages: unreadMessages, chat_id: chatId },
+        });
+      }
     }
   }, [bodyRef.current, scroll]);
 
   return (
     <>
-      {messages.map((message) => (
+      {messages.map((message, index) => (
         <Fragment key={message.id}>
-          {/* {(array.length - index === unreadCount || */}
-          {/*  (limit < unreadCount && index === 0 && page === 1)) && ( */}
-          {/*  <Flex align="center" margin="15px 0"> */}
-          {/*    <div className={styles.line} /> */}
-          {/*    <Typography margin="0 15px" size="xs" view="secondary"> */}
-          {/*      Непрочитанные сообщения */}
-          {/*    </Typography> */}
-          {/*    <div className={styles.line} /> */}
-          {/*  </Flex> */}
-          {/* )} */}
+          {limit * Math.ceil(unreadCount / limit) - unreadCount === index && (
+            <Flex align="center" margin="15px 0">
+              <div className={styles.line} />
+              <Typography margin="0 15px" size="xs" view="secondary">
+                Непрочитанные сообщения
+              </Typography>
+              <div className={styles.line} />
+            </Flex>
+          )}
           <Message
             message={message}
             onReplyClick={(id: number) => onReplyClick(id, styles)}

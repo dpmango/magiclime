@@ -1,8 +1,10 @@
-import { Dispatch } from 'react';
+import { Dispatch, RefObject } from 'react';
 import { ClassNameMap } from '@material-ui/styles';
+import { Socket } from 'socket.io-client';
 import { DOMAIN } from '../../../../utils/api';
+import { getChatMessages } from '../../../../utils/api/routes/chat';
 import { IMessage } from '../types';
-import { ActionType } from './reducer';
+import { ActionType, StateType } from './reducer';
 
 export const renderNewMessage = (
   message: IMessage,
@@ -37,4 +39,28 @@ export const onReplyClick = (id: number, styles: ClassNameMap) => {
   }, 3000);
 };
 
-export const scrollToBottom = () => {};
+export const fixScroll = (
+  elem: HTMLDivElement,
+  mark: HTMLSpanElement,
+  dispatch: Dispatch<ActionType>,
+  state: StateType
+) => {
+  /* eslint-disable no-param-reassign */
+  elem.scrollTop = elem.scrollHeight - state.prevBodyHeight + state.scroll!;
+  mark.style.top = `${elem.scrollHeight - state.prevBodyHeight + 24}px`;
+  dispatch({ type: 'SET_BODY_HEIGHT', payload: elem.scrollHeight });
+};
+
+export const checkMark = (
+  mark: RefObject<HTMLSpanElement>,
+  state: StateType
+): boolean => {
+  if (mark.current && state.lastPaginationDirection) {
+    const top = mark.current.offsetTop;
+    return (
+      (state.scroll! <= top && state.lastPaginationDirection === 'bottom') ||
+      (state.scroll! >= top && state.lastPaginationDirection === 'top')
+    );
+  }
+  return false;
+};
