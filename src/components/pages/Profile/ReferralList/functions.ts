@@ -35,6 +35,12 @@ export const buildTree = ({
     const haveNoMain = childs.length === 0;
     const haveOneMain = childs.length === 1;
     const haveAllMain = childs.length === 2; // 2 is max by design, no need in complex loop
+    let haveAllOneFilled = false;
+    try {
+      haveAllOneFilled = childs[0].children.length === 2;
+    } catch (e) {
+      haveAllOneFilled = false;
+    }
 
     // firstly, create space wrapper for main referal based on array length
     if (haveNoMain) {
@@ -47,20 +53,31 @@ export const buildTree = ({
 
     // then append child clones if < 2 items
     childsCopy = [
-      ...childsCopy.map((x) => {
+      ...childsCopy.map((x, idx) => {
         let clones: any[] = [];
         const clone = { is_clone: true, clone_id: x.id || rootUserId };
 
-        // Если занято место 2 и 3, можно купить 4 и 5
-        // Если занято 2,3,4,5, то можно купить 6 и 7
-
         if (x.children && x.children.length === 0) {
           clones = [
-            { ...clone, clone_enabled: haveAllMain },
-            { ...clone, clone_enabled: haveAllMain },
+            {
+              ...clone,
+              clone_enabled:
+                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+            },
+            {
+              ...clone,
+              clone_enabled:
+                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+            },
           ];
         } else if (x.children && x.children.length < 2) {
-          clones = [{ ...clone, clone_enabled: haveAllMain }];
+          clones = [
+            {
+              ...clone,
+              clone_enabled:
+                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+            },
+          ];
         }
         return {
           ...x,
