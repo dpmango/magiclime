@@ -80,8 +80,8 @@ export const getAllProfile = createAsyncThunk(
   async (x, { dispatch, rejectWithValue }) => {
     try {
       dispatch(getBalance());
-      dispatch(getAchivements());
-      dispatch(getEvents());
+      // dispatch(getAchivements());
+      // dispatch(getEvents());
       return true;
     } catch (err) {
       return rejectWithValue(err.response.data);
