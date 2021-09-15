@@ -21,7 +21,7 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({
 
   const socket = useMemo(
     () =>
-      io('wss://magiclime.academy/chat', {
+      io(`${process.env.REACT_APP_API_SOCKET}/chat`, {
         auth: {
           jwt: Cookies.get('access'),
         },
