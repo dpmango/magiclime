@@ -27,6 +27,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       transform: 'translateY(-50%)',
     },
     '&::after': {
+      display: ({ clone }) => (!clone ? 'block' : 'none'),
       width: 9,
       height: 9,
       left: ({ nested }) => (nested ? 20 : -24),
@@ -34,7 +35,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderRadius: '50%',
     },
     '&::before': {
-      width: ({ nested }) => (nested ? 37 : 30),
+      width: ({ nested, clone }) => (nested ? (!clone ? 37 : 17) : 30),
       height: 1,
       left: ({ nested }) => (nested ? -18 : -52),
       borderBottom: '1px dashed var(--color-bg-border)',
@@ -97,6 +98,12 @@ const useStyles = makeStyles<null, IProps>(() => ({
   clone: {
     paddingLeft: 30,
     marginLeft: 'auto',
+  },
+  cloneFree: {
+    borderRadius: '50%',
+    border: '1px solid var(--color-bg-border)',
+    width: 32,
+    height: 32,
   },
 }));
 
