@@ -16,4 +16,5 @@ export interface IReferralTree {
   ancestors?: IAncestor[];
   is_clone?: boolean;
   clone_id?: number;
+  clone_enabled?: boolean;
 }
