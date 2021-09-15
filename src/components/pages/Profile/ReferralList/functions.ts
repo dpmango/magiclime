@@ -60,29 +60,23 @@ export const buildTree = ({
     childsCopy = [
       ...childsCopy.map((x, mainIdx) => {
         let clones: any[] = [];
-        const clone = { is_clone: true, clone_id: x.id || rootUserId };
+        const clone = {
+          is_clone: true,
+          clone_id: x.id || rootUserId,
+          clone_enabled: mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
+        };
 
         if (x.children && x.children.length === 0) {
           clones = [
             {
               ...clone,
               clone_enabled:
-                mainIdx === 0 ? childs.length > 0 : haveAnyOneFilled,
+                mainIdx === 0 ? childs.length > 0 : childs.length > 1,
             },
-            {
-              ...clone,
-              clone_enabled:
-                mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
-            },
+            clone,
           ];
         } else if (x.children && x.children.length < 2) {
-          clones = [
-            {
-              ...clone,
-              clone_enabled:
-                mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
-            },
-          ];
+          clones = [clone];
         }
         return {
           ...x,
