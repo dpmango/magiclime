@@ -1,4 +1,4 @@
-import { IUserRating } from 'types/interfaces/rating';
+import { IUserRating } from 'components/pages/Rating/types';
 
 export const list: IUserRating[] = [
   {

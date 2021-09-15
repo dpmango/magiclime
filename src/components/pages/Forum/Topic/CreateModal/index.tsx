@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, FormikHelpers } from 'formik';
@@ -12,6 +13,9 @@ import BaseModal from 'components/Common/BaseModal';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
+import { RootState } from '../../../../../store/reducers/rootReducer';
+import { createTopic } from '../../../../../utils/api/routes/forum';
+import { ITopicListItem } from '../../types';
 
 import useStyles from './styles';
 
@@ -35,23 +39,31 @@ const themeSelectList: SelectItem[] = [
   },
 ];
 
-const CreateForum: FC = () => {
+interface IProps {
+  topicId: string;
+  addTopic: (item: ITopicListItem) => void;
+}
+
+const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
+  const { name, avatar } = useSelector(
+    (state: RootState) => state.user.profile
+  );
 
   const { t } = useTranslation();
 
   const initialValues = {
-    question: '',
-    theme: themeSelectList[0],
+    description: '',
+    name: themeSelectList[0],
   };
 
-  const handleSubmit = (
-    values: typeof initialValues,
-    { resetForm }: FormikHelpers<typeof initialValues>
-  ) => {
-    // TODO - api things
-    resetForm();
+  const handleSubmit = (values: typeof initialValues) => {
+    const data = { ...values, name: values.name.label };
+    createTopic(topicId, data).then((res) => {
+      addTopic(res.data);
+      setModalOpen(false);
+    });
   };
 
   const schema = Yup.object({
@@ -81,16 +93,16 @@ const CreateForum: FC = () => {
                 <Form>
                   <Flex align="center" wrap="wrap" className={styles.topline}>
                     <Flex align="center" className={styles.formUser}>
-                      <Avatar name="User name" />
+                      <Avatar name={name} url={avatar ? avatar.image : ''} />
                       <Typography margin="0 0 0 8px" size="m" lineHeight="xs">
-                        User name
+                        {name}
                       </Typography>
                     </Flex>
                     <div className={styles.formSelect}>
                       <FormikSelect
                         items={themeSelectList}
                         placeholder="Выберите тему"
-                        name="theme"
+                        name="name"
                         isRequired={false}
                       />
                     </div>
@@ -100,7 +112,7 @@ const CreateForum: FC = () => {
                     <FormikTextarea
                       label={t('forum.create.question.label')}
                       placeholder={t('forum.create.question.placeholder')}
-                      name="question"
+                      name="description"
                       rows={5}
                     />
                     <Flex margin="24px 0 0" justify="flex-end">

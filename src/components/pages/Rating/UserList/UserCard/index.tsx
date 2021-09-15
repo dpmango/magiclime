@@ -5,7 +5,7 @@ import { Avatar } from '@consta/uikit/Avatar';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import ContaIcons from 'assets/icons/ConstaIcons';
-import { IUserRating } from 'types/interfaces/rating';
+import { IUserRating } from 'components/pages/Rating/types';
 import { Plurize } from 'utils/helpers/plurize';
 
 import useStyles from './styles';
@@ -79,7 +79,7 @@ const UserRatingCard: FC<IProps> = ({ data, view = 'default' }) => {
             {data.league && <img src="/images/program-gold.svg" alt="лига" />}
 
             <Typography margin="0 0 0 6px" size="s">
-              {data.league} TODO лига
+              {data.league} лига
             </Typography>
           </Flex>
 

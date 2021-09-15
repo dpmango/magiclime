@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
+import debounce from 'lodash/debounce';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import ConstaIcons from '../../../../assets/icons/ConstaIcons';
+import { SetStateType } from '../../../../types/common';
+import { ChangeTracker } from '../../../Common/Controls/Formik/ChangeTracker';
+import FormikInput from '../../../Common/Controls/Formik/Input';
 
 import useStyles from './styles';
 
@@ -12,7 +16,9 @@ interface ICategory {
   name: string;
 }
 
-const Filters: FC = () => {
+const Filters: FC<{
+  setFilters: SetStateType<{ username: string; league: number[] }>;
+}> = ({ setFilters }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -22,47 +28,46 @@ const Filters: FC = () => {
     { id: 3, name: 'Управление' },
   ] as ICategory[];
 
+  const handleSubmit = debounce(
+    (values: { username: string; league: number[] }) => {
+      setFilters(values);
+    },
+    400
+  );
+
   return (
     <>
       <Formik
         validateOnChange
         initialValues={{
-          search: '',
-          categories: [],
+          username: '',
+          league: [],
         }}
         enableReinitialize
-        onSubmit={(data) => {
-          // eslint-disable-next-line no-console
-          console.log(data);
-        }}
+        onSubmit={handleSubmit}
       >
-        {({ values, setFieldValue }) => (
-          <Form>
-            <div className={styles.formBlock}>
-              <Field
-                placeholder={t('rating.filter.searchPlaceholder')}
-                name="search"
-                component={TextField}
-                rightSide={ConstaIcons.Search}
-                value={values.search}
-                onChange={({ value }: { value: string }) =>
-                  setFieldValue('search', value)
-                }
-              />
-            </div>
+        <Form>
+          <ChangeTracker />
+          <div className={styles.formBlock}>
+            <Field
+              placeholder={t('rating.filter.searchPlaceholder')}
+              name="username"
+              component={FormikInput}
+              rightSide={ConstaIcons.Search}
+            />
+          </div>
 
-            <div className={styles.formBlock}>
-              <FormikCheckboxGroup
-                label={t('rating.filter.leagues')}
-                name="categories"
-                items={categories}
-                direction="column"
-                getLabel={(item) => (item as ICategory).name}
-                className={styles.group}
-              />
-            </div>
-          </Form>
-        )}
+          <div className={styles.formBlock}>
+            <FormikCheckboxGroup
+              label={t('rating.filter.leagues')}
+              name="categories"
+              items={categories}
+              direction="column"
+              getLabel={(item) => (item as ICategory).name}
+              className={styles.group}
+            />
+          </div>
+        </Form>
       </Formik>
     </>
   );

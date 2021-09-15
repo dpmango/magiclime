@@ -15,7 +15,7 @@ export interface IUser {
   faculty: string;
   educational_program: string;
   education_level: string;
-  avatar: IPhoto;
+  avatar: IPhoto | null;
   sound: boolean;
   animation: boolean;
   listening: boolean;
