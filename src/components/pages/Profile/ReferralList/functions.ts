@@ -20,9 +20,9 @@ export const buildTree = ({
   const withClones = (childs: IReferralTree[]) => {
     const rootUserId = referralsTree && referralsTree.user_id;
 
-    if (profileId !== rootUserId) {
-      return childs;
-    }
+    // if (profileId !== rootUserId) {
+    //   return childs;
+    // }
 
     let childsCopy = childs;
     const mainClone = {
@@ -62,7 +62,7 @@ export const buildTree = ({
         let clones: any[] = [];
         const clone = {
           is_clone: true,
-          clone_id: x.id || rootUserId,
+          clone_id: x.id || referralsTree.id,
           clone_enabled: mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
         };
 

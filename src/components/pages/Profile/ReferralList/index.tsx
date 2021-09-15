@@ -60,6 +60,7 @@ const Referrals: FC = () => {
   const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
   );
+  const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -147,6 +148,8 @@ const Referrals: FC = () => {
     (page: ICrumbsPage, e: MouseEvent): void => {
       e.preventDefault();
 
+      setSavedUsedId(page.link);
+
       requestReferrals({
         id: page.link,
         program: filterProgram.id,
@@ -158,6 +161,8 @@ const Referrals: FC = () => {
 
   const handleReferralClick = useCallback(
     (id: number): void => {
+      setSavedUsedId(id);
+
       requestReferrals({
         id,
         program: filterProgram.id,
@@ -184,8 +189,8 @@ const Referrals: FC = () => {
         matrixUserId: id,
       });
 
-      if (err) {
-        if (err!.status === 400) {
+      if (err || !res) {
+        if (err && err!.status === 400) {
           toast.error(t('profile.referral.buy.toast.error400'));
         } else {
           toast.error(t('profile.referral.buy.toast.error500'));
@@ -197,14 +202,14 @@ const Referrals: FC = () => {
 
       toast.success(t('profile.referral.buy.toast.success'));
       requestReferrals({
-        id: params.id,
+        id: savedUserId || params.id,
         program: filterProgram.id,
         level: selectedLevel,
       });
 
       setBuyProcessing(false);
     },
-    [selectedLevel, filterProgram, params.id]
+    [selectedLevel, filterProgram, params.id, savedUserId]
   );
 
   // main data getter
@@ -270,15 +275,15 @@ const Referrals: FC = () => {
               >
                 {error}
               </Typography>
+
+              <div className={styles.cta}>
+                <Button
+                  onClick={() => handleBuyClick()}
+                  label={t('profile.referral.buy.cta')}
+                />
+              </div>
             </>
           )}
-
-          <div className={styles.cta}>
-            <Button
-              onClick={() => handleBuyClick()}
-              label={t('profile.referral.buy.cta')}
-            />
-          </div>
 
           {loading && (
             <div className={sharedStyles.loader}>
