@@ -51,7 +51,7 @@ const PorifleHeadUploader: FC = () => {
       // limit mime
       if (uploader.allowedMime) {
         if (!uploader.allowedMime.includes(file.type.split('/')[0])) {
-          toast(t('profile.head.uploader.mimeLocked'));
+          toast.error(t('profile.head.uploader.mimeLocked'));
           clearInput(e.target);
           return false;
         }
@@ -62,7 +62,7 @@ const PorifleHeadUploader: FC = () => {
         const sizeInMb = bytesToMegaBytes(file.size);
 
         if (sizeInMb > uploader.maxSize) {
-          toast(
+          toast.error(
             `${t('profile.head.uploader.limitSize')} ${uploader.maxSize}Мб`
           );
           clearInput(e.target);
@@ -82,10 +82,10 @@ const PorifleHeadUploader: FC = () => {
         updateProfileAvatar({
           file,
           successCallback: () => {
-            toast(t('profile.head.uploader.success'));
+            toast.success(t('profile.head.uploader.success'));
           },
           errorCallback: (message: string) => {
-            toast(t('profile.head.uploader.error'));
+            toast.error(t('profile.head.uploader.error'));
           },
         })
       );

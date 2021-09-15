@@ -57,10 +57,12 @@ const Referrals: FC = () => {
   );
   const [selectedLevel, setSelectedLevels] = useState<number>(1);
   const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
+  const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
+  const [urlId, setUrlId] = useState<number | string | null>(null);
+
   const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
   );
-  const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -102,6 +104,7 @@ const Referrals: FC = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const program = urlParams.get('program');
     const level = urlParams.get('level');
+    const id = urlParams.get('id');
 
     if (program) {
       const targetProgramOption = programOptions.find(
@@ -115,6 +118,10 @@ const Referrals: FC = () => {
 
     if (level) {
       setSelectedLevels(parseInt(level, 10));
+    }
+
+    if (id) {
+      setUrlId(parseInt(id, 10));
     }
   }, []);
 
@@ -142,16 +149,17 @@ const Referrals: FC = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const idParam = urlParams.get('id');
+      const { id } = params;
+
+      // if (urlId) {
+      //   id = urlId;
+      // }
 
       await requestReferrals({
-        id: idParam || params.id,
+        id,
         program: filterProgram.id,
         level: selectedLevel,
       });
-
-      urlParams.delete('id');
     };
     fetch();
   }, [selectedLevel, filterProgram, params.id]);

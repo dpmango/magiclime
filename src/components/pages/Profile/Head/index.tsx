@@ -9,6 +9,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { IUser } from 'types/interfaces/user';
 import { RootState } from 'store/reducers/rootReducer';
+import { copyToClipboard } from 'utils/helpers/clipboard';
 
 import Uploader from './Uploader';
 import BalanceWidget from '../Balance/BalanceWidget';
@@ -29,25 +30,11 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
     (e) => {
       e.preventDefault();
 
-      // TODO - should be changed to some library ?
-      const textArea = document.createElement('textarea');
-      textArea.value = `https://magiclime.academy/?ref=${profile.referral_number}`;
-      textArea.style.opacity = '0';
-      textArea.style.position = 'absolute';
-      textArea.style.top = '0';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-
-      try {
-        const successful = document.execCommand('copy');
-        const msg = successful ? 'successful' : 'unsuccessful';
-        toast(t('profile.head.copySuccess'));
-      } catch (err) {
-        toast(`${t('profile.head.copyError')} : ${err.message}`);
-      }
-
-      document.body.removeChild(textArea);
+      copyToClipboard(
+        `https://magiclime.academy/?ref=${profile.referral_number}`,
+        t('profile.head.copySuccess'),
+        t('profile.head.copyError')
+      );
     },
     [profile.referral_number]
   );

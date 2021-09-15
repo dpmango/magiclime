@@ -10,6 +10,7 @@ import { IUser } from 'types/interfaces/user';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
+import { copyToClipboard } from 'utils/helpers/clipboard';
 // import { Button } from '@consta/uikit/Button';
 
 import useStyles from './styles';
@@ -24,30 +25,17 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
   const { t } = useTranslation();
 
   const { balance } = useSelector((state: RootState) => state.profile);
+  // const { referralsTree } = useSelector((state: RootState) => state.referrals);
 
   const handleCopyRefClick = useCallback(
     (e) => {
       e.preventDefault();
 
-      // TODO - should be changed to some library ?
-      const textArea = document.createElement('textarea');
-      textArea.value = `https://magiclime.academy/?ref=${profile.referral_number}`;
-      textArea.style.opacity = '0';
-      textArea.style.position = 'absolute';
-      textArea.style.top = '0';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-
-      try {
-        const successful = document.execCommand('copy');
-        const msg = successful ? 'successful' : 'unsuccessful';
-        toast(t('profile.head.copySuccess'));
-      } catch (err) {
-        console.log(`${t('profile.head.copyError')} : ${err.message}`);
-      }
-
-      document.body.removeChild(textArea);
+      copyToClipboard(
+        `https://magiclime.academy/?ref=${profile.referral_number}`,
+        t('profile.head.copySuccess'),
+        t('profile.head.copyError')
+      );
     },
     [profile.referral_number]
   );

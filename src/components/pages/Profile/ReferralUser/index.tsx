@@ -1,6 +1,5 @@
 import React, { FC, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
 import { IconCopy } from '@consta/uikit/IconCopy';
@@ -9,6 +8,7 @@ import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Plurize } from 'utils/helpers/plurize';
+import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IReferralTree } from 'types/interfaces/referrals';
 
 import useStyles from './styles';
@@ -44,6 +44,12 @@ const ReferralUser: FC<IProps> = ({
     (e) => {
       e.preventDefault();
       e.stopPropagation();
+
+      copyToClipboard(
+        `https://magiclime.academy/profile/me/partners/?id=${id}`,
+        t('profile.referral.card.copySuccess'),
+        t('profile.referral.card.copyError')
+      );
     },
     [id]
   );
@@ -123,7 +129,7 @@ const ReferralUser: FC<IProps> = ({
 
       {!is_clone ? (
         <>
-          <div className={styles.referralLevel}>
+          <div className={styles.referralLevel} onClick={handleCopyRefClick}>
             <Flex align="center">
               <Typography
                 margin="0 6px 0 0"
@@ -146,7 +152,7 @@ const ReferralUser: FC<IProps> = ({
               </Typography>
             )}
           </div>
-          <div className={styles.referralCount} onClick={handleCopyRefClick}>
+          <div className={styles.referralCount}>
             <Typography
               size={root ? 'l' : 's'}
               view={root ? 'primary' : 'secondary'}

@@ -59,7 +59,7 @@ const CoursesList: FC<IProps> = ({ data }) => {
       toast.error(t('course.buy.error'));
       return;
     }
-    toast(t('course.buy.success'));
+    toast.success(t('course.buy.success'));
     history.push(`/courses/${modalState.id}`);
 
     setModalState({

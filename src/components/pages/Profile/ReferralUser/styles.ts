@@ -91,12 +91,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
     flex: '0 0 12%',
     paddingRight: 12,
     cursor: 'pointer',
-    transition: 'color .25s ease-in-out',
     '& .Icon': {
       color: '#C7CFCE',
+      transition: 'color .25s ease-in-out',
     },
     '&:hover': {
-      color: 'var(--color-typo-brand)',
+      '& .Icon': {
+        color: 'var(--color-typo-brand)',
+      },
     },
   },
   referralCount: {
