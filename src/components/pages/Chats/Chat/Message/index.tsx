@@ -106,7 +106,9 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
               <div key={file.id} className={styles.file}>
                 <Button iconLeft={IconDocBlank} size="l" form="round" />
                 <div>
-                  <Text weight="semibold">{file.name}</Text>
+                  <Text weight="semibold" className={styles.fileName}>
+                    {file.name}
+                  </Text>
                   <Text view="secondary">
                     {(file.size / 1024 / 1024).toFixed(2)} Мб
                   </Text>

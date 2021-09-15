@@ -32,27 +32,31 @@ const Panel: FC<IProps> = ({ chatId, socket }) => {
   const styles = useStyles();
 
   const submitMessage = () => {
-    const reply = chatContext.replyMessage ? chatContext.replyMessage.id : null;
-    const attached_files = files
-      .filter((item) => item.hasOwnProperty('file'))
-      .map((file) => file.id);
-    const attached_images = files
-      .filter((item) => item.hasOwnProperty('image'))
-      .map((img) => img.id);
+    if (message.trim() || !!files.length) {
+      const reply = chatContext.replyMessage
+        ? chatContext.replyMessage.id
+        : null;
+      const attached_files = files
+        .filter((item) => item.hasOwnProperty('file'))
+        .map((file) => file.id);
+      const attached_images = files
+        .filter((item) => item.hasOwnProperty('image'))
+        .map((img) => img.id);
 
-    socket.emit('my_room_event', {
-      room: chatId.toString(),
-      data: JSON.stringify({
-        text: message,
-        reply_to_id: reply,
-        attached_files,
-        attached_images,
-      }),
-    });
+      socket.emit('my_room_event', {
+        room: chatId.toString(),
+        data: JSON.stringify({
+          text: message,
+          reply_to_id: reply,
+          attached_files,
+          attached_images,
+        }),
+      });
 
-    setMessage('');
-    if (files.length > 0) setFiles([]);
-    if (reply) setChatContext({ ...chatContext, replyMessage: null });
+      setMessage('');
+      if (files.length > 0) setFiles([]);
+      if (reply) setChatContext({ ...chatContext, replyMessage: null });
+    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {

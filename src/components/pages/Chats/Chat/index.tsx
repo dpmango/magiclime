@@ -45,11 +45,11 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
   const LIMIT = useMemo(() => {
     if (chatId && ref.current) {
       const height = ref.current.clientHeight;
-      if (height < 500) return 5;
-      if (height < 750) return 10;
-      return 15;
+      if (height < 500) return 20;
+      if (height < 750) return 30;
+      return 50;
     }
-    return 5;
+    return 20;
   }, [chatId, ref.current]);
 
   const scrollToBottom = () => {
@@ -76,7 +76,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
   useEffect(() => {
     const listener = (msg: any) => {
       if (msg.data && msg.data.id) {
-        renderNewMessage(msg.data, dispatch);
+        renderNewMessage(msg.data, dispatch, ref.current);
       }
     };
 
@@ -171,7 +171,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
       const elem = ref.current;
       if (!state.chat.unreaded_count) {
         setTimeout(() => {
-          elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+          elem.scrollTop = elem.scrollHeight;
           dispatch({ type: 'SET_SCROLL', payload: null });
         }, 0);
       } else {
@@ -180,13 +180,15 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
           state.chat.unreaded_count,
           state.allMessagesCount
         );
-        const firstUnread = elem.children[firstIndex] as HTMLDivElement;
+        const firstUnread = Array.from(elem.children).filter(
+          (item) => !!item.id
+        )[firstIndex] as HTMLDivElement;
         if (firstUnread.offsetTop > elem.clientHeight) {
           elem.scrollTop =
             firstUnread.offsetTop -
             elem.clientHeight +
             firstUnread.clientHeight +
-            36;
+            56;
         }
       }
       dispatch({ type: 'SET_BODY_HEIGHT', payload: elem.scrollHeight });
@@ -220,10 +222,9 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
         {/* )} */}
       </div>
       {ref.current &&
-        (state.page !== 1 ||
-          (state.scroll !== null &&
-            state.scroll + 200 <=
-              ref.current!.scrollHeight - ref.current!.clientHeight)) && (
+        state.scroll !== null &&
+        state.scroll + 200 <=
+          ref.current!.scrollHeight - ref.current!.clientHeight && (
           <Button
             view="primary"
             form="round"

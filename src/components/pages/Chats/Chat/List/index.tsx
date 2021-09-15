@@ -38,19 +38,19 @@ const List: FC<IProps> = ({
   allMessagesCount,
 }) => {
   const [readMessages, setReadMessages] = useState<number[]>([]);
-  const [unread, setUnread] = useState(unreadCount);
   const { id } = useSelector((state: RootState) => state.user.profile);
   const styles = useStyles();
 
   useEffect(() => {
-    if (bodyRef.current && scroll && !!unread) {
+    if (bodyRef.current && !!unreadCount && readMessages.length < unreadCount) {
+      const notNullScroll = scroll === null ? 0 : scroll;
       const visibleNodes = Array.from(bodyRef.current.children)
         .filter(
           (item) =>
             item.id &&
-            (item as HTMLDivElement).offsetTop >= scroll &&
+            (item as HTMLDivElement).offsetTop >= notNullScroll &&
             (item as HTMLDivElement).offsetTop <=
-              scroll + bodyRef.current!.clientHeight
+              notNullScroll + bodyRef.current!.clientHeight
         )
         .map((item) => +item.id.match(/\d+/)![0]);
       const unreadMessages = visibleNodes.filter((messageId) => {
@@ -65,18 +65,16 @@ const List: FC<IProps> = ({
         );
       });
       if (unreadMessages.length) {
-        const firstId =
-          messages[getFirstUnreadIndex(limit, unread, allMessagesCount)].id;
+        const firstId = readMessages[readMessages.length - 1];
         let arr: number[] = [];
-        console.log(firstId, unreadMessages);
-        if (firstId === unreadMessages[0]) arr = arr.concat(unreadMessages);
-        else {
+        if (!firstId) {
+          arr = arr.concat(unreadMessages);
+        } else {
           const newIndexes = Array.from({
-            length: unreadMessages[0] - firstId,
-          }).map((item, index) => firstId + index);
-          arr = arr.concat(newIndexes, unreadMessages);
+            length: unreadMessages[unreadMessages.length - 1] - firstId,
+          }).map((item, index) => firstId + index + 1);
+          arr = arr.concat(newIndexes);
         }
-        setUnread((prev) => prev - arr.length);
         setReadMessages((prev) => [...prev, ...arr]);
         socket.emit('read_message_event', {
           data: { messages: arr, chat_id: chatId },
