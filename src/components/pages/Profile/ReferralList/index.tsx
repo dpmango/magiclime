@@ -60,6 +60,7 @@ const Referrals: FC = () => {
   const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
   );
+  const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
 
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -100,6 +101,7 @@ const Referrals: FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const program = urlParams.get('program');
+    const level = urlParams.get('level');
 
     if (program) {
       const targetProgramOption = programOptions.find(
@@ -110,11 +112,15 @@ const Referrals: FC = () => {
         setFilterProgram(targetProgramOption);
       }
     }
+
+    if (level) {
+      setSelectedLevels(parseInt(level, 10));
+    }
   }, []);
 
   // api actions
   const requestReferrals = useCallback(
-    ({
+    async ({
       id,
       program,
       level,
@@ -123,7 +129,7 @@ const Referrals: FC = () => {
       program: number;
       level: number;
     }) => {
-      dispatch(
+      await dispatch(
         getReferrals({
           id,
           program,
@@ -135,17 +141,27 @@ const Referrals: FC = () => {
   );
 
   useEffect(() => {
-    requestReferrals({
-      id: params.id,
-      program: filterProgram.id,
-      level: selectedLevel,
-    });
+    const fetch = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const idParam = urlParams.get('id');
+
+      await requestReferrals({
+        id: idParam || params.id,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+
+      urlParams.delete('id');
+    };
+    fetch();
   }, [selectedLevel, filterProgram, params.id]);
 
   // click handlers
   const handleBreadcrumbClick = useCallback(
     (page: ICrumbsPage, e: MouseEvent): void => {
       e.preventDefault();
+
+      setSavedUsedId(page.link);
 
       requestReferrals({
         id: page.link,
@@ -158,6 +174,8 @@ const Referrals: FC = () => {
 
   const handleReferralClick = useCallback(
     (id: number): void => {
+      setSavedUsedId(id);
+
       requestReferrals({
         id,
         program: filterProgram.id,
@@ -184,8 +202,8 @@ const Referrals: FC = () => {
         matrixUserId: id,
       });
 
-      if (err) {
-        if (err!.status === 400) {
+      if (err || !res) {
+        if (err && err!.status === 400) {
           toast.error(t('profile.referral.buy.toast.error400'));
         } else {
           toast.error(t('profile.referral.buy.toast.error500'));
@@ -196,15 +214,15 @@ const Referrals: FC = () => {
       }
 
       toast.success(t('profile.referral.buy.toast.success'));
-      requestReferrals({
-        id: params.id,
+      await requestReferrals({
+        id: savedUserId || params.id,
         program: filterProgram.id,
         level: selectedLevel,
       });
 
       setBuyProcessing(false);
     },
-    [selectedLevel, filterProgram, params.id]
+    [selectedLevel, filterProgram, params.id, savedUserId]
   );
 
   // main data getter
@@ -270,15 +288,15 @@ const Referrals: FC = () => {
               >
                 {error}
               </Typography>
+
+              <div className={styles.cta}>
+                <Button
+                  onClick={() => handleBuyClick()}
+                  label={t('profile.referral.buy.cta')}
+                />
+              </div>
             </>
           )}
-
-          <div className={styles.cta}>
-            <Button
-              onClick={() => handleBuyClick()}
-              label={t('profile.referral.buy.cta')}
-            />
-          </div>
 
           {loading && (
             <div className={sharedStyles.loader}>

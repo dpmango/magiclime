@@ -22,7 +22,12 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
       }
       return response.data;
     } catch (err) {
-      dispatch(setError(err.data[0]));
+      dispatch(
+        // todo - locale should be defined on backend
+        setError(
+          'Этот пользователь не покупал позиции на выбранном уровне матрицы'
+        )
+      );
       return rejectWithValue(err.response.data);
     }
   }
