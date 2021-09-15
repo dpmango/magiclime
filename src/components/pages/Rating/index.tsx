@@ -1,21 +1,29 @@
-import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom';
-import { useFirstRender } from 'hooks/useFirstRender';
+import React, { FC, useEffect, useState } from 'react';
 import Typography from 'components/Common/Typography';
 
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { useTranslation } from 'react-i18next';
+import { getRating } from '../../../utils/api/routes/rating';
+import { IUserRating } from './types';
 
 import UserList from './UserList';
 import FilterList from './FilterList';
 import useStyles from './styles';
 
 const RatingPage: FC = () => {
+  const [usersRating, setUsersRating] = useState<IUserRating[]>([]);
+  const [filters, setFilters] = useState({
+    username: '',
+    league: [] as number[],
+  });
   const styles = useStyles();
-  const { path } = useRouteMatch();
-  const history = useHistory();
-  const firstRender = useFirstRender();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    getRating(filters.username).then((res) => {
+      setUsersRating(res.data.results);
+    });
+  }, [filters]);
 
   return (
     <div className={styles.root}>
@@ -25,10 +33,10 @@ const RatingPage: FC = () => {
 
       <Grid cols="4" gap="xl" className={styles.content}>
         <GridItem col="3">
-          <UserList />
+          <UserList rating={usersRating} />
         </GridItem>
         <GridItem col="1">
-          <FilterList />
+          <FilterList setFilters={setFilters} />
         </GridItem>
       </Grid>
     </div>
