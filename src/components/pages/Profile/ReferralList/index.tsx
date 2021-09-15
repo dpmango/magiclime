@@ -101,6 +101,7 @@ const Referrals: FC = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const program = urlParams.get('program');
+    const level = urlParams.get('level');
 
     if (program) {
       const targetProgramOption = programOptions.find(
@@ -111,11 +112,15 @@ const Referrals: FC = () => {
         setFilterProgram(targetProgramOption);
       }
     }
+
+    if (level) {
+      setSelectedLevels(parseInt(level, 10));
+    }
   }, []);
 
   // api actions
   const requestReferrals = useCallback(
-    ({
+    async ({
       id,
       program,
       level,
@@ -124,7 +129,7 @@ const Referrals: FC = () => {
       program: number;
       level: number;
     }) => {
-      dispatch(
+      await dispatch(
         getReferrals({
           id,
           program,
@@ -136,11 +141,19 @@ const Referrals: FC = () => {
   );
 
   useEffect(() => {
-    requestReferrals({
-      id: params.id,
-      program: filterProgram.id,
-      level: selectedLevel,
-    });
+    const fetch = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const idParam = urlParams.get('id');
+
+      await requestReferrals({
+        id: idParam || params.id,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+
+      urlParams.delete('id');
+    };
+    fetch();
   }, [selectedLevel, filterProgram, params.id]);
 
   // click handlers
@@ -201,7 +214,7 @@ const Referrals: FC = () => {
       }
 
       toast.success(t('profile.referral.buy.toast.success'));
-      requestReferrals({
+      await requestReferrals({
         id: savedUserId || params.id,
         program: filterProgram.id,
         level: selectedLevel,
