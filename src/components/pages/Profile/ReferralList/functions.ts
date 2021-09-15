@@ -32,28 +32,33 @@ export const buildTree = ({
       children: [],
     };
 
-    const haveNoMain = childs.length === 0;
-    const haveOneMain = childs.length === 1;
-    const haveAllMain = childs.length === 2; // 2 is max by design, no need in complex loop
-    let haveAllOneFilled = false;
+    let haveAnyOneFilled = false;
+    let haveAnyTwoFilled = false;
+
     try {
-      haveAllOneFilled = childs[0].children.length === 2;
+      haveAnyOneFilled = childs[0].children.length > 0;
     } catch (e) {
-      haveAllOneFilled = false;
+      haveAnyOneFilled = false;
+    }
+
+    try {
+      haveAnyTwoFilled = childs[1].children.length > 0;
+    } catch (e) {
+      haveAnyTwoFilled = false;
     }
 
     // firstly, create space wrapper for main referal based on array length
-    if (haveNoMain) {
+    if (childs.length === 0) {
       childsCopy = [{ ...mainClone, clone_enabled: true }, mainClone];
     }
 
-    if (haveOneMain) {
+    if (childs.length === 1) {
       childsCopy = [...childsCopy, { ...mainClone, clone_enabled: true }];
     }
 
     // then append child clones if < 2 items
     childsCopy = [
-      ...childsCopy.map((x, idx) => {
+      ...childsCopy.map((x, mainIdx) => {
         let clones: any[] = [];
         const clone = { is_clone: true, clone_id: x.id || rootUserId };
 
@@ -62,12 +67,12 @@ export const buildTree = ({
             {
               ...clone,
               clone_enabled:
-                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+                mainIdx === 0 ? childs.length > 0 : haveAnyOneFilled,
             },
             {
               ...clone,
               clone_enabled:
-                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+                mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
             },
           ];
         } else if (x.children && x.children.length < 2) {
@@ -75,7 +80,7 @@ export const buildTree = ({
             {
               ...clone,
               clone_enabled:
-                haveAllMain && (idx === 1 ? haveAllOneFilled : true),
+                mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
             },
           ];
         }
