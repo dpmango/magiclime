@@ -1,12 +1,14 @@
 import React, { FC, useMemo } from 'react';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
+import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
-import { Plurize } from 'utils/helpers/plurize';
-import { useTranslation } from 'react-i18next';
 
+import ContaIcons from 'assets/icons/ConstaIcons';
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import { Plurize } from 'utils/helpers/plurize';
 import { IReferralTree } from 'types/interfaces/referrals';
+
 import useStyles from './styles';
 
 interface IProps {
@@ -53,15 +55,33 @@ const ReferralUser: FC<IProps> = ({
       onClick={() => !is_clone && onReferralClick && onReferralClick(id || 0)}
     >
       <Flex align="center" className={styles.referralUser}>
-        <Avatar
-          url={avatar && avatar.image ? avatar.image : ''}
-          name={username}
-          className={styles.referralAvatar}
-        />
+        {!is_clone ? (
+          <Avatar
+            url={avatar && avatar.image ? avatar.image : ''}
+            name={username}
+            className={styles.referralAvatar}
+          />
+        ) : (
+          <Flex align="center" justify="center" className={styles.cloneFree}>
+            <ContaIcons.Plus size="s" view="brand" />
+          </Flex>
+        )}
+
         <div className={styles.referralUserWrapper}>
-          <Typography weight="semibold" lineHeight="s" size={root ? 'xl' : 'm'}>
-            {username || 'empty'}
-          </Typography>
+          {!is_clone ? (
+            <Typography
+              weight="semibold"
+              lineHeight="s"
+              size={root ? 'xl' : 'm'}
+            >
+              {username}
+            </Typography>
+          ) : (
+            <Typography lineHeight="s" view="brand" size={root ? 'xl' : 'm'}>
+              {t('profile.referral.buy.free')}
+            </Typography>
+          )}
+
           {root && (
             <Typography
               size="xs"
@@ -75,36 +95,23 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      {is_clone && clone_enabled ? (
-        <div className={styles.clone}>
-          <Button
-            size="s"
-            form="round"
-            onClick={() => onBuyClick && onBuyClick(clone_id || 0)}
-            label={t('profile.referral.buy.cta')}
-          />
-        </div>
-      ) : (
+      <div className={styles.referralBl}>
+        <Typography
+          size={root ? 'l' : 's'}
+          view={root ? 'brand' : 'primary'}
+          weight={root ? 'semibold' : 'regular'}
+        >
+          TODO BL
+        </Typography>
+        {root && (
+          <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
+            {t('profile.referral.card.gain')}
+          </Typography>
+        )}
+      </div>
+
+      {!is_clone ? (
         <>
-          <div className={styles.referralBl}>
-            <Typography
-              size={root ? 'l' : 's'}
-              view={root ? 'brand' : 'primary'}
-              weight={root ? 'semibold' : 'regular'}
-            >
-              TODO BL
-            </Typography>
-            {root && (
-              <Typography
-                size="xs"
-                margin="6px 0 0"
-                weight="semibold"
-                view="ghost"
-              >
-                {t('profile.referral.card.gain')}
-              </Typography>
-            )}
-          </div>
           <div className={styles.referralLevel}>
             <Typography size={root ? 'l' : 's'}>level</Typography>
             {root && (
@@ -134,6 +141,18 @@ const ReferralUser: FC<IProps> = ({
             )}
           </div>
         </>
+      ) : (
+        <div className={styles.clone}>
+          {clone_enabled && (
+            <Button
+              size="s"
+              view="primary"
+              form="round"
+              onClick={() => onBuyClick && onBuyClick(clone_id || 0)}
+              label={t('profile.referral.buy.cta')}
+            />
+          )}
+        </div>
       )}
     </Flex>
   );
