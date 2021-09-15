@@ -75,14 +75,16 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      {is_clone && clone_enabled ? (
+      {is_clone ? (
         <div className={styles.clone}>
-          <Button
-            size="s"
-            form="round"
-            onClick={() => onBuyClick && onBuyClick(clone_id || 0)}
-            label={t('profile.referral.buy.cta')}
-          />
+          {clone_enabled && (
+            <Button
+              size="s"
+              form="round"
+              onClick={() => onBuyClick && onBuyClick(clone_id || 0)}
+              label={t('profile.referral.buy.cta')}
+            />
+          )}
         </div>
       ) : (
         <>
