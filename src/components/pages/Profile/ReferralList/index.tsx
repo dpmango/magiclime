@@ -17,40 +17,24 @@ import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
-import isEmpty from 'lodash/isEmpty';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import ConstaIcons from 'assets/icons/ConstaIcons';
-import { IReferralTree } from 'types/interfaces/referrals';
-import ReferralUser from 'components/pages/Profile/ReferralUser';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
-import { IUser } from 'types/interfaces/user';
 import { buyMatricesService } from 'utils/api/routes/referrals';
+import { IReferralTree } from 'types/interfaces/referrals';
 
+import ReferralUser from 'components/pages/Profile/ReferralUser';
 import useSharedStyles from 'assets/styles/Shared';
+import { buildTree } from './functions';
+import { ICrumbsPage, IMappedData } from './types';
 import useStyles from './styles';
 
 interface IProgram {
   id: number;
   label: string;
 }
-interface ICrumbsPage {
-  icon?: FC;
-  link: string;
-  label: string;
-  isActive?: boolean;
-}
-
-const defaultCrumbs: ICrumbsPage[] = [
-  {
-    icon: ConstaIcons.Lime,
-    label: 'Home',
-    link: '#',
-  },
-];
-
 const programOptions: IProgram[] = [
   { id: 1, label: 'BITLIME' },
   { id: 2, label: 'AUTO_STANDARD' },
@@ -191,7 +175,7 @@ const Referrals: FC = () => {
   );
 
   const handleBuyClick = useCallback(
-    async (id) => {
+    async (id?: number) => {
       setBuyProcessing(true);
 
       const [err, res] = await buyMatricesService({
@@ -224,75 +208,8 @@ const Referrals: FC = () => {
   );
 
   // main data getter
-  const mappedData = useMemo(() => {
-    const withClones = (childs: IReferralTree[]) => {
-      let childsCopy = childs;
-      const rootUserId = referralsTree && referralsTree.user_id;
-
-      if (profile.id !== rootUserId) {
-        return childs;
-      }
-
-      const mainClone = {
-        is_clone: true,
-        clone_id: rootUserId,
-        children: [],
-      };
-
-      // firstly, create space wrapper for main referal based on array length
-      if (childs.length === 0) {
-        childsCopy = [mainClone, mainClone];
-      }
-
-      if (childs.length === 1) {
-        childsCopy = [...childsCopy, mainClone];
-      }
-
-      // then append child clones if < 2 items
-      childsCopy = [
-        ...childsCopy.map((x) => {
-          let clones: any[] = [];
-          const clone = { is_clone: true, clone_id: x.id || rootUserId };
-
-          if (x.children && x.children.length === 0) {
-            clones = [clone, clone];
-          } else if (x.children && x.children.length < 2) {
-            clones = [clone];
-          }
-          return {
-            ...x,
-            children: [...x.children, ...clones],
-          };
-        }),
-      ];
-
-      console.log({ childsCopy });
-
-      return childsCopy;
-    };
-
-    return {
-      root: !isEmpty(referralsTree) ? referralsTree : null,
-      childrens: !isEmpty(referralsTree)
-        ? withClones(referralsTree.children)
-        : [],
-      crumbs: [
-        ...defaultCrumbs,
-        ...(referralsTree.ancestors
-          ? referralsTree.ancestors.map((a) => ({
-              label: a.username || 'unknown',
-              link: `${a.id}` || '#',
-            }))
-          : []),
-        ...[
-          {
-            label: referralsTree.username || 'unknown',
-            link: `${referralsTree.id}` || '#',
-            isActive: true,
-          },
-        ],
-      ],
-    };
+  const mappedData = useMemo((): IMappedData => {
+    return buildTree({ referralsTree, profileId: profile.id });
   }, [referralsTree, profile.id]);
 
   return (
@@ -358,7 +275,7 @@ const Referrals: FC = () => {
 
           <div className={styles.cta}>
             <Button
-              onClick={handleBuyClick}
+              onClick={() => handleBuyClick()}
               label={t('profile.referral.buy.cta')}
             />
           </div>

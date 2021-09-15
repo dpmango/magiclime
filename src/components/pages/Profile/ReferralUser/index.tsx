@@ -18,7 +18,15 @@ interface IProps {
 }
 
 const ReferralUser: FC<IProps> = ({
-  data: { id, username, avatar, referrals_count, is_clone, clone_id },
+  data: {
+    id,
+    username,
+    avatar,
+    referrals_count,
+    is_clone,
+    clone_id,
+    clone_enabled,
+  },
   nested,
   root,
   onReferralClick,
@@ -67,7 +75,7 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      {is_clone ? (
+      {is_clone && clone_enabled ? (
         <div className={styles.clone}>
           <Button
             size="s"
