@@ -34,8 +34,6 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
-
-  const [isFullMenu, setIsFullMenu] = useState(false);
   const { is_staff } = useSelector((state: RootState) => state.user.profile);
 
   useEffect(() => {

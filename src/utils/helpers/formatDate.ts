@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment';
 export const isToday = (date: Moment): boolean =>
   moment().diff(date, 'days') === 0;
 
-export const timeToTimeStamp = (time: Date): string => {
+export const timeToTimeStamp = (time: Date | string): string => {
   const djsTime = moment(time);
   let mask = 'DD MMM, HH:mm';
 
@@ -16,6 +16,6 @@ export const timeToTimeStamp = (time: Date): string => {
   return djsTime.format(mask);
 };
 
-export const timeToHHMM = (time: Date) => {
+export const timeToHHMM = (time: Date | string) => {
   return moment(time).format('HH:mm');
 };

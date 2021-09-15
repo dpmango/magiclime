@@ -1,4 +1,4 @@
-import { IPhoto } from './common';
+import { IPhoto } from '../../../types/interfaces/common';
 
 export interface IUserRating {
   readonly id: number;
@@ -9,5 +9,5 @@ export interface IUserRating {
   experience: number;
   rank: number;
   rank_change: number;
-  about?: string | null; // todo - what for ?
+  about?: string | null;
 }

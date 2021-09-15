@@ -1,27 +1,24 @@
-import React, { FC, useEffect, useState, useMemo, ReactElement } from 'react';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import React, { FC, ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
 import cns from 'classnames';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import ConstaIcons from 'assets/icons/ConstaIcons';
+import { timeToTimeStamp } from '../../../../../utils/helpers/formatDate';
+import { ITopicListItem } from '../../types';
 
 import useStyles from './styles';
-import { list } from './mockData';
 
-const ForumList: FC = () => {
+interface IProps {
+  data: ITopicListItem[];
+  topicId: string;
+}
+
+const ForumList: FC<IProps> = ({ data, topicId }) => {
   const styles = useStyles();
-  const { path } = useRouteMatch();
   const { t } = useTranslation();
-
-  const topicID = useMemo(() => {
-    const urlSplit = path.split('/');
-
-    return urlSplit[urlSplit.length - 1];
-  }, [path]);
-
   return (
     <div className={styles.root}>
       <Flex align="center" className={cns(styles.card, 'head')}>
@@ -52,47 +49,47 @@ const ForumList: FC = () => {
           </Typography>
         </div>
       </Flex>
-      {list &&
-        list.map(
-          (x): ReactElement => (
-            <Flex align="center" className={styles.card} key={x.id}>
+      {data &&
+        data.map(
+          (item): ReactElement => (
+            <Flex align="center" className={styles.card} key={item.id}>
               <div className={styles.cardTitle}>
-                <Link to={`/forum/${topicID}/${x.id}`}>
-                  <Typography size="s">{x.title}</Typography>
+                <Link to={`/forum/${topicId}/${item.id}`}>
+                  <Typography size="s">{item.name}</Typography>
                 </Link>
               </div>
 
               <Flex className={styles.cardUser}>
                 <Avatar
                   size="s"
-                  url={x.author.avatar || ''}
-                  name={x.author.name}
+                  url={item.creator.avatar || ''}
+                  name={item.creator.name}
                 />
                 <Typography
                   margin="0 0 0 6px"
                   size="xs m:s"
                   className={styles.cardUserTitle}
                 >
-                  {x.author.name}
+                  {item.creator.name}
                 </Typography>
               </Flex>
 
               <div className={styles.cardUnread}>
                 <Typography size="xs m:s" view="secondary">
-                  {x.unread}
+                  {item.answers_count}
                 </Typography>
               </div>
 
               <div className={styles.cardViews}>
                 <Typography size="xs m:s" view="secondary">
-                  {x.views}
+                  {item.views_count}
                 </Typography>
               </div>
 
               <div className={styles.cardDate}>
                 <Flex align="center" wrap="wrap" margin="8px 0 0">
                   <Typography size="xs m:s" view="secondary">
-                    {x.timestamp}
+                    {timeToTimeStamp(item.last_activity_date)}
                   </Typography>
                 </Flex>
               </div>

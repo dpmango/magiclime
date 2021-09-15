@@ -69,7 +69,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                 isLogged={isLogged}
                 isMinified={isMobile}
                 personName={`${profile.experience} опыта`}
-                personInfo="127 место"
+                personInfo={`${profile.level} уровень`}
                 personAvatarUrl="/images/experience.svg"
                 className={styles.clickBlock}
               />
@@ -93,8 +93,8 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                   isLogged={isLogged}
                   isMinified={isMobile}
                   personName={profile.name}
-                  personAvatarUrl={profile.avatar && profile.avatar.image}
-                  personInfo={`${profile.level} уровень`}
+                  personAvatarUrl={profile.avatar ? profile.avatar.image : ''}
+                  personInfo="127 место"
                   className={styles.clickBlock}
                   onClick={() => setOpen(!isOpen)}
                 />

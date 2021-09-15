@@ -58,6 +58,7 @@ const useStyles = makeStyles<null, { rank: number }>(() => ({
   featured: {
     position: 'relative',
     zIndex: 1,
+    height: '100%',
     background: 'var(--color-bg-default)',
     border: '1px solid var(--color-bg-border)',
     borderRadius: 16,
@@ -123,7 +124,7 @@ const useStyles = makeStyles<null, { rank: number }>(() => ({
     border: '2px solid var(--color-bg-default)',
   },
   featuredStats: {
-    marginTop: 24,
+    marginTop: '24px',
     padding: '12px 24px 0',
     borderTop: '1px solid var(--color-bg-border)',
   },
