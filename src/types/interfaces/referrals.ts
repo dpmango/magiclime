@@ -10,8 +10,7 @@ export interface IReferralTree {
     image: string | null;
   };
   referrals_count?: number;
-  // TODO - gain
-  // TODO - level
+  created_at?: string;
   children: IReferralTree[];
   ancestors?: IAncestor[];
   is_clone?: boolean;

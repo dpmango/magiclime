@@ -90,6 +90,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralLevel: {
     flex: '0 0 12%',
     paddingRight: 12,
+    cursor: 'pointer',
+    transition: 'color .25s ease-in-out',
+    '& .Icon': {
+      color: '#C7CFCE',
+    },
+    '&:hover': {
+      color: 'var(--color-typo-brand)',
+    },
   },
   referralCount: {
     flex: '0 0 15%',

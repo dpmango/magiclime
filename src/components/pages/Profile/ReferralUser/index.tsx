@@ -1,7 +1,9 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-hot-toast';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
+import { IconCopy } from '@consta/uikit/IconCopy';
 
 import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
@@ -25,6 +27,7 @@ const ReferralUser: FC<IProps> = ({
     username,
     avatar,
     referrals_count,
+    created_at,
     is_clone,
     clone_id,
     clone_enabled,
@@ -36,6 +39,14 @@ const ReferralUser: FC<IProps> = ({
 }) => {
   const styles = useStyles({ nested, root, clone: is_clone });
   const { t } = useTranslation();
+
+  const handleCopyRefClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    [id]
+  );
 
   const referralsPlural = useMemo(() => {
     const plural = Plurize(
@@ -101,11 +112,11 @@ const ReferralUser: FC<IProps> = ({
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          TODO BL
+          {created_at}
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            {t('profile.referral.card.gain')}
+            {t('profile.referral.card.date')}
           </Typography>
         )}
       </div>
@@ -113,7 +124,17 @@ const ReferralUser: FC<IProps> = ({
       {!is_clone ? (
         <>
           <div className={styles.referralLevel}>
-            <Typography size={root ? 'l' : 's'}>level</Typography>
+            <Flex align="center">
+              <Typography
+                margin="0 6px 0 0"
+                lineHeight="s"
+                size={root ? 'l' : 's'}
+              >
+                {id}
+              </Typography>
+              <IconCopy size="s" />
+            </Flex>
+
             {root && (
               <Typography
                 size="xs"
@@ -121,12 +142,15 @@ const ReferralUser: FC<IProps> = ({
                 weight="semibold"
                 view="ghost"
               >
-                {t('profile.referral.card.level')}
+                {t('profile.referral.card.id')}
               </Typography>
             )}
           </div>
-          <div className={styles.referralCount}>
-            <Typography size={root ? 'l' : 's'} view="secondary">
+          <div className={styles.referralCount} onClick={handleCopyRefClick}>
+            <Typography
+              size={root ? 'l' : 's'}
+              view={root ? 'primary' : 'secondary'}
+            >
               {referralsPlural}
             </Typography>
             {root && (

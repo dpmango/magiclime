@@ -9,6 +9,7 @@ import { IUser } from 'types/interfaces/user';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { RootState } from 'store/reducers/rootReducer';
 // import { Button } from '@consta/uikit/Button';
 
 import useStyles from './styles';
@@ -21,6 +22,8 @@ interface IProps {
 const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const { balance } = useSelector((state: RootState) => state.profile);
 
   const handleCopyRefClick = useCallback(
     (e) => {
@@ -57,7 +60,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
         breakpoints={{
           s: { cols: 2 },
           l: { cols: 4 },
-          xl: { cols: 6 },
+          xl: { cols: 5 },
         }}
       >
         {isMyProfile && (
@@ -87,22 +90,22 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
         )}
 
         <GridItem>
-          <div className={styles.box} style={{ opacity: 0.5 }}>
+          <div className={styles.box}>
             <Typography
               size="xs"
               weight="semibold"
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referral.stats.gain')}
+              {t('profile.referral.stats.bounspoints')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
-                0
+                {balance.bonus_points}
               </Typography>
-              <Typography size="xl" weight="light" view="brand">
-                &nbsp;BL
-              </Typography>
+              {/* <Typography size="xl" weight="light" view="brand">
+                &nbsp;B
+              </Typography> */}
             </Flex>
           </div>
         </GridItem>
@@ -122,7 +125,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
             </Typography>
           </div>
         </GridItem>
-        <GridItem>
+        {/* <GridItem>
           <div className={styles.box}>
             <Typography
               size="xs"
@@ -141,7 +144,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
               </Typography>
             </Flex>
           </div>
-        </GridItem>
+        </GridItem> */}
         <GridItem>
           <div className={styles.box}>
             <Typography
