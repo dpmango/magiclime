@@ -11,9 +11,8 @@ import { Socket } from 'socket.io-client';
 import { RootState } from '../../../../../store/reducers/rootReducer';
 import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
-import { ChatContext } from '../../context';
 import { IMessage } from '../../types';
-import { onReplyClick } from '../controller';
+import { getFirstUnreadIndex, onReplyClick } from '../controller';
 import Message from '../Message';
 import useStyles from '../styles';
 
@@ -25,6 +24,7 @@ interface IProps {
   scroll: number | null;
   bodyRef: RefObject<HTMLDivElement>;
   socket: Socket;
+  allMessagesCount: number;
 }
 
 const List: FC<IProps> = ({
@@ -35,13 +35,15 @@ const List: FC<IProps> = ({
   bodyRef,
   scroll,
   socket,
+  allMessagesCount,
 }) => {
   const [readMessages, setReadMessages] = useState<number[]>([]);
+  const [unread, setUnread] = useState(unreadCount);
   const { id } = useSelector((state: RootState) => state.user.profile);
   const styles = useStyles();
 
   useEffect(() => {
-    if (bodyRef.current && scroll) {
+    if (bodyRef.current && scroll && !!unread) {
       const visibleNodes = Array.from(bodyRef.current.children)
         .filter(
           (item) =>
@@ -63,9 +65,21 @@ const List: FC<IProps> = ({
         );
       });
       if (unreadMessages.length) {
-        setReadMessages((prev) => [...prev, ...unreadMessages]);
+        const firstId =
+          messages[getFirstUnreadIndex(limit, unread, allMessagesCount)].id;
+        let arr: number[] = [];
+        console.log(firstId, unreadMessages);
+        if (firstId === unreadMessages[0]) arr = arr.concat(unreadMessages);
+        else {
+          const newIndexes = Array.from({
+            length: unreadMessages[0] - firstId,
+          }).map((item, index) => firstId + index);
+          arr = arr.concat(newIndexes, unreadMessages);
+        }
+        setUnread((prev) => prev - arr.length);
+        setReadMessages((prev) => [...prev, ...arr]);
         socket.emit('read_message_event', {
-          data: { messages: unreadMessages, chat_id: chatId },
+          data: { messages: arr, chat_id: chatId },
         });
       }
     }
@@ -75,15 +89,17 @@ const List: FC<IProps> = ({
     <>
       {messages.map((message, index) => (
         <Fragment key={message.id}>
-          {limit * Math.ceil(unreadCount / limit) - unreadCount === index && (
-            <Flex align="center" margin="15px 0">
-              <div className={styles.line} />
-              <Typography margin="0 15px" size="xs" view="secondary">
-                Непрочитанные сообщения
-              </Typography>
-              <div className={styles.line} />
-            </Flex>
-          )}
+          {!!unreadCount &&
+            getFirstUnreadIndex(limit, unreadCount, allMessagesCount) ===
+              index && (
+              <Flex align="center" margin="15px 0">
+                <div className={styles.line} />
+                <Typography margin="0 15px" size="xs" view="secondary">
+                  Непрочитанные сообщения
+                </Typography>
+                <div className={styles.line} />
+              </Flex>
+            )}
           <Message
             message={message}
             onReplyClick={(id: number) => onReplyClick(id, styles)}

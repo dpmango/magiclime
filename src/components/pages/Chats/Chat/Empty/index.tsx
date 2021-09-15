@@ -1,12 +1,18 @@
 import React, { FC } from 'react';
 import EmptyChat from '../../../../../assets/images/empty-chat.svg';
+import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
 import useStyles from '../styles';
 
 const Empty: FC = () => {
   const styles = useStyles();
   return (
-    <div className={styles.empty}>
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      className={styles.empty}
+    >
       <EmptyChat />
       <Typography
         lineHeight="l"
@@ -17,7 +23,7 @@ const Empty: FC = () => {
       >
         Выберите чат, чтобы начать переписку или создайте новую беседу
       </Typography>
-    </div>
+    </Flex>
   );
 };
 

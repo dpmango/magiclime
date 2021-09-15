@@ -64,3 +64,13 @@ export const checkMark = (
   }
   return false;
 };
+
+export const getFirstUnreadIndex = (
+  limit: number,
+  unreadCount: number,
+  allCount: number
+): number => {
+  return allCount < limit
+    ? allCount - unreadCount
+    : limit * Math.ceil(unreadCount / limit) - unreadCount;
+};
