@@ -52,7 +52,7 @@ const ChatCard: FC<IProps> = ({ chat, chatId, setActiveChat }) => {
           {chat.last_message &&
             moment(chat.last_message.created_at).format('HH:mm')}
         </Typography>
-        {!!chat.unreaded_count && (
+        {chat.unreaded_count > 0 && (
           <Badge
             size="s"
             status="normal"

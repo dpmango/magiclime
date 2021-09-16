@@ -7,7 +7,6 @@ import React, {
   useContext,
 } from 'react';
 import { SkeletonCircle, SkeletonText } from '@consta/uikit/Skeleton';
-import debounce from 'lodash/debounce';
 import { Socket } from 'socket.io-client';
 import { v4 as uuid } from 'uuid';
 import { SetStateType } from '../../../../types/common';
@@ -75,20 +74,16 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
 
   useEffect(() => {
     const responseListener = (msg: any) => {
-      if (msg.data.id) {
+      if (msg.data && msg.data.id) {
         updateChat(msg.data);
+      } else if (msg.readed) {
+        decreaseCount(msg);
       }
     };
 
-    const readListener = (data: any) => {
-      decreaseCount(data);
-    };
-
     socket.on('my_response', responseListener);
-    socket.on('read_message_event', readListener);
     return () => {
       socket.off('my_response', responseListener);
-      socket.off('read_message_event', readListener);
     };
   }, [chats, chatId]);
 

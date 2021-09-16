@@ -1,5 +1,4 @@
 import React, {
-  Dispatch,
   FC,
   memo,
   useEffect,
@@ -15,10 +14,15 @@ import { Socket } from 'socket.io-client';
 import debounce from 'lodash/debounce';
 import cln from 'classnames';
 import { MessagesSkeleton } from './ChatSkeletons';
-import { checkMark, fixScroll, renderNewMessage } from './controller';
+import {
+  checkMark,
+  fixScroll,
+  getFirstUnreadIndex,
+  renderNewMessage,
+} from './controller';
 import Header from './Header';
 import List from './List';
-import { ActionType, initialState, reducer, StateType } from './reducer';
+import { initialState, reducer } from './reducer';
 import useStyles from './styles';
 import Panel from './Panel';
 import { getChat, getChatMessages } from '../../../../utils/api/routes/chat';
@@ -41,11 +45,11 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
   const LIMIT = useMemo(() => {
     if (chatId && ref.current) {
       const height = ref.current.clientHeight;
-      if (height < 500) return 5;
-      if (height < 750) return 10;
-      return 15;
+      if (height < 500) return 20;
+      if (height < 750) return 30;
+      return 50;
     }
-    return 5;
+    return 20;
   }, [chatId, ref.current]);
 
   const scrollToBottom = () => {
@@ -71,8 +75,8 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
 
   useEffect(() => {
     const listener = (msg: any) => {
-      if (msg.data.id) {
-        renderNewMessage(msg.data, dispatch);
+      if (msg.data && msg.data.id) {
+        renderNewMessage(msg.data, dispatch, ref.current);
       }
     };
 
@@ -167,20 +171,24 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
       const elem = ref.current;
       if (!state.chat.unreaded_count) {
         setTimeout(() => {
-          elem.scrollTop = elem.scrollHeight - elem.clientHeight;
+          elem.scrollTop = elem.scrollHeight;
           dispatch({ type: 'SET_SCROLL', payload: null });
         }, 0);
       } else {
-        const firstIndex =
-          LIMIT * Math.ceil(state.chat.unreaded_count / LIMIT) -
-          state.chat.unreaded_count;
-        const firstUnread = elem.children[firstIndex] as HTMLDivElement;
+        const firstIndex = getFirstUnreadIndex(
+          LIMIT,
+          state.chat.unreaded_count,
+          state.allMessagesCount
+        );
+        const firstUnread = Array.from(elem.children).filter(
+          (item) => !!item.id
+        )[firstIndex] as HTMLDivElement;
         if (firstUnread.offsetTop > elem.clientHeight) {
           elem.scrollTop =
             firstUnread.offsetTop -
             elem.clientHeight +
             firstUnread.clientHeight +
-            36;
+            56;
         }
       }
       dispatch({ type: 'SET_BODY_HEIGHT', payload: elem.scrollHeight });
@@ -204,6 +212,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
             chatId={state.chat!.id}
             scroll={state.scroll}
             bodyRef={ref}
+            allMessagesCount={state.allMessagesCount}
             socket={socket}
             unreadCount={state.chat!.unreaded_count}
           />
@@ -213,10 +222,9 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
         {/* )} */}
       </div>
       {ref.current &&
-        (state.page !== 1 ||
-          (state.scroll !== null &&
-            state.scroll + 200 <=
-              ref.current!.scrollHeight - ref.current!.clientHeight)) && (
+        state.scroll !== null &&
+        state.scroll + 200 <=
+          ref.current!.scrollHeight - ref.current!.clientHeight && (
           <Button
             view="primary"
             form="round"

@@ -57,23 +57,32 @@ const useStyles = makeStyles(() => ({
   file: {
     display: 'flex',
     padding: '16px',
-    width: '100%',
-    maxWidth: '350px',
+    width: 'min-content',
+    minWidth: '350px',
+    maxWidth: 'calc(100% - 64px)',
     alignItems: 'center',
     borderRadius: '12px',
     background: 'var(--color-bg-ghost)',
-    marginBottom: '10px',
+    margin: '10px 0',
     '& > button': {
       marginRight: '15px',
     },
+    '& > div': {
+      maxWidth: 'calc(100% - 64px)',
+    },
+  },
+  fileName: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   messageImage: {
     width: '100%',
-    maxWidth: '630px',
-    maxHeight: '630px',
-    objectFit: 'cover',
+    maxWidth: '300px',
+    maxHeight: '300px',
+    objectFit: 'contain',
     borderRadius: '10px',
-    marginBottom: '15px',
+    margin: '15px 0',
   },
   '@media screen and (max-width: 1300px)': {
     container: {

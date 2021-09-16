@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import React, { FC, useContext, useEffect, useMemo, useState } from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import Flex from '../../Common/Flex';
 import Empty from './Chat/Empty';

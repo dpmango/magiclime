@@ -2,13 +2,13 @@ import { Dispatch, RefObject } from 'react';
 import { ClassNameMap } from '@material-ui/styles';
 import { Socket } from 'socket.io-client';
 import { DOMAIN } from '../../../../utils/api';
-import { getChatMessages } from '../../../../utils/api/routes/chat';
 import { IMessage } from '../types';
 import { ActionType, StateType } from './reducer';
 
 export const renderNewMessage = (
   message: IMessage,
-  dispatch: Dispatch<ActionType>
+  dispatch: Dispatch<ActionType>,
+  elem: HTMLDivElement | null
 ) => {
   const avatar = message.creator.avatar
     ? {
@@ -28,6 +28,8 @@ export const renderNewMessage = (
     attached_images,
   };
   dispatch({ type: 'ADD_MESSAGE', message: newMessage });
+  /* eslint-disable no-param-reassign */
+  if (elem) elem.scrollTop = elem.scrollHeight;
 };
 
 export const onReplyClick = (id: number, styles: ClassNameMap) => {
@@ -63,4 +65,14 @@ export const checkMark = (
     );
   }
   return false;
+};
+
+export const getFirstUnreadIndex = (
+  limit: number,
+  unreadCount: number,
+  allCount: number
+): number => {
+  return allCount < limit
+    ? allCount - unreadCount
+    : limit * Math.ceil(unreadCount / limit) - unreadCount;
 };
