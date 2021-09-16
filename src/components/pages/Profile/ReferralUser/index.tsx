@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
 import { IconCopy } from '@consta/uikit/IconCopy';
+import moment from 'moment';
 
 import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Plurize } from 'utils/helpers/plurize';
+import { timeToTimeStamp } from 'utils/helpers/formatDate';
 import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IReferralTree } from 'types/interfaces/referrals';
 
@@ -65,6 +67,13 @@ const ReferralUser: FC<IProps> = ({
     return root ? referrals_count : `${referrals_count} ${plural}`;
   }, [referrals_count]);
 
+  const timestamp = useMemo(() => {
+    if (!created_at) {
+      return ' ';
+    }
+    return moment(created_at).format('DD.MM.YYYY, HH:mm');
+  }, [created_at]);
+
   return (
     <Flex
       align="center"
@@ -118,7 +127,7 @@ const ReferralUser: FC<IProps> = ({
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          {created_at}
+          {timestamp}
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">

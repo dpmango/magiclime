@@ -20,7 +20,7 @@ import {
 
 import Typography from 'components/Common/Typography';
 import { registration } from 'store/reducers/user';
-import { setAuthOpen } from 'store/reducers/settings';
+import { setAuthOpen, setAuth } from 'store/reducers/settings';
 
 import { StepType } from './types';
 import Stepper from './Stepper';
@@ -75,8 +75,8 @@ const Registration: FC = () => {
   const schema = Yup.object({
     username: REGEXP_TEST(
       'username',
-      /^[\w\d]+$/,
-      'Логин должен содержать только цифры и латинские буквы'
+      /^([a-zA-Z0-9\-\\.]+)$/,
+      t('auth.signup.validation.login.mask')
     ),
     email: EMAIL,
     password: REGEXP_TEST(
@@ -87,10 +87,6 @@ const Registration: FC = () => {
       .min(8, t('auth.signup.validation.password.min'))
       .max(30, t('auth.signup.validation.password.max')),
     passwordConfirm: CONFIRM,
-    media_sponsor: Yup.string().length(
-      40,
-      t('auth.signup.validation.media_sponsor')
-    ),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
     name: step === 3 ? REQUIRED_STRING : Yup.string(),
   });
@@ -109,7 +105,10 @@ const Registration: FC = () => {
       dispatch(
         registration({
           ...data,
-          successCallback: () => history.push('/profile/me'),
+          successCallback: () => {
+            dispatch(setAuth({ opened: false, type: 'sign_in' }));
+            history.push('/profile/me');
+          },
           errorCallback,
         })
       );

@@ -345,14 +345,6 @@ const Referrals: FC = () => {
         <GridItem col="1">
           <div className={styles.filters}>
             <div className={styles.filtersGroup}>
-              <TextField
-                value={filterSearch}
-                placeholder={t('profile.referral.filter.search')}
-                rightSide={IconSearch}
-                onChange={({ value }) => setFilterSearch(value)}
-              />
-            </div>
-            <div className={styles.filtersGroup}>
               <Select
                 items={programOptions}
                 value={filterProgram}
@@ -360,15 +352,6 @@ const Referrals: FC = () => {
                 onChange={({ value }) =>
                   setFilterProgram(value || programOptions[0])
                 }
-              />
-            </div>
-            <div className={styles.filtersGroup}>
-              <Button
-                width="full"
-                onClick={() =>
-                  setModalConfirm({ ...modalConfirm, opened: true })
-                }
-                label={t('profile.referral.buy.cta')}
               />
             </div>
             <div className={styles.filtersGroup}>
@@ -389,6 +372,23 @@ const Referrals: FC = () => {
                 ))}
               </Flex>
             </div>
+            <div className={styles.filtersGroup}>
+              <Button
+                width="full"
+                onClick={() =>
+                  setModalConfirm({ ...modalConfirm, opened: true })
+                }
+                label={t('profile.referral.buy.cta')}
+              />
+            </div>
+            <div className={styles.filtersGroup}>
+              <TextField
+                value={filterSearch}
+                placeholder={t('profile.referral.filter.search')}
+                rightSide={IconSearch}
+                onChange={({ value }) => setFilterSearch(value)}
+              />
+            </div>
           </div>
         </GridItem>
       </Grid>
@@ -400,9 +400,8 @@ const Referrals: FC = () => {
         title={t('profile.referral.buy.modal.confirmTitle')}
       >
         <Typography margin="16px 0 0" size="l" lineHeight="s" align="center">
-          После покупки курса вам начисляться бонусные баллы. За прохождение
-          курса вы сможете получить очки рейтинга, благодаря которым можно
-          прокачивать своего аватара.
+          Вы уверены? Деньги будут списаны с вашего счета. <br />
+          Откатить операцию невозможно.
         </Typography>
 
         <Flex

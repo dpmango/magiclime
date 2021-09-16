@@ -12,7 +12,7 @@ import FormikInput from 'components/Common/Controls/Formik/Input';
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
 import { login } from 'store/reducers/user';
-import { setAuthType, setAuthOpen } from 'store/reducers/settings';
+import { setAuthType, setAuthOpen, setAuth } from 'store/reducers/settings';
 import { EMAIL, REQUIRED_STRING } from 'utils/formik/validation';
 
 import useStyles from './styles';
@@ -43,7 +43,10 @@ const Login: FC = () => {
     dispatch(
       login({
         ...values,
-        successCallback: () => history.push('/'),
+        successCallback: () => {
+          dispatch(setAuth({ opened: false, type: 'sign_in' }));
+          history.push('/profile/me');
+        },
         errorCallback: (message: string) => setErrorMessage(message),
       })
     );

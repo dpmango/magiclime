@@ -43,7 +43,6 @@ const App: FC = () => {
   }
 
   useEffect(() => {
-    console.log('app rerender');
     dispatch(getAllMeta(null));
   }, []);
 

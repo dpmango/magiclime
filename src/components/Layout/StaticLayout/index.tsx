@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useState, useMemo } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Modal } from '@consta/uikit/Modal';
@@ -27,10 +27,6 @@ const StaticLayout: FC = () => {
 
   const closeModal = useCallback(() => {
     dispatch(setAuthOpen(false));
-  }, []);
-
-  useEffect(() => {
-    console.log('static layout rerender');
   }, []);
 
   const headerWhiteTheme = useMemo(() => {

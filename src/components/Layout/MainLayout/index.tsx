@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, memo } from 'react';
 import isEqual from 'lodash/isEqual';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllProfile } from 'store/reducers/profile';
@@ -41,7 +41,6 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   );
 
   useEffect(() => {
-    console.log('main layout rerender');
     dispatch(getAllProfile());
   }, []);
 
