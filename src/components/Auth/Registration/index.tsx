@@ -87,6 +87,15 @@ const Registration: FC = () => {
       .min(8, t('auth.signup.validation.password.min'))
       .max(30, t('auth.signup.validation.password.max')),
     passwordConfirm: CONFIRM,
+    media_sponsor: Yup.lazy((value) => {
+      if (value && value.trim().length > 0) {
+        return Yup.string().length(
+          40,
+          t('auth.signup.validation.media_sponsor')
+        );
+      }
+      return Yup.string().length(0);
+    }),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
     name: step === 3 ? REQUIRED_STRING : Yup.string(),
   });

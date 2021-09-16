@@ -27,7 +27,11 @@ export const refreshAuthToken = (
 export const registrationUser = (
   data: Partial<IUser> & { password: string }
 ): AxiosPromise<IUser & { refresh: string; access: string }> => {
-  return instance.post(endpoints.users.root, data);
+  return instance.post(endpoints.users.root, {
+    ...data,
+    media_sponsor:
+      data.media_sponsor || '9p7cCf3NTmcedrSqvwqcJwfOada2YJVMTiaoEK79',
+  });
 };
 
 export const updateUser = (data: Partial<IUser>): AxiosPromise<IUser> => {
