@@ -94,7 +94,7 @@ const Registration: FC = () => {
           t('auth.signup.validation.media_sponsor')
         );
       }
-      return Yup.string().length(0);
+      return Yup.string().trim().length(0);
     }),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
     name: step === 3 ? REQUIRED_STRING : Yup.string(),

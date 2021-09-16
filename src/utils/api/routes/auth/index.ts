@@ -30,7 +30,8 @@ export const registrationUser = (
   return instance.post(endpoints.users.root, {
     ...data,
     media_sponsor:
-      data.media_sponsor || '9p7cCf3NTmcedrSqvwqcJwfOada2YJVMTiaoEK79',
+      (data.media_sponsor && data.media_sponsor.trim()) ||
+      '9p7cCf3NTmcedrSqvwqcJwfOada2YJVMTiaoEK79',
   });
 };
 
