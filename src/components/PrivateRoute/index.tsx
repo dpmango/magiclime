@@ -1,9 +1,8 @@
-import React, { FC, memo } from 'react';
-import { RouteComponentProps, Route, Redirect } from 'react-router-dom';
-import { ComponentType } from 'types/common';
+import React, { FC, ReactChild, memo } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 
 interface IProps {
-  component: ComponentType<RouteComponentProps>;
+  children: ReactChild | ReactChild[];
   access: boolean;
   redirect: string;
   path: string;
@@ -11,19 +10,18 @@ interface IProps {
 }
 
 const PrivateRoute: FC<IProps> = ({
-  component: Component,
+  children,
   access,
   redirect,
   path,
   ...rest
 }) => {
-  console.log(rest);
   return (
     <Route
-      path={path}
-      render={(props) =>
-        access ? <Component {...props} /> : <Redirect to={redirect} />
-      }
+      {...rest}
+      render={() => {
+        return access ? children : <Redirect to={redirect} />;
+      }}
     />
   );
 };

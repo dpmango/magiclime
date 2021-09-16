@@ -58,21 +58,13 @@ const App: FC = () => {
     <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
       <MenuContextProvider>
         <Switch>
-          {/* <PrivateRoute
-            path="/home"
-            component={() => <StaticLayout />}
-            redirect="/profile/me"
-            access={!isLogged}
-          /> */}
+          <PrivateRoute path="/home" redirect="/profile/me" access={!isLogged}>
+            <StaticLayout />
+          </PrivateRoute>
 
-          <PrivateRoute
-            path="/"
-            component={() => (
-              <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
-            )}
-            redirect="/home"
-            access={isLogged}
-          />
+          <PrivateRoute path="/" redirect="/home" access={isLogged}>
+            <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
+          </PrivateRoute>
         </Switch>
       </MenuContextProvider>
       <Toaster
@@ -80,10 +72,6 @@ const App: FC = () => {
         toastOptions={{
           className: 'h-toast',
           duration: 5000,
-          // style: {
-          //   background: '#363636',
-          //   color: '#fff',
-          // },
         }}
       />
     </Theme>
