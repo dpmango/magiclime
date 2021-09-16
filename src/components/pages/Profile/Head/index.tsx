@@ -24,7 +24,7 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { rates } = useSelector((state: RootState) => state.meta);
+  const rates = useSelector((state: RootState) => state.meta.rates);
 
   const handleCopyRefClick = useCallback(
     (e) => {

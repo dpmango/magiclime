@@ -39,7 +39,7 @@ const FormikDatePickerComponent = MemoWrapper(
     const [position, setPosition] = useState<'top' | 'bottom'>('bottom');
     const ref = useRef<HTMLDivElement>(null);
     const calendarRef = useRef<HTMLDivElement>(null);
-    const { language } = useSelector((state: RootState) => state.settings);
+    const language = useSelector((state: RootState) => state.settings.language);
     const styles = useStyles({ position });
 
     useClickOutside(ref, () => setOpen(false));

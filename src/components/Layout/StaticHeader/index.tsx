@@ -27,7 +27,8 @@ const Header: FC<IProps> = ({ isWhite = false }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { language, theme } = useSelector((state: RootState) => state.settings);
+  const language = useSelector((state: RootState) => state.settings.language);
+  const theme = useSelector((state: RootState) => state.settings.theme);
 
   const switchLocale = useCallback(() => {
     const newLang: Language = language !== 'ru' ? Language.RU : Language.EN;

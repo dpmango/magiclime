@@ -8,7 +8,7 @@ import Registration from './Registration';
 
 const Auth: FC = () => {
   const dispatch = useDispatch();
-  const { authType } = useSelector((state: RootState) => state.settings);
+  const authType = useSelector((state: RootState) => state.settings.authType);
 
   const getAuthComponent = () => {
     switch (authType) {

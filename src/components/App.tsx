@@ -58,12 +58,12 @@ const App: FC = () => {
     <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
       <MenuContextProvider>
         <Switch>
-          <PrivateRoute
+          {/* <PrivateRoute
             path="/home"
             component={() => <StaticLayout />}
             redirect="/profile/me"
             access={!isLogged}
-          />
+          /> */}
 
           <PrivateRoute
             path="/"

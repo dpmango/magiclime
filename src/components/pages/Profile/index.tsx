@@ -46,8 +46,9 @@ const ProfilePage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  const { profile, foreignProfile } = useSelector(
-    (state: RootState) => state.user
+  const profile = useSelector((state: RootState) => state.user.profile);
+  const foreignProfile = useSelector(
+    (state: RootState) => state.user.foreignProfile
   );
 
   // getting profile

@@ -26,8 +26,8 @@ const CoursesPage: FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
-  const { tags } = useSelector((state: RootState) => state.meta);
-  const { profile } = useSelector((state: RootState) => state.user);
+  const tags = useSelector((state: RootState) => state.meta.tags);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];

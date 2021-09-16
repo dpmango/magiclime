@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { RouteComponentProps, Route, Redirect } from 'react-router-dom';
 import { ComponentType } from 'types/common';
 
@@ -14,11 +14,13 @@ const PrivateRoute: FC<IProps> = ({
   component: Component,
   access,
   redirect,
+  path,
   ...rest
 }) => {
+  console.log(rest);
   return (
     <Route
-      {...rest}
+      path={path}
       render={(props) =>
         access ? <Component {...props} /> : <Redirect to={redirect} />
       }
@@ -26,4 +28,4 @@ const PrivateRoute: FC<IProps> = ({
   );
 };
 
-export default PrivateRoute;
+export default memo(PrivateRoute);

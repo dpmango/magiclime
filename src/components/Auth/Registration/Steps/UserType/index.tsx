@@ -11,7 +11,7 @@ import useStyles from './styles';
 
 const ProfileStep: FC = () => {
   const styles = useStyles();
-  const { categories } = useSelector((state: RootState) => state.meta);
+  const categories = useSelector((state: RootState) => state.meta.categories);
 
   const [selected, setSelected] = useState<number[]>([]);
 

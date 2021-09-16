@@ -37,7 +37,7 @@ const Account: FC = () => {
 
   const [files, setFiles] = useState<File[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const initialValues = {
     login: profile.username,

@@ -70,11 +70,13 @@ const Referrals: FC = () => {
     opened: false,
   });
 
-  const { referralsTree, loading, error } = useSelector(
-    (state: RootState) => state.referrals
+  const referralsTree = useSelector(
+    (state: RootState) => state.referrals.referralsTree
   );
+  const loading = useSelector((state: RootState) => state.referrals.loading);
+  const error = useSelector((state: RootState) => state.referrals.error);
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const matrixLevels: number[] = useMemo(() => {
     let levels = 0;

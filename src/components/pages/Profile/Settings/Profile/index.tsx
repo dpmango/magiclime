@@ -20,7 +20,7 @@ const Profile: FC = () => {
   const { t } = useTranslation();
 
   const [errorMessage, setErrorMessage] = useState('');
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const initialValues = {
     name: profile.name,

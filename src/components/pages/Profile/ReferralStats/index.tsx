@@ -24,7 +24,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { balance } = useSelector((state: RootState) => state.profile);
+  const balance = useSelector((state: RootState) => state.profile.balance);
   // const { referralsTree } = useSelector((state: RootState) => state.referrals);
 
   const handleCopyRefClick = useCallback(

@@ -15,7 +15,7 @@ import useStyles from './styles';
 const Balance: FC = () => {
   const styles = useStyles();
 
-  const { rates } = useSelector((state: RootState) => state.meta);
+  const rates = useSelector((state: RootState) => state.meta.rates);
 
   return (
     <Flex direction="column" className={styles.root}>

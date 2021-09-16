@@ -35,7 +35,7 @@ const PorifleHeadUploader: FC = () => {
 
   const uploadLabelRef = useRef<HTMLLabelElement>(null);
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const clearInput = (target: any) => {
     // eslint-disable-next-line no-param-reassign

@@ -47,9 +47,8 @@ interface IProps {
 const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
-  const { name, avatar } = useSelector(
-    (state: RootState) => state.user.profile
-  );
+  const name = useSelector((state: RootState) => state.user.profile.name);
+  const avatar = useSelector((state: RootState) => state.user.profile.avatar);
 
   const { t } = useTranslation();
 
