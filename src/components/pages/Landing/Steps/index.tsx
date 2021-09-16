@@ -1,10 +1,13 @@
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Button } from '@consta/uikit/Button';
 
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
+import { setAuthOpen } from 'store/reducers/settings';
+
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
@@ -43,11 +46,7 @@ const content = [
   },
 ];
 
-interface IProps {
-  setAuthOpen: (v: boolean) => void;
-}
-
-const Steps: FC<IProps> = ({ setAuthOpen }) => {
+const Steps: FC = () => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
   const { t } = useTranslation();

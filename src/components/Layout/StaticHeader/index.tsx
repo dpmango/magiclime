@@ -8,7 +8,7 @@ import { Button } from '@consta/uikit/Button';
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
 import SvgIcon from 'assets/icons/ConstaIcons';
-import { setLanguage, setTheme } from 'store/reducers/settings';
+import { setLanguage, setTheme, setAuth } from 'store/reducers/settings';
 import { Language, Theme } from 'types/common';
 import { RootState } from 'store/reducers/rootReducer';
 
@@ -17,10 +17,9 @@ import useRootStyles from '../../pages/Landing/styles';
 
 interface IProps {
   isWhite: boolean;
-  setAuthOpen: (v: boolean) => void;
 }
 
-const Header: FC<IProps> = ({ isWhite = false, setAuthOpen }) => {
+const Header: FC<IProps> = ({ isWhite = false }) => {
   const styles = useStyles({
     isWhite,
   });
@@ -132,7 +131,9 @@ const Header: FC<IProps> = ({ isWhite = false, setAuthOpen }) => {
               size="s"
               iconRight={SvgIcon.ChevronRight}
               label={t('landing.header.login')}
-              onClick={() => setAuthOpen(true)}
+              onClick={() =>
+                dispatch(setAuth({ opened: true, type: 'sign_in' }))
+              }
             />
           </Flex>
         </Flex>

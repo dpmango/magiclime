@@ -1,26 +1,32 @@
 import React, { FC, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { EMAIL, REQUIRED_STRING } from '../../../utils/formik/validation';
-import FormikCheckbox from '../../Common/Controls/Formik/Checkbox';
-import FormikInput from '../../Common/Controls/Formik/Input';
-import useStyles from './styles';
-import { IBaseAuthProps } from '../types';
-import Flex from '../../Common/Flex';
-import Typography from '../../Common/Typography';
-import SocialNetworks from '../SocialNetworks';
-import { login } from '../../../store/reducers/user';
 
-const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
+import FormikCheckbox from 'components/Common/Controls/Formik/Checkbox';
+import FormikInput from 'components/Common/Controls/Formik/Input';
+import Flex from 'components/Common/Flex';
+import Typography from 'components/Common/Typography';
+import { login } from 'store/reducers/user';
+import { setAuthType, setAuthOpen } from 'store/reducers/settings';
+import { EMAIL, REQUIRED_STRING } from 'utils/formik/validation';
+
+import useStyles from './styles';
+import SocialNetworks from '../SocialNetworks';
+
+const Login: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const closeModal = useCallback(() => {
+    dispatch(setAuthOpen(false));
+  }, []);
 
   const initialValues = {
     email: '',
@@ -95,7 +101,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
               <Text
                 size="s"
                 view="link"
-                onClick={() => setAuthType('pass_recovery')}
+                onClick={() => dispatch(setAuthType('pass_recovery'))}
               >
                 Забыли пароль?
               </Text>
@@ -124,7 +130,7 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
         label="Регистрация"
         view="clear"
         width="full"
-        onClick={() => setAuthType('sign_up')}
+        onClick={() => dispatch(setAuthType('sign_up'))}
       />
     </div>
   );

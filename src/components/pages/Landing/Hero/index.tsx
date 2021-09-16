@@ -1,23 +1,22 @@
 import React, { FC, useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import Typography from 'components/Common/Typography';
 import cns from 'classnames';
-import { Gradient } from './stripeGradient';
 
+import Flex from 'components/Common/Flex';
+import Typography from 'components/Common/Typography';
+import { setAuth } from 'store/reducers/settings';
+import { Gradient } from './stripeGradient';
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
-interface IProps {
-  setAuthOpen: (v: boolean) => void;
-}
-
-const Hero: FC<IProps> = ({ setAuthOpen }) => {
+const Hero: FC = () => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const gradient = new Gradient();
@@ -66,13 +65,18 @@ const Hero: FC<IProps> = ({ setAuthOpen }) => {
                 <Button
                   size="m"
                   form="round"
-                  label={t('landing.hero.cta.login')}
-                  onClick={() => setAuthOpen(true)}
+                  label={t('landing.hero.cta.signup')}
+                  onClick={() =>
+                    dispatch(setAuth({ opened: true, type: 'sign_up' }))
+                  }
                 />
                 <Button
                   size="m"
                   view="clear"
-                  label={t('landing.hero.cta.more')}
+                  label={t('landing.hero.cta.login')}
+                  onClick={() =>
+                    dispatch(setAuth({ opened: true, type: 'sign_in' }))
+                  }
                 />
               </Flex>
             </div>

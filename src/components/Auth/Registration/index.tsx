@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@consta/uikit/Button';
@@ -18,24 +18,28 @@ import {
   REQUIRED_STRING,
 } from 'utils/formik/validation';
 
-import { registration } from 'store/reducers/user';
 import Typography from 'components/Common/Typography';
+import { registration } from 'store/reducers/user';
+import { setAuthOpen } from 'store/reducers/settings';
 
 import { StepType } from './types';
-import { IBaseAuthProps } from '../types';
 import Stepper from './Stepper';
 import ProfileStep from './Steps/Profile';
 import UserType from './Steps/UserType';
 import Additional from './Steps/Additional';
 import useStyles from './styles';
 
-const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
+const Registration: FC = () => {
   const [step, setStep] = useState<StepType>(1);
   const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+
+  const closeModal = useCallback(() => {
+    dispatch(setAuthOpen(false));
+  }, []);
 
   const renderStep = () => {
     switch (step) {

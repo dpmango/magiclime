@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback, useEffect } from 'react';
+import React, { FC, useMemo, useCallback, useEffect, memo } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
@@ -21,8 +21,14 @@ import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
 
 const App: FC = () => {
-  const { isLogged } = useSelector((state: RootState) => state.user, isEqual);
-  const { theme } = useSelector((state: RootState) => state.settings, isEqual);
+  const isLogged = useSelector(
+    (state: RootState) => state.user.isLogged,
+    isEqual
+  );
+  const stateTheme = useSelector(
+    (state: RootState) => state.settings.theme,
+    isEqual
+  );
   const { pathname } = useLocation();
 
   const dispatch = useDispatch();
@@ -37,6 +43,7 @@ const App: FC = () => {
   }
 
   useEffect(() => {
+    console.log('app rerender');
     dispatch(getAllMeta(null));
   }, []);
 
@@ -48,7 +55,7 @@ const App: FC = () => {
   // А если делать это через Redux, то перестаёт работать transition у всех элементов меню
 
   return (
-    <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
+    <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
       <MenuContextProvider>
         <Switch>
           <PrivateRoute
@@ -61,7 +68,7 @@ const App: FC = () => {
           <PrivateRoute
             path="/"
             component={() => (
-              <MainLayout theme={theme} setTheme={handleSetTheme} />
+              <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
             )}
             redirect="/home"
             access={isLogged}

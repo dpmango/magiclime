@@ -1,25 +1,23 @@
 import React, { FC, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { RootState } from 'store/reducers/rootReducer';
+
 import Login from './Login';
-import { AuthType } from './types';
 import Registration from './Registration';
 
-interface IProps {
-  closeModal: VoidFunction;
-}
-
-const Auth: FC<IProps> = ({ closeModal }) => {
-  const [authType, setAuthType] = useState<AuthType>('sign_in');
+const Auth: FC = () => {
+  const dispatch = useDispatch();
+  const { authType } = useSelector((state: RootState) => state.settings);
 
   const getAuthComponent = () => {
     switch (authType) {
       case 'sign_in':
-        return <Login setAuthType={setAuthType} closeModal={closeModal} />;
+        return <Login />;
       case 'sign_up':
-        return (
-          <Registration setAuthType={setAuthType} closeModal={closeModal} />
-        );
+        return <Registration />;
       default:
-        return <Login setAuthType={setAuthType} closeModal={closeModal} />;
+        return <Login />;
     }
   };
 

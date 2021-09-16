@@ -34,15 +34,16 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
-  const { is_staff } = useSelector((state: RootState) => state.user.profile);
+  const is_staff = useSelector(
+    (state: RootState) => state.user.profile.is_staff,
+    isEqual
+  );
 
   useEffect(() => {
-    if (pathname.includes('profile')) {
-      dispatch(getAllProfile());
-    }
-  }, [pathname]);
+    console.log('main layout rerender');
+    dispatch(getAllProfile());
+  }, []);
 
   return (
     <Flex direction="column" className={styles.root}>
