@@ -29,7 +29,7 @@ const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
       const [err, data] = await getForumTopic(id);
 
       if (err) {
-        toast('Error loading topic. Please try again');
+        toast.error('Error loading topic. Please try again');
         return {} as ITopic;
       }
       return data;

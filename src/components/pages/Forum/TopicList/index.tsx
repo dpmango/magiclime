@@ -26,7 +26,7 @@ const ForumTopics: FC = () => {
       const [err, data] = await getForums();
 
       if (err) {
-        toast(t('forum.page.loading.error'));
+        toast.error(t('forum.page.loading.error'));
         return {};
       }
 

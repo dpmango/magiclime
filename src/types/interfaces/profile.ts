@@ -6,6 +6,7 @@ export interface IBalance {
   total_earned: number;
   total_output: number;
   available_for_withdrawal: number;
+  bonus_points: number;
   user?: number;
 }
 export interface IAchievementGroup {
