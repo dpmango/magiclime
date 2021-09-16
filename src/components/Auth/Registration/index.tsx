@@ -69,7 +69,11 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const schema = Yup.object({
-    username: REQUIRED_STRING,
+    username: REGEXP_TEST(
+      'username',
+      /^[\w\d]+$/,
+      'Логин должен содержать только цифры и латинские буквы'
+    ),
     email: EMAIL,
     password: REGEXP_TEST(
       'password',
@@ -79,7 +83,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       .min(8, t('auth.signup.validation.password.min'))
       .max(30, t('auth.signup.validation.password.max')),
     passwordConfirm: CONFIRM,
-    media_sponsor: REQUIRED_STRING.length(
+    media_sponsor: Yup.string().length(
       40,
       t('auth.signup.validation.media_sponsor')
     ),

@@ -67,10 +67,10 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
         markRef.current!.style.top = `0px`;
         ref.current!.scrollTop =
           ref.current!.scrollHeight - ref.current!.clientHeight;
-        // if (state.chat!.unreaded_count)
-        //   socket.emit('read_all_messages_event', { data: { id: state.chat!.id } });
       });
     }
+    if (state.chat!.unreaded_count)
+      socket.emit('read_all_messages_event', { data: { id: state.chat!.id } });
   };
 
   useEffect(() => {

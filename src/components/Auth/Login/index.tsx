@@ -1,12 +1,14 @@
 import React, { FC, useCallback, useState } from 'react';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import { Text } from '@consta/uikit/Text';
 import { Button } from '@consta/uikit/Button';
-import { TextField } from '@consta/uikit/TextField';
 import { IconClose } from '@consta/uikit/IconClose';
-import { Checkbox } from '@consta/uikit/Checkbox';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import PasswordInput from '../../Common/Controls/PasswordInput';
+import { EMAIL, REQUIRED_STRING } from '../../../utils/formik/validation';
+import FormikCheckbox from '../../Common/Controls/Formik/Checkbox';
+import FormikInput from '../../Common/Controls/Formik/Input';
 import useStyles from './styles';
 import { IBaseAuthProps } from '../types';
 import Flex from '../../Common/Flex';
@@ -15,33 +17,31 @@ import SocialNetworks from '../SocialNetworks';
 import { login } from '../../../store/reducers/user';
 
 const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
-  const [form, setForm] = useState({
-    email: '',
-    password: '',
-  });
-  const [rememberUser, setRememberUser] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleChange = useCallback(
-    (name: keyof typeof form, value: string | null) => {
-      setForm({ ...form, [name]: value as string });
-    },
-    [form]
-  );
+  const initialValues = {
+    email: '',
+    password: '',
+    remember: true,
+  };
 
-  const handleSubmit = () => {
+  const schema = Yup.object({
+    email: REQUIRED_STRING,
+    password: REQUIRED_STRING,
+  });
+
+  const handleSubmit = useCallback((values: typeof initialValues) => {
     dispatch(
       login({
-        ...form,
-        remember: rememberUser,
+        ...values,
         successCallback: () => history.push('/'),
         errorCallback: (message: string) => setErrorMessage(message),
       })
     );
-  };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -74,38 +74,35 @@ const Login: FC<IBaseAuthProps> = ({ closeModal, setAuthType }) => {
             {errorMessage}
           </Typography>
         )}
-        <TextField
-          className={styles.field}
-          placeholder="Ваш логин"
-          value={form.email}
-          onChange={({ value }) => handleChange('email', value)}
-        />
-        <PasswordInput
-          className={styles.field}
-          placeholder="Ваш пароль"
-          value={form.password}
-          onChange={({ value }) => handleChange('password', value)}
-        />
-        <Flex align="center" justify="space-between" margin="0 0 16px">
-          <Checkbox
-            label="Запомнить меня"
-            checked={rememberUser}
-            onClick={() => setRememberUser(!rememberUser)}
-          />
-          <Text
-            size="s"
-            view="link"
-            onClick={() => setAuthType('pass_recovery')}
-          >
-            Забыли пароль?
-          </Text>
-        </Flex>
-        <Button
-          label="Войти"
-          width="full"
-          onClick={handleSubmit}
-          disabled={!form.email || !form.password}
-        />
+        <Formik
+          initialValues={initialValues}
+          validationSchema={schema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <div className={styles.field}>
+              <FormikInput name="email" placeholder="Ваш логин" />
+            </div>
+            <div className={styles.field}>
+              <FormikInput
+                name="password"
+                isPassword
+                placeholder="Ваш пароль"
+              />
+            </div>
+            <Flex align="center" justify="space-between" margin="0 0 16px">
+              <FormikCheckbox name="remember" label="Запомнить меня" />
+              <Text
+                size="s"
+                view="link"
+                onClick={() => setAuthType('pass_recovery')}
+              >
+                Забыли пароль?
+              </Text>
+            </Flex>
+            <Button label="Войти" width="full" type="submit" />
+          </Form>
+        </Formik>
         <Typography align="center" margin="16px 0 8px">
           Или с помощью
         </Typography>
