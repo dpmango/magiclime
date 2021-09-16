@@ -20,6 +20,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import BaseModal from 'components/Common/BaseModal';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
 import { buyMatricesService } from 'utils/api/routes/referrals';
@@ -28,7 +29,7 @@ import { IReferralTree } from 'types/interfaces/referrals';
 import ReferralUser from 'components/pages/Profile/ReferralUser';
 import useSharedStyles from 'assets/styles/Shared';
 import { buildTree } from './functions';
-import { ICrumbsPage, IMappedData } from './types';
+import { ICrumbsPage, IMappedData, IModalProps } from './types';
 import useStyles from './styles';
 
 interface IProgram {
@@ -59,6 +60,15 @@ const Referrals: FC = () => {
   const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
   const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
   const [urlId, setUrlId] = useState<number | string | null>(null);
+
+  const [modalConfirm, setModalConfirm] = useState<IModalProps>({
+    opened: false,
+    id: 0,
+  });
+
+  const [modalSuccess, setModalSuccess] = useState<{ opened: boolean }>({
+    opened: false,
+  });
 
   const { referralsTree, loading, error } = useSelector(
     (state: RootState) => state.referrals
@@ -221,7 +231,10 @@ const Referrals: FC = () => {
         return;
       }
 
-      toast.success(t('profile.referral.buy.toast.success'));
+      // toast.success(t('profile.referral.buy.toast.success'));
+      setModalConfirm({ opened: false, id: 0 });
+      setModalSuccess({ opened: true });
+
       await requestReferrals({
         id: savedUserId || params.id,
         program: filterProgram.id,
@@ -270,7 +283,9 @@ const Referrals: FC = () => {
                       <ReferralUser
                         data={group}
                         onReferralClick={handleReferralClick}
-                        onBuyClick={handleBuyClick}
+                        onBuyClick={(id) =>
+                          setModalConfirm({ opened: true, id })
+                        }
                       />
                       {group.children &&
                         group.children.map((referral: IReferralTree, cidx) => (
@@ -278,7 +293,9 @@ const Referrals: FC = () => {
                             key={referral.id || cidx}
                             data={referral}
                             onReferralClick={handleReferralClick}
-                            onBuyClick={handleBuyClick}
+                            onBuyClick={(id) =>
+                              setModalConfirm({ opened: true, id })
+                            }
                             nested
                           />
                         ))}
@@ -344,6 +361,15 @@ const Referrals: FC = () => {
               />
             </div>
             <div className={styles.filtersGroup}>
+              <Button
+                width="full"
+                onClick={() =>
+                  setModalConfirm({ ...modalConfirm, opened: true })
+                }
+                label={t('profile.referral.buy.cta')}
+              />
+            </div>
+            <div className={styles.filtersGroup}>
               <Typography weight="semibold" margin="0 0 12px" lineHeight="s">
                 {t('profile.referral.filter.matrix')}
               </Typography>
@@ -364,6 +390,63 @@ const Referrals: FC = () => {
           </div>
         </GridItem>
       </Grid>
+
+      <BaseModal
+        theme="narrow"
+        isOpen={modalConfirm.opened}
+        setModalOpen={(v) => setModalConfirm({ ...modalConfirm, opened: v })}
+        title={t('profile.referral.buy.modal.confirmTitle')}
+      >
+        <Typography margin="16px 0 0" size="l" lineHeight="s" align="center">
+          После покупки курса вам начисляться бонусные баллы. За прохождение
+          курса вы сможете получить очки рейтинга, благодаря которым можно
+          прокачивать своего аватара.
+        </Typography>
+
+        <Flex
+          align="center"
+          justify="center"
+          margin="32px 0 0"
+          className={styles.modalCta}
+        >
+          <Button
+            label={t('common.actions.buy')}
+            onClick={() => handleBuyClick(modalConfirm.id || undefined)}
+          />
+          <Button
+            label={t('common.actions.cancel')}
+            view="secondary"
+            onClick={() => setModalConfirm({ ...modalConfirm, opened: false })}
+          />
+        </Flex>
+      </BaseModal>
+
+      <BaseModal
+        theme="narrow"
+        isOpen={modalSuccess.opened}
+        setModalOpen={(v) =>
+          setModalSuccess({
+            opened: v,
+          })
+        }
+        title={t('profile.referral.buy.modal.successTitle')}
+      >
+        <Flex
+          align="center"
+          justify="center"
+          margin="32px 0 0"
+          className={styles.modalCta}
+        >
+          <Button
+            label={t('common.actions.ok')}
+            onClick={() =>
+              setModalSuccess({
+                opened: false,
+              })
+            }
+          />
+        </Flex>
+      </BaseModal>
     </div>
   );
 };

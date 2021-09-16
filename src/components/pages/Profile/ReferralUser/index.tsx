@@ -57,9 +57,9 @@ const ReferralUser: FC<IProps> = ({
   const referralsPlural = useMemo(() => {
     const plural = Plurize(
       referrals_count || 0,
-      t('profile.referralPlural.one'),
-      t('profile.referralPlural.two'),
-      t('profile.referralPlural.five')
+      t('profile.spacePlural.one'),
+      t('profile.spacePlural.two'),
+      t('profile.spacePlural.five')
     );
 
     return root ? referrals_count : `${referrals_count} ${plural}`;
@@ -166,7 +166,7 @@ const ReferralUser: FC<IProps> = ({
                 weight="semibold"
                 view="ghost"
               >
-                {t('profile.referral.card.referrals')}
+                {t('profile.referral.card.spaces')}
               </Typography>
             )}
           </div>

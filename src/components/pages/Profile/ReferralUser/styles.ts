@@ -88,7 +88,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     paddingRight: 12,
   },
   referralLevel: {
-    flex: '0 0 12%',
+    flex: '0 0 15%',
     paddingRight: 12,
     cursor: 'pointer',
     '& .Icon': {
@@ -102,7 +102,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     },
   },
   referralCount: {
-    flex: '0 0 15%',
+    flex: '0 0 12%',
     textAlign: 'left',
   },
   clone: {

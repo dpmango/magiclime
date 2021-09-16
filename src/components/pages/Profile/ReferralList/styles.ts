@@ -73,6 +73,11 @@ const useStyles = makeStyles({
     marginTop: 16,
     textAlign: 'center',
   },
+  modalCta: {
+    '& .Button': {
+      marginRight: 16,
+    },
+  },
 });
 
 export default useStyles;

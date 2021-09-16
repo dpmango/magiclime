@@ -18,3 +18,8 @@ export interface IMappedData {
   childrens: IReferralTree[];
   crumbs: ICrumbsPage[];
 }
+
+export interface IModalProps {
+  opened: boolean;
+  id: number;
+}

@@ -20,22 +20,7 @@ type SelectItem = {
   id: number;
 };
 
-const paymentSelectList: SelectItem[] = [
-  {
-    label: 'Все способы оплаты',
-    id: 1,
-  },
-  {
-    label: 'BitLime',
-    id: 2,
-  },
-  {
-    label: 'BitBox',
-    id: 3,
-  },
-];
-
-const BalanceHistory: FC = () => {
+const HistoryBalance: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -47,9 +32,6 @@ const BalanceHistory: FC = () => {
     undefined,
   ]);
   const [calendarActive, setCalendarActive] = useState<boolean>(false);
-  const [payment, setPayment] = useState<SelectItem | null>(
-    paymentSelectList[0]
-  );
 
   const handleCalendarChange = useCallback(({ value }) => {
     setCalendar(value);
@@ -66,19 +48,18 @@ const BalanceHistory: FC = () => {
     setDate('');
     setCalendar([undefined, undefined]);
     setCalendarActive(false);
-    setPayment(paymentSelectList[0]);
   }, []);
 
   const handleFiltersApply = useCallback(() => {
-    console.log({ date, payment });
-  }, [date, payment]);
+    console.log({ date });
+  }, [date]);
 
   useClickOutside(filtersRef, () => setCalendarActive(false));
 
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.balance.history.title')}
+        {t('profile.balance.history.titleBalance')}
       </Typography>
 
       <div className={styles.filters} ref={filtersRef}>
@@ -103,7 +84,7 @@ const BalanceHistory: FC = () => {
             />
           </div>
         </div>
-        <div className={cns(styles.filtersGroup, 'input')}>
+        {/* <div className={cns(styles.filtersGroup, 'input')}>
           <Typography view="ghost" margin="0 0 6px" size="s" lineHeight="s">
             {t('profile.balance.history.pare.label')}
           </Typography>
@@ -113,7 +94,7 @@ const BalanceHistory: FC = () => {
             onChange={({ value }) => setPayment(value)}
             items={paymentSelectList}
           />
-        </div>
+        </div> */}
         <div className={styles.filtersGroup}>
           <Button
             view="secondary"
@@ -148,4 +129,4 @@ const BalanceHistory: FC = () => {
   );
 };
 
-export default BalanceHistory;
+export default HistoryBalance;

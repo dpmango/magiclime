@@ -23,7 +23,8 @@ import Achievements from './Achievements';
 import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
-import BalanceHistory from './BalanceHistory';
+import HistoryBalance from './HistoryBalance';
+import HistoryOperations from './HistoryOperations';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
@@ -75,13 +76,18 @@ const ProfilePage: FC = () => {
         },
         {
           id: 4,
+          slug: `/profile/${params.id}/referrals`,
+          label: t('profile.tabs.referrals'),
+        },
+        {
+          id: 5,
           slug: `/profile/${params.id}/settings`,
           label: t('profile.tabs.settings'),
         },
         {
-          id: 5,
-          slug: `/profile/${params.id}/referrals`,
-          label: t('profile.tabs.referrals'),
+          id: 6,
+          slug: `/profile/${params.id}/history`,
+          label: t('profile.tabs.history'),
         },
       ];
     }
@@ -167,9 +173,11 @@ const ProfilePage: FC = () => {
                   </GridItem>
                 </Grid>
               </div>
-              <div className={styles.section}>
-                <Courses list={viewingProfile.courses || null} />
-              </div>
+              {viewingProfile.courses && viewingProfile.courses.length > 0 && (
+                <div className={styles.section}>
+                  <Courses list={viewingProfile.courses || null} />
+                </div>
+              )}
             </>
           )}
         />
@@ -193,15 +201,25 @@ const ProfilePage: FC = () => {
                   <div className={styles.section}>
                     <Balance />
                   </div>
-
-                  {/* <div className={styles.section}>
-                    <BalanceHistory />
-                  </div> */}
                 </>
               )}
             />
 
             <Route path={`${path}/settings`} render={() => <Settings />} />
+
+            <Route
+              path={`${path}/history`}
+              render={() => (
+                <>
+                  <div className={styles.section}>
+                    <HistoryOperations />
+                  </div>
+                  <div className={styles.section}>
+                    <HistoryBalance />
+                  </div>
+                </>
+              )}
+            />
           </>
         )}
 
