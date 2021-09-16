@@ -39,9 +39,11 @@ export const updateUser = (data: Partial<IUser>): AxiosPromise<IUser> => {
   return instance.patch(endpoints.users.me, data);
 };
 
-export const updateUserAvatar = (file: File): AxiosPromise<IUser> => {
-  const formData = new FormData();
-  formData.append('image', file);
+export const updateUserAvatar = (file: File | null): AxiosPromise<IUser> => {
+  const formData = file ? new FormData() : null;
+  if (file) {
+    formData!.append('image', file);
+  }
 
   return instance.post(endpoints.profile.options.avatar, formData);
 };

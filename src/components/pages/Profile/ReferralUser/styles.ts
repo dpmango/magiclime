@@ -42,7 +42,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     },
   },
   referralUser: ({ root, nested, clone }) => ({
-    flex: '0 0 50%',
+    flex: '0 0 45%',
     minWidth: 1,
     paddingRight: 12,
     paddingLeft: !nested ? 0 : 30,
@@ -84,11 +84,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
     })(),
   }),
   referralBl: {
-    flex: '0 0 23%',
+    flex: '0 0 25%',
     paddingRight: 12,
   },
-  referralLevel: {
-    flex: '0 0 15%',
+  referralMatrixId: {
+    flex: '0 0 18%',
     paddingRight: 12,
     cursor: 'pointer',
     '& .Icon': {

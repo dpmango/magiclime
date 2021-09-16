@@ -57,14 +57,12 @@ const ReferralUser: FC<IProps> = ({
   );
 
   const referralsPlural = useMemo(() => {
-    const plural = Plurize(
+    return Plurize(
       referrals_count || 0,
       t('profile.spacePlural.one'),
       t('profile.spacePlural.two'),
       t('profile.spacePlural.five')
     );
-
-    return root ? referrals_count : `${referrals_count} ${plural}`;
   }, [referrals_count]);
 
   const timestamp = useMemo(() => {
@@ -138,7 +136,7 @@ const ReferralUser: FC<IProps> = ({
 
       {!is_clone ? (
         <>
-          <div className={styles.referralLevel} onClick={handleCopyRefClick}>
+          <div className={styles.referralMatrixId} onClick={handleCopyRefClick}>
             <Flex align="center">
               <Typography
                 margin="0 6px 0 0"
@@ -166,7 +164,7 @@ const ReferralUser: FC<IProps> = ({
               size={root ? 'l' : 's'}
               view={root ? 'primary' : 'secondary'}
             >
-              {referralsPlural}
+              {referrals_count} {!root && referralsPlural}
             </Typography>
             {root && (
               <Typography
@@ -175,7 +173,7 @@ const ReferralUser: FC<IProps> = ({
                 weight="semibold"
                 view="ghost"
               >
-                {t('profile.referral.card.spaces')}
+                {referralsPlural}
               </Typography>
             )}
           </div>

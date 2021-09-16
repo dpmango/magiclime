@@ -148,15 +148,17 @@ const Referrals: FC = () => {
       program: number;
       level: number;
     }) => {
-      await dispatch(
-        getReferrals({
-          id,
-          program,
-          level,
-        })
-      );
+      if (!buyProcessing) {
+        await dispatch(
+          getReferrals({
+            id,
+            program,
+            level,
+          })
+        );
+      }
     },
-    []
+    [buyProcessing]
   );
 
   useEffect(() => {
@@ -318,25 +320,16 @@ const Referrals: FC = () => {
 
               <div className={styles.cta}>
                 <Button
-                  onClick={() => handleBuyClick()}
+                  onClick={() => setModalConfirm({ id: 0, opened: true })}
                   label={t('profile.referral.buy.cta')}
                 />
               </div>
             </>
           )}
 
-          {loading && (
+          {(buyProcessing || loading) && (
             <div className={sharedStyles.loader}>
               <Loader />
-            </div>
-          )}
-
-          {buyProcessing && (
-            <div className={sharedStyles.loader}>
-              <Loader />
-              <Typography size="l" margin="32px 0 0" align="center">
-                {t('profile.referral.buy.service.longawait')}
-              </Typography>
             </div>
           )}
         </GridItem>
@@ -375,9 +368,7 @@ const Referrals: FC = () => {
             <div className={styles.filtersGroup}>
               <Button
                 width="full"
-                onClick={() =>
-                  setModalConfirm({ ...modalConfirm, opened: true })
-                }
+                onClick={() => setModalConfirm({ id: 0, opened: true })}
                 label={t('profile.referral.buy.cta')}
               />
             </div>
@@ -396,7 +387,9 @@ const Referrals: FC = () => {
       <BaseModal
         theme="narrow"
         isOpen={modalConfirm.opened}
-        setModalOpen={(v) => setModalConfirm({ ...modalConfirm, opened: v })}
+        setModalOpen={(v) =>
+          setModalConfirm({ id: v ? modalConfirm.id : 0, opened: v })
+        }
         title={t('profile.referral.buy.modal.confirmTitle')}
       >
         <Typography margin="16px 0 0" size="l" lineHeight="s" align="center">
@@ -417,7 +410,7 @@ const Referrals: FC = () => {
           <Button
             label={t('common.actions.cancel')}
             view="secondary"
-            onClick={() => setModalConfirm({ ...modalConfirm, opened: false })}
+            onClick={() => setModalConfirm({ id: 0, opened: false })}
           />
         </Flex>
       </BaseModal>
