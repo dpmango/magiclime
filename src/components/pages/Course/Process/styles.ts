@@ -9,6 +9,7 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
     padding: '32px 24px',
     border: '1px solid var(--color-bg-stripe)',
     borderRadius: 10,
+    height: '100%',
   },
   image: {
     flex: '0 0 110px',

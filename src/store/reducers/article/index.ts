@@ -26,7 +26,11 @@ export const getArticles = createAsyncThunk<unknown, ArticlesPayloadType>(
   'article/getArticles',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getArticlesService(payload.page);
+      const { page, tags } = payload;
+      const response = await getArticlesService({
+        page,
+        tags,
+      });
       if (response?.status === 200) {
         dispatch(setArticles(response.data.results));
       }

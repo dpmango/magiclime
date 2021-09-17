@@ -19,7 +19,7 @@ const ArticleCard: FC<IProps> = ({ data }) => {
   const history = useHistory();
 
   return (
-    <Link to={`/article/${data.id}`} className={styles.root}>
+    <Link to={`/faq/${data.id}`} className={styles.root}>
       <Flex direction="column" className={styles.image}>
         {data.image && <img src={data.image.image} alt={data.title} />}
       </Flex>
@@ -36,7 +36,7 @@ const ArticleCard: FC<IProps> = ({ data }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  history.push(`/article/tag/${tag.id}`);
+                  history.push(`/faq/tag/${tag.id}`);
                 }}
               />
             ))}

@@ -1,6 +1,7 @@
 import { AxiosPromise } from 'types/common';
 import { IReferralTree } from 'types/interfaces/referrals';
 import { instance } from '../../index';
+import endpoints from '../endpoints';
 
 export const getReferralsService = (data: {
   id: number | string;
@@ -23,7 +24,30 @@ export const getReferralsService = (data: {
     };
   }
 
-  return instance.get(`/auth/users/me/referrals/`, {
+  return instance.get(endpoints.referrals.list, {
     params,
   });
+};
+
+export const buyMatricesService = async ({
+  level,
+  program,
+  matrixUserId,
+}: {
+  level: number;
+  program: number;
+  matrixUserId?: number;
+}): Promise<[{ status: number } | null, any | null]> => {
+  try {
+    const { data } = await instance.post(endpoints.referrals.buy, null, {
+      params: {
+        level,
+        program,
+        matrixUserId,
+      },
+    });
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
 };

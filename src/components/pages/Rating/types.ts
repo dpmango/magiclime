@@ -1,12 +1,13 @@
-import { IPhoto } from 'types/interfaces/common';
+import { IPhoto } from '../../../types/interfaces/common';
 
-export interface IUser {
-  id: number;
+export interface IUserRating {
+  readonly id: number;
+  username: string;
   name: string;
   avatar: IPhoto | null;
-  league: {
-    icon?: string | null;
-    title: string;
-  };
-  stat: string;
+  league: number;
+  experience: number;
+  rank: number;
+  rank_change: number;
+  about?: string | null;
 }

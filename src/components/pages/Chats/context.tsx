@@ -1,11 +1,11 @@
-import Cookies from 'js-cookie';
 import React, { FC, useState } from 'react';
-import { IMessage } from './types';
+import { IChat, IMessage } from './types';
 import { SetStateType } from '../../../types/common';
 
 type ChatContextType = {
   replyMessage: IMessage | null;
   mode: 'list' | 'creation';
+  newChat: IChat | null;
 };
 
 type ProviderValue = {
@@ -22,6 +22,7 @@ export const ChatContextProvider: FC = ({ children }) => {
   const [chatContext, setChatContext] = useState<ChatContextType>({
     replyMessage: null,
     mode: 'list',
+    newChat: null,
   });
 
   return (

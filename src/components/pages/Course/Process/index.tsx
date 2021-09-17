@@ -8,36 +8,17 @@ import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import useStyles from './styles';
 import useStylesRoot from '../styles';
 
-const content = [
-  {
-    title: 'Видеолекции',
-    description:
-      'Самое главное из теории разберём в видеолекциях. Записи хранятся в личном кабинете: вы сможете посмотреть занятия в любое удобное время',
-  },
-  {
-    title: 'Онлайн-воркшопы',
-    description:
-      'Вместе с экспертами курса вы изучите лучшие практики финансового анализа и обменяетесь опытом с сокурсниками',
-  },
-  {
-    title: 'Самостоятельная работа',
-    description:
-      'Вы будете выполнять упражнения, чтобы закрепить теорию. Например, рассчитаете финансовую модель компании и проведёте инвестиционный анализ',
-  },
-  {
-    title: 'Итоговая работа',
-    description:
-      'После прохождения всех модулей подготовите итоговую работу — финансовую стратегию компании. Этот проект вы сможете добавить в своё портфолио',
-  },
-];
+interface IProps {
+  content?: { title: string; description: string }[];
+}
 
-const CourseProcess: FC = () => {
+const CourseProcess: FC<IProps> = ({ content }) => {
   const isDefaultTheme = useCheckDefaultTheme();
   const styles = useStyles({ darkmode: !isDefaultTheme });
   const rootStyles = useStylesRoot();
   const { t } = useTranslation();
 
-  return (
+  return content && content.length ? (
     <div className={styles.root}>
       <div className={rootStyles.container}>
         <Typography
@@ -66,12 +47,13 @@ const CourseProcess: FC = () => {
                   <img src="/images/course-process.svg" alt="course-process" />
                 </div>
                 <div className={styles.content}>
-                  <Typography size="3xl" weight="semibold" lineHeight="s">
+                  <Typography size="l m:xl" weight="semibold" lineHeight="s">
                     {x.title}
                   </Typography>
                   <Typography
                     margin="12px 0 0"
-                    size="s"
+                    size="xs m:s"
+                    view="secondary"
                     className={styles.description}
                   >
                     {x.description}
@@ -83,7 +65,7 @@ const CourseProcess: FC = () => {
         </Grid>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default CourseProcess;

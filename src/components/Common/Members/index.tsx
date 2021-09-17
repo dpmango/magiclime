@@ -7,8 +7,9 @@ import { IPhoto } from '../../../types/interfaces/common';
 
 type DefaultMember = {
   readonly id: number;
-  avatar: IPhoto | null;
+  avatar: IPhoto | string | null;
   name?: string;
+  username?: string;
 };
 
 interface IProps<T> {
@@ -30,9 +31,15 @@ const Members = <T extends DefaultMember>({
       {members.slice(0, maxShown).map((member) => (
         <Avatar
           key={member.id}
-          url={member.avatar ? member.avatar.image : ''}
+          url={
+            member.avatar
+              ? typeof member.avatar === 'string'
+                ? member.avatar
+                : member.avatar.image
+              : ''
+          }
           className={styles.member}
-          name={member.name || ''}
+          name={member.name || member.username || ''}
         />
       ))}
       {members.length > 5 && (

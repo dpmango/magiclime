@@ -12,18 +12,20 @@ interface IProps {
   title: string;
   isOpen: boolean;
   dynamicSize?: boolean;
+  theme?: 'default' | 'narrow';
   children?: ReactNode;
-  setModalOpen: SetStateType<boolean>;
+  setModalOpen: (status: boolean) => void;
 }
 
 const BaseModal: FC<IProps> = ({
   title,
   isOpen,
   setModalOpen,
-  children,
+  theme = 'default',
   dynamicSize,
+  children,
 }) => {
-  const styles = useStyles({ dynamicSize, isOpen });
+  const styles = useStyles({ dynamicSize, isOpen, theme });
 
   return (
     <div className={styles.modal}>

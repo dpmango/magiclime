@@ -2,11 +2,15 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    position: 'relative',
-    margin: '24px 0',
+    marginLeft: 24,
   },
   form: {
     marginTop: 36,
+  },
+  modal: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   topline: {},
   formUser: {

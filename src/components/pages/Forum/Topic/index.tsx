@@ -1,99 +1,74 @@
-import React, { FC, useEffect, useState, useMemo } from 'react';
-import {
-  Switch,
-  Route,
-  useHistory,
-  useRouteMatch,
-  useParams,
-} from 'react-router-dom';
-import { useFirstRender } from 'hooks/useFirstRender';
-import Typography from 'components/Common/Typography';
-import { Tabs } from '@consta/uikit/Tabs';
-import { Grid, GridItem } from '@consta/uikit/Grid';
+import { Loader } from '@consta/uikit/Loader';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
+
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import { getForumTopic } from 'utils/api/routes/forum';
+import { ITopic, ITopicListItem } from '../types';
 
 import ForumList from './ForumList';
 import FilterForums from './FilterForums';
 import CreateModal from './CreateModal';
-
-import { ITab } from '../types';
 import useStyles from './styles';
 
-const ForumTopicPage: FC = () => {
+const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
+  match: {
+    params: { topicId },
+  },
+}) => {
+  const [topic, setTopic] = useState<ITopic>({} as ITopic);
+  const [loading, setLoading] = useState(false);
   const styles = useStyles();
-  const { path } = useRouteMatch();
-  const { topic } = useParams<{ topic: string }>();
-  const history = useHistory();
-  const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  const tabs: ITab[] = useMemo(
-    () => [
-      { id: 1, slug: `/forum/${topic}`, label: t('forum.tabs.popular') },
-      { id: 2, slug: `/forum/${topic}/new`, label: t('forum.tabs.new') },
-    ],
+  useEffect(() => {
+    const fetchTopic = async (id: string): Promise<ITopic> => {
+      const [err, data] = await getForumTopic(id);
+
+      if (err) {
+        toast.error('Error loading topic. Please try again');
+        return {} as ITopic;
+      }
+      return data;
+    };
+    setLoading(true);
+    fetchTopic(topicId)
+      .then((data) => {
+        setTopic(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [topicId]);
+
+  const addTopic = useCallback(
+    (newTopic: ITopicListItem) => {
+      setTopic((prev) => ({ ...prev, topics: [...prev.topics, newTopic] }));
+    },
     [topic]
   );
 
-  const getTabWithRouter = useMemo((): ITab => {
-    if (window.location.pathname.split('/').length > 2) {
-      const cTab = tabs
-        .slice(1, tabs.length)
-        .find((x) => window.location.pathname.includes(x.slug));
-
-      return cTab || tabs[0];
-    }
-
-    return tabs[0];
-  }, []);
-
-  const [tab, setTab] = useState<ITab>(getTabWithRouter);
-
-  useEffect(() => {
-    if (!firstRender) {
-      history.push(tab.slug);
-    }
-  }, [tab]);
+  if (loading || !topic.id) return <Loader />;
 
   return (
     <div className={styles.root}>
-      <Typography size="3xl" weight="semibold" lineHeight="m">
-        {t('forum.page.title')}
-      </Typography>
+      <Flex align="center" className={styles.head}>
+        <Typography size="3xl" weight="semibold" lineHeight="m">
+          {topic.name}
+        </Typography>
+        <Flex align="center" className={styles.filters}>
+          <FilterForums />
+          <CreateModal topicId={topicId} addTopic={addTopic} />
+        </Flex>
+      </Flex>
 
       <div className={styles.content}>
-        <Tabs
-          value={tab}
-          onChange={({ value }) => setTab(value)}
-          items={tabs}
-          getLabel={(item) => item.label}
-          size="m"
-          className={styles.tabs}
-        />
-
-        <Grid
-          cols="1"
-          breakpoints={{ l: { cols: 4 } }}
-          gap="xl"
-          className={styles.content}
-        >
-          <GridItem col="3">
-            <Switch>
-              <Route
-                path={`/forum/${topic}`}
-                render={() => <ForumList sort="popular" />}
-              />
-              <Route
-                path={`/forum/${topic}/new`}
-                render={() => <ForumList sort="new" />}
-              />
-            </Switch>
-          </GridItem>
-          <GridItem col="1">
-            <FilterForums />
-            <CreateModal />
-          </GridItem>
-        </Grid>
+        <div className={styles.content}>
+          <ForumList data={topic.topics} topicId={topicId} />
+        </div>
       </div>
     </div>
   );

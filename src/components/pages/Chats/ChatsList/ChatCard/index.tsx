@@ -1,22 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
+import cln from 'classnames';
 import { Avatar } from '@consta/uikit/Avatar';
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
 import { Badge } from '@consta/uikit/Badge';
+import { SetStateType } from '../../../../../types/common';
 import Typography from '../../../../Common/Typography';
 import useStyles from './styles';
 import { IChat } from '../../types';
 import { useCheckDefaultTheme } from '../../../../../hooks/useCheckDefaultTheme';
 
-const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
+interface IProps {
+  chat: IChat;
+  chatId: string | number;
+  setActiveChat: SetStateType<string | number>;
+}
+
+const ChatCard: FC<IProps> = ({ chat, chatId, setActiveChat }) => {
   const isDefault = useCheckDefaultTheme();
   const styles = useStyles({ isDefault, haveLastMessage: !!chat.last_message });
 
   return (
-    <NavLink
-      to={`/chats/${chat.id}`}
-      className={styles.root}
-      activeClassName={styles.activeChat}
+    <div
+      className={cln(styles.root, {
+        [styles.activeChat]: chat.id === +chatId,
+      })}
+      onClick={() => setActiveChat(chat.id)}
     >
       <Avatar
         form="round"
@@ -44,7 +52,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           {chat.last_message &&
             moment(chat.last_message.created_at).format('HH:mm')}
         </Typography>
-        {!!chat.unreaded_count && (
+        {chat.unreaded_count > 0 && (
           <Badge
             size="s"
             status="normal"
@@ -53,7 +61,7 @@ const ChatCard: FC<{ chat: IChat }> = ({ chat }) => {
           />
         )}
       </div>
-    </NavLink>
+    </div>
   );
 };
 

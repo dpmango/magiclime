@@ -1,24 +1,29 @@
-import React, { FC, useMemo, useCallback } from 'react';
+import React, { FC, useMemo, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
 
-import { RootState } from '../store/reducers/rootReducer';
-import { setAuthToken } from '../utils/api';
+import { setLogged } from 'store/reducers/user';
+import { setTheme } from 'store/reducers/settings';
+import { getAllMeta } from 'store/reducers/meta';
+import { RootState } from 'store/reducers/rootReducer';
+import { ScrollTo } from 'utils/helpers/scroll';
+import { setAuthToken } from 'utils/api';
+import { MenuContextProvider } from './Layout/Menu/context';
+
 import PrivateRoute from './PrivateRoute';
-import Landing from './pages/Landing';
+import StaticLayout from './Layout/StaticLayout';
 import MainLayout from './Layout/MainLayout';
 import { presetGpnDefault } from '../assets/theme/presets/presetGpnDefault';
 import { presetGpnDark } from '../assets/theme/presets/presetGpnDark';
-import { setLogged } from '../store/reducers/user';
-import { setTheme } from '../store/reducers/settings';
 
 const App: FC = () => {
   const { isLogged } = useSelector((state: RootState) => state.user, isEqual);
   const { theme } = useSelector((state: RootState) => state.settings, isEqual);
+  const { pathname } = useLocation();
 
   const dispatch = useDispatch();
 
@@ -31,19 +36,38 @@ const App: FC = () => {
     dispatch(setLogged());
   }
 
+  useEffect(() => {
+    dispatch(getAllMeta(null));
+  }, []);
+
+  useEffect(() => {
+    ScrollTo(0, 300);
+  }, [pathname]);
+
+  // MenuContextProvider нужен, чтобы положение меню не менялось при смене роута,
+  // А если делать это через Redux, то перестаёт работать transition у всех элементов меню
+
   return (
     <Theme preset={theme === 'default' ? presetGpnDefault : presetGpnDark}>
-      <Switch>
-        <Route exact path="/home" component={Landing} />
-        <PrivateRoute
-          path="/"
-          component={() => (
-            <MainLayout theme={theme} setTheme={handleSetTheme} />
-          )}
-          redirect="/home"
-          access={isLogged}
-        />
-      </Switch>
+      <MenuContextProvider>
+        <Switch>
+          <PrivateRoute
+            path="/home"
+            component={() => <StaticLayout />}
+            redirect="/profile/me"
+            access={!isLogged}
+          />
+
+          <PrivateRoute
+            path="/"
+            component={() => (
+              <MainLayout theme={theme} setTheme={handleSetTheme} />
+            )}
+            redirect="/home"
+            access={isLogged}
+          />
+        </Switch>
+      </MenuContextProvider>
       <Toaster
         position="top-right"
         toastOptions={{

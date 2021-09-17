@@ -28,14 +28,6 @@ export const getChat = (id: number): AxiosPromise<IChatDetail> => {
   return instance.get(`/chats/${id}/`);
 };
 
-export const sendMessage = (data: {
-  text: string;
-  reply_to_id: number | null;
-  chat: number;
-}): AxiosPromise => {
-  return instance.post('/messages/', data);
-};
-
 export const getUsers = (
   title: string
 ): AxiosPromise<IAxiosPaginatedResponse<IUser>> => {
@@ -60,7 +52,9 @@ export const getChatGroups = (): AxiosPromise<
   return instance.get(`/groups/`);
 };
 
-export const sendFile = (file: File): AxiosPromise => {
+export const sendFile = (
+  file: File
+): AxiosPromise<{ id: number; file: string }> => {
   const fakeForm = new FormData();
   fakeForm.append('file', file);
   return instance.post('/files/', fakeForm, {

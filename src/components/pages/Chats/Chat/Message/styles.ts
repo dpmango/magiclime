@@ -52,6 +52,37 @@ const useStyles = makeStyles(() => ({
   },
   replyCreator: {
     fontSize: '13px',
+    marginBottom: '4px',
+  },
+  file: {
+    display: 'flex',
+    padding: '16px',
+    width: 'min-content',
+    minWidth: '350px',
+    maxWidth: 'calc(100% - 64px)',
+    alignItems: 'center',
+    borderRadius: '12px',
+    background: 'var(--color-bg-ghost)',
+    margin: '10px 0',
+    '& > button': {
+      marginRight: '15px',
+    },
+    '& > div': {
+      maxWidth: 'calc(100% - 64px)',
+    },
+  },
+  fileName: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  messageImage: {
+    width: '100%',
+    maxWidth: '300px',
+    maxHeight: '300px',
+    objectFit: 'contain',
+    borderRadius: '10px',
+    margin: '15px 0',
   },
   '@media screen and (max-width: 1300px)': {
     container: {

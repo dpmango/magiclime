@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { RouteComponentProps, Route, Redirect } from 'react-router-dom';
-import { ComponentType } from '../../types/common';
+import { ComponentType } from 'types/common';
 
 interface IProps {
   component: ComponentType<RouteComponentProps>;

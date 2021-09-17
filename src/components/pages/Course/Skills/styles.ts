@@ -9,10 +9,13 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   },
   icon: {
     flex: '0 0 60px',
-    paddingTop: 10,
+    paddingTop: 6,
     paddingRight: 16,
     textAlign: 'center',
-    fontSize: 44,
+    '& .Icon': {
+      height: 38,
+      width: 38,
+    },
   },
   content: {},
   description: {

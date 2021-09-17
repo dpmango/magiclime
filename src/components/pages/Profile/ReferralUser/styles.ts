@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 interface IProps {
   nested?: boolean;
   root?: boolean;
+  clone?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
@@ -13,7 +14,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
-    cursor: ({ root }) => (root ? 'default' : 'pointer'),
+    cursor: ({ root, clone }) => (root || clone ? 'default' : 'pointer'),
     '&:first-child': {
       borderTopWidth: 0,
     },
@@ -26,6 +27,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       transform: 'translateY(-50%)',
     },
     '&::after': {
+      display: ({ clone }) => (!clone ? 'block' : 'none'),
       width: 9,
       height: 9,
       left: ({ nested }) => (nested ? 20 : -24),
@@ -33,17 +35,20 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderRadius: '50%',
     },
     '&::before': {
-      width: ({ nested }) => (nested ? 37 : 30),
+      width: ({ nested, clone }) => (nested ? (!clone ? 37 : 17) : 30),
       height: 1,
       left: ({ nested }) => (nested ? -18 : -52),
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: ({ root }) => ({
+  referralUser: ({ root, nested, clone }) => ({
     flex: '0 0 50%',
     minWidth: 1,
     paddingRight: 12,
-    // paddingLeft: ({ nested }) => (nested ? 0 : 30),
+    paddingLeft: !nested ? 0 : 30,
+    '& .Avatar': {
+      backgroundColor: clone ? 'var(--color-bg-default)' : 'inherit',
+    },
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
@@ -78,17 +83,37 @@ const useStyles = makeStyles<null, IProps>(() => ({
       return root ? { width: 72, height: 72, lineHeight: '72px' } : {};
     })(),
   }),
-  referralBtl: {
+  referralBl: {
     flex: '0 0 23%',
     paddingRight: 12,
   },
   referralLevel: {
     flex: '0 0 12%',
     paddingRight: 12,
+    cursor: 'pointer',
+    '& .Icon': {
+      color: '#C7CFCE',
+      transition: 'color .25s ease-in-out',
+    },
+    '&:hover': {
+      '& .Icon': {
+        color: 'var(--color-typo-brand)',
+      },
+    },
   },
   referralCount: {
     flex: '0 0 15%',
     textAlign: 'left',
+  },
+  clone: {
+    paddingLeft: 30,
+    marginLeft: 'auto',
+  },
+  cloneFree: {
+    borderRadius: '50%',
+    border: '1px solid var(--color-bg-border)',
+    width: 32,
+    height: 32,
   },
 }));
 

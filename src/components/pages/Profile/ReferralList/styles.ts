@@ -69,6 +69,10 @@ const useStyles = makeStyles({
     marginRight: 6,
     marginBottom: 6,
   },
+  cta: {
+    marginTop: 16,
+    textAlign: 'center',
+  },
 });
 
 export default useStyles;

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   root: {
     position: 'relative',
-    padding: '70px 0',
+    margin: '70px 0',
   },
   grid: {
     display: 'grid',

@@ -1,27 +1,41 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import toast from 'react-hot-toast';
+import { FileField } from '@consta/uikit/FileField';
+import { Button } from '@consta/uikit/Button';
+import { Grid, GridItem } from '@consta/uikit/Grid';
+import { Attach } from '@consta/uikit/Attach';
+import cns from 'classnames';
+import moment from 'moment';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { Grid, GridItem } from '@consta/uikit/Grid';
-import { Button } from '@consta/uikit/Button';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED, EMAIL, PHONE } from 'utils/formik/validation';
-import cns from 'classnames';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
+import { getProfilePdf } from 'utils/api/routes/auth';
 import { logoutFunc } from 'utils/helpers/logout';
+import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
 import useStyles from './styles';
+
+const uploader = {
+  allowedMime: ['image'],
+  maxSize: 5,
+  includeReader: false,
+};
 
 const Account: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const [files, setFiles] = useState<File[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const { profile } = useSelector((state: RootState) => state.user);
 
@@ -57,9 +71,81 @@ const Account: FC = () => {
     phone: PHONE,
   });
 
+  // actions
   const handleLogoutClick = () => {
     logoutFunc();
   };
+
+  const clearInput = (target: any) => {
+    // eslint-disable-next-line no-param-reassign
+    target.value = '';
+  };
+
+  const handleKYCUpload = useCallback(
+    (e: DragEvent | React.ChangeEvent<Element>) => {
+      const { files } = e.target as HTMLInputElement;
+
+      if (files && files[0]) {
+        const file = files[0];
+
+        // limit mime
+        if (uploader.allowedMime) {
+          if (!uploader.allowedMime.includes(file.type.split('/')[0])) {
+            toast.error(t('profile.head.uploader.mimeLocked'));
+            clearInput(e.target);
+            return false;
+          }
+        }
+
+        // limit size
+        if (uploader.maxSize) {
+          const sizeInMb = bytesToMegaBytes(file.size);
+
+          if (sizeInMb > uploader.maxSize) {
+            toast.error(`${t('profile.head.uploader')} ${uploader.maxSize}Мб`);
+            clearInput(e.target);
+            return false;
+          }
+        }
+
+        if (file) setFiles([file]);
+
+        clearInput(e.target);
+      }
+
+      return true;
+    },
+    []
+  );
+
+  const handleExportClick = useCallback(async () => {
+    const [err, data] = await getProfilePdf();
+
+    if (err) {
+      toast.error(t('profile.settings.export.error'));
+    }
+
+    const showFile = (blob: Blob) => {
+      const newBlob = new Blob([blob], { type: 'application/pdf' });
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(newBlob);
+        return;
+      }
+
+      // Create a link pointing to the ObjectURL containing the blob.
+      const data = window.URL.createObjectURL(newBlob);
+      const link = document.createElement('a');
+      link.href = data;
+      link.download = 'myprofile.pdf';
+      link.click();
+      setTimeout(() => {
+        window.URL.revokeObjectURL(data);
+      }, 100);
+    };
+
+    showFile(data);
+  }, []);
 
   return (
     <div className={styles.root}>
@@ -150,6 +236,44 @@ const Account: FC = () => {
 
             <div className={styles.section}>
               <div className={styles.uiGroup}>
+                <Typography size="s" margin="0 0 6px" view="secondary">
+                  {t('profile.settings.account.upload.label')}
+                </Typography>
+                {files &&
+                  files.map((file) => {
+                    const desc = `${bytesToMegaBytes(file.size)}Мб, ${moment(
+                      file.lastModified
+                    ).format('DD.MM.YYYY, hh:mm')}`;
+
+                    const extension = file.type.split('/')[1];
+
+                    return (
+                      <Attach
+                        key={file.name}
+                        fileName={file.name}
+                        fileDescription={desc}
+                        fileExtension={extension}
+                      />
+                    );
+                  })}
+
+                <FileField id="kyc" onChange={handleKYCUpload}>
+                  {(props) => (
+                    <Button
+                      {...props}
+                      label={
+                        files.length
+                          ? t('profile.settings.account.upload.ctaAlt')
+                          : t('profile.settings.account.upload.cta')
+                      }
+                    />
+                  )}
+                </FileField>
+              </div>
+            </div>
+
+            <div className={styles.section} style={{ opacity: 0.5 }}>
+              <div className={styles.uiGroup}>
                 <FormikSwitch
                   label="Lorem ipsum dolor sit amet"
                   name="switch1"
@@ -166,6 +290,7 @@ const Account: FC = () => {
                   view="clear"
                   size="s"
                   label={t('profile.settings.account.export')}
+                  onClick={handleExportClick}
                 />
               </div>
               <div className={styles.uiButton}>

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 interface IProps {
   isOpen: boolean;
   dynamicSize?: boolean;
+  theme: string;
 }
 
 const useStyles = makeStyles<null, IProps>({
@@ -11,6 +12,7 @@ const useStyles = makeStyles<null, IProps>({
     width: '100%',
     minWidth: ({ dynamicSize }) => (dynamicSize ? 'auto' : '696px'),
     padding: ({ isOpen }) => (isOpen ? '32px 24px 24px' : 0),
+    maxWidth: ({ theme }) => (theme === 'narrow' ? '480px' : '100%'),
   },
   close: {
     position: 'absolute',

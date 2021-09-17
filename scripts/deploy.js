@@ -1,9 +1,9 @@
-//git checkout develop && git pull origin develop && npm run build &&
 const Client = require('ssh2-sftp-client');
 const path = require('path');
 const sftp = new Client();
 const fs = require('fs');
 const os = require('os');
+const { exec } = require('child_process');
 
 if (
   !process.argv[2] ||
@@ -21,37 +21,50 @@ const prodConfig = {
 };
 
 const devConfig = {
-  host: '178.154.196.41',
-  port: '443',
-  username: 'dev',
-  privateKey: fs.readFileSync(`${os.homedir()}/.ssh/id_rsa.pub`),
+  host: '130.193.40.212',
+  port: '22',
+  username: 'admin',
+  privateKey: fs.readFileSync(`${os.homedir()}/.ssh/id_rsa`),
 };
 
 const REMOTE_PATH = '/var/www/html';
 
-sftp
-  .connect(process.argv[2] === 'prod' ? prodConfig : devConfig)
-  .then(() => {
-    return sftp.list(REMOTE_PATH);
-  })
-  .then((data) => {
-    const promises = data.map((el) => {
-      if (el.type === 'd') return sftp.rmdir(REMOTE_PATH + `/${el.name}`, true);
-      else return sftp.delete(REMOTE_PATH + `/${el.name}`);
+const command =
+  process.argv[2] === 'prod' ? 'npm run build_prod' : 'npm run build_dev';
+
+exec(command, (error, stdout, stderr) => {
+  if (error) {
+    console.log(error.message);
+  }
+  if (stderr) {
+    console.log(stderr);
+  }
+  console.log(stdout);
+  sftp
+    .connect(process.argv[2] === 'prod' ? prodConfig : devConfig)
+    .then(() => {
+      return sftp.list(REMOTE_PATH);
+    })
+    .then((data) => {
+      const promises = data.map((el) => {
+        if (el.type === 'd')
+          return sftp.rmdir(REMOTE_PATH + `/${el.name}`, true);
+        else return sftp.delete(REMOTE_PATH + `/${el.name}`);
+      });
+      return Promise.all(promises);
+    })
+    .then(() => {
+      return sftp.uploadDir(path.resolve(__dirname, '../build'), REMOTE_PATH);
+    })
+    .then((data) => {
+      console.log('Success deploy');
+      process.exit(0);
+    })
+    .catch((err) => {
+      console.log(err);
+      process.exit(1);
+    })
+    .finally(() => {
+      sftp.end();
     });
-    return Promise.all(promises);
-  })
-  .then(() => {
-    return sftp.uploadDir(path.resolve(__dirname, '../build'), REMOTE_PATH);
-  })
-  .then((data) => {
-    console.log('Success deploy');
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.log(err);
-    process.exit(1);
-  })
-  .finally(() => {
-    sftp.end();
-  });
+});

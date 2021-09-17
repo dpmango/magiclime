@@ -11,10 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
-import { RootState } from 'store/reducers/rootReducer';
 
 import Typography from 'components/Common/Typography';
 import { useFirstRender } from 'hooks/useFirstRender';
+import { RootState } from 'store/reducers/rootReducer';
+import { IUser } from 'types/interfaces/user';
+
 import Head from './Head';
 import ProgramList from './ProgramList';
 import Achievements from './Achievements';
@@ -25,9 +27,8 @@ import BalanceHistory from './BalanceHistory';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
-
 import useStyles from './styles';
-import { mockPrograms, mockEvents, mockCourses } from './mockData';
+import { mockPrograms, mockEvents } from './mockData';
 
 interface ITab {
   id: number;
@@ -48,14 +49,16 @@ const ProfilePage: FC = () => {
     (state: RootState) => state.user
   );
 
+  // getting profile
   const isMyProfile = useMemo(() => {
     return params.id === 'me';
   }, [params.id]);
 
-  const viewingProfile = useMemo(() => {
+  const viewingProfile: IUser = useMemo(() => {
     return isMyProfile ? profile : foreignProfile;
   }, [profile, foreignProfile, isMyProfile]);
 
+  // tabs
   const tabs: ITab[] = useMemo(() => {
     if (isMyProfile) {
       return [
@@ -67,13 +70,18 @@ const ProfilePage: FC = () => {
         },
         {
           id: 3,
-          slug: `/profile/${params.id}/referrals`,
-          label: t('profile.tabs.referrals'),
+          slug: `/profile/${params.id}/partners`,
+          label: t('profile.tabs.partners'),
         },
         {
           id: 4,
           slug: `/profile/${params.id}/settings`,
           label: t('profile.tabs.settings'),
+        },
+        {
+          id: 5,
+          slug: `/profile/${params.id}/referrals`,
+          label: t('profile.tabs.referrals'),
         },
       ];
     }
@@ -101,6 +109,7 @@ const ProfilePage: FC = () => {
 
   const [tab, setTab] = useState<ITab>(getTabWithRouter);
 
+  // effects
   useEffect(() => {
     if (!firstRender) {
       history.push(tab.slug);
@@ -140,9 +149,14 @@ const ProfilePage: FC = () => {
           path={path}
           render={() => (
             <>
-              <div className={styles.section}>
-                <ProgramList list={mockPrograms} />
-              </div>
+              {isMyProfile ? (
+                <div className={styles.section}>
+                  <ProgramList list={mockPrograms} />
+                </div>
+              ) : (
+                <ReferralStats {...profileProps} />
+              )}
+
               <div className={styles.section}>
                 <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2 } }}>
                   <GridItem>
@@ -154,13 +168,13 @@ const ProfilePage: FC = () => {
                 </Grid>
               </div>
               <div className={styles.section}>
-                <Courses list={mockCourses} />
+                <Courses list={viewingProfile.courses || null} />
               </div>
             </>
           )}
         />
         <Route
-          path={`${path}/referrals`}
+          path={`${path}/partners`}
           render={() => (
             <>
               <ReferralStats {...profileProps} />
@@ -190,6 +204,11 @@ const ProfilePage: FC = () => {
             <Route path={`${path}/settings`} render={() => <Settings />} />
           </>
         )}
+
+        <Route
+          path={`${path}/referrals`}
+          render={() => <Typography size="l">Пусто</Typography>}
+        />
 
         <Route
           path={`${path}`}

@@ -1,26 +1,30 @@
-import React, { FC, useState } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import useStyles from './styles';
-import Header from '../Header';
-import { SetStateType, Theme } from '../../../types/common';
+import React, { FC, useState, useEffect, memo } from 'react';
+import isEqual from 'lodash/isEqual';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getAllProfile } from 'store/reducers/profile';
+import Flex from 'components/Common/Flex';
+import Container from 'components/Common/Container';
 import Menu from '../Menu';
-import Flex from '../../Common/Flex';
-import Container from '../../Common/Container';
+import { ChatContextProvider } from '../../pages/Chats/context';
+import { RootState } from '../../../store/reducers/rootReducer';
+import { SetStateType, Theme } from '../../../types/common';
+
+import Admin from '../../pages/Admin';
+import Profile from '../../pages/Profile';
 import Courses from '../../pages/Courses';
 import Course from '../../pages/Course';
 import CourseTask from '../../pages/CourseTask';
 import Articles from '../../pages/Articles';
+import Article from '../../pages/Article';
 import Chats from '../../pages/Chats';
 import Forum from '../../pages/Forum';
 import Rating from '../../pages/Rating';
-import Profile from '../../pages/Profile';
-import { ChatContextProvider } from '../../pages/Chats/context';
+import News from '../../pages/News';
 import Webinars from '../../pages/Webinars';
-import WebinarInfo from '../../pages/WebinarInfo';
-import Admin from '../../pages/Admin';
-import { RootState } from '../../../store/reducers/rootReducer';
-import Webinar from '../../pages/Webinar';
+import Header from '../Header';
+import useStyles from './styles';
 
 interface IProps {
   theme: Theme;
@@ -28,19 +32,23 @@ interface IProps {
 }
 
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
-  const [isFullMenu, setIsFullMenu] = useState(false);
   const styles = useStyles();
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+
   const { is_staff } = useSelector((state: RootState) => state.user.profile);
+
+  useEffect(() => {
+    if (pathname.includes('profile')) {
+      dispatch(getAllProfile());
+    }
+  }, [pathname]);
 
   return (
     <Flex direction="column" className={styles.root}>
-      <Header
-        theme={theme}
-        setTheme={setTheme}
-        toggleMenu={() => setIsFullMenu(!isFullMenu)}
-      />
+      <Header theme={theme} setTheme={setTheme} />
       <Flex className={styles.container}>
-        <Menu isFull={isFullMenu} isAdmin={is_staff} />
+        <Menu isAdmin={is_staff} />
         <Container className={styles.content}>
           {!is_staff ? (
             <Switch>
@@ -57,16 +65,16 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
                   </ChatContextProvider>
                 )}
               />
-              <Route exact path="/courses" component={Courses} />
-              <Route exact path="/courses/:course" component={Course} />
-              <Route exact path="/courses/:course/:id" component={CourseTask} />
-              <Route exact path="/faq" component={Articles} />
               <Route path="/profile/:id" component={Profile} />
+              <Route exact path="/courses" component={Courses} />
+              <Route exact path="/courses/:id" component={CourseTask} />
+              <Route exact path="/courses/:id/info" component={Course} />
+              <Route exact path="/faq" component={Articles} />
+              <Route exact path="/faq/:id" component={Article} />
               <Route path="/forum" component={Forum} />
-              <Route exact path="/webinars" component={Webinars} />
+              <Route path="/webinars" component={Webinars} />
               <Route path="/rating" component={Rating} />
-              <Route exact path="/webinars/:id" component={WebinarInfo} />
-              <Route path="/webinars/:id/stream" component={Webinar} />
+              <Route path="/news" component={News} />
             </Switch>
           ) : (
             <Admin />

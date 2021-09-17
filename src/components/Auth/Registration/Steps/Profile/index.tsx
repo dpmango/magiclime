@@ -30,6 +30,7 @@ const ProfileStep: FC = () => {
         <FormikInput
           label="Рефедральный код"
           name="media_sponsor"
+          isRequired={false}
           placeholder="Введите код"
         />
         <FormikInput

@@ -1,41 +1,34 @@
 import React, { FC, useCallback, useState } from 'react';
 import { Modal } from '@consta/uikit/Modal';
 
-import Auth from 'components/Auth';
-import Header from './Header';
-import Footer from './Footer';
+import SuitableFor from '../Course/SuitableFor';
+import Skills from '../Course/Skills';
+import Process from '../Course/Process';
+
 import Hero from './Hero';
 import Steps from './Steps';
 import How from './How';
-import FeaturedEvent from './FeaturedEvent';
 import Events from './Events';
 
+import { mockSkills, mockProcess } from './mockData';
 import useStyles from './styles';
 
-const Landing: FC = () => {
+interface IProps {
+  setAuthOpen: (v: boolean) => void;
+}
+
+const Landing: FC<IProps> = ({ setAuthOpen }) => {
   const styles = useStyles();
-
-  const [isAuthOpen, setAuthOpen] = useState(false);
-
-  const closeModal = useCallback(() => {
-    setAuthOpen(false);
-  }, []);
 
   return (
     <div className={styles.root}>
-      <Header setAuthOpen={(v) => setAuthOpen(v)} />
-
       <Hero setAuthOpen={(v) => setAuthOpen(v)} />
-      <Steps />
+      <Steps setAuthOpen={(v) => setAuthOpen(v)} />
       <How />
-      <FeaturedEvent />
+      <Skills content={mockSkills} />
+      <Process content={mockProcess} />
+      <SuitableFor />
       <Events />
-
-      <Footer />
-
-      <Modal isOpen={isAuthOpen} hasOverlay onOverlayClick={closeModal}>
-        <Auth closeModal={closeModal} />
-      </Modal>
     </div>
   );
 };

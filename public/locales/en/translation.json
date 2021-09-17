@@ -145,7 +145,7 @@
         "paymentAmount": "Сумма пополнения",
         "amount": {
           "label": "Refill amount",
-          "placeholder": "Enter amount in BTL"
+          "placeholder": "Enter amount in BL"
         },
         "cta": "Refill balance"
       },
@@ -350,7 +350,8 @@
     "extra": "EXTRA",
     "faq": "Articles",
     "rating": "Users rating",
-    "games": "Games"
+    "games": "Games",
+    "news": "News"
   },
   "admin": {
     "emptyData": "Данные отсутствуют",

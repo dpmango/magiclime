@@ -20,11 +20,31 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'var(--color-bg-default)',
-    opacity: 0.5,
     display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
+    flexWrap: 'wrap',
+    '&::after': {
+      position: 'absolute',
+      zIndex: 1,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      display: 'block',
+      content: '" "',
+      background: 'var(--color-bg-default)',
+      opacity: 0.5,
+    },
+    '& .Loader': {
+      zIndex: 2,
+      height: 'calc(16px + var(--loader-size))',
+    },
+    '& .Text': {
+      position: 'relative',
+      zIndex: 2,
+      height: 'auto',
+    },
   },
 
   wysiwyg: {
@@ -39,46 +59,67 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
       fontSize: 44,
       lineHeight: 1.45,
       margin: '32px 0',
+      '@media screen and (max-width: 639px)': {
+        fontSize: 36,
+      },
     },
     '& h2': {
       fontWeight: 500,
       fontSize: 32,
       lineHeight: 1.33,
       margin: '32px 0',
+      '@media screen and (max-width: 639px)': {
+        fontSize: 26,
+      },
     },
     '& h3': {
       fontWeight: 500,
       fontSize: 24,
       lineHeight: 1.33,
       margin: '32px 0',
+      '@media screen and (max-width: 639px)': {
+        fontSize: 20,
+      },
     },
     '& h4': {
       fontWeight: 500,
       fontSize: 20,
       lineHeight: 1.33,
       margin: '24px 0',
+      '@media screen and (max-width: 639px)': {
+        fontSize: 18,
+      },
     },
     '& h5': {
       fontWeight: 500,
       fontSize: ({ wysiwyg }) => (wysiwyg !== 'muted' ? 18 : 16),
       lineHeight: 1.33,
       margin: '24px 0',
+      '@media screen and (max-width: 639px)': {
+        fontSize: '16px !important',
+      },
     },
     '& p': {
       margin: '20px 0',
       fontSize: ({ wysiwyg }) => (wysiwyg !== 'muted' ? 18 : 16),
       lineHeight: 1.45,
+      '@media screen and (max-width: 639px)': {
+        fontSize: '16px !important',
+      },
     },
     '& img': {
       display: 'block',
       maxWidth: '100%',
       margin: '32px 0',
+      '@media screen and (max-width: 639px)': {
+        margin: '24px 0',
+      },
     },
     '& .scaler': {
       position: 'relative',
       fontSize: 0,
       margin: '32px 0',
-      '& iframe, & img': {
+      '& iframe, & video, & img': {
         position: 'absolute',
         height: '100%',
         width: '100%',
@@ -94,6 +135,9 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
       fontSize: 18,
       lineHeight: 1.45,
       padding: '12px 0px 12px 24px',
+      '@media screen and (max-width: 639px)': {
+        fontSize: 16,
+      },
       '&::after': {
         display: 'block',
         content: "''",

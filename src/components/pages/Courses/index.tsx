@@ -1,19 +1,22 @@
 import React, { FC, useState, useCallback, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import groupBy from 'lodash/groupBy';
+import toast from 'react-hot-toast';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import { ICourse } from 'types/interfaces/courses';
-import { getCoursesService } from 'utils/api/routes/courses';
-import { IFilter, ICategory } from 'components/pages/Courses/types';
 
 import Typography from 'components/Common/Typography';
 import Tags from 'components/Common/Tags';
+import Pagination from 'components/Common/Pagination';
 import ProfileCourses from 'components/pages/Profile/Courses';
+import { ICourse } from 'types/interfaces/courses';
+import { getCoursesService } from 'utils/api/routes/courses';
+import { IFilter, ICategory } from 'components/pages/Courses/types';
+import { RootState } from 'store/reducers/rootReducer';
+
 import FeaturedCourse from './FeaturedCourse';
 import CoursesList from './CoursesList';
 import Filters from './Filters';
-
-import { tags, mockProfileCourses } from './mockData';
 import useStyles from './styles';
 
 const CoursesPage: FC = () => {
@@ -21,22 +24,10 @@ const CoursesPage: FC = () => {
   const { t } = useTranslation();
 
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
-
-  const fetchCourses = useCallback(async () => {
-    const [err, data] = await getCoursesService();
-
-    if (err) {
-      console.log({ err });
-    }
-
-    setCourses(data!.results || []);
-  }, []);
-
-  const getMore = () => {
-    // const newCourses = [];
-    // setCourses([...courses, ...newCourses]);
-  };
+  const { tags } = useSelector((state: RootState) => state.meta);
+  const { profile } = useSelector((state: RootState) => state.user);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -54,11 +45,11 @@ const CoursesPage: FC = () => {
     let priceRange: [string, string] = ['0 ₽', '0 ₽'];
     let levelRange: [string, string] = ['1', '1'];
 
-    const groupedCategories = groupBy(courses, (x) => x.subcategory.id);
+    const groupedSubCategories = groupBy(courses, (x) => x.subcategory.id);
 
-    if (groupedCategories) {
-      categories = Object.keys(groupedCategories).map((key) => {
-        const { subcategory } = groupedCategories[key][0];
+    if (groupedSubCategories) {
+      categories = Object.keys(groupedSubCategories).map((key) => {
+        const { subcategory } = groupedSubCategories[key][0];
 
         return subcategory;
       });
@@ -80,26 +71,32 @@ const CoursesPage: FC = () => {
 
     return {
       categories,
-      level: ['Любой', 'Для новичков', 'Для специалистов'],
+      level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
       types: ['Профессия', 'Программа', 'Курс'],
       priceRange,
       levelRange,
     };
   }, [courses]);
 
-  const handleFiltersChange = useCallback((filter) => {
-    console.log({ filter });
-  }, []);
+  const handleFiltersChange = useCallback(
+    async (filter) => {
+      const params = filter
+        ? {
+            ...filter,
+            tags: activeTags,
+          }
+        : null;
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+      setFilterRequest(params);
+    },
+    [activeTags]
+  );
 
   return (
     <div className={styles.root}>
       <FeaturedCourse />
 
-      <ProfileCourses view="compact" list={mockProfileCourses} />
+      <ProfileCourses view="compact" list={profile.courses || null} />
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">
@@ -115,7 +112,13 @@ const CoursesPage: FC = () => {
 
         <Grid cols="4" gap="xl" className={styles.main}>
           <GridItem col="3">
-            <CoursesList items={courses} hasMore getMore={getMore} />
+            <Pagination
+              getList={getCoursesService}
+              listComponent={CoursesList}
+              queries={filterRequest}
+              successCallback={(data) => setCourses(data)}
+              errorCallback={(err) => toast.error(t('course.list.error'))}
+            />
           </GridItem>
 
           <GridItem col="1">

@@ -9,6 +9,8 @@ import { IUser } from 'types/interfaces/user';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { RootState } from 'store/reducers/rootReducer';
+import { copyToClipboard } from 'utils/helpers/clipboard';
 // import { Button } from '@consta/uikit/Button';
 
 import useStyles from './styles';
@@ -22,29 +24,18 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const { balance } = useSelector((state: RootState) => state.profile);
+  // const { referralsTree } = useSelector((state: RootState) => state.referrals);
+
   const handleCopyRefClick = useCallback(
     (e) => {
       e.preventDefault();
 
-      // TODO - should be changed to some library ?
-      const textArea = document.createElement('textarea');
-      textArea.value = `https://magiclime.academy/?ref=${profile.referral_number}`;
-      textArea.style.opacity = '0';
-      textArea.style.position = 'absolute';
-      textArea.style.top = '0';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-
-      try {
-        const successful = document.execCommand('copy');
-        const msg = successful ? 'successful' : 'unsuccessful';
-        toast(t('profile.head.copySuccess'));
-      } catch (err) {
-        console.log(`${t('profile.head.copyError')} : ${err.message}`);
-      }
-
-      document.body.removeChild(textArea);
+      copyToClipboard(
+        `https://magiclime.academy/?ref=${profile.referral_number}`,
+        t('profile.head.copySuccess'),
+        t('profile.head.copyError')
+      );
     },
     [profile.referral_number]
   );
@@ -57,30 +48,35 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
         breakpoints={{
           s: { cols: 2 },
           l: { cols: 4 },
-          xl: { cols: 6 },
+          xl: { cols: 5 },
         }}
       >
-        <GridItem col="2">
-          <div className={styles.box}>
-            <Typography
-              size="xs"
-              weight="semibold"
-              margin="0 0 4px"
-              view="secondary"
-            >
-              {t('profile.referral.stats.link')}
-            </Typography>
-            <TextField
-              name="name"
-              size="s"
-              form="round"
-              value={`https://magiclime.academy/?ref=${profile.referral_number}`}
-              leftSide={IconCopy}
-              className={styles.input}
-              onClick={handleCopyRefClick}
-            />
-          </div>
-        </GridItem>
+        {isMyProfile && (
+          <>
+            <GridItem col="2">
+              <div className={styles.box}>
+                <Typography
+                  size="xs"
+                  weight="semibold"
+                  margin="0 0 4px"
+                  view="secondary"
+                >
+                  {t('profile.referral.stats.link')}
+                </Typography>
+                <TextField
+                  name="name"
+                  size="s"
+                  form="round"
+                  value={`https://magiclime.academy/?ref=${profile.referral_number}`}
+                  leftSide={IconCopy}
+                  className={styles.input}
+                  onClick={handleCopyRefClick}
+                />
+              </div>
+            </GridItem>
+          </>
+        )}
+
         <GridItem>
           <div className={styles.box}>
             <Typography
@@ -89,20 +85,20 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
               margin="0 0 4px"
               view="secondary"
             >
-              {t('profile.referral.stats.gain')}
+              {t('profile.referral.stats.bounspoints')}
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
-                153.130
+                {balance.bonus_points}
               </Typography>
-              <Typography size="xl" weight="light" view="brand">
-                &nbsp;BTL
-              </Typography>
+              {/* <Typography size="xl" weight="light" view="brand">
+                &nbsp;B
+              </Typography> */}
             </Flex>
           </div>
         </GridItem>
         <GridItem>
-          <div className={styles.box}>
+          <div className={styles.box} style={{ opacity: 0.5 }}>
             <Typography
               size="xs"
               weight="semibold"
@@ -113,11 +109,11 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
             </Typography>
 
             <Typography size="xl" weight="semibold">
-              26
+              0
             </Typography>
           </div>
         </GridItem>
-        <GridItem>
+        {/* <GridItem>
           <div className={styles.box}>
             <Typography
               size="xs"
@@ -136,7 +132,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
               </Typography>
             </Flex>
           </div>
-        </GridItem>
+        </GridItem> */}
         <GridItem>
           <div className={styles.box}>
             <Typography

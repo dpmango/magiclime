@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { refreshAuthToken } from './routes/auth';
 import { logoutFunc } from '../helpers/logout';
 
-export const DOMAIN = 'https://magiclime.academy';
+export const DOMAIN = process.env.REACT_APP_API_DOMAIN;
 
 export const instance = Axios.create({
   baseURL: `${DOMAIN}/api/v1`,

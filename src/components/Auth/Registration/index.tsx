@@ -8,12 +8,7 @@ import { IconForward } from '@consta/uikit/IconForward';
 import { IconBackward } from '@consta/uikit/IconBackward';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { IBaseAuthProps } from '../types';
-import Typography from '../../Common/Typography';
-import useStyles from './styles';
-import { StepType } from './types';
-import Stepper from './Stepper';
-import ProfileStep from './Steps/Profile';
+import { useTranslation } from 'react-i18next';
 import {
   CONFIRM,
   EMAIL,
@@ -21,11 +16,18 @@ import {
   REGEXP_TEST,
   REQUIRED_CHECKBOX,
   REQUIRED,
-} from '../../../utils/formik/validation';
+} from 'utils/formik/validation';
+
+import { registration } from 'store/reducers/user';
+import Typography from 'components/Common/Typography';
+
+import { StepType } from './types';
+import { IBaseAuthProps } from '../types';
+import Stepper from './Stepper';
+import ProfileStep from './Steps/Profile';
 import UserType from './Steps/UserType';
 import Additional from './Steps/Additional';
-import Preferences from './Steps/Preferences';
-import { registration } from '../../../store/reducers/user';
+import useStyles from './styles';
 
 const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   const [step, setStep] = useState<StepType>(1);
@@ -33,6 +35,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const renderStep = () => {
     switch (step) {
@@ -41,8 +44,6 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       case 2:
         return <UserType />;
       case 3:
-        return <Preferences />;
-      case 4:
         return <Additional />;
       default:
         return <ProfileStep />;
@@ -65,19 +66,26 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const schema = Yup.object({
-    username: REQUIRED,
+    username: REGEXP_TEST(
+      'username',
+      /^[\w\d]+$/,
+      'Логин должен содержать только цифры и латинские буквы'
+    ),
     email: EMAIL,
     password: REGEXP_TEST(
       'password',
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-      'Пароль должен содержать хотя бы одну цифру, заглавную и прописную буквы!'
+      t('auth.signup.validation.password.mask')
     )
-      .min(8, 'Минимум 8 символов!')
-      .max(30, 'Максимум 30 символов!'),
+      .min(8, t('auth.signup.validation.password.min'))
+      .max(30, t('auth.signup.validation.password.max')),
     passwordConfirm: CONFIRM,
-    media_sponsor: Yup.string().required().length(40, 'Неверный формат кода!'),
+    media_sponsor: Yup.string().length(
+      40,
+      t('auth.signup.validation.media_sponsor')
+    ),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
-    name: step === 4 ? REQUIRED : Yup.string(),
+    name: step === 3 ? REQUIRED : Yup.string(),
   });
 
   const errorCallback = (error: string) => {
@@ -86,7 +94,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    if (step !== 4) {
+    if (step !== 3) {
       setStep((step + 1) as StepType);
     } else {
       const data = { ...values };
@@ -112,7 +120,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
         onlyIcon
       />
       <Typography size="3xl" align="center" margin="0 0 24px" weight="semibold">
-        Регистрация
+        {t('auth.signup.title')}
       </Typography>
       {errorMessage && (
         <Typography
@@ -138,7 +146,7 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
               <GridItem>
                 <Button
                   view="secondary"
-                  label="Назад"
+                  label={t('common.back')}
                   iconLeft={IconBackward}
                   type="button"
                   width="full"
@@ -149,8 +157,8 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
                 <Button
                   width="full"
                   type="submit"
-                  label={step === 4 ? 'Завершить' : 'Дальше'}
-                  iconRight={step !== 4 ? IconForward : undefined}
+                  label={step === 3 ? t('common.finalize') : t('common.next')}
+                  iconRight={step !== 3 ? IconForward : undefined}
                 />
               </GridItem>
             </Grid>

@@ -7,108 +7,112 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CSSMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-module.exports = {
-  entry: {
-    main: ['@babel/polyfill', path.resolve(__dirname, './src/index')],
-  },
-  mode: 'production',
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    filename: '[name].[hash].js',
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    plugins: [new TsconfigPathsPlugin({ baseUrl: 'src' })],
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
+module.exports = (env) => {
+  const envPath =
+    env.SERVER === 'dev' ? './.env.development' : './.env.production';
+  return {
+    entry: {
+      main: ['@babel/polyfill', path.resolve(__dirname, './src/index')],
     },
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({ extractComments: false }),
-      new CSSMinimizerPlugin(),
-    ],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        enforce: 'pre',
-        use: ['source-map-loader'],
+    mode: 'production',
+    output: {
+      path: path.resolve(__dirname, 'build'),
+      publicPath: '/',
+      filename: '[name].[hash].js',
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      plugins: [new TsconfigPathsPlugin({ baseUrl: 'src' })],
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
       },
-      {
-        test: /\.tsx?$/,
-        exclude: '/node_modules/',
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                '@babel/preset-env',
-                '@babel/preset-react',
-                '@babel/preset-typescript',
-              ],
-              plugins: ['@babel/plugin-transform-runtime'],
-            },
-          },
-        ],
-      },
-      {
-        test: /\.svg$/,
-        exclude: '/node_modules/',
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              limit: 10000,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(png|jpe?g|gif|ico)$/,
-        use: ['file-loader'],
-      },
-      {
-        test: /\.json$/,
-        use: ['json-loader'],
-      },
-      // {
-      //   test: /\.(ttf|woff|woff2|eot)$/,
-      //   use: ['file-loader'],
-      // },
-      {
-        test: /\.(sc|sa|c)ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ],
-  },
-  plugins: [
-    new Dotenv({
-      path: './.env',
-    }),
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.svg',
-    }),
-    new CopyPlugin({
-      patterns: [
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({ extractComments: false }),
+        new CSSMinimizerPlugin(),
+      ],
+    },
+    module: {
+      rules: [
         {
-          from: './src/assets/images',
-          to: path.resolve(__dirname, './build/images'),
+          test: /\.js$/,
+          enforce: 'pre',
+          use: ['source-map-loader'],
         },
         {
-          from: './public/favicon.svg',
-          to: path.resolve(__dirname, './build'),
+          test: /\.tsx?$/,
+          exclude: '/node_modules/',
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  '@babel/preset-env',
+                  '@babel/preset-react',
+                  '@babel/preset-typescript',
+                ],
+                plugins: ['@babel/plugin-transform-runtime'],
+              },
+            },
+          ],
         },
         {
-          from: './public/locales',
-          to: path.resolve(__dirname, './build/locales'),
+          test: /\.svg$/,
+          exclude: '/node_modules/',
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                limit: 10000,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(png|jpe?g|gif|ico)$/,
+          use: ['file-loader'],
+        },
+        {
+          test: /\.json$/,
+          use: ['json-loader'],
+        },
+        // {
+        //   test: /\.(ttf|woff|woff2|eot)$/,
+        //   use: ['file-loader'],
+        // },
+        {
+          test: /\.(sc|sa|c)ss$/i,
+          use: ['style-loader', 'css-loader', 'sass-loader'],
         },
       ],
-    }),
-  ],
+    },
+    plugins: [
+      new Dotenv({
+        path: envPath,
+      }),
+      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        template: './public/index.html',
+        favicon: './public/favicon.svg',
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: './src/assets/images',
+            to: path.resolve(__dirname, './build/images'),
+          },
+          {
+            from: './public/favicon.svg',
+            to: path.resolve(__dirname, './build'),
+          },
+          {
+            from: './public/locales',
+            to: path.resolve(__dirname, './build/locales'),
+          },
+        ],
+      }),
+    ],
+  };
 };

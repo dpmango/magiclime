@@ -1,9 +1,12 @@
 import React, { FC, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 
-import { btlToRub } from 'utils/helpers/formatPrice';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import { formatPrice, blToBtc } from 'utils/helpers/formatPrice';
+import { RootState } from 'store/reducers/rootReducer';
 
 import BalanceWidget from '../BalanceWidget';
 import useStyles from './styles';
@@ -14,26 +17,29 @@ interface IProps {
 
 const MyBalance: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
+  const { t } = useTranslation();
+
+  const { balance } = useSelector((state: RootState) => state.profile);
 
   const cells = useMemo(() => {
     return [
       {
-        label: 'Доступно для вывода',
-        main: '232 BTL',
-        secondary: `${btlToRub(232, btcRate)} RUB`,
+        label: t('profile.balance.my.available'),
+        main: `${formatPrice(balance.available_for_withdrawal)} BL`,
+        secondary: `${blToBtc(balance.available_for_withdrawal, btcRate)} mBtc`,
       },
       {
-        label: 'Всего заработано',
-        main: '232 BTL',
-        secondary: `${btlToRub(232, btcRate)} RUB`,
+        label: t('profile.balance.my.earned'),
+        main: `${formatPrice(balance.total_earned)} BL`,
+        secondary: `${blToBtc(balance.total_earned, btcRate)} mBtc`,
       },
       {
-        label: 'Всего выведено',
-        main: '232 BTL',
-        secondary: `${btlToRub(232, btcRate)} RUB`,
+        label: t('profile.balance.my.output'),
+        main: `${formatPrice(balance.total_output)} BL`,
+        secondary: `${blToBtc(balance.total_output, btcRate)} mBtc`,
       },
     ];
-  }, [btcRate]);
+  }, [btcRate, balance]);
 
   return (
     <div className={styles.root}>
@@ -44,7 +50,7 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
         className={styles.options}
       >
         <GridItem col="1">
-          <BalanceWidget btcRate={btcRate} />
+          <BalanceWidget showRate={false} btcRate={btcRate} />
         </GridItem>
 
         {cells &&
@@ -60,11 +66,16 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
                 >
                   {cell.label}
                 </Typography>
-                <Flex align="baseline">
-                  <Typography view="brand" size="2xl" weight="semibold">
+                <Flex align="baseline" wrap="wrap">
+                  <Typography
+                    margin="0 4px 0 0px"
+                    view="brand"
+                    size="2xl"
+                    weight="semibold"
+                  >
                     {cell.main}
                   </Typography>
-                  <Typography margin="0 0 0 4px" view="secondary" size="xs">
+                  <Typography view="secondary" size="xs">
                     {cell.secondary}
                   </Typography>
                 </Flex>

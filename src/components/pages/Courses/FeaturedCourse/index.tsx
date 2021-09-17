@@ -1,9 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, GridItem } from '@consta/uikit/Grid';
-import Typography from 'components/Common/Typography';
-import { Button } from '@consta/uikit/Button';
-import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-hot-toast';
+import { Button } from '@consta/uikit/Button';
+import { Loader } from '@consta/uikit/Loader';
+
+import Typography from 'components/Common/Typography';
+import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
+import { ICourseRecommended } from 'types/interfaces/courses';
+import { getRecommendedCourseService } from 'utils/api/routes/courses';
+
 import useStyles from './styles';
 
 const FeaturedCourse: FC = () => {
@@ -11,7 +18,23 @@ const FeaturedCourse: FC = () => {
   const styles = useStyles({ darkmode: !isDefaultTheme });
   const { t } = useTranslation();
 
-  return (
+  const [data, setData] = useState<ICourseRecommended>();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const [err, data] = await getRecommendedCourseService();
+
+      if (err) {
+        toast.error('Error loading recommended course');
+      }
+
+      setData(data![0]);
+    };
+
+    fetchCourse();
+  }, []);
+
+  return data ? (
     <Grid cols="1" gap="xl" breakpoints={{ m: { cols: 2, gap: 'xl' } }}>
       <GridItem className={styles.left}>
         <Typography
@@ -28,29 +51,30 @@ const FeaturedCourse: FC = () => {
           size="5xl"
           lineHeight="xs"
         >
-          Блокчейн и криптовалюты
+          {data.title}
         </Typography>
         <Typography as="p" view="secondary" className={styles.description}>
-          Ваш универсальный путеводитель в мире криптовалют. Независимо от того,
-          являетесь ли вы новичком, пытающимся разобраться в майнинге, или
-          опытным пользователем, желающим разработать торговую стратегию, мы
-          сможем вам помочь.
+          {data.description}
         </Typography>
-        <Button
-          size="l"
-          label={t('course.featured.cta')}
-          className={styles.button}
-        />
+        <Link to={`/courses/${data.id}/`}>
+          <Button
+            size="l"
+            label={t('course.featured.cta')}
+            className={styles.button}
+          />
+        </Link>
       </GridItem>
       <GridItem className={styles.right}>
         <div className={styles.panel}>
-          <div className={styles.image} />
+          <div className={styles.image}>
+            {data.image && <img src={data.image.image} alt={data.title} />}
+          </div>
           <Typography
             className={styles.secondTitle}
             size="xl"
             weight="semibold"
           >
-            Что такое биткоин?
+            {data.subtitle}
           </Typography>
           <div className={styles.details}>
             <Typography size="m" as="span" view="ghost">
@@ -64,6 +88,8 @@ const FeaturedCourse: FC = () => {
         </div>
       </GridItem>
     </Grid>
+  ) : (
+    <Loader />
   );
 };
 

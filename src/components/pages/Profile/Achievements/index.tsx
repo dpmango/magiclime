@@ -2,18 +2,17 @@
 import React, { FC, ReactElement, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import groupBy from 'lodash/groupBy';
+import cns from 'classnames';
 import { IconCheck } from '@consta/uikit/IconCheck';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { IUser } from 'types/interfaces/user';
-
-import cns from 'classnames';
 import {
   IAchievementGroup,
   IActivementsGrouped,
   IAchievement,
-} from 'components/pages/Profile/types';
+} from 'types/interfaces/profile';
 
 import useStyles from './styles';
 
@@ -72,11 +71,18 @@ const Achievements: FC<IProps> = ({ profile, isMyProfile }) => {
               {groups.map((group) => (
                 <Flex className={styles.group} key={group.id}>
                   <div className={styles.groupImage}>
-                    {group.image && <img src={group.image} alt={group.title} />}
+                    {group.image && (
+                      <img src={group.image.image} alt={group.title} />
+                    )}
                   </div>
                   <div className={styles.groupContent}>
-                    <Flex align="center">
-                      <Typography weight="semibold" lineHeight="s" size="m">
+                    <Flex align="center" justify="space-between">
+                      <Typography
+                        weight="semibold"
+                        lineHeight="s"
+                        size="m"
+                        className={styles.groupTitle}
+                      >
                         {group.title}
                       </Typography>
                       <div className={styles.groupStats}>

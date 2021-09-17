@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   },
   content: {
     paddingLeft: 26,
+    width: '100%',
   },
   refLink: {
     marginTop: 2,

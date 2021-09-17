@@ -11,6 +11,7 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
       borderRadius: '10px',
       height: '100%',
       minHeight: '180px',
+      cursor: 'pointer',
       transition: 'opacity .25s ease-in-out',
       backgroundColor: (() => {
         switch (props.category) {
@@ -43,9 +44,11 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
     content: {
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
       alignSelf: 'flex-start',
       height: '100%',
+    },
+    contentMeta: {
+      margin: 'auto 0 0 0',
     },
     image: {
       marginLeft: '10px',
@@ -57,12 +60,19 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
     title: {
       margin: '8px 0 20px 0',
     },
+
     detail: {
+      flex: '0 0 100%',
       fontSize: '14px',
       lineHeight: '20px',
       '& > span': {
         fontWeight: 600,
       },
+    },
+    ctaButton: {
+      background: 'var(--color-bg-link)',
+      color: 'var(--color-typo-primary)',
+      textTransform: 'none',
     },
   })
 );

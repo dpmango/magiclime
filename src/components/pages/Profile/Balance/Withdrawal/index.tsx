@@ -74,7 +74,7 @@ const Withdrawal: FC = () => {
           <div className={styles.uiGroup}>
             <FormikSelect
               items={paymentSelectList}
-              label="Выберите валюту"
+              label={t('profile.balance.withdrawal.payment.label')}
               name="payment"
               isRequired={false}
             />

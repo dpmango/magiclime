@@ -88,7 +88,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: './.env',
+      path: './.env.development',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(),
