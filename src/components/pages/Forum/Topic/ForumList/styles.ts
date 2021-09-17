@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     '&:last-child': {
       borderBottom: '1px solid var(--color-bg-border)',
     },
+    '&:hover': {
+      background: 'var(--color-bg-secondary)',
+    },
     '@media screen and (max-width: 639px)': {
       padding: '18px 12px',
       flexWrap: 'wrap',

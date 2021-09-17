@@ -17,7 +17,7 @@ export interface IForum {
     author_avatar?: string;
     text: string;
   };
-  image: IPhoto;
+  image: string;
 }
 
 export interface ITab {
@@ -27,14 +27,14 @@ export interface ITab {
 }
 
 export interface IAnswer {
-  id: number;
-  timestamp: string;
+  readonly id: number;
+  text: string;
   author: {
-    id: number;
+    readonly id: number;
     name: string;
-    avatar: IPhoto | null;
+    avatar: string;
   };
-  content: string;
+  create_date: string;
 }
 
 export interface ITopicListItem {
@@ -56,5 +56,18 @@ export interface ITopic {
   readonly id: 1;
   description: string;
   name: string;
-  topics: ITopicListItem[];
+}
+
+export interface IQuestion {
+  readonly id: number;
+  readonly forum_id: number;
+  name: string;
+  description: string;
+  creator: {
+    readonly id: number;
+    name: string;
+    avatar: string;
+  };
+  answers_count: number;
+  create_date: string;
 }

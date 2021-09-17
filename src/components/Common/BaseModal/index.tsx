@@ -47,7 +47,7 @@ const BaseModal: FC<IProps> = ({
             tabIndex={0}
             onClick={(): void => setModalOpen(false)}
           >
-            <ConstaIcons.Close />
+            <ConstaIcons.Close size="s" />
           </div>
 
           {children}

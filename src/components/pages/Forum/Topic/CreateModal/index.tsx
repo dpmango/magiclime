@@ -15,29 +15,10 @@ import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED_STRING } from 'utils/formik/validation';
 import { RootState } from '../../../../../store/reducers/rootReducer';
 import { createTopic } from '../../../../../utils/api/routes/forum';
+import FormikInput from '../../../../Common/Controls/Formik/Input';
 import { ITopicListItem } from '../../types';
 
 import useStyles from './styles';
-
-type SelectItem = {
-  label: string;
-  id: number;
-};
-
-const themeSelectList: SelectItem[] = [
-  {
-    id: 1,
-    label: 'Тема форума 1',
-  },
-  {
-    id: 2,
-    label: 'Тема форума 2',
-  },
-  {
-    id: 3,
-    label: 'Тема форума 3',
-  },
-];
 
 interface IProps {
   topicId: string;
@@ -55,12 +36,11 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
 
   const initialValues = {
     description: '',
-    name: themeSelectList[0],
+    name: '',
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    const data = { ...values, name: values.name.label };
-    createTopic(topicId, data).then((res) => {
+    createTopic(topicId, { ...values }).then((res) => {
       addTopic(res.data);
       setModalOpen(false);
     });
@@ -89,42 +69,37 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
               onSubmit={handleSubmit}
               validationSchema={schema}
             >
-              {({ isValid, touched }) => (
-                <Form>
-                  <Flex align="center" wrap="wrap" className={styles.topline}>
-                    <Flex align="center" className={styles.formUser}>
-                      <Avatar name={name} url={avatar ? avatar.image : ''} />
-                      <Typography margin="0 0 0 8px" size="m" lineHeight="xs">
-                        {name}
-                      </Typography>
-                    </Flex>
-                    <div className={styles.formSelect}>
-                      <FormikSelect
-                        items={themeSelectList}
-                        placeholder="Выберите тему"
-                        name="name"
-                        isRequired={false}
-                      />
-                    </div>
+              <Form>
+                <Flex align="center" wrap="wrap" className={styles.topline}>
+                  <Flex align="center" className={styles.formUser}>
+                    <Avatar name={name} url={avatar ? avatar.image : ''} />
+                    <Typography margin="0 0 0 8px" size="m" lineHeight="xs">
+                      {name}
+                    </Typography>
                   </Flex>
+                </Flex>
 
-                  <div className={styles.formInputs}>
-                    <FormikTextarea
-                      label={t('forum.create.question.label')}
-                      placeholder={t('forum.create.question.placeholder')}
-                      name="description"
-                      rows={5}
-                    />
-                    <Flex margin="24px 0 0" justify="flex-end">
-                      <Button
-                        disabled={!Object.keys(touched).length || !isValid}
-                        label={t('forum.create.cta')}
-                        type="submit"
-                      />
-                    </Flex>
-                  </div>
-                </Form>
-              )}
+                <div className={styles.formInputs}>
+                  <FormikInput
+                    label="Тема вопроса"
+                    placeholder="Напишите тему"
+                    name="name"
+                    isRequired={false}
+                  />
+                </div>
+
+                <div className={styles.formInputs}>
+                  <FormikTextarea
+                    label={t('forum.create.question.label')}
+                    placeholder={t('forum.create.question.placeholder')}
+                    name="description"
+                    rows={5}
+                  />
+                  <Flex margin="24px 0 0" justify="flex-end">
+                    <Button label={t('forum.create.cta')} type="submit" />
+                  </Flex>
+                </div>
+              </Form>
             </Formik>
           </div>
         </BaseModal>

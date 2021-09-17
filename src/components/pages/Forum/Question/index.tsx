@@ -1,25 +1,52 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/no-danger */
-import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Loader } from '@consta/uikit/Loader';
+import { RouteComponentProps } from 'react-router-dom';
 import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
-import Members from 'components/Common/Members';
 import { useTranslation } from 'react-i18next';
 
 import useSharedStyles from 'assets/styles/Shared';
+import { createAnswer, getQuestion } from '../../../../utils/api/routes/forum';
+import { IAnswer, IQuestion } from '../types';
+import CreateAnswer from './CreateAnswer';
 import Stats from './Stats';
 import Answers from './Answers';
 import useStyles from './styles';
-import { wysiwygContent } from './mockData';
 
-const ForumDetails: FC = () => {
+const Question: FC<RouteComponentProps<{ questionId: string }>> = ({
+  match: {
+    params: { questionId: id },
+  },
+}) => {
+  const [question, setQuestion] = useState<IQuestion | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [newAnswer, setNewAnswer] = useState<IAnswer | null>(null);
   const styles = useStyles();
   const sharedStyles = useSharedStyles({ wysiwyg: 'muted' });
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setLoading(true);
+    getQuestion(id)
+      .then((res) => {
+        setQuestion(res.data);
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  const addAnswer = useCallback(
+    (text: string) => {
+      createAnswer(id, text).then((res) => {
+        setNewAnswer(res.data);
+      });
+    },
+    [id]
+  );
+
+  if (loading || !question) return <Loader />;
 
   return (
     <div className={styles.root}>
@@ -35,7 +62,7 @@ const ForumDetails: FC = () => {
           weight="semibold"
           transform="uppercase"
         >
-          Сгорел на работе - как выйти из эмоционального выгорания?
+          {question.name}
         </Typography>
       </div>
 
@@ -44,27 +71,20 @@ const ForumDetails: FC = () => {
           <div className={styles.content}>
             <div
               className={sharedStyles.wysiwyg}
-              dangerouslySetInnerHTML={{ __html: wysiwygContent }}
+              dangerouslySetInnerHTML={{ __html: question.description }}
             />
           </div>
 
           <div className={styles.answers}>
-            <Answers />
+            <Answers id={id} newAnswer={newAnswer} />
           </div>
         </GridItem>
 
         <GridItem col="1">
           <div className={styles.stickySidebar}>
             <div className={styles.sidebar}>
-              <Stats />
-
-              <Button
-                label={t('forum.details.cta')}
-                width="full"
-                size="l"
-                onClick={() => {}}
-                className={styles.createBtn}
-              />
+              <Stats question={question} />
+              <CreateAnswer addAnswer={addAnswer} />
             </div>
           </div>
         </GridItem>
@@ -73,4 +93,4 @@ const ForumDetails: FC = () => {
   );
 };
 
-export default ForumDetails;
+export default Question;

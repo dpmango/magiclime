@@ -51,6 +51,7 @@
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "react-hooks/exhaustive-deps": "off",
+    "react/state-in-constructor": "off",
     "no-restricted-syntax": "off",
     "no-nested-ternary": "off",
     "react/destructuring-assignment": "warn",
