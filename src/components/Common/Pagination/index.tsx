@@ -2,6 +2,7 @@ import React, { useMemo, FC, useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { Loader } from '@consta/uikit/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useDebounce } from '../../../hooks/useDebounce';
 import { usePrevious } from '../../../hooks/usePrevious';
 import { AxiosPromise } from '../../../types/common';
 import { IAxiosPaginatedResponse } from '../../../types/interfaces/common';
@@ -46,6 +47,8 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   const previousPage = usePrevious(page);
   const styles = useStyles();
 
+  const debouncedQueries = useDebounce(queries, 300);
+
   useEffect(() => {
     page === 1 && setLoading(true);
 
@@ -65,7 +68,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
       .finally(() => {
         page === 1 && setLoading(false);
       });
-  }, [page, queries]);
+  }, [page, debouncedQueries]);
 
   useEffect(() => {
     successCallback && successCallback(state.data);

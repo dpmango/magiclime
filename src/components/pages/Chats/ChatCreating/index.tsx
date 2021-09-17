@@ -9,6 +9,7 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import { v4 as uuid } from 'uuid';
 import { IUser } from '../../../../types/interfaces/user';
 import { createChat, getUsers } from '../../../../utils/api/routes/chat';
+import PhotoField from '../../../Common/Controls/PhotoField';
 import { ICreateChatForm } from '../types';
 import useStyles from './styles';
 import Flex from '../../../Common/Flex';
@@ -97,22 +98,21 @@ const ChatCreating: FC<IProps> = ({ setActiveChat }) => {
         />
       </Flex>
       <Flex align="center" padding="0 16px">
-        <div>
-          <input
-            type="file"
-            id="chat_photo_field"
-            onChange={addImage}
-            className={styles.hiddenInput}
-          />
-          <label htmlFor="chat_photo_field" className={styles.addPhoto}>
-            {uploadAvatarLoading ? (
-              <ProgressSpin size="m" />
-            ) : form.avatar.id ? (
-              <img src={form.avatar.image} alt="avatar" />
-            ) : (
-              <IconCamera view="secondary" />
+        <div className={styles.addPhoto}>
+          <PhotoField
+            render={({ src, fieldId }) => (
+              <label htmlFor={fieldId}>
+                {src ? (
+                  <img src={src} alt="avatar" />
+                ) : (
+                  <IconCamera view="secondary" />
+                )}
+              </label>
             )}
-          </label>
+            onChangeCallback={(avatar) => {
+              setForm({ ...form, avatar });
+            }}
+          />
         </div>
         <TextField
           value={form.title}

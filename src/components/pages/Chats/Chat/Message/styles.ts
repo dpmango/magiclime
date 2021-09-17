@@ -76,14 +76,6 @@ const useStyles = makeStyles(() => ({
     textOverflow: 'ellipsis',
     overflow: 'hidden',
   },
-  messageImage: {
-    width: '100%',
-    maxWidth: '300px',
-    maxHeight: '300px',
-    objectFit: 'contain',
-    borderRadius: '10px',
-    margin: '15px 0',
-  },
   '@media screen and (max-width: 1300px)': {
     container: {
       maxWidth: '80%',

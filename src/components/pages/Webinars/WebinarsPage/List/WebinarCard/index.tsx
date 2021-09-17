@@ -104,19 +104,19 @@ const WebinarCard: FC<IProps> = ({ item }) => {
         </div>
 
         <Flex align="center" justify="space-between" className={styles.cta}>
-          {/* <Button */}
-          {/*  onClick={() => history.push(`/webinars/${item.id}/`)} */}
-          {/*  form="round" */}
-          {/*  size="s" */}
-          {/*  label={t('common.moreDetails')} */}
-          {/* /> */}
           <Button
-            as="a"
-            href={item.connect_url}
+            onClick={() => history.push(`/webinars/${item.id}/`)}
             form="round"
             size="s"
-            label={t('common.moreDetails')}
+            label={t('webinar.participate')}
           />
+          {/* <Button */}
+          {/*  as="a" */}
+          {/*  href={item.connect_url} */}
+          {/*  form="round" */}
+          {/*  size="s" */}
+          {/*  label={t('webinar.participate')} */}
+          {/* /> */}
 
           <Flex align="center" className={styles.referralWrapper}>
             {item.participants && (

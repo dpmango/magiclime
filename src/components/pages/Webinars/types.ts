@@ -37,7 +37,6 @@ export interface ISpeaker {
   city: string;
   company: string;
   name: string;
-  surname: string;
   avatar: IPhoto;
   description: string;
 }
