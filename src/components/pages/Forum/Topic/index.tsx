@@ -1,4 +1,5 @@
 import { Loader } from '@consta/uikit/Loader';
+import { TextField } from '@consta/uikit/TextField';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,11 +7,12 @@ import toast from 'react-hot-toast';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { getForumTopic } from 'utils/api/routes/forum';
+import { getForumTopic, getForumTopicList } from 'utils/api/routes/forum';
+import ConstaIcons from '../../../../assets/icons/ConstaIcons';
+import { useDebounce } from '../../../../hooks/useDebounce';
 import { ITopic, ITopicListItem } from '../types';
 
 import ForumList from './ForumList';
-import FilterForums from './FilterForums';
 import CreateModal from './CreateModal';
 import useStyles from './styles';
 
@@ -20,9 +22,13 @@ const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
   },
 }) => {
   const [topic, setTopic] = useState<ITopic>({} as ITopic);
+  const [questions, setQuestions] = useState<ITopicListItem[]>([]);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const debouncedSearch = useDebounce(search, 250);
 
   useEffect(() => {
     const fetchTopic = async (id: string): Promise<ITopic> => {
@@ -34,24 +40,28 @@ const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
       }
       return data;
     };
-    setLoading(true);
-    fetchTopic(topicId)
-      .then((data) => {
-        setTopic(data);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    fetchTopic(topicId).then((data) => {
+      setTopic(data);
+    });
   }, [topicId]);
+
+  useEffect(() => {
+    setLoading(true);
+    getForumTopicList(topicId, search)
+      .then((res) => {
+        setQuestions(res.data);
+      })
+      .finally(() => setLoading(false));
+  }, [debouncedSearch]);
 
   const addTopic = useCallback(
     (newTopic: ITopicListItem) => {
-      setTopic((prev) => ({ ...prev, topics: [...prev.topics, newTopic] }));
+      setQuestions((prev) => ({ ...prev, topics: [...prev, newTopic] }));
     },
     [topic]
   );
 
-  if (loading || !topic.id) return <Loader />;
+  if (!topic.id) return <Loader />;
 
   return (
     <div className={styles.root}>
@@ -60,14 +70,20 @@ const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
           {topic.name}
         </Typography>
         <Flex align="center" className={styles.filters}>
-          <FilterForums />
+          <TextField
+            placeholder={t('forum.filter.searchPlaceholder')}
+            name="search"
+            rightSide={ConstaIcons.Search}
+            value={search}
+            onChange={({ value }) => setSearch(value || '')}
+          />
           <CreateModal topicId={topicId} addTopic={addTopic} />
         </Flex>
       </Flex>
 
       <div className={styles.content}>
         <div className={styles.content}>
-          <ForumList data={topic.topics} topicId={topicId} />
+          <ForumList data={questions} topicId={topicId} loading={loading} />
         </div>
       </div>
     </div>

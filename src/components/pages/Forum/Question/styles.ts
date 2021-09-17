@@ -15,6 +15,13 @@ const useStyles = makeStyles({
     borderTop: '1px solid var(--color-bg-border)',
     paddingTop: 36,
   },
+  textArea: {
+    width: '500px',
+    '& > div': {
+      width: '100%',
+      marginBottom: '16px',
+    },
+  },
   stickySidebar: {
     alignSelf: 'flex-start',
     width: '100%',

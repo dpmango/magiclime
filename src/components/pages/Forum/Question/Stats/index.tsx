@@ -1,13 +1,14 @@
-import React, { FC, useEffect, useState, useMemo } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import React, { FC } from 'react';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Avatar } from '@consta/uikit/Avatar';
 import { useTranslation } from 'react-i18next';
+import { timeToTimeStamp } from '../../../../../utils/helpers/formatDate';
+import { IQuestion } from '../../types';
 
 import useStyles from './styles';
 
-const ForumDetailsStats: FC = () => {
+const ForumDetailsStats: FC<{ question: IQuestion }> = ({ question }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -18,17 +19,14 @@ const ForumDetailsStats: FC = () => {
           {t('forum.details.stats.author')}
         </Typography>
         <Flex margin="8px 0 0" align="center">
-          <Avatar
-            url="https://randomuser.me/api/portraits/men/9.jpg"
-            className={styles.avatar}
-          />
+          <Avatar url={question.creator.avatar} className={styles.avatar} />
           <Typography
             margin="0 0 0 8px"
             size="l"
             lineHeight="s"
             className={styles.title}
           >
-            Константин Константинопольский
+            {question.creator.name}
           </Typography>
         </Flex>
       </div>
@@ -38,7 +36,7 @@ const ForumDetailsStats: FC = () => {
           {t('forum.details.stats.answers')}
         </Typography>
         <Typography margin="8px 0 0" size="l" lineHeight="m">
-          112
+          {question.answers_count}
         </Typography>
       </div>
 
@@ -47,7 +45,7 @@ const ForumDetailsStats: FC = () => {
           {t('forum.details.stats.created')}
         </Typography>
         <Typography margin="8px 0 0" size="l" lineHeight="m">
-          сегодня в 14:22
+          {timeToTimeStamp(question.create_date)}
         </Typography>
       </div>
     </div>

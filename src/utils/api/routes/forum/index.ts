@@ -1,6 +1,8 @@
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import {
+  IAnswer,
   IForum,
+  IQuestion,
   ITopic,
   ITopicListItem,
 } from '../../../../components/pages/Forum/types';
@@ -37,4 +39,30 @@ export const createTopic = (
   data: { name: string; description: string }
 ): AxiosPromise<ITopicListItem> => {
   return $api.post(endpoints.forum.createTopic(id), data);
+};
+
+export const getForumTopicList = (
+  id: string,
+  search: string
+): AxiosPromise<ITopicListItem[]> => {
+  return $api.get(endpoints.forum.getTopicList(id), {
+    params: {
+      name: search || null,
+    },
+  });
+};
+
+export const getQuestion = (id: string): AxiosPromise<IQuestion> => {
+  return $api.get(endpoints.forum.getQuestion(id));
+};
+
+export const getAnswers = (id: string): AxiosPromise<IAnswer[]> => {
+  return $api.get(endpoints.forum.getAnswers(id));
+};
+
+export const createAnswer = (
+  questionId: string,
+  text: string
+): AxiosPromise<IAnswer> => {
+  return $api.post(endpoints.forum.createAnswer(questionId), { text });
 };

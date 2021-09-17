@@ -48,6 +48,7 @@ const useStyles = makeStyles<null, { wysiwyg?: string }>({
   },
 
   wysiwyg: {
+    color: 'var(--color-typo-primary)',
     '& > :first-child': {
       marginTop: 0,
     },

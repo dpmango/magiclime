@@ -49,6 +49,10 @@ export default {
     root: '/forum/',
     byId: (id: number | string) => `/forum/${id}/`,
     createTopic: (id: string) => `/forum/${id}/create_topic/`,
+    getTopicList: (id: string) => `/forum/${id}/topic_list/`,
+    getQuestion: (id: string) => `/topic/${id}/`,
+    getAnswers: (id: string) => `/topic/${id}/answer_list/`,
+    createAnswer: (id: string) => `/topic/${id}/create_answer/`,
   },
   referrals: {
     list: '/auth/users/me/referrals/',

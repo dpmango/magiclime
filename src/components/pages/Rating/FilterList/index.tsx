@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import debounce from 'lodash/debounce';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { TextField } from '@consta/uikit/TextField';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import ConstaIcons from '../../../../assets/icons/ConstaIcons';
 import { SetStateType } from '../../../../types/common';
@@ -49,10 +48,9 @@ const Filters: FC<{
         <Form>
           <ChangeTracker />
           <div className={styles.formBlock}>
-            <Field
+            <FormikInput
               placeholder={t('rating.filter.searchPlaceholder')}
               name="username"
-              component={FormikInput}
               rightSide={ConstaIcons.Search}
             />
           </div>

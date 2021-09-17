@@ -50,9 +50,7 @@ const ForumTopics: FC = () => {
             <div className={styles.card} key={forum.id}>
               <Flex className={styles.cardContent}>
                 <div className={styles.cardAvatar}>
-                  {forum.image && (
-                    <img src={forum.image.image} alt={forum.name} />
-                  )}
+                  {forum.image && <img src={forum.image} alt={forum.name} />}
                 </div>
 
                 <div className={styles.cardMain}>
@@ -64,6 +62,7 @@ const ForumTopics: FC = () => {
                     size="m s:l"
                     view="secondary"
                     lineHeight="s"
+                    className={styles.description}
                   >
                     {forum.description}
                   </Typography>
@@ -109,7 +108,8 @@ const ForumTopics: FC = () => {
                         {t('forum.page.activity')}
                       </Typography>
                       <Typography margin="11px 0 0" size="s" lineHeight="m">
-                        {timeToTimeStamp(forum.last_activity_date)}
+                        {forum.last_activity_date &&
+                          timeToTimeStamp(forum.last_activity_date)}
                       </Typography>
                     </div>
                   </Flex>

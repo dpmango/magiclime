@@ -27,11 +27,22 @@ const useStyles = makeStyles({
     padding: 12,
     '& img': {
       width: '100%',
+      height: '165px',
+      borderRadius: '10px',
+      objectFit: 'cover',
     },
     '@media screen and (max-width: 639px)': {
       flexBasis: '80px',
       padding: 0,
     },
+  },
+  description: {
+    textOverflow: 'ellipsis',
+    lineClamp: 3,
+    overflow: 'hidden',
+    display: 'box',
+    wordWrap: 'break-word',
+    boxOrient: 'vertical',
   },
   cardMain: {
     width: 'auto',
