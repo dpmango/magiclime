@@ -12,6 +12,7 @@ import { getAllMeta } from 'store/reducers/meta';
 import { RootState } from 'store/reducers/rootReducer';
 import { ScrollTo } from 'utils/helpers/scroll';
 import { setAuthToken } from 'utils/api';
+import ErrorBoundary from './ErrorBoundary';
 import { MenuContextProvider } from './Layout/Menu/context';
 
 import PrivateRoute from './PrivateRoute';
@@ -55,24 +56,30 @@ const App: FC = () => {
 
   return (
     <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
-      <MenuContextProvider>
-        <Switch>
-          <PrivateRoute path="/home" redirect="/profile/me" access={!isLogged}>
-            <StaticLayout />
-          </PrivateRoute>
+      <ErrorBoundary>
+        <MenuContextProvider>
+          <Switch>
+            <PrivateRoute
+              path="/home"
+              redirect="/profile/me"
+              access={!isLogged}
+            >
+              <StaticLayout />
+            </PrivateRoute>
 
-          <PrivateRoute path="/" redirect="/home" access={isLogged}>
-            <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
-          </PrivateRoute>
-        </Switch>
-      </MenuContextProvider>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          className: 'h-toast',
-          duration: 5000,
-        }}
-      />
+            <PrivateRoute path="/" redirect="/home" access={isLogged}>
+              <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
+            </PrivateRoute>
+          </Switch>
+        </MenuContextProvider>
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            className: 'h-toast',
+            duration: 5000,
+          }}
+        />
+      </ErrorBoundary>
     </Theme>
   );
 };

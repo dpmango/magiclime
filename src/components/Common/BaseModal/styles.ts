@@ -1,12 +1,18 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles<null, { theme?: string }>({
+interface IProps {
+  isOpen: boolean;
+  dynamicSize?: boolean;
+  theme: string;
+}
+
+const useStyles = makeStyles<null, IProps>({
   modal: {
     position: 'relative',
     width: '100%',
-    minWidth: '696px',
+    minWidth: ({ dynamicSize }) => (dynamicSize ? 'auto' : '696px'),
+    padding: ({ isOpen }) => (isOpen ? '32px 24px 24px' : 0),
     maxWidth: ({ theme }) => (theme === 'narrow' ? '480px' : '100%'),
-    padding: '32px 24px 24px',
   },
   close: {
     position: 'absolute',
@@ -20,6 +26,10 @@ const useStyles = makeStyles<null, { theme?: string }>({
     '&:hover': {
       color: 'var(--color-bg-alert)',
       opacity: 0.6,
+    },
+    '& > span': {
+      width: '14px',
+      height: '14px',
     },
   },
 });

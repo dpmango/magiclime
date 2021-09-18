@@ -6,7 +6,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Button } from '@consta/uikit/Button';
 import FormikCheckbox from 'components/Common/Controls/Formik/Checkbox';
-import { REQUIRED_STRING } from 'utils/formik/validation';
+import { REQUIRED } from 'utils/formik/validation';
 
 import useStyles from './styles';
 
@@ -29,8 +29,8 @@ const Notifications: FC = () => {
   };
 
   const schema = Yup.object({
-    name: REQUIRED_STRING,
-    surname: REQUIRED_STRING,
+    name: REQUIRED,
+    surname: REQUIRED,
   });
 
   return (

@@ -10,7 +10,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
-import { REQUIRED_STRING } from 'utils/formik/validation';
+import { REQUIRED } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { postRefillBalance } from 'utils/api/routes/payment';
 import useStyles from './styles';
@@ -82,7 +82,7 @@ const Refill: FC = () => {
   };
 
   const schema = Yup.object({
-    amount: REQUIRED_STRING,
+    amount: REQUIRED,
   });
 
   return (

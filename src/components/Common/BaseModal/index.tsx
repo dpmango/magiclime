@@ -4,25 +4,28 @@ import Typography from 'components/Common/Typography';
 import ConstaIcons from 'assets/icons/ConstaIcons';
 import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
+import { SetStateType } from '../../../types/common';
 
 import useStyles from './styles';
 
 interface IProps {
   title: string;
   isOpen: boolean;
+  dynamicSize?: boolean;
   theme?: 'default' | 'narrow';
   children?: ReactNode;
-  setModalOpen: (x: boolean) => void;
+  setModalOpen: (status: boolean) => void;
 }
 
 const BaseModal: FC<IProps> = ({
   title,
   isOpen,
   setModalOpen,
-  children,
   theme = 'default',
+  dynamicSize,
+  children,
 }) => {
-  const styles = useStyles({ theme });
+  const styles = useStyles({ dynamicSize, isOpen, theme });
 
   return (
     <div className={styles.modal}>
@@ -47,7 +50,7 @@ const BaseModal: FC<IProps> = ({
             tabIndex={0}
             onClick={(): void => setModalOpen(false)}
           >
-            <ConstaIcons.Close />
+            <ConstaIcons.Close size="s" />
           </div>
 
           {children}

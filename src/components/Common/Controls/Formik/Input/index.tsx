@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { FC, KeyboardEvent, useCallback } from 'react';
+import { v4 as uuid } from 'uuid';
 import { TextField, TextFieldProps } from '@consta/uikit/TextField';
 import { Field, FieldHookConfig, FieldProps } from 'formik';
 
@@ -85,6 +86,7 @@ const FormikInputComponent = MemoWrapper(
             state={fieldError && fieldTouched ? 'alert' : undefined}
             value={value}
             onChange={handleChange}
+            id={uuid()}
             {...field}
             {...props}
           />
@@ -95,6 +97,7 @@ const FormikInputComponent = MemoWrapper(
             value={value}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            id={uuid()}
             {...field}
             {...props}
           />

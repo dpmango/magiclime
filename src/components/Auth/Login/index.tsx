@@ -13,7 +13,7 @@ import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
 import { login } from 'store/reducers/user';
 import { setAuthType, setAuthOpen, setAuth } from 'store/reducers/settings';
-import { EMAIL, REQUIRED_STRING } from 'utils/formik/validation';
+import { EMAIL, REQUIRED } from 'utils/formik/validation';
 
 import useStyles from './styles';
 import SocialNetworks from '../SocialNetworks';
@@ -35,8 +35,8 @@ const Login: FC = () => {
   };
 
   const schema = Yup.object({
-    email: REQUIRED_STRING,
-    password: REQUIRED_STRING,
+    email: REQUIRED,
+    password: REQUIRED,
   });
 
   const handleSubmit = useCallback((values: typeof initialValues) => {

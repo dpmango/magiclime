@@ -18,7 +18,7 @@ const useStyles = makeStyles<null, { haveAvatar?: boolean }>(() => ({
     visibility: 'hidden',
     position: 'absolute',
   },
-  addPhoto: {
+  photoWrapper: {
     width: '48px',
     height: '48px',
     background: ({ haveAvatar }) =>
@@ -26,6 +26,10 @@ const useStyles = makeStyles<null, { haveAvatar?: boolean }>(() => ({
     borderRadius: '50%',
     border: `1px solid ${COLORS.layoutBorderColor}`,
     margin: '0 16px 0 0',
+  },
+  addPhoto: {
+    width: '100%',
+    height: '100%',
     cursor: 'pointer',
     display: 'flex',
     overflow: 'hidden',

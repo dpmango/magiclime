@@ -8,7 +8,7 @@ import { Button } from '@consta/uikit/Button';
 import Typography from 'components/Common/Typography';
 import FormikCheckboxGroup from 'components/Common/Controls/Formik/CheckboxGroup';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
-import { REQUIRED_STRING } from 'utils/formik/validation';
+import { REQUIRED } from 'utils/formik/validation';
 
 import useSharedStyles from 'assets/styles/Shared';
 import { IMultipleSelect, ITask } from '../types';

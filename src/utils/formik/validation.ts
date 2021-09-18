@@ -8,9 +8,7 @@ export const validationMessages = {
   passwordRepeat: 'Пароли не совпадают',
 };
 
-export const REQUIRED_STRING = Yup.string().required(
-  validationMessages.required
-);
+export const REQUIRED = Yup.mixed().required(validationMessages.required);
 
 export const EMAIL = Yup.string()
   .required(validationMessages.required)

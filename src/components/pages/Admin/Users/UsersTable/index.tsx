@@ -1,77 +1,70 @@
-import React, { FC } from 'react';
-import { Table } from '@consta/uikit/Table';
+import { IconAlert } from '@consta/uikit/IconAlert';
+import React, { FC, useCallback, useState } from 'react';
+import { TableColumn } from '@consta/uikit/Table';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { Button } from '@consta/uikit/Button';
-import { IconCancel } from '@consta/uikit/IconCancel';
+import BaseModal from '../../../../Common/BaseModal';
+import BaseTable from '../../../../Common/BaseTable';
 import { IUserListItem } from '../types';
 import Flex from '../../../../Common/Flex';
-import useStyles from '../styles';
-import { blockUser } from '../../../../../utils/api/routes/admin';
+import useStyles from './styles';
+import UserInfo from '../UserInfo';
 
-const UsersTable: FC<{ data: IUserListItem[] }> = ({ data }) => {
+interface IProps {
+  data: IUserListItem[];
+  loading: boolean;
+}
+
+const UsersTable: FC<IProps> = ({ data, loading }) => {
+  const [openInfo, setOpenInfo] = useState(false);
+  const [user, setUser] = useState<IUserListItem>({} as IUserListItem);
   const { t } = useTranslation();
   const styles = useStyles();
 
-  const banUser = (id: string) => {
-    // blockUser(id)
-    //     .then(() => {})
-  };
+  const openUserInfo = useCallback((user: IUserListItem) => {
+    setUser(user);
+    setOpenInfo(true);
+  }, []);
 
-  const columns = [
+  const columns: Array<TableColumn<IUserListItem>> = [
     {
-      id: '1',
-      title: t('admin.userName'),
+      title: t('admin.users.userName'),
       accessor: 'name',
-      align: 'center',
     },
     {
-      id: '2',
-      title: t('admin.login'),
+      title: t('admin.users.login'),
       accessor: 'username',
-      align: 'center',
     },
     {
-      id: '3',
-      title: t('admin.registrationDate'),
-      accessor: 'date_joined',
-      renderCell: (row: IUserListItem) => (
-        <p>{moment(row.date_joined).format('L')}</p>
-      ),
-      align: 'center',
-    },
-    {
-      id: '4',
-      title: t('admin.phone'),
+      title: t('admin.users.phone'),
       accessor: 'phone',
-      align: 'center',
     },
     {
-      id: '5',
-      title: t('admin.email'),
-      accessor: 'email',
-      align: 'center',
+      title: t('admin.users.balance'),
+      accessor: 'balance',
     },
     {
-      id: '6',
-      title: t('admin.referralCode'),
+      title: t('admin.users.earned'),
+      accessor: 'earned',
+    },
+    {
+      title: t('admin.users.withdrawn'),
+      accessor: 'withdrawn',
+    },
+    {
+      title: t('admin.users.referralCode'),
       accessor: 'referral_number',
-      align: 'center',
-    },
-    {
-      id: '7',
-      title: t('admin.inviting'),
-      accessor: 'parent_username',
-      align: 'center',
+      width: 325,
       renderCell: (row: IUserListItem) => (
         <Flex align="center" justify="space-between">
-          {row.parent_username}
+          {`${row.referral_number.slice(0, 10)}...`}
           <Button
-            view="clear"
-            className={styles.cancelButton}
+            view="secondary"
+            className={styles.moreInfo}
             size="s"
-            onClick={() => banUser(row.id)}
-            iconLeft={IconCancel}
+            label={t('admin.users.moreInfo')}
+            iconLeft={IconAlert}
+            onClick={() => openUserInfo(row)}
           />
         </Flex>
       ),
@@ -79,15 +72,16 @@ const UsersTable: FC<{ data: IUserListItem[] }> = ({ data }) => {
   ];
 
   return (
-    <Table
-      // @ts-ignore
-      columns={columns}
-      borderBetweenColumns
-      borderBetweenRows
-      // isResizable={true}
-      verticalAlign="center"
-      rows={data}
-    />
+    <>
+      <BaseTable data={data} columns={columns} loading={loading} />
+      <BaseModal
+        title={`${user.username} ${t('admin.users.info')}`}
+        isOpen={openInfo}
+        setModalOpen={setOpenInfo}
+      >
+        <UserInfo user={user} />
+      </BaseModal>
+    </>
   );
 };
 

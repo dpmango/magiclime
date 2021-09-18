@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import TopicList from 'components/pages/Forum/TopicList';
 import Topic from 'components/pages/Forum/Topic';
-import Details from 'components/pages/Forum/Details';
+import Question from 'components/pages/Forum/Question';
 import useStyles from './styles';
 
 const ForumRouterPage: FC = () => {
@@ -14,7 +14,11 @@ const ForumRouterPage: FC = () => {
       <Switch>
         <Route exact path={`${path}`} component={TopicList} />
         <Route exact path={`${path}/:topicId`} component={Topic} />
-        <Route exact path={`${path}/:topicId/:forumId`} component={Details} />
+        <Route
+          exact
+          path={`${path}/:topicId/:questionId`}
+          component={Question}
+        />
       </Switch>
     </div>
   );

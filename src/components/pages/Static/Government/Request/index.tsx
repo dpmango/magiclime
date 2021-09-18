@@ -14,7 +14,7 @@ import Typography from 'components/Common/Typography';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
-import { REQUIRED_STRING, EMAIL } from 'utils/formik/validation';
+import { REQUIRED, EMAIL } from 'utils/formik/validation';
 
 import useStyles from './styles';
 
@@ -33,8 +33,8 @@ const GovernmentRequest: FC = () => {
   };
 
   const schema = Yup.object({
-    question: REQUIRED_STRING,
-    country: REQUIRED_STRING,
+    question: REQUIRED,
+    country: REQUIRED,
     email: EMAIL,
   });
 

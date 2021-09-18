@@ -1,66 +1,54 @@
-import React, { FC, useState } from 'react';
-import { Table } from '@consta/uikit/Table';
+import { TableColumn } from '@consta/uikit/Table';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+import BaseTable from '../../../../Common/BaseTable';
 import Typography from '../../../../Common/Typography';
+import { IWebinar } from '../types';
 
-const WebinarsTable: FC<{ data: any[] }> = ({ data }) => {
+interface IProps {
+  data: IWebinar[];
+  loading: boolean;
+}
+
+const WebinarsTable: FC<IProps> = ({ data, loading }) => {
   const { t } = useTranslation();
 
-  const columns = [
+  const columns: Array<TableColumn<IWebinar>> = [
     {
-      id: '1',
-      title: t('admin.webinarName'),
-      accessor: 'name',
-      align: 'center',
+      title: t('admin.webinars.webinarName'),
+      accessor: 'title',
     },
     {
-      id: '2',
-      title: t('admin.dateTime'),
+      title: t('admin.webinars.dateTime'),
       accessor: 'date',
-      align: 'center',
-      renderCell: (row: any) => (
+      renderCell: (row: IWebinar) => (
         <p>{moment(row.date).format('DD.MM.YYYY HH:mm')}</p>
       ),
     },
     {
-      id: '3',
       title: t('webinar.city'),
       accessor: 'city',
-      align: 'center',
+      renderCell: (row: IWebinar) => <p>{row.city.title}</p>,
     },
     {
-      id: '4',
-      title: t('admin.speaker'),
+      title: t('admin.webinars.speakers'),
       accessor: 'speaker',
-      align: 'center',
     },
     {
-      id: '5',
-      title: t('admin.link'),
-      accessor: 'link',
-      renderCell: (row: any) => (
-        <a target="_blank" href={row.link} rel="noreferrer">
+      title: t('admin.webinars.link'),
+      accessor: 'zoom_url',
+      renderCell: (row: IWebinar) => (
+        <a target="_blank" href={row.zoom_url} rel="noreferrer">
           <Typography view="link" size="s">
-            {t('admin.link')}
+            {t('admin.webinars.link')}
           </Typography>
         </a>
       ),
-      align: 'center',
     },
   ];
 
-  return (
-    <Table
-      // @ts-ignore
-      columns={columns}
-      borderBetweenColumns
-      borderBetweenRows
-      isResizable
-      verticalAlign="center"
-      rows={data}
-    />
-  );
+  return <BaseTable data={data} columns={columns} loading={loading} />;
 };
 
 export default WebinarsTable;
