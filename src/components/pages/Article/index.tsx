@@ -25,7 +25,7 @@ const ArticlePage: FC = () => {
   const dispatch = useDispatch();
   const params: { id: string } = useParams();
 
-  const { articles } = useSelector((state: RootState) => state.article);
+  const articles = useSelector((state: RootState) => state.article.articles);
   const [data, setData] = useState<IArticle | Record<string, never>>({});
 
   // API && store

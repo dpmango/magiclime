@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@consta/uikit/Button';
@@ -18,24 +18,28 @@ import {
   REQUIRED,
 } from 'utils/formik/validation';
 
-import { registration } from 'store/reducers/user';
 import Typography from 'components/Common/Typography';
+import { registration } from 'store/reducers/user';
+import { setAuthOpen, setAuth } from 'store/reducers/settings';
 
 import { StepType } from './types';
-import { IBaseAuthProps } from '../types';
 import Stepper from './Stepper';
 import ProfileStep from './Steps/Profile';
 import UserType from './Steps/UserType';
 import Additional from './Steps/Additional';
 import useStyles from './styles';
 
-const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
+const Registration: FC = () => {
   const [step, setStep] = useState<StepType>(1);
   const [errorMessage, setErrorMessage] = useState('');
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const { t } = useTranslation();
+
+  const closeModal = useCallback(() => {
+    dispatch(setAuthOpen(false));
+  }, []);
 
   const renderStep = () => {
     switch (step) {
@@ -68,8 +72,8 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
   const schema = Yup.object({
     username: REGEXP_TEST(
       'username',
-      /^[\w\d]+$/,
-      'Логин должен содержать только цифры и латинские буквы'
+      /^([a-zA-Z0-9\-\\.]+)$/,
+      t('auth.signup.validation.login.mask')
     ),
     email: EMAIL,
     password: REGEXP_TEST(
@@ -80,10 +84,15 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       .min(8, t('auth.signup.validation.password.min'))
       .max(30, t('auth.signup.validation.password.max')),
     passwordConfirm: CONFIRM,
-    media_sponsor: Yup.string().length(
-      40,
-      t('auth.signup.validation.media_sponsor')
-    ),
+    media_sponsor: Yup.lazy((value) => {
+      if (value && value.trim().length > 0) {
+        return Yup.string().length(
+          40,
+          t('auth.signup.validation.media_sponsor')
+        );
+      }
+      return Yup.string().trim().length(0);
+    }),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
     name: step === 3 ? REQUIRED : Yup.string(),
   });
@@ -101,7 +110,10 @@ const Registration: FC<IBaseAuthProps> = ({ closeModal }) => {
       dispatch(
         registration({
           ...data,
-          successCallback: () => history.push('/profile/me'),
+          successCallback: () => {
+            dispatch(setAuth({ opened: false, type: 'sign_in' }));
+            history.push('/profile/me');
+          },
           errorCallback,
         })
       );

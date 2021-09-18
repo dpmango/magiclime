@@ -46,3 +46,9 @@
 .Button_view_ghost:hover {
   border-color: var(--color-control-bg-border-ghost-hover);
 }
+
+.Modal-Overlay{
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
+  will-change: opacity;
+}

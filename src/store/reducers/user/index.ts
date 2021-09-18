@@ -127,9 +127,21 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
       return { access, refresh, ...profile };
     } catch (err) {
       if (errorCallback) {
+        let errText = '';
+
+        try {
+          const errors = Object.keys(err.data);
+          errors.forEach((key, idx) => {
+            const postFix = idx + 1 !== errors.length ? '|| ' : '';
+            errText += `${key}: ${err.data[key][0]} ${postFix}`;
+          });
+        } catch (e) {
+          errText = 'Error';
+        }
+
         switch (err.status) {
           case 403:
-            errorCallback('Данный email уже используется!');
+            errorCallback(errText);
             break;
           default:
             errorCallback('Ошибка сервера!');

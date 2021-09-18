@@ -56,7 +56,7 @@ const Refill: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const initialValues = {
     currency: currencySelectList[0],

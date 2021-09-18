@@ -13,18 +13,10 @@ const defaultCrumbs: ICrumbsPage[] = [
   },
 ];
 
-export const buildTree = ({
-  referralsTree,
-  profileId,
-}: IBuildTree): IMappedData => {
+export const buildTree = ({ referralsTree }: IBuildTree): IMappedData => {
   const withClones = (childs: IReferralTree[]) => {
-    const rootUserId = referralsTree && referralsTree.user_id;
-
-    // if (profileId !== rootUserId) {
-    //   return childs;
-    // }
-
     let childsCopy = childs;
+
     const mainClone = {
       is_clone: true,
       clone_id: referralsTree.id,

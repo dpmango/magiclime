@@ -4,7 +4,7 @@ import { instance } from '../../index';
 import endpoints from '../endpoints';
 
 export const getReferralsService = (data: {
-  id: number | string;
+  id?: number | string;
   level: number;
   program: number;
 }): AxiosPromise<IReferralTree> => {

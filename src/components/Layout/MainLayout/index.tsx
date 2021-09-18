@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, memo } from 'react';
 import isEqual from 'lodash/isEqual';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getAllProfile } from 'store/reducers/profile';
@@ -34,15 +34,15 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
 
-  const { is_staff } = useSelector((state: RootState) => state.user.profile);
+  const is_staff = useSelector(
+    (state: RootState) => state.user.profile.is_staff,
+    isEqual
+  );
 
   useEffect(() => {
-    if (pathname.includes('profile')) {
-      dispatch(getAllProfile());
-    }
-  }, [pathname]);
+    dispatch(getAllProfile());
+  }, []);
 
   return (
     <Flex direction="column" className={styles.root}>

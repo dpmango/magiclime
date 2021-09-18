@@ -23,7 +23,7 @@ const WebinarsPage: FC = () => {
     categories: [],
     city: 0,
   });
-  const { categories } = useSelector((state: RootState) => state.meta);
+  const categories = useSelector((state: RootState) => state.meta.categories);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...filters.categories];

@@ -14,11 +14,14 @@ const initialState = {
 export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
   'referrals/getReferrals',
   async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback, ...data } = payload;
+
     try {
-      const response = await getReferralsService(payload);
+      const response = await getReferralsService(data);
 
       if (response?.status === 200) {
         dispatch(setReferralsTree(response.data));
+        successCallback && successCallback(response.data);
       }
       return response.data;
     } catch (err) {
@@ -28,6 +31,7 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
           'Этот пользователь не покупал позиции на выбранном уровне матрицы'
         )
       );
+      errorCallback && errorCallback();
       return rejectWithValue(err.response.data);
     }
   }

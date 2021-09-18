@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
 import { Button } from '@consta/uikit/Button';
 import { IconCopy } from '@consta/uikit/IconCopy';
+import moment from 'moment';
 
 import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Plurize } from 'utils/helpers/plurize';
+import { timeToTimeStamp } from 'utils/helpers/formatDate';
 import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IReferralTree } from 'types/interfaces/referrals';
 
@@ -15,6 +17,8 @@ import useStyles from './styles';
 
 interface IProps {
   data: IReferralTree;
+  level: string | number;
+  program: string | number;
   nested?: boolean;
   root?: boolean;
   onReferralClick?: (id: number) => void;
@@ -32,6 +36,8 @@ const ReferralUser: FC<IProps> = ({
     clone_id,
     clone_enabled,
   },
+  level,
+  program,
   nested,
   root,
   onReferralClick,
@@ -46,24 +52,29 @@ const ReferralUser: FC<IProps> = ({
       e.stopPropagation();
 
       copyToClipboard(
-        `https://magiclime.academy/profile/me/partners/?id=${id}`,
+        `https://magiclime.academy/profile/me/partners/?id=${id}&level=${level}&program=${program}`,
         t('profile.referral.card.copySuccess'),
         t('profile.referral.card.copyError')
       );
     },
-    [id]
+    [id, level, program]
   );
 
   const referralsPlural = useMemo(() => {
-    const plural = Plurize(
+    return Plurize(
       referrals_count || 0,
-      t('profile.referralPlural.one'),
-      t('profile.referralPlural.two'),
-      t('profile.referralPlural.five')
+      t('profile.spacePlural.one'),
+      t('profile.spacePlural.two'),
+      t('profile.spacePlural.five')
     );
-
-    return root ? referrals_count : `${referrals_count} ${plural}`;
   }, [referrals_count]);
+
+  const timestamp = useMemo(() => {
+    if (!created_at) {
+      return ' ';
+    }
+    return moment(created_at).format('DD.MM.YYYY, HH:mm');
+  }, [created_at]);
 
   return (
     <Flex
@@ -112,13 +123,13 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      <div className={styles.referralBl}>
+      <div className={styles.referralDate}>
         <Typography
           size={root ? 'l' : 's'}
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          {created_at}
+          {timestamp}
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
@@ -129,7 +140,7 @@ const ReferralUser: FC<IProps> = ({
 
       {!is_clone ? (
         <>
-          <div className={styles.referralLevel} onClick={handleCopyRefClick}>
+          <div className={styles.referralMatrixId} onClick={handleCopyRefClick}>
             <Flex align="center">
               <Typography
                 margin="0 6px 0 0"
@@ -157,7 +168,7 @@ const ReferralUser: FC<IProps> = ({
               size={root ? 'l' : 's'}
               view={root ? 'primary' : 'secondary'}
             >
-              {referralsPlural}
+              {referrals_count} {!root && referralsPlural}
             </Typography>
             {root && (
               <Typography
@@ -166,7 +177,7 @@ const ReferralUser: FC<IProps> = ({
                 weight="semibold"
                 view="ghost"
               >
-                {t('profile.referral.card.referrals')}
+                {referralsPlural}
               </Typography>
             )}
           </div>

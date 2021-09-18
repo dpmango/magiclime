@@ -57,8 +57,9 @@ const useStyles = makeStyles({
       },
     },
   },
-
-  filters: {},
+  filters: {
+    marginTop: 58,
+  },
   filtersGroup: {
     marginBottom: 24,
     '& .TextField, & .Select': {
@@ -72,6 +73,11 @@ const useStyles = makeStyles({
   cta: {
     marginTop: 16,
     textAlign: 'center',
+  },
+  modalCta: {
+    '& .Button': {
+      marginRight: 16,
+    },
   },
 });
 

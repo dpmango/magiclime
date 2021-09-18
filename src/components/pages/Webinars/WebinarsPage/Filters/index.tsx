@@ -22,7 +22,8 @@ const Filters: FC<{ setFilters: SetStateType<IFilters> }> = ({
   setFilters,
 }) => {
   const styles = useStyles();
-  const { cities, categories } = useSelector((state: RootState) => state.meta);
+  const cities = useSelector((state: RootState) => state.meta.cities);
+  const categories = useSelector((state: RootState) => state.meta.categories);
 
   const handleSubmit = useCallback((values: FormValues) => {
     const categories = values.categories.map((item) => item.id);

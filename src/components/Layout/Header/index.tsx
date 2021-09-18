@@ -33,8 +33,9 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
   const isMobile = size.width <= 480;
 
   const [isOpen, setOpen] = useState(false);
-  const { isLogged, profile } = useSelector((state: RootState) => state.user);
-  const { balance } = useSelector((state: RootState) => state.profile);
+  const isLogged = useSelector((state: RootState) => state.user.isLogged);
+  const profile = useSelector((state: RootState) => state.user.profile);
+  const balance = useSelector((state: RootState) => state.profile.balance);
 
   const myBalance = useMemo(() => {
     return `${balance.bitlimes || `${0}`} Bl`;
