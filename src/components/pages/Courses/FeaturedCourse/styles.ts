@@ -7,8 +7,9 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
   right: {},
   button: {
     fontWeight: 500,
-    letterSpacing: '-0.3px',
+    // letterSpacing: '-0.3px',
     color: '#fafafa',
+    textShadow: 'none',
     background:
       'linear-gradient(120deg, #0F8F62 0%, #0F8F62 45.83%, #2BB47E 100%)',
   },
@@ -18,7 +19,7 @@ const useStyles = makeStyles<null, { darkmode: boolean }>(() => ({
     wodth: '100%',
     fontSize: '0',
     borderRadius: 'var(--control-radius)',
-    textAlign: 'center',
+    textAlign: 'left',
     '& img': {
       maxWidth: '100%',
     },
