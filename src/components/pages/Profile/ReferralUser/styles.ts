@@ -60,7 +60,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
             '&::after': {
               display: 'block',
               content: "' '",
-              // position: 'absolute',
+              position: 'absolute' as const,
               zIndex: 1,
               top: 36,
               left: -52,
@@ -83,9 +83,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
       return root ? { width: 72, height: 72, lineHeight: '72px' } : {};
     })(),
   }),
-  referralBl: {
+  referralDate: {
     flex: '0 0 25%',
     paddingRight: 12,
+    '& .Text': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
   },
   referralMatrixId: {
     flex: '0 0 18%',

@@ -7,7 +7,7 @@ import React, {
   MouseEvent,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
@@ -24,12 +24,18 @@ import BaseModal from 'components/Common/BaseModal';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
 import { buyMatricesService } from 'utils/api/routes/referrals';
+import { useQuery } from 'hooks/useQuery';
 import { IReferralTree } from 'types/interfaces/referrals';
 
 import ReferralUser from 'components/pages/Profile/ReferralUser';
 import useSharedStyles from 'assets/styles/Shared';
 import { buildTree } from './functions';
-import { ICrumbsPage, IMappedData, IModalProps } from './types';
+import {
+  IRequestPayload,
+  ICrumbsPage,
+  IMappedData,
+  IModalProps,
+} from './types';
 import useStyles from './styles';
 
 interface IProgram {
@@ -48,7 +54,9 @@ const programOptions: IProgram[] = [
 const Referrals: FC = () => {
   const styles = useStyles();
   const sharedStyles = useSharedStyles({});
-  const params: { id: string } = useParams();
+  const history = useHistory();
+  const location = useLocation();
+  const query = useQuery();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -58,8 +66,9 @@ const Referrals: FC = () => {
   );
   const [selectedLevel, setSelectedLevels] = useState<number>(1);
   const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
-  const [savedUserId, setSavedUsedId] = useState<number | string | null>(null);
-  const [urlId, setUrlId] = useState<number | string | null>(null);
+  const [savedUserId, setSavedUsedId] = useState<number | string | undefined>(
+    undefined
+  );
 
   const [modalConfirm, setModalConfirm] = useState<IModalProps>({
     opened: false,
@@ -75,8 +84,6 @@ const Referrals: FC = () => {
   );
   const loading = useSelector((state: RootState) => state.referrals.loading);
   const error = useSelector((state: RootState) => state.referrals.error);
-
-  const profile = useSelector((state: RootState) => state.user.profile);
 
   const matrixLevels: number[] = useMemo(() => {
     let levels = 0;
@@ -106,54 +113,35 @@ const Referrals: FC = () => {
     return [...Array(levels).keys()].map((x) => x + 1);
   }, [filterProgram]);
 
-  // reset level when program changed
-  useEffect(() => {
-    setSelectedLevels(1);
-  }, [filterProgram]);
-
-  // get & set program from initial url params
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const program = urlParams.get('program');
-    const level = urlParams.get('level');
-    const id = urlParams.get('id');
-
-    if (program) {
-      const targetProgramOption = programOptions.find(
-        (x) => x.id === parseInt(program, 10)
-      );
-
-      if (targetProgramOption) {
-        setFilterProgram(targetProgramOption);
-      }
-    }
-
-    if (level) {
-      setSelectedLevels(parseInt(level, 10));
-    }
-
-    if (id) {
-      setUrlId(parseInt(id, 10));
-    }
-  }, []);
-
   // api actions
   const requestReferrals = useCallback(
-    async ({
-      id,
-      program,
-      level,
-    }: {
-      id: number | string;
-      program: number;
-      level: number;
-    }) => {
+    async ({ id, program, level }: IRequestPayload) => {
       if (!buyProcessing) {
         await dispatch(
           getReferrals({
             id,
             program,
             level,
+            successCallback: (res?: IReferralTree) => {
+              const params = new URLSearchParams({
+                id: `${res!.id}`,
+                level: `${level}`,
+                program: `${program}`,
+              });
+
+              history.replace({
+                pathname: location.pathname,
+                search: params.toString(),
+              });
+            },
+            errorCallback: () => {
+              setSavedUsedId(undefined);
+
+              history.replace({
+                pathname: location.pathname,
+                search: '',
+              });
+            },
           })
         );
       }
@@ -161,22 +149,44 @@ const Referrals: FC = () => {
     [buyProcessing]
   );
 
+  // initial request with url getters & setters
   useEffect(() => {
     const fetch = async () => {
-      const { id } = params;
+      const id = query.get('id');
+      const program = query.get('program');
+      const level = query.get('level');
 
-      // if (urlId) {
-      //   id = urlId;
-      // }
-
-      await requestReferrals({
-        id,
+      const params = {
+        id: undefined,
         program: filterProgram.id,
         level: selectedLevel,
-      });
+      } as IRequestPayload;
+
+      if (id) {
+        params.id = id;
+      }
+
+      if (program) {
+        const targetProgramOption = programOptions.find(
+          (x) => x.id === parseInt(program, 10)
+        );
+
+        if (targetProgramOption) {
+          setFilterProgram(targetProgramOption);
+          params.program = targetProgramOption.id;
+        }
+      }
+
+      if (level) {
+        setSelectedLevels(parseInt(level, 10));
+        params.level = parseInt(level, 10);
+      }
+
+      await requestReferrals(params);
     };
+
     fetch();
-  }, [selectedLevel, filterProgram, params.id]);
+  }, []);
 
   // click handlers
   const handleBreadcrumbClick = useCallback(
@@ -210,9 +220,24 @@ const Referrals: FC = () => {
   const handleMatrixLevelClick = useCallback(
     (n: number) => {
       setSelectedLevels(n);
+
+      requestReferrals({
+        program: filterProgram.id,
+        level: n,
+      });
     },
-    [selectedLevel]
+    [filterProgram]
   );
+
+  const handleFilterProgramChange = useCallback((program: IProgram) => {
+    setFilterProgram(program);
+    setSelectedLevels(1);
+
+    requestReferrals({
+      program: program.id,
+      level: 1,
+    });
+  }, []);
 
   const handleBuyClick = useCallback(
     async (id?: number) => {
@@ -240,20 +265,20 @@ const Referrals: FC = () => {
       setModalSuccess({ opened: true });
 
       await requestReferrals({
-        id: savedUserId || params.id,
+        id: savedUserId,
         program: filterProgram.id,
         level: selectedLevel,
       });
 
       setBuyProcessing(false);
     },
-    [selectedLevel, filterProgram, params.id, savedUserId]
+    [selectedLevel, filterProgram, savedUserId]
   );
 
   // main data getter
   const mappedData = useMemo((): IMappedData => {
-    return buildTree({ referralsTree, profileId: profile.id });
-  }, [referralsTree, profile.id]);
+    return buildTree({ referralsTree });
+  }, [referralsTree]);
 
   return (
     <div className={styles.root}>
@@ -261,7 +286,12 @@ const Referrals: FC = () => {
         {t('profile.referral.list.title')}
       </Typography>
 
-      <Grid cols="4" gap="xl" className={styles.grid}>
+      <Grid
+        cols="1"
+        gap="xl"
+        breakpoints={{ m: { cols: 4 } }}
+        className={styles.grid}
+      >
         <GridItem col="3" className={styles.gridColMain}>
           {!error ? (
             <>
@@ -278,7 +308,12 @@ const Referrals: FC = () => {
               />
               <div className={styles.referrals}>
                 {mappedData.root && (
-                  <ReferralUser data={mappedData.root} root />
+                  <ReferralUser
+                    data={mappedData.root}
+                    level={selectedLevel}
+                    program={filterProgram.id}
+                    root
+                  />
                 )}
 
                 {mappedData.childrens &&
@@ -286,6 +321,8 @@ const Referrals: FC = () => {
                     <div key={group.id || idx} className={styles.referralGroup}>
                       <ReferralUser
                         data={group}
+                        level={selectedLevel}
+                        program={filterProgram.id}
                         onReferralClick={handleReferralClick}
                         onBuyClick={(id) =>
                           setModalConfirm({ opened: true, id })
@@ -296,6 +333,8 @@ const Referrals: FC = () => {
                           <ReferralUser
                             key={referral.id || cidx}
                             data={referral}
+                            level={selectedLevel}
+                            program={filterProgram.id}
                             onReferralClick={handleReferralClick}
                             onBuyClick={(id) =>
                               setModalConfirm({ opened: true, id })
@@ -343,7 +382,7 @@ const Referrals: FC = () => {
                 value={filterProgram}
                 placeholder={t('profile.referral.filter.level')}
                 onChange={({ value }) =>
-                  setFilterProgram(value || programOptions[0])
+                  handleFilterProgramChange(value || programOptions[0])
                 }
               />
             </div>

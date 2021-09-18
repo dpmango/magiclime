@@ -17,6 +17,8 @@ import useStyles from './styles';
 
 interface IProps {
   data: IReferralTree;
+  level: string | number;
+  program: string | number;
   nested?: boolean;
   root?: boolean;
   onReferralClick?: (id: number) => void;
@@ -34,6 +36,8 @@ const ReferralUser: FC<IProps> = ({
     clone_id,
     clone_enabled,
   },
+  level,
+  program,
   nested,
   root,
   onReferralClick,
@@ -48,12 +52,12 @@ const ReferralUser: FC<IProps> = ({
       e.stopPropagation();
 
       copyToClipboard(
-        `https://magiclime.academy/profile/me/partners/?id=${id}`,
+        `https://magiclime.academy/profile/me/partners/?id=${id}&level=${level}&program=${program}`,
         t('profile.referral.card.copySuccess'),
         t('profile.referral.card.copyError')
       );
     },
-    [id]
+    [id, level, program]
   );
 
   const referralsPlural = useMemo(() => {
@@ -119,7 +123,7 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      <div className={styles.referralBl}>
+      <div className={styles.referralDate}>
         <Typography
           size={root ? 'l' : 's'}
           view={root ? 'brand' : 'primary'}
