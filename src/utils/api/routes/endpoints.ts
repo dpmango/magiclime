@@ -31,6 +31,7 @@ export default {
   payments: {
     root: '/payments/',
     balance: '/payments/balance/',
+    balanceHistory: '/payments/balance/history/',
     buy: '/payments/buy/',
     sell: '/payments/sell/', // todo
   },

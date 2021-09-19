@@ -23,6 +23,7 @@ import Flex from 'components/Common/Flex';
 import BaseModal from 'components/Common/BaseModal';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals } from 'store/reducers/referrals';
+import { getBalance } from 'store/reducers/profile';
 import { buyMatricesService } from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
 import { IReferralTree } from 'types/interfaces/referrals';
@@ -269,6 +270,8 @@ const Referrals: FC = () => {
         program: filterProgram.id,
         level: selectedLevel,
       });
+
+      await dispatch(getBalance());
 
       setBuyProcessing(false);
     },
