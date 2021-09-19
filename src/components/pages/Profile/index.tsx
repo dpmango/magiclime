@@ -94,11 +94,6 @@ const ProfilePage: FC = () => {
     }
     return [
       { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
-      {
-        id: 3,
-        slug: `/profile/${params.id}/referrals`,
-        label: t('profile.tabs.referrals'),
-      },
     ];
   }, [params.id, isMyProfile]);
 
@@ -182,19 +177,19 @@ const ProfilePage: FC = () => {
             </>
           )}
         />
-        <Route
-          path={`${path}/partners`}
-          render={() => (
-            <>
-              <ReferralStats {...profileProps} />
-              <ReferralList />
-            </>
-          )}
-        />
-
         {/* restrict some routes */}
         {isMyProfile && (
           <>
+            <Route
+              path={`${path}/partners`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralList />
+                </>
+              )}
+            />
+
             <Route
               path={`${path}/balance`}
               render={() => (

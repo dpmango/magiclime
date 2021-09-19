@@ -71,7 +71,7 @@ const CoursesPage: FC = () => {
 
     return {
       categories,
-      level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
+      // level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
       types: ['Профессия', 'Программа', 'Курс'],
       priceRange,
       levelRange,
@@ -117,7 +117,6 @@ const CoursesPage: FC = () => {
               listComponent={CoursesList}
               queries={filterRequest}
               successCallback={(data) => setCourses(data)}
-              errorCallback={(err) => toast.error(t('course.list.error'))}
             />
           </GridItem>
 
