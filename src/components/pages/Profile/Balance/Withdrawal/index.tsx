@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
-import { Formik, Form } from 'formik';
+import React, { FC, useState } from 'react';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED } from 'utils/formik/validation';
-import { useTranslation } from 'react-i18next';
+import { postWithdrawalBalance } from 'utils/api/routes/payment';
 
 import useStyles from './styles';
 
@@ -43,15 +46,33 @@ const Withdrawal: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [error, setError] = useState<string>('');
+
   const initialValues = {
     payment: paymentSelectList[0],
     credentials: '',
     amount: '',
   };
 
-  const handleSubmit = (values: typeof initialValues) => {
-    // eslint-disable-next-line no-console
-    console.log('TODO - form submit', values);
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
+    setError('');
+
+    const [err, data] = await postWithdrawalBalance({
+      amount: parseFloat(values.amount) / 100000,
+      wallet: values.credentials,
+    });
+
+    if (err) {
+      setError(err);
+      toast.error(t('profile.balance.withdrawal.toast.error'));
+      return;
+    }
+
+    toast.success(t('profile.balance.withdrawal.toast.success'));
+    resetForm();
   };
 
   const schema = Yup.object({
@@ -71,6 +92,15 @@ const Withdrawal: FC = () => {
         validationSchema={schema}
       >
         <Form>
+          <Typography
+            view="alert"
+            align="center"
+            weight="semibold"
+            margin="0 0 12px"
+          >
+            {error}
+          </Typography>
+
           <div className={styles.uiGroup}>
             <FormikSelect
               items={paymentSelectList}

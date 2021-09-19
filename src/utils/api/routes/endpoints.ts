@@ -33,7 +33,8 @@ export default {
     balance: '/payments/balance/',
     balanceHistory: '/payments/balance/history/',
     buy: '/payments/buy/',
-    sell: '/payments/sell/', // todo
+    sell: '/payments/sell/',
+    transfer: '/payments/transfer/',
   },
   courses: {
     root: '/courses/',

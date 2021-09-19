@@ -1,6 +1,7 @@
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { IBalance, IBalanceHistory } from 'types/interfaces/profile';
+import { getErrorMessage } from 'utils/helpers/getErrorMessage';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
@@ -10,6 +11,12 @@ export interface IRequestRefill {
 
 export interface IRequestWithdrawal {
   amount: number;
+  wallet: string;
+}
+
+export interface IRequestTransfer {
+  amount: number;
+  to_user: string;
 }
 
 export const getBalanceService = (): AxiosPromise<IBalance> => {
@@ -31,24 +38,38 @@ export const getBalanceHistoryService = (
 
 export const postRefillBalance = async (
   request: IRequestRefill
-): Promise<[Error | null, any | null]> => {
+): Promise<[string | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.payments.buy, request);
 
     return [null, data];
   } catch (error) {
-    return [error, null];
+    return [getErrorMessage(error), null];
   }
 };
 
 export const postWithdrawalBalance = async (
   request: IRequestWithdrawal
-): Promise<[Error | null, any | null]> => {
+): Promise<[string | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.payments.sell, request);
 
     return [null, data];
   } catch (error) {
-    return [error, null];
+    return [getErrorMessage(error), null];
+  }
+};
+
+export const postTransferBalance = async (
+  request: IRequestTransfer
+): Promise<[string | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.payments.transfer, request);
+
+    return [null, data];
+  } catch (error) {
+    console.log(error);
+
+    return [getErrorMessage(error), null];
   }
 };

@@ -16,6 +16,7 @@ import {
   changeUserPassword,
 } from 'utils/api/routes/auth';
 
+import { getErrorMessage } from 'utils/helpers/getErrorMessage';
 import { setAuthToken } from 'utils/api';
 import { IUser } from 'types/interfaces/user';
 import {
@@ -127,21 +128,9 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
       return { access, refresh, ...profile };
     } catch (err) {
       if (errorCallback) {
-        let errText = '';
-
-        try {
-          const errors = Object.keys(err.data);
-          errors.forEach((key, idx) => {
-            const postFix = idx + 1 !== errors.length ? '|| ' : '';
-            errText += `${key}: ${err.data[key][0]} ${postFix}`;
-          });
-        } catch (e) {
-          errText = 'Error';
-        }
-
         switch (err.status) {
           case 403:
-            errorCallback(errText);
+            errorCallback(getErrorMessage(err));
             break;
           default:
             errorCallback('Ошибка сервера!');

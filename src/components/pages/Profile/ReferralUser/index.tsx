@@ -102,7 +102,7 @@ const ReferralUser: FC<IProps> = ({
               lineHeight="s"
               size={root ? 'xl' : 'm'}
             >
-              {username}
+              {username} [{id}]
             </Typography>
           ) : (
             <Typography lineHeight="s" view="brand" size={root ? 'xl' : 'm'}>

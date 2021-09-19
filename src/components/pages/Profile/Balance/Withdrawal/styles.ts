@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
-    opacity: 0.5,
+    position: 'relative',
   },
   title: {
     margin: '0 -24px 12px',

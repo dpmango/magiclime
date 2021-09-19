@@ -194,13 +194,15 @@ const Referrals: FC = () => {
     (page: ICrumbsPage, e: MouseEvent): void => {
       e.preventDefault();
 
-      setSavedUsedId(page.link);
+      if (page.link !== '#') {
+        setSavedUsedId(page.link);
 
-      requestReferrals({
-        id: page.link,
-        program: filterProgram.id,
-        level: selectedLevel,
-      });
+        requestReferrals({
+          id: page.link,
+          program: filterProgram.id,
+          level: selectedLevel,
+        });
+      }
     },
     [selectedLevel, filterProgram]
   );
