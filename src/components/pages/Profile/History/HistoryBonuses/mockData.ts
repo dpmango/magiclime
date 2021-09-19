@@ -1,4 +1,9 @@
-import { IColumn } from './types';
+interface IColumn {
+  title: string;
+  accessor: string;
+  sortable?: boolean;
+  width?: number;
+}
 
 export const columns: IColumn[] = [
   {

@@ -13,11 +13,10 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
 
 import Typography from 'components/Common/Typography';
-import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
-import { getBalanceHistoryService } from 'utils/api/routes/payment';
 import { IUser } from 'types/interfaces/user';
+import { ITab } from 'types/interfaces/common';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -25,19 +24,12 @@ import Achievements from './Achievements';
 import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
-import HistoryBalance from './HistoryBalance';
-import HistoryOperations from './HistoryOperations';
+import History from './History';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
 import useStyles from './styles';
 import { mockPrograms, mockEvents } from './mockData';
-
-interface ITab {
-  id: number;
-  slug: string;
-  label: string;
-}
 
 const ProfilePage: FC = () => {
   const styles = useStyles();
@@ -203,25 +195,9 @@ const ProfilePage: FC = () => {
               )}
             />
 
-            <Route path={`${path}/settings`} render={() => <Settings />} />
+            <Route path={`${path}/settings`} component={Settings} />
 
-            <Route
-              path={`${path}/history`}
-              render={() => (
-                <>
-                  <div className={styles.section}>
-                    <HistoryOperations />
-                  </div>
-                  <div className={styles.section}>
-                    <Pagination
-                      getList={getBalanceHistoryService}
-                      listComponent={HistoryBalance}
-                      queries={{ search: '' }}
-                    />
-                  </div>
-                </>
-              )}
-            />
+            <Route path={`${path}/history`} component={History} />
           </>
         )}
 

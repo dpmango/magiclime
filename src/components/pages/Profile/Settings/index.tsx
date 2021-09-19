@@ -6,10 +6,12 @@ import {
   useRouteMatch,
   useParams,
 } from 'react-router-dom';
-import { useFirstRender } from 'hooks/useFirstRender';
+import { useTranslation } from 'react-i18next';
+
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { useTranslation } from 'react-i18next';
+import { useFirstRender } from 'hooks/useFirstRender';
+import { ITab } from 'types/interfaces/common';
 
 import Account from './Account';
 import Profile from './Profile';
@@ -17,12 +19,6 @@ import Notifications from './Notifications';
 import Security from './Security';
 import useStyles from './styles';
 import Achievements from './Achievements';
-
-interface ITab {
-  id: number;
-  slug: string;
-  label: string;
-}
 
 const Settings: FC = () => {
   const params: { id: string } = useParams();

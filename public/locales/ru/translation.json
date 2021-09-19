@@ -305,6 +305,7 @@
       "history": {
         "titleOperations": "История операций",
         "titleBalance": "История финансов",
+        "titleBonuse": "История бонусов",
         "date": {
           "label": "Дата",
           "placeholder": "Выберите дату"
@@ -436,6 +437,13 @@
       "cta": {
         "save": "Сохранить изменения",
         "open": "Открыть"
+      }
+    },
+    "history": {
+      "tabs": {
+        "operations": "Операции",
+        "finance": "Финансы",
+        "bonuses": "Бонусы"
       }
     }
   },
