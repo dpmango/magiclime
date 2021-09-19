@@ -13,10 +13,12 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
 
 import Typography from 'components/Common/Typography';
+import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
 import { IUser } from 'types/interfaces/user';
 import { ITab } from 'types/interfaces/common';
+import { getBalanceHistoryService } from 'utils/api/routes/payment';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -25,6 +27,7 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import History from './History';
+import HistoryBalance from './History/HistoryBalance';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
@@ -190,6 +193,13 @@ const ProfilePage: FC = () => {
                 <>
                   <div className={styles.section}>
                     <Balance />
+                  </div>
+                  <div className={styles.section}>
+                    <Pagination
+                      getList={getBalanceHistoryService}
+                      listComponent={HistoryBalance}
+                      queries={{ search: '' }}
+                    />
                   </div>
                 </>
               )}

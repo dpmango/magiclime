@@ -7,20 +7,15 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Tabs } from '@consta/uikit/Tabs';
+import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 
-import Flex from 'components/Common/Flex';
 import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
-import {
-  getBalanceHistoryService,
-  getBonuseHistoryService,
-} from 'utils/api/routes/payment';
+import { getBonuseHistoryService } from 'utils/api/routes/payment';
 import { getMatricesHistoryService } from 'utils/api/routes/referrals';
 import { ITab } from 'types/interfaces/common';
 
 import HistoryOperations from './HistoryOperations';
-import HistoryBalance from './HistoryBalance';
 import HistoryBonuses from './HistoryBonuses';
 import useStyles from './styles';
 
@@ -42,11 +37,6 @@ const ProfileHistory: FC = () => {
       },
       {
         id: 2,
-        slug: `/profile/${params.id}/history/finance`,
-        label: t('profile.history.tabs.finance'),
-      },
-      {
-        id: 3,
         slug: `/profile/${params.id}/history/bonuses`,
         label: t('profile.history.tabs.bonuses'),
       },
@@ -76,13 +66,15 @@ const ProfileHistory: FC = () => {
 
   return (
     <div>
-      <Tabs
+      <ChoiceGroup
         value={tab}
         onChange={({ value }) => setTab(value)}
         items={tabs}
         getLabel={(item) => item.label}
         size="m"
+        multiple={false}
         className={styles.tabs}
+        name="historyChoicegroup"
       />
 
       <Switch>
@@ -91,18 +83,9 @@ const ProfileHistory: FC = () => {
           path={path}
           render={() => (
             <Pagination
+              key="h1"
               getList={getMatricesHistoryService}
               listComponent={HistoryOperations}
-              queries={{ search: '' }}
-            />
-          )}
-        />
-        <Route
-          path={`${path}/finance`}
-          render={() => (
-            <Pagination
-              getList={getBalanceHistoryService}
-              listComponent={HistoryBalance}
               queries={{ search: '' }}
             />
           )}
@@ -112,6 +95,7 @@ const ProfileHistory: FC = () => {
           path={`${path}/bonuses`}
           render={() => (
             <Pagination
+              key="h2"
               getList={getBonuseHistoryService}
               listComponent={HistoryBonuses}
               queries={{ search: '' }}
