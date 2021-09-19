@@ -66,7 +66,7 @@ const HistoryBalance: FC<IProps> = ({ data }) => {
   const contentRows = useMemo(() => {
     return data.map((x) => ({
       id: `${x.id}`,
-      date: moment(x.date).format('DD.MM.YYYY'),
+      date: moment(x.date).format('DD.MM.YY HH:mm:ss'),
       price: `${formatPrice(x.amount)} BL`,
       comment: x.comment,
       balance: 'TODO',

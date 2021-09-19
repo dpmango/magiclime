@@ -59,4 +59,7 @@ export default {
     list: '/auth/users/me/referrals/',
     buy: '/matrices/buy/',
   },
+  feedback: {
+    government: '/feedback/government/',
+  },
 };

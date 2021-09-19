@@ -49,13 +49,13 @@ const Account: FC = () => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    const { login, phone, email } = values;
+    const { phone, email } = values;
     dispatch(
       updateProfile({
         profile: {
           phone,
           email,
-          username: login,
+          // username: login,
           // media_sponsor: sponsor,
         },
         successCallback: () => setErrorMessage(''),
@@ -197,9 +197,11 @@ const Account: FC = () => {
                   <FormikInput
                     label={t('profile.settings.account.login.label')}
                     name="login"
+                    readOnly
                     placeholder={t(
                       'profile.settings.account.login.placeholder'
                     )}
+                    isRequired={false}
                   />
                 </GridItem>
                 <GridItem>

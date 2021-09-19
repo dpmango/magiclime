@@ -84,13 +84,13 @@ const ProfilePage: FC = () => {
         },
         {
           id: 5,
-          slug: `/profile/${params.id}/settings`,
-          label: t('profile.tabs.settings'),
+          slug: `/profile/${params.id}/history`,
+          label: t('profile.tabs.history'),
         },
         {
           id: 6,
-          slug: `/profile/${params.id}/history`,
-          label: t('profile.tabs.history'),
+          slug: `/profile/${params.id}/settings`,
+          label: t('profile.tabs.settings'),
         },
       ];
     }

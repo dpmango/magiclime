@@ -10,11 +10,13 @@ export const columns: IColumn[] = [
     title: 'Дата',
     accessor: 'date',
     sortable: true,
+    width: 190,
   },
   {
     title: 'Сумма',
     accessor: 'price',
     sortable: false,
+    width: 150,
   },
   {
     title: 'Комментарий',
