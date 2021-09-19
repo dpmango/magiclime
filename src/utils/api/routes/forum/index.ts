@@ -44,7 +44,7 @@ export const createTopic = (
 export const getForumTopicList = (
   id: string,
   search: string
-): AxiosPromise<ITopicListItem[]> => {
+): AxiosPromise<IAxiosPaginatedResponse<ITopicListItem>> => {
   return $api.get(endpoints.forum.getTopicList(id), {
     params: {
       name: search || null,
@@ -56,7 +56,9 @@ export const getQuestion = (id: string): AxiosPromise<IQuestion> => {
   return $api.get(endpoints.forum.getQuestion(id));
 };
 
-export const getAnswers = (id: string): AxiosPromise<IAnswer[]> => {
+export const getAnswers = (
+  id: string
+): AxiosPromise<IAxiosPaginatedResponse<IAnswer>> => {
   return $api.get(endpoints.forum.getAnswers(id));
 };
 

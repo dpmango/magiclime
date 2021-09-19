@@ -20,7 +20,7 @@ const ForumDetailsAnswers: FC<IProps> = ({ id, newAnswer }) => {
 
   useEffect(() => {
     getAnswers(id).then((res) => {
-      setAnswers(res.data);
+      setAnswers(res.data.results);
     });
   }, [id]);
 

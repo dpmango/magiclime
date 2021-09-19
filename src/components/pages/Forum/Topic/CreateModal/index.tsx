@@ -36,6 +36,7 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
+    console.log('submit');
     createTopic(topicId, { ...values }).then((res) => {
       addTopic(res.data);
       setModalOpen(false);
@@ -43,7 +44,8 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   };
 
   const schema = Yup.object({
-    question: REQUIRED,
+    description: REQUIRED,
+    name: REQUIRED,
   });
 
   return (
