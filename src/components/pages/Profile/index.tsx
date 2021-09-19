@@ -13,8 +13,10 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
 
 import Typography from 'components/Common/Typography';
+import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
+import { getBalanceHistoryService } from 'utils/api/routes/payment';
 import { IUser } from 'types/interfaces/user';
 
 import Head from './Head';
@@ -94,11 +96,6 @@ const ProfilePage: FC = () => {
     }
     return [
       { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
-      {
-        id: 3,
-        slug: `/profile/${params.id}/referrals`,
-        label: t('profile.tabs.referrals'),
-      },
     ];
   }, [params.id, isMyProfile]);
 
@@ -182,19 +179,19 @@ const ProfilePage: FC = () => {
             </>
           )}
         />
-        <Route
-          path={`${path}/partners`}
-          render={() => (
-            <>
-              <ReferralStats {...profileProps} />
-              <ReferralList />
-            </>
-          )}
-        />
-
         {/* restrict some routes */}
         {isMyProfile && (
           <>
+            <Route
+              path={`${path}/partners`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralList />
+                </>
+              )}
+            />
+
             <Route
               path={`${path}/balance`}
               render={() => (
@@ -216,7 +213,11 @@ const ProfilePage: FC = () => {
                     <HistoryOperations />
                   </div>
                   <div className={styles.section}>
-                    <HistoryBalance />
+                    <Pagination
+                      getList={getBalanceHistoryService}
+                      listComponent={HistoryBalance}
+                      queries={{ search: '' }}
+                    />
                   </div>
                 </>
               )}

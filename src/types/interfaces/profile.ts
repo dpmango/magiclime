@@ -31,3 +31,21 @@ export interface IActivementsGrouped {
     total: number;
   };
 }
+
+export interface IBalanceHistory {
+  readonly id: number;
+  date: Date;
+  action: number;
+  from_purse?: any;
+  to_purse?: any;
+  amount: number;
+  bonus_amount: number;
+  status?: any;
+  from_ip?: any;
+  comment: string;
+  reason: number;
+  is_change_coins: boolean;
+  is_change_bonus: boolean;
+  executor: number;
+  to_user?: any;
+}

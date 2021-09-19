@@ -1,18 +1,21 @@
-import React, { FC, useState, useCallback, useRef } from 'react';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
+import React, { FC, useState, useCallback, useMemo, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import cns from 'classnames';
+import moment from 'moment';
 import { Table } from '@consta/uikit/Table';
 import { Button } from '@consta/uikit/Button';
 import { Calendar } from '@consta/uikit/Calendar';
 import { TextField } from '@consta/uikit/TextField';
 import { Select } from '@consta/uikit/Select';
 import { IconCalendar } from '@consta/uikit/IconCalendar';
-import { useClickOutside } from 'hooks/useClickOutside';
-import cns from 'classnames';
-import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 
-import { columns, content } from './mockData';
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import { useClickOutside } from 'hooks/useClickOutside';
+import { formatPrice } from 'utils/helpers/formatPrice';
+import { IBalance, IBalanceHistory } from 'types/interfaces/profile';
+
+import { columns } from './mockData';
 import useStyles from './styles';
 
 type SelectItem = {
@@ -20,7 +23,11 @@ type SelectItem = {
   id: number;
 };
 
-const HistoryBalance: FC = () => {
+interface IProps {
+  data: IBalanceHistory[];
+}
+
+const HistoryBalance: FC<IProps> = ({ data }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -55,6 +62,18 @@ const HistoryBalance: FC = () => {
   }, [date]);
 
   useClickOutside(filtersRef, () => setCalendarActive(false));
+
+  const contentRows = useMemo(() => {
+    return data.map((x) => ({
+      id: `${x.id}`,
+      date: moment(x.date).format('DD.MM.YYYY'),
+      price: `${formatPrice(x.amount)} BL`,
+      comment: x.comment,
+      balance: 'TODO',
+      status: x.status,
+      icon: 'TODO',
+    }));
+  }, [data]);
 
   return (
     <div className={styles.root}>
@@ -117,7 +136,7 @@ const HistoryBalance: FC = () => {
         borderBetweenRows
         // @ts-ignore
         columns={columns}
-        rows={content}
+        rows={contentRows}
         className={styles.table}
         emptyRowsPlaceholder={
           <Typography weight="semibold" size="xl">

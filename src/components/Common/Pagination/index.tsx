@@ -38,7 +38,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   queries = {} as U,
 }: IProps<T, U>) => {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
   const [state, setState] = useState<{ count: number; data: T[] }>({
     count: 0,
     data: [],
@@ -47,7 +47,15 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   const styles = useStyles();
 
   useEffect(() => {
-    page === 1 && setLoading(true);
+    setPage(1);
+    setState({
+      count: 0,
+      data: [],
+    });
+  }, [queries]);
+
+  useEffect(() => {
+    page === 1 && setInitialLoading(true);
 
     getList(page, limit, queries)
       .then((res) => {
@@ -63,7 +71,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
         errorCallback && errorCallback(err);
       })
       .finally(() => {
-        page === 1 && setLoading(false);
+        page === 1 && setInitialLoading(false);
       });
   }, [page, queries]);
 
@@ -72,15 +80,16 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   }, [state]);
 
   return (
-    <div className={styles.root}>
-      {loading ? (
+    <div className={styles.root} id="scrollableTarget">
+      {initialLoading ? (
         <Loader className={styles.loader} />
       ) : (
         <InfiniteScroll
-          dataLength={state.count}
+          dataLength={state.data.length}
           next={() => setPage(page + 1)}
           className={styles.scroll}
           hasMore={page * limit < state.count}
+          scrollThreshold={0.9}
           loader={<Loader className={styles.loader} />}
         >
           <Component data={state.data} />

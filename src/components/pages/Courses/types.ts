@@ -5,7 +5,7 @@ export interface ICategory {
 
 export interface IFilter {
   categories: ICategory[];
-  level: string[];
+  // level: string[];
   types: string[];
   priceRange: [string, string];
   levelRange: [string, string];

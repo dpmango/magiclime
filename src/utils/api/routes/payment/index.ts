@@ -1,5 +1,6 @@
 import { AxiosPromise } from 'types/common';
-import { IBalance } from 'types/interfaces/profile';
+import { IAxiosPaginatedResponse } from 'types/interfaces/common';
+import { IBalance, IBalanceHistory } from 'types/interfaces/profile';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
@@ -13,6 +14,19 @@ export interface IRequestWithdrawal {
 
 export const getBalanceService = (): AxiosPromise<IBalance> => {
   return $api.get(endpoints.payments.balance);
+};
+
+export const getBalanceHistoryService = (
+  page: number,
+  limit: number,
+  queries: any
+): AxiosPromise<IAxiosPaginatedResponse<IBalanceHistory>> => {
+  return $api.get(endpoints.payments.balanceHistory, {
+    params: {
+      page: page || null,
+      page_size: limit || null,
+    },
+  });
 };
 
 export const postRefillBalance = async (
