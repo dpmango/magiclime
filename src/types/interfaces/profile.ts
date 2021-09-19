@@ -39,13 +39,29 @@ export interface IBalanceHistory {
   from_purse?: any;
   to_purse?: any;
   amount: number;
-  bonus_amount: number;
+  balance: number;
+  program?: any;
   status?: any;
   from_ip?: any;
   comment: string;
   reason: number;
-  is_change_coins: boolean;
-  is_change_bonus: boolean;
+  executor: number;
+  to_user?: any;
+}
+
+export interface IBonuseHistory {
+  readonly id: number;
+  date: Date;
+  action: number;
+  from_purse?: any;
+  to_purse?: any;
+  amount: number;
+  balance: number;
+  program?: any;
+  status?: any;
+  from_ip?: any;
+  comment: string;
+  reason: number;
   executor: number;
   to_user?: any;
 }

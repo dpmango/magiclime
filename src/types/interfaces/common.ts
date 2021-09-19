@@ -8,6 +8,12 @@ export interface ICategory {
   title: string;
 }
 
+export interface ITab {
+  id: number;
+  slug: string;
+  label: string;
+}
+
 export interface IStyleInterface {
   darkmode?: boolean;
 }

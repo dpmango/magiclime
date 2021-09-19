@@ -1,6 +1,10 @@
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
-import { IBalance, IBalanceHistory } from 'types/interfaces/profile';
+import {
+  IBalance,
+  IBalanceHistory,
+  IBonuseHistory,
+} from 'types/interfaces/profile';
 import { getErrorMessage } from 'utils/helpers/getErrorMessage';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
@@ -29,6 +33,19 @@ export const getBalanceHistoryService = (
   queries: any
 ): AxiosPromise<IAxiosPaginatedResponse<IBalanceHistory>> => {
   return $api.get(endpoints.payments.balanceHistory, {
+    params: {
+      page: page || null,
+      page_size: limit || null,
+    },
+  });
+};
+
+export const getBonuseHistoryService = (
+  page: number,
+  limit: number,
+  queries: any
+): AxiosPromise<IAxiosPaginatedResponse<IBonuseHistory>> => {
+  return $api.get(endpoints.payments.bonuseHistory, {
     params: {
       page: page || null,
       page_size: limit || null,
