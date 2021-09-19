@@ -21,6 +21,7 @@ import {
 import Typography from 'components/Common/Typography';
 import { registration } from 'store/reducers/user';
 import { setAuthOpen, setAuth } from 'store/reducers/settings';
+import { useQuery } from 'hooks/useQuery';
 
 import { StepType } from './types';
 import Stepper from './Stepper';
@@ -35,6 +36,7 @@ const Registration: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const query = useQuery();
   const { t } = useTranslation();
 
   const closeModal = useCallback(() => {
@@ -59,7 +61,7 @@ const Registration: FC = () => {
     email: '',
     password: '',
     passwordConfirm: '',
-    media_sponsor: '',
+    media_sponsor: query.get('ref') || '',
     phone: '',
     user_agreement: false,
     mailing_agree: false,
