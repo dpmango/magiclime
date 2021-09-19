@@ -47,6 +47,13 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   const styles = useStyles();
 
   useEffect(() => {
+    setState({
+      count: 0,
+      data: [],
+    });
+  }, []);
+
+  useEffect(() => {
     setPage(1);
     setState({
       count: 0,

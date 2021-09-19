@@ -24,6 +24,7 @@ const HistoryFilter: FC = () => {
     undefined,
   ]);
   const [calendarActive, setCalendarActive] = useState<boolean>(false);
+  const [search, setSearch] = useState<string | null>(null);
 
   const handleCalendarChange = useCallback(({ value }) => {
     setCalendar(value);
@@ -88,6 +89,17 @@ const HistoryFilter: FC = () => {
           size="s"
           label={t('profile.balance.history.actions.reset')}
           onClick={handleFiltersReset}
+        />
+      </div>
+      <div className={cns(styles.filtersGroup, 'input')}>
+        <Typography view="ghost" margin="0 0 6px" size="s" lineHeight="s">
+          {t('profile.balance.history.search.label')}
+        </Typography>
+        <TextField
+          value={search}
+          size="s"
+          placeholder={t('profile.balance.history.search.placeholder')}
+          onChange={({ value }) => setSearch(value)}
         />
       </div>
       <div className={styles.filtersGroup}>

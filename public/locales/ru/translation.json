@@ -313,6 +313,10 @@
         "pare": {
           "label": "Пара"
         },
+        "search": {
+          "label": "Поиск",
+          "placeholder": "Введите запрос..."
+        },
         "actions": {
           "reset": "Сброс",
           "search": "Поиск"
