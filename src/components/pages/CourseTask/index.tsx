@@ -91,8 +91,9 @@ const CoursePage: FC = () => {
 
   const getExercis = useMemo((): IExercis | null => {
     if (course && course.chapters) {
-      const chapter = course.chapters.find((x) =>
-        x.exercises.map((e) => e.id).includes(activeSectionId)
+      const chapter = course.chapters.find(
+        (x) =>
+          x.exercises && x.exercises.map((e) => e.id).includes(activeSectionId)
       );
 
       if (chapter && chapter.exercises) {
