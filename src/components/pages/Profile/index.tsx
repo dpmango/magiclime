@@ -27,6 +27,7 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import History from './History';
+import Applications from './Applications';
 import HistoryBalance from './History/HistoryBalance';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
@@ -84,6 +85,11 @@ const ProfilePage: FC = () => {
         },
         {
           id: 6,
+          slug: `/profile/${params.id}/applications`,
+          label: t('profile.tabs.applications'),
+        },
+        {
+          id: 7,
           slug: `/profile/${params.id}/settings`,
           label: t('profile.tabs.settings'),
         },
@@ -208,6 +214,8 @@ const ProfilePage: FC = () => {
             <Route path={`${path}/settings`} component={Settings} />
 
             <Route path={`${path}/history`} component={History} />
+
+            <Route path={`${path}/applications`} component={Applications} />
           </>
         )}
 

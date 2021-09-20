@@ -171,7 +171,9 @@
     "actions": {
       "buy": "Купить",
       "cancel": "Отмена",
-      "ok": "Хорошо"
+      "ok": "Хорошо",
+      "accept": "Принять",
+      "reject": "Отклонить"
     },
     "dates": {
       "today": "Сегодня",
@@ -185,7 +187,8 @@
       "partners": "Структура",
       "settings": "Настройки",
       "referrals": "Команда",
-      "history": "История"
+      "history": "История",
+      "applications": "Заявки"
     },
     "referralPlural": {
       "one": "реферал",
@@ -448,6 +451,15 @@
         "operations": "Операции",
         "finance": "Финансы",
         "bonuses": "Бонусы"
+      }
+    },
+    "applications": {
+      "title": "Мои заявки",
+      "table": {
+        "thLogin": "Логин",
+        "thName": "ФИО",
+        "thEmail": "Email",
+        "thPhone": "Телефон"
       }
     }
   },
