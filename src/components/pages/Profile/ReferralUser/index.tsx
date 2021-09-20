@@ -73,7 +73,7 @@ const ReferralUser: FC<IProps> = ({
     if (!created_at) {
       return ' ';
     }
-    return moment(created_at).format('DD.MM.YYYY, HH:mm');
+    return moment(created_at).format('DD.MM.YY, HH:mm');
   }, [created_at]);
 
   return (

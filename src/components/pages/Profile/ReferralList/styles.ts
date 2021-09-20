@@ -79,6 +79,9 @@ const useStyles = makeStyles({
       marginRight: 16,
     },
   },
+  clones: {
+    marginTop: 36,
+  },
 });
 
 export default useStyles;

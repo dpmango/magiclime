@@ -21,11 +21,6 @@ export interface IProgram {
   referralsTotal: number;
 }
 
-export interface IEvent {
-  readonly id: number;
-  title: string;
-}
-
 export interface ICourse {
   readonly id: number;
   image: IPhoto;

@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
 
 import SvgIcon from 'assets/icons/ConstaIcons';
-import { updateProfileAvatar } from 'store/reducers/user';
+import { updateProfileAvatar, deleteProfileAvatar } from 'store/reducers/user';
 import { RootState } from 'store/reducers/rootReducer';
 import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
@@ -98,13 +98,12 @@ const PorifleHeadUploader: FC = () => {
 
   const handleDeleteClick = useCallback(() => {
     dispatch(
-      updateProfileAvatar({
-        file: null,
+      deleteProfileAvatar({
         successCallback: () => {
-          toast.success(t('profile.head.uploader.success'));
+          toast.success(t('profile.head.deleteAvatar.success'));
         },
         errorCallback: (message: string) => {
-          toast.error(t('profile.head.uploader.error'));
+          toast.error(t('profile.head.deleteAvatar.error'));
         },
       })
     );

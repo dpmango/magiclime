@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getReferralsService } from 'utils/api/routes/referrals';
-import { IReferralTree } from 'types/interfaces/referrals';
+import {
+  getReferralsService,
+  getClonesService,
+} from 'utils/api/routes/referrals';
+import { IReferralTree, IClone } from 'types/interfaces/referrals';
 import { ReferralsPayloadType } from './types';
 
 const initialState = {
   loading: true,
   error: '',
   referralsTree: {} as IReferralTree,
+  clones: [] as IClone[],
 };
 
 export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
@@ -37,12 +41,34 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
   }
 );
 
+export const getClones = createAsyncThunk<any, ReferralsPayloadType>(
+  'referrals/getClones',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback, ...data } = payload;
+
+    try {
+      const response = await getClonesService(data);
+
+      if (response?.status === 200) {
+        dispatch(setClones(response.data!.results));
+      }
+      return response.data;
+    } catch (err) {
+      dispatch(setClones([]));
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const referralsSlice = createSlice({
   name: 'article',
   initialState,
   reducers: {
     setReferralsTree: (state, action: PayloadAction<IReferralTree>) => {
       state.referralsTree = action.payload;
+    },
+    setClones: (state, action: PayloadAction<IClone[]>) => {
+      state.clones = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -62,6 +88,6 @@ const referralsSlice = createSlice({
   },
 });
 
-export const { setReferralsTree, setError } = referralsSlice.actions;
+export const { setReferralsTree, setClones, setError } = referralsSlice.actions;
 
 export default referralsSlice.reducer;

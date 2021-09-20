@@ -33,7 +33,7 @@ import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
 import useStyles from './styles';
-import { mockPrograms, mockEvents } from './mockData';
+import { mockPrograms } from './mockData';
 
 const ProfilePage: FC = () => {
   const styles = useStyles();
@@ -167,9 +167,7 @@ const ProfilePage: FC = () => {
                   <GridItem>
                     <Achievements {...profileProps} />
                   </GridItem>
-                  <GridItem>
-                    <Events list={mockEvents} />
-                  </GridItem>
+                  <GridItem>{isMyProfile && <Events />}</GridItem>
                 </Grid>
               </div>
               {viewingProfile.courses && viewingProfile.courses.length > 0 && (

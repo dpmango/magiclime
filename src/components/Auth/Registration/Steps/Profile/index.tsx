@@ -33,7 +33,7 @@ const ProfileStep: FC = () => {
           isRequired={false}
           placeholder="Введите код"
         />
-        <FormikInput label="Телефон" name="phone" placeholder="+7" />
+        <FormikInput label="Телефон" name="phone" placeholder="" />
       </div>
       <Button
         type="submit"

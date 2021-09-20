@@ -50,7 +50,12 @@ const StaticLayout: FC = () => {
 
       <StaticFooter />
 
-      <Modal isOpen={authOpen} hasOverlay onOverlayClick={closeModal}>
+      <Modal
+        isOpen={authOpen}
+        hasOverlay
+        onOverlayClick={closeModal}
+        className={styles.fullHeightModal}
+      >
         <Auth />
       </Modal>
     </div>

@@ -13,6 +13,7 @@ import {
   registrationUser,
   updateUser,
   updateUserAvatar,
+  deleteUserAvatar,
   changeUserPassword,
 } from 'utils/api/routes/auth';
 
@@ -22,6 +23,7 @@ import { IUser } from 'types/interfaces/user';
 import {
   UpdateProfileType,
   UpdateProfileAvatarType,
+  DeleteProfileAvatarType,
   GetProfileType,
   GetForeignProfileType,
   LoginPayloadType,
@@ -224,6 +226,37 @@ export const updateProfileAvatar = createAsyncThunk<
       }
 
       return response.data;
+    } catch (err) {
+      if (errorCallback) {
+        if (err.data) {
+          Object.keys(err.data).forEach((key) => {
+            errorCallback(`${key}: ${err.data[key][0]}`);
+          });
+        } else {
+          errorCallback('Что-то пошло не так...');
+        }
+      }
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const deleteProfileAvatar = createAsyncThunk<
+  object,
+  DeleteProfileAvatarType
+>(
+  'user/deleteProfileAvatar',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback } = payload;
+    try {
+      const response = await deleteUserAvatar();
+      if (response?.status === 201) {
+        dispatch(getProfile({})).then(() => {
+          successCallback && successCallback();
+        });
+      }
+
+      return response;
     } catch (err) {
       if (errorCallback) {
         if (err.data) {

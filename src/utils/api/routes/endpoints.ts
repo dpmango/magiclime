@@ -59,6 +59,7 @@ export default {
   },
   referrals: {
     list: '/auth/users/me/referrals/',
+    clones: '/matrices/clones/',
     buy: '/matrices/buy/',
     history: '/matrices/history/',
   },

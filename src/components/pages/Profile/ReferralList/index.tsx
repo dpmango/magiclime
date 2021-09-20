@@ -22,13 +22,14 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import BaseModal from 'components/Common/BaseModal';
 import { RootState } from 'store/reducers/rootReducer';
-import { getReferrals } from 'store/reducers/referrals';
+import { getReferrals, getClones } from 'store/reducers/referrals';
 import { getBalance } from 'store/reducers/profile';
 import { buyMatricesService } from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
-import { IReferralTree } from 'types/interfaces/referrals';
+import { IReferralTree, IClone } from 'types/interfaces/referrals';
 
 import ReferralUser from 'components/pages/Profile/ReferralUser';
+import ReferralClone from 'components/pages/Profile/ReferralClone';
 import useSharedStyles from 'assets/styles/Shared';
 import { buildTree } from './functions';
 import {
@@ -85,6 +86,7 @@ const Referrals: FC = () => {
   );
   const loading = useSelector((state: RootState) => state.referrals.loading);
   const error = useSelector((state: RootState) => state.referrals.error);
+  const clones = useSelector((state: RootState) => state.referrals.clones);
 
   const matrixLevels: number[] = useMemo(() => {
     let levels = 0;
@@ -143,6 +145,13 @@ const Referrals: FC = () => {
                 search: '',
               });
             },
+          })
+        );
+
+        await dispatch(
+          getClones({
+            program,
+            level,
           })
         );
       }
@@ -348,6 +357,26 @@ const Referrals: FC = () => {
                           />
                         ))}
                     </div>
+                  ))}
+              </div>
+
+              <div className={styles.clones}>
+                <Typography
+                  weight="semibold"
+                  margin="0 0 24px"
+                  lineHeight="s"
+                  size="2xl"
+                >
+                  {t('profile.referral.clones.title')}
+                </Typography>
+
+                {clones &&
+                  clones.map((clone: IClone) => (
+                    <ReferralClone
+                      key={clone.id}
+                      onReferralClick={handleReferralClick}
+                      data={clone}
+                    />
                   ))}
               </div>
             </>

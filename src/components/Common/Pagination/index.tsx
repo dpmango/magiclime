@@ -1,4 +1,4 @@
-import React, { useMemo, FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { Loader } from '@consta/uikit/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -87,7 +87,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   }, [state]);
 
   return (
-    <div className={styles.root} id="scrollableTarget">
+    <div className={styles.root}>
       {initialLoading ? (
         <Loader className={styles.loader} />
       ) : (
