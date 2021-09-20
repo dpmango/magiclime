@@ -6,9 +6,18 @@ const useStyles = makeStyles({
     position: 'relative',
     marginTop: 42,
   },
+  apply: {
+    marginTop: 24,
+  },
+  applySelect: {
+    width: '100%',
+    maxWidth: 100,
+    marginRight: 16,
+  },
   table: {
     borderCollapse: 'collapse',
     borderSpacing: '0',
+    marginTop: 24,
     width: '100%',
     '& th, & td': {
       padding: '8px 14px',
@@ -19,6 +28,7 @@ const useStyles = makeStyles({
       },
     },
   },
+
   thead: {
     '& th': {
       fontSize: 12,
@@ -39,7 +49,7 @@ const useStyles = makeStyles({
         width: 150,
       },
       '&:nth-child(5)': {
-        width: 300,
+        width: 160,
         borderLeft: 0,
         textAlign: 'right',
       },

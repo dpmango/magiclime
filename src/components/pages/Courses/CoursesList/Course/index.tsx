@@ -84,7 +84,7 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
 
             <Button
               size="xs"
-              view={item.is_bought ? 'clear' : 'primary'}
+              view={item.is_bought ? 'secondary' : 'primary'}
               label={ctaButtonLabel}
             />
           </Flex>

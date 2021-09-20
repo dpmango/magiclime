@@ -14,6 +14,10 @@ export interface ITab {
   label: string;
 }
 
+export interface ISelectOption {
+  id: number;
+  label: string;
+}
 export interface IStyleInterface {
   darkmode?: boolean;
 }

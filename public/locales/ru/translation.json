@@ -455,6 +455,10 @@
     },
     "applications": {
       "title": "Мои заявки",
+      "apply": {
+        "title": "Подать заявку",
+        "cta": "Подать заявку"
+      },
       "table": {
         "thLogin": "Логин",
         "thName": "ФИО",

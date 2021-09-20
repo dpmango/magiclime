@@ -1,22 +1,52 @@
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
+import { Select } from '@consta/uikit/Select';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { getBonuseHistoryService } from 'utils/api/routes/payment';
-import { getMatricesHistoryService } from 'utils/api/routes/referrals';
+// import { getBonuseHistoryService } from 'utils/api/routes/payment';
+import { ISelectOption } from 'types/interfaces/common';
 
 import { content } from './mockData';
 import useStyles from './styles';
+
+const matrixOptions: ISelectOption[] = [
+  { id: 1, label: '1' },
+  { id: 2, label: '2' },
+  { id: 3, label: '3' },
+  { id: 4, label: '4' },
+  { id: 5, label: '5' },
+  { id: 6, label: '6' },
+];
 
 const ProfileApplications: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [matrix, setMatrix] = useState<ISelectOption | null>(matrixOptions[0]);
+
   return (
     <div className={styles.root}>
-      <Typography margin="0 0 24px" weight="semibold" lineHeight="s" size="2xl">
+      <Typography weight="semibold" lineHeight="s" size="2xl">
+        {t('profile.applications.apply.title')}
+      </Typography>
+
+      <div className={styles.apply}>
+        <Flex>
+          <div className={styles.applySelect}>
+            <Select
+              value={matrix}
+              onChange={({ value }) => setMatrix(value)}
+              items={matrixOptions}
+            />
+          </div>
+
+          <Button label={t('profile.applications.apply.cta')} />
+        </Flex>
+      </div>
+
+      <Typography margin="24px 0 0" weight="semibold" lineHeight="s" size="2xl">
         {t('profile.applications.title')}
       </Typography>
 
