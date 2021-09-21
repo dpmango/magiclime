@@ -18,6 +18,7 @@ export interface IReferralTree {
   is_clone?: boolean;
   clone_id?: number;
   clone_enabled?: boolean;
+  price?: number;
 }
 
 export interface IClone {

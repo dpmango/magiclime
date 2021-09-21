@@ -33,12 +33,12 @@ const ProfileHistory: FC = () => {
       {
         id: 1,
         slug: `/profile/${params.id}/history`,
-        label: t('profile.history.tabs.operations'),
+        label: t('profile.history.tabs.bonuses'),
       },
       {
         id: 2,
-        slug: `/profile/${params.id}/history/bonuses`,
-        label: t('profile.history.tabs.bonuses'),
+        slug: `/profile/${params.id}/history/operations`,
+        label: t('profile.history.tabs.operations'),
       },
     ];
   }, []);
@@ -80,7 +80,7 @@ const ProfileHistory: FC = () => {
       <Switch>
         <Route
           exact
-          path={path}
+          path={`${path}/operations`}
           render={() => (
             <Pagination
               key="h1"
@@ -92,7 +92,7 @@ const ProfileHistory: FC = () => {
         />
 
         <Route
-          path={`${path}/bonuses`}
+          path={path}
           render={() => (
             <Pagination
               key="h2"

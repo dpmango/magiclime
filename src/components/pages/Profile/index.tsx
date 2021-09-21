@@ -30,7 +30,8 @@ import History from './History';
 import Applications from './Applications';
 import HistoryBalance from './History/HistoryBalance';
 import ReferralStats from './ReferralStats';
-import ReferralList from './ReferralList';
+import ReferralPartners from './ReferralPartners';
+import ReferralTeam from './ReferralTeam';
 import Settings from './Settings';
 import useStyles from './styles';
 import { mockPrograms } from './mockData';
@@ -182,16 +183,6 @@ const ProfilePage: FC = () => {
         {isMyProfile && (
           <>
             <Route
-              path={`${path}/partners`}
-              render={() => (
-                <>
-                  <ReferralStats {...profileProps} />
-                  <ReferralList />
-                </>
-              )}
-            />
-
-            <Route
               path={`${path}/balance`}
               render={() => (
                 <>
@@ -209,11 +200,30 @@ const ProfilePage: FC = () => {
               )}
             />
 
-            <Route path={`${path}/settings`} component={Settings} />
+            <Route
+              path={`${path}/partners`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralPartners />
+                </>
+              )}
+            />
+
+            <Route
+              path={`${path}/referrals`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralTeam />
+                </>
+              )}
+            />
 
             <Route path={`${path}/history`} component={History} />
 
             <Route path={`${path}/applications`} component={Applications} />
+            <Route path={`${path}/settings`} component={Settings} />
           </>
         )}
 

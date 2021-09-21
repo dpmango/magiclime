@@ -28,9 +28,9 @@ import { buyMatricesService } from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
 import { IReferralTree, IClone } from 'types/interfaces/referrals';
 
-import ReferralUser from 'components/pages/Profile/ReferralUser';
-import ReferralClone from 'components/pages/Profile/ReferralClone';
 import useSharedStyles from 'assets/styles/Shared';
+import ReferralUser from './ReferralUser';
+import ReferralClone from './ReferralClone';
 import { buildTree } from './functions';
 import {
   IRequestPayload,
@@ -90,9 +90,11 @@ const Referrals: FC = () => {
 
   const matrixLevels: number[] = useMemo(() => {
     let levels = 0;
+    let fromZero = true;
     switch (filterProgram.id) {
       case 1:
         levels = 17;
+        fromZero = false;
         break;
       case 2:
         levels = 5;
@@ -108,12 +110,13 @@ const Referrals: FC = () => {
         break;
       case 6:
         levels = 7;
+        fromZero = false;
         break;
       default:
         break;
     }
 
-    return [...Array(levels).keys()].map((x) => x + 1);
+    return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
   }, [filterProgram]);
 
   // api actions
@@ -253,6 +256,8 @@ const Referrals: FC = () => {
 
   const handleBuyClick = useCallback(
     async (id?: number) => {
+      if (buyProcessing) return;
+
       setBuyProcessing(true);
 
       const [err, res] = await buyMatricesService({
@@ -286,7 +291,7 @@ const Referrals: FC = () => {
 
       setBuyProcessing(false);
     },
-    [selectedLevel, filterProgram, savedUserId]
+    [buyProcessing, selectedLevel, filterProgram, savedUserId]
   );
 
   // main data getter
