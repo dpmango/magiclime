@@ -25,7 +25,7 @@ const ReferralClone: FC<IProps> = ({
     if (!created_at) {
       return ' ';
     }
-    return moment(created_at).format('DD.MM.YY, HH:mm');
+    return moment(created_at).format('DD.MM.YY, HH:mm:ss');
   }, [created_at]);
 
   return (

@@ -4,6 +4,7 @@ interface IProps {
   nested?: boolean;
   root?: boolean;
   clone?: boolean;
+  clone_enabled?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
@@ -14,7 +15,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
-    cursor: ({ root, clone }) => (root || clone ? 'default' : 'pointer'),
+    cursor: ({ root, clone, clone_enabled }) =>
+      root || (clone && !clone_enabled) ? 'default' : 'pointer',
     '&:first-child': {
       borderTopWidth: 0,
     },
