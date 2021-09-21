@@ -1,6 +1,6 @@
 import { AxiosPromise } from 'types/common';
 import { ICourse, ICourseRecommended } from 'types/interfaces/courses';
-import { ICourseFull } from 'components/pages/CourseTask/types';
+import { ICourseFull, IChapter } from 'components/pages/CourseTask/types';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
@@ -53,7 +53,20 @@ export const getRecommendedCourseService = async (): Promise<
   }
 };
 
-export const getCourseModule = async (
+export const buyCourseService = async (
+  id: number | string
+): Promise<[Error | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.buy(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+// courseTask actions
+export const getCourseService = async (
   id: string
 ): Promise<[Error | null, ICourseFull | null]> => {
   try {
@@ -65,11 +78,11 @@ export const getCourseModule = async (
   }
 };
 
-export const buyCourseService = async (
-  id: number | string
-): Promise<[Error | null, any | null]> => {
+export const getCourseChapterService = async (
+  id: number
+): Promise<[Error | null, IChapter | null]> => {
   try {
-    const { data } = await $api.post(endpoints.courses.buy(id));
+    const { data } = await $api.get(endpoints.courses.currentChapter(id));
 
     return [null, data];
   } catch (error) {

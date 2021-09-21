@@ -6,6 +6,8 @@ export interface IExercis {
   content: string;
   file?: any;
   tasks: any[];
+  is_completed: boolean;
+  is_available: boolean;
 }
 
 export interface IChapter {
