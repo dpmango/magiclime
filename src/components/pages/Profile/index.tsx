@@ -16,9 +16,9 @@ import Typography from 'components/Common/Typography';
 import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
+import { getMatricesHistoryService } from 'utils/api/routes/referrals';
 import { IUser } from 'types/interfaces/user';
 import { ITab } from 'types/interfaces/common';
-import { getBalanceHistoryService } from 'utils/api/routes/payment';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -27,8 +27,8 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import History from './History';
+import HistoryOperations from './History/HistoryOperations';
 import Applications from './Applications';
-import HistoryBalance from './History/HistoryBalance';
 import ReferralStats from './ReferralStats';
 import ReferralPartners from './ReferralPartners';
 import ReferralTeam from './ReferralTeam';
@@ -190,11 +190,7 @@ const ProfilePage: FC = () => {
                     <Balance />
                   </div>
                   <div className={styles.section}>
-                    <Pagination
-                      getList={getBalanceHistoryService}
-                      listComponent={HistoryBalance}
-                      queries={{ search: '' }}
-                    />
+                    <History />
                   </div>
                 </>
               )}
@@ -220,7 +216,16 @@ const ProfilePage: FC = () => {
               )}
             />
 
-            <Route path={`${path}/history`} component={History} />
+            <Route
+              path={`${path}/history`}
+              render={() => (
+                <Pagination
+                  getList={getMatricesHistoryService}
+                  listComponent={HistoryOperations}
+                  queries={{ search: '' }}
+                />
+              )}
+            />
 
             <Route path={`${path}/applications`} component={Applications} />
             <Route path={`${path}/settings`} component={Settings} />
