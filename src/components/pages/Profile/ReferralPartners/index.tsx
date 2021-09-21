@@ -20,18 +20,24 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import BaseModal from 'components/Common/BaseModal';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals, getClones } from 'store/reducers/referrals';
 import { getBalance } from 'store/reducers/profile';
 import { buyMatricesService } from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
 import { IReferralTree, IClone } from 'types/interfaces/referrals';
+import { ISelectOption } from 'types/interfaces/common';
 
 import useSharedStyles from 'assets/styles/Shared';
 import ReferralUser from './ReferralUser';
 import ReferralClone from './ReferralClone';
-import { buildTree } from './functions';
+import Modals from './Modals';
+import {
+  programOptions,
+  buildTree,
+  buildMatrixLevels,
+  getInitialLevel,
+} from './functions';
 import {
   IRequestPayload,
   ICrumbsPage,
@@ -39,19 +45,6 @@ import {
   IModalProps,
 } from './types';
 import useStyles from './styles';
-
-interface IProgram {
-  id: number;
-  label: string;
-}
-const programOptions: IProgram[] = [
-  { id: 1, label: 'BITLIME' },
-  { id: 2, label: 'AUTO_STANDARD' },
-  { id: 3, label: 'AUTO_BUSINESS' },
-  { id: 4, label: 'AUTO_PREMIUM' },
-  { id: 5, label: 'HOUSE' },
-  { id: 6, label: 'LIME' },
-];
 
 const Referrals: FC = () => {
   const styles = useStyles();
@@ -63,7 +56,7 @@ const Referrals: FC = () => {
   const { t } = useTranslation();
 
   const [filterSearch, setFilterSearch] = useState<string | null>('');
-  const [filterProgram, setFilterProgram] = useState<IProgram>(
+  const [filterProgram, setFilterProgram] = useState<ISelectOption>(
     programOptions[0]
   );
   const [selectedLevel, setSelectedLevels] = useState<number>(1);
@@ -77,7 +70,7 @@ const Referrals: FC = () => {
     id: 0,
   });
 
-  const [modalSuccess, setModalSuccess] = useState<{ opened: boolean }>({
+  const [modalSuccess, setModalSuccess] = useState<Omit<IModalProps, 'id'>>({
     opened: false,
   });
 
@@ -89,34 +82,7 @@ const Referrals: FC = () => {
   const clones = useSelector((state: RootState) => state.referrals.clones);
 
   const matrixLevels: number[] = useMemo(() => {
-    let levels = 0;
-    let fromZero = true;
-    switch (filterProgram.id) {
-      case 1:
-        levels = 17;
-        fromZero = false;
-        break;
-      case 2:
-        levels = 5;
-        break;
-      case 3:
-        levels = 5;
-        break;
-      case 4:
-        levels = 5;
-        break;
-      case 5:
-        levels = 6;
-        break;
-      case 6:
-        levels = 7;
-        fromZero = false;
-        break;
-      default:
-        break;
-    }
-
-    return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
+    return buildMatrixLevels(filterProgram.id);
   }, [filterProgram]);
 
   // api actions
@@ -244,13 +210,14 @@ const Referrals: FC = () => {
     [filterProgram]
   );
 
-  const handleFilterProgramChange = useCallback((program: IProgram) => {
+  const handleFilterProgramChange = useCallback((program: ISelectOption) => {
     setFilterProgram(program);
-    setSelectedLevels(1);
+    const initialLvl = getInitialLevel(program.id);
+    setSelectedLevels(initialLvl);
 
     requestReferrals({
       program: program.id,
-      level: 1,
+      level: initialLvl,
     });
   }, []);
 
@@ -365,25 +332,26 @@ const Referrals: FC = () => {
                   ))}
               </div>
 
-              <div className={styles.clones}>
-                <Typography
-                  weight="semibold"
-                  margin="0 0 24px"
-                  lineHeight="s"
-                  size="2xl"
-                >
-                  {t('profile.referral.clones.title')}
-                </Typography>
+              {clones && (
+                <div className={styles.clones}>
+                  <Typography
+                    weight="semibold"
+                    margin="0 0 24px"
+                    lineHeight="s"
+                    size="2xl"
+                  >
+                    {t('profile.referral.clones.title')}
+                  </Typography>
 
-                {clones &&
-                  clones.map((clone: IClone) => (
+                  {clones.map((clone: IClone) => (
                     <ReferralClone
                       key={clone.id}
                       onReferralClick={handleReferralClick}
                       data={clone}
                     />
                   ))}
-              </div>
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -468,63 +436,13 @@ const Referrals: FC = () => {
         </GridItem>
       </Grid>
 
-      <BaseModal
-        theme="narrow"
-        isOpen={modalConfirm.opened}
-        setModalOpen={(v) =>
-          setModalConfirm({ id: v ? modalConfirm.id : 0, opened: v })
-        }
-        title={t('profile.referral.buy.modal.confirmTitle')}
-      >
-        <Typography margin="16px 0 0" size="l" lineHeight="s" align="center">
-          Вы уверены? Деньги будут списаны с вашего счета. <br />
-          Откатить операцию невозможно.
-        </Typography>
-
-        <Flex
-          align="center"
-          justify="center"
-          margin="32px 0 0"
-          className={styles.modalCta}
-        >
-          <Button
-            label={t('common.actions.buy')}
-            onClick={() => handleBuyClick(modalConfirm.id || undefined)}
-          />
-          <Button
-            label={t('common.actions.cancel')}
-            view="secondary"
-            onClick={() => setModalConfirm({ id: 0, opened: false })}
-          />
-        </Flex>
-      </BaseModal>
-
-      <BaseModal
-        theme="narrow"
-        isOpen={modalSuccess.opened}
-        setModalOpen={(v) =>
-          setModalSuccess({
-            opened: v,
-          })
-        }
-        title={t('profile.referral.buy.modal.successTitle')}
-      >
-        <Flex
-          align="center"
-          justify="center"
-          margin="32px 0 0"
-          className={styles.modalCta}
-        >
-          <Button
-            label={t('common.actions.ok')}
-            onClick={() =>
-              setModalSuccess({
-                opened: false,
-              })
-            }
-          />
-        </Flex>
-      </BaseModal>
+      <Modals
+        modalConfirm={modalConfirm}
+        setModalConfirm={setModalConfirm}
+        handleBuyClick={handleBuyClick}
+        modalSuccess={modalSuccess}
+        setModalSuccess={setModalSuccess}
+      />
     </div>
   );
 };
