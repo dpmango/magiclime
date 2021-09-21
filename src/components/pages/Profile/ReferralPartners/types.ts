@@ -15,6 +15,7 @@ export interface ICrumbsPage {
 
 export interface IBuildTree {
   referralsTree: IReferralTree;
+  initialLvl: number;
 }
 
 export interface IMappedData {

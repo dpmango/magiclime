@@ -59,7 +59,10 @@ export const buildMatrixLevels = (programId: number): number[] => {
   return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
 };
 
-export const buildTree = ({ referralsTree }: IBuildTree): IMappedData => {
+export const buildTree = ({
+  referralsTree,
+  initialLvl,
+}: IBuildTree): IMappedData => {
   const withClones = (childs: IReferralTree[]) => {
     let childsCopy = childs;
 
@@ -86,42 +89,67 @@ export const buildTree = ({ referralsTree }: IBuildTree): IMappedData => {
     }
 
     // firstly, create space wrapper for main referal based on array length
-    if (childs.length === 0) {
-      childsCopy = [{ ...mainClone, clone_enabled: true }, mainClone];
-    }
+    // some programs have 0 level, it means 3 direct referrals with no sub-refs
+    // if program starts with 1 level, only 2 direct referrals allowed and each one inclues 2 sub-refs
+    if (initialLvl !== 0) {
+      if (childs.length === 0) {
+        childsCopy = [{ ...mainClone, clone_enabled: true }, mainClone];
+      }
 
-    if (childs.length === 1) {
-      childsCopy = [...childsCopy, { ...mainClone, clone_enabled: true }];
+      if (childs.length === 1) {
+        childsCopy = [...childsCopy, { ...mainClone, clone_enabled: true }];
+      }
+    } else {
+      if (childs.length === 0) {
+        childsCopy = [
+          { ...mainClone, clone_enabled: true },
+          mainClone,
+          mainClone,
+        ];
+      }
+
+      if (childs.length === 1) {
+        childsCopy = [
+          ...childsCopy,
+          { ...mainClone, clone_enabled: true },
+          mainClone,
+        ];
+      }
+      if (childs.length === 2) {
+        childsCopy = [...childsCopy, { ...mainClone, clone_enabled: true }];
+      }
     }
 
     // then append child clones if < 2 items
-    childsCopy = [
-      ...childsCopy.map((x, mainIdx) => {
-        let clones: any[] = [];
-        const clone = {
-          is_clone: true,
-          clone_id: x.id || referralsTree.id,
-          clone_enabled: mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
-        };
+    if (initialLvl !== 0) {
+      childsCopy = [
+        ...childsCopy.map((x, mainIdx) => {
+          let clones: any[] = [];
+          const clone = {
+            is_clone: true,
+            clone_id: x.id || referralsTree.id,
+            clone_enabled: mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
+          };
 
-        if (x.children && x.children.length === 0) {
-          clones = [
-            {
-              ...clone,
-              clone_enabled:
-                mainIdx === 0 ? childs.length > 0 : childs.length > 1,
-            },
-            clone,
-          ];
-        } else if (x.children && x.children.length < 2) {
-          clones = [clone];
-        }
-        return {
-          ...x,
-          children: [...x.children, ...clones],
-        };
-      }),
-    ];
+          if (x.children && x.children.length === 0) {
+            clones = [
+              {
+                ...clone,
+                clone_enabled:
+                  mainIdx === 0 ? childs.length > 0 : childs.length > 1,
+              },
+              clone,
+            ];
+          } else if (x.children && x.children.length < 2) {
+            clones = [clone];
+          }
+          return {
+            ...x,
+            children: [...x.children, ...clones],
+          };
+        }),
+      ];
+    }
 
     return childsCopy;
   };
