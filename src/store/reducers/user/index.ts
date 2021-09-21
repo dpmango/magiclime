@@ -16,6 +16,7 @@ import {
   changeUserPassword,
 } from 'utils/api/routes/auth';
 
+import { getErrorMessage } from 'utils/helpers/getErrorMessage';
 import { setAuthToken } from 'utils/api';
 import { IUser } from 'types/interfaces/user';
 import {
@@ -129,7 +130,7 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
       if (errorCallback) {
         switch (err.status) {
           case 403:
-            errorCallback('Данный email уже используется!');
+            errorCallback(getErrorMessage(err));
             break;
           default:
             errorCallback('Ошибка сервера!');

@@ -25,9 +25,8 @@ interface IProps {
 const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   const styles = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
-  const { name, avatar } = useSelector(
-    (state: RootState) => state.user.profile
-  );
+  const name = useSelector((state: RootState) => state.user.profile.name);
+  const avatar = useSelector((state: RootState) => state.user.profile.avatar);
 
   const { t } = useTranslation();
 
@@ -37,6 +36,7 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
+    console.log('submit');
     createTopic(topicId, { ...values }).then((res) => {
       addTopic(res.data);
       setModalOpen(false);
@@ -44,7 +44,8 @@ const CreateForum: FC<IProps> = ({ topicId, addTopic }) => {
   };
 
   const schema = Yup.object({
-    question: REQUIRED,
+    description: REQUIRED,
+    name: REQUIRED,
   });
 
   return (

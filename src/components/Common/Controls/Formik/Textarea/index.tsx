@@ -9,6 +9,7 @@ import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
 interface IProps extends TextFieldProps {
   label?: string;
+  isRequired?: boolean;
 }
 
 const FormikTextarea = (props: IProps) => {
@@ -19,6 +20,7 @@ const FormikTextareaComponent = MemoWrapper(
   ({
     field: { value, onChange, ...field },
     form: { setFieldValue, errors, touched },
+    isRequired = false,
     label,
     ...props
   }: FieldProps & IProps) => {
@@ -35,6 +37,7 @@ const FormikTextareaComponent = MemoWrapper(
         {label && (
           <Typography margin="0 0 6px" view="secondary">
             {label}
+            {isRequired && <span className={styles.star}>*</span>}
           </Typography>
         )}
         <TextField

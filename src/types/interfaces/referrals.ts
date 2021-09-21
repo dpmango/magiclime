@@ -17,3 +17,14 @@ export interface IReferralTree {
   clone_id?: number;
   clone_enabled?: boolean;
 }
+
+export interface IRererralHistory {
+  readonly id: number;
+  action: number;
+  program?: any;
+  level?: any;
+  node_id?: any;
+  date: Date;
+  comment: string;
+  user: number;
+}

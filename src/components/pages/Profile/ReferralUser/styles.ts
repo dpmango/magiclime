@@ -42,7 +42,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     },
   },
   referralUser: ({ root, nested, clone }) => ({
-    flex: '0 0 50%',
+    flex: '0 0 45%',
     minWidth: 1,
     paddingRight: 12,
     paddingLeft: !nested ? 0 : 30,
@@ -60,7 +60,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
             '&::after': {
               display: 'block',
               content: "' '",
-              // position: 'absolute',
+              position: 'absolute' as const,
               zIndex: 1,
               top: 36,
               left: -52,
@@ -83,12 +83,17 @@ const useStyles = makeStyles<null, IProps>(() => ({
       return root ? { width: 72, height: 72, lineHeight: '72px' } : {};
     })(),
   }),
-  referralBl: {
-    flex: '0 0 23%',
+  referralDate: {
+    flex: '0 0 25%',
     paddingRight: 12,
+    '& .Text': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
   },
-  referralLevel: {
-    flex: '0 0 12%',
+  referralMatrixId: {
+    flex: '0 0 18%',
     paddingRight: 12,
     cursor: 'pointer',
     '& .Icon': {
@@ -102,7 +107,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     },
   },
   referralCount: {
-    flex: '0 0 15%',
+    flex: '0 0 12%',
     textAlign: 'left',
   },
   clone: {

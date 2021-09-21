@@ -1,14 +1,17 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
+import { toast } from 'react-hot-toast';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { ICourse } from 'types/interfaces/courses';
-import { Plurize } from 'utils/helpers/plurize';
 import { useCheckDefaultTheme } from 'hooks/useCheckDefaultTheme';
 import { formatPrice } from 'utils/helpers/formatPrice';
+import { RootState } from 'store/reducers/rootReducer';
+
 import useStyles from './styles';
 
 interface IProps {
@@ -25,9 +28,16 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
   const history = useHistory();
   const { t } = useTranslation();
 
+  const profile = useSelector((state: RootState) => state.user.profile);
+  const balance = useSelector((state: RootState) => state.profile.balance);
+
   const handleCardClick = useCallback(() => {
     if (item.is_bought) {
       history.push(`/courses/${item.id}`);
+    } else if (profile.level < item.level) {
+      toast.error(t('course.buy.errorLevel'));
+    } else if (balance.bitlimes < parseInt(item.price, 10)) {
+      toast.error(t('course.buy.errorMoney'));
     } else {
       openModal(item.id);
     }

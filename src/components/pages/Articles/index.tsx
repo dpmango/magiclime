@@ -16,8 +16,8 @@ const ArticlePage: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const { articles } = useSelector((state: RootState) => state.article);
-  const { tags } = useSelector((state: RootState) => state.meta);
+  const articles = useSelector((state: RootState) => state.article.articles);
+  const tags = useSelector((state: RootState) => state.meta.tags);
 
   const [activeTags, setActiveTags] = useState<number[]>([]);
 

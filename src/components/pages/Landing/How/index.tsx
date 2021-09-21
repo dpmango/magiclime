@@ -2,13 +2,12 @@ import React, { FC, useEffect, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cns from 'classnames';
 
-import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
 
 import useStyles from './styles';
 import useRootStyles from '../styles';
 
-interface Itab {
+interface ISlideTab {
   id: number;
   title: string;
   description: string;
@@ -19,7 +18,7 @@ const How: FC = () => {
   const rootStyles = useRootStyles();
   const { t } = useTranslation();
 
-  const tabs: Itab[] = [
+  const tabs: ISlideTab[] = [
     {
       id: 1,
       title: 'Видеокурсы',

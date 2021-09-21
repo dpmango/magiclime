@@ -7,7 +7,6 @@ const useStyles = makeStyles({
     bottom: 0,
     right: 0,
   },
-
   input: {
     position: 'absolute',
     top: 0,
@@ -16,6 +15,15 @@ const useStyles = makeStyles({
     height: 0.1,
     opacity: 0,
     pointerEvents: 'none',
+  },
+  delete: {
+    position: 'absolute',
+    zIndex: 2,
+    top: 0,
+    right: 0,
+    '& .Button': {
+      background: 'var(--color-bg-alert)',
+    },
   },
 });
 

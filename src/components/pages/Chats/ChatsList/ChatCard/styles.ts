@@ -13,21 +13,22 @@ const useStyles = makeStyles<null, IProps>(() => ({
     display: 'flex',
     fontSize: '15px !important',
     // transition: 'all 0.3s',
+    '&:first-of-type': {
+      marginTop: 8,
+    },
     alignItems: ({ haveLastMessage }) =>
       haveLastMessage ? 'center' : 'flex-start',
     cursor: 'pointer',
     '&:hover': {
       background: ({ isDefault }) =>
-        isDefault ? '#fafafa' : 'rgba(255, 255, 255, .05)',
+        isDefault ? '#f6f6f6' : 'rgba(255, 255, 255, .05)',
     },
   },
   activeChat: {
     // padding: '11px 16px !important',
     position: 'relative',
     background: ({ isDefault }) =>
-      isDefault ? '#fcfcfc' : 'rgba(255, 255, 255, .05)',
-    // borderTop: '1px solid var(--color-bg-border)',
-    // borderBottom: '1px solid var(--color-bg-border)',
+      isDefault ? '#f8f8f8' : 'rgba(255, 255, 255, .05)',
     '&:first-of-type': {
       // borderTop: 'none !important',
       // padding: '12px 16px 11px !important',
@@ -43,8 +44,8 @@ const useStyles = makeStyles<null, IProps>(() => ({
       left: 0,
       top: 0,
       bottom: 0,
-      borderTopRightRadius: '4px',
-      borderBottomRightRadius: '4px',
+      // borderTopRightRadius: '4px',
+      // borderBottomRightRadius: '4px',
       backgroundImage:
         'linear-gradient(41.87deg, var(--color-typo-brand) 0%, #57D4F6 102.92%)',
     },
@@ -68,9 +69,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
     overflow: 'hidden',
   },
   avatar: {
-    width: '52px',
-    height: '52px',
-    lineHeight: '52px',
+    width: '56px',
+    height: '56px',
+    lineHeight: '56px',
     border: '1px solid #d1d1d1',
     fontSize: '17px',
     letterSpacing: '-0.8px',

@@ -13,17 +13,13 @@ import Events from './Events';
 import { mockSkills, mockProcess } from './mockData';
 import useStyles from './styles';
 
-interface IProps {
-  setAuthOpen: (v: boolean) => void;
-}
-
-const Landing: FC<IProps> = ({ setAuthOpen }) => {
+const Landing: FC = () => {
   const styles = useStyles();
 
   return (
     <div className={styles.root}>
-      <Hero setAuthOpen={(v) => setAuthOpen(v)} />
-      <Steps setAuthOpen={(v) => setAuthOpen(v)} />
+      <Hero />
+      <Steps />
       <How />
       <Skills content={mockSkills} />
       <Process content={mockProcess} />

@@ -79,7 +79,7 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
               />
             </div>
 
-            <div className={styles.formBlock}>
+            {/* <div className={styles.formBlock}>
               <FormikRadiobuttons
                 label={t('course.filter.difficulty')}
                 name="difficult"
@@ -88,7 +88,7 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
                 direction="column"
                 className={styles.group}
               />
-            </div>
+            </div> */}
 
             <div className={styles.formBlock}>
               <FormikRangeBlock

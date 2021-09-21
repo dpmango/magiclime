@@ -19,7 +19,7 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { balance } = useSelector((state: RootState) => state.profile);
+  const balance = useSelector((state: RootState) => state.profile.balance);
 
   const cells = useMemo(() => {
     return [

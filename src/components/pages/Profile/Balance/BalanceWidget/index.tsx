@@ -19,7 +19,7 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
   const styles = useStyles({ inline, showRate });
   const { t } = useTranslation();
 
-  const { balance } = useSelector((state: RootState) => state.profile);
+  const balance = useSelector((state: RootState) => state.profile.balance);
 
   return (
     <div className={styles.root}>

@@ -2,12 +2,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Checkbox } from '@consta/uikit/Checkbox';
 import { Button } from '@consta/uikit/Button';
 import moment from 'moment';
+import { toast } from 'react-hot-toast';
 
 import Flex from 'components/Common/Flex';
 import Typography from 'components/Common/Typography';
@@ -15,16 +16,22 @@ import FormikSelect from 'components/Common/Controls/Formik/Select';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikTextarea from 'components/Common/Controls/Formik/Textarea';
 import { REQUIRED, EMAIL } from 'utils/formik/validation';
+import { postGovernmentFeedback } from 'utils/api/routes/feedback';
 
 import useStyles from './styles';
+
+type SelectType = {
+  id: number;
+  label: string;
+} | null;
 
 const GovernmentRequest: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
   const initialValues = {
-    question: '',
-    country: '',
+    question: null as SelectType,
+    country: null as SelectType,
     email: '',
     name: '',
     transaction: '',
@@ -36,10 +43,38 @@ const GovernmentRequest: FC = () => {
     question: REQUIRED,
     country: REQUIRED,
     email: EMAIL,
+    name: REQUIRED,
+    transaction: REQUIRED,
+    topic: REQUIRED,
+    description: REQUIRED,
   });
 
-  const handleSubmit = (values: typeof initialValues) => {
-    console.log(values);
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
+    const { question, country, email, name, transaction, topic, description } =
+      values;
+
+    const [err, data] = await postGovernmentFeedback({
+      question: question ? question!.label : ' ',
+      country: country ? country!.label : ' ',
+      email,
+      name,
+      transaction,
+      topic,
+      description,
+    });
+
+    if (err) {
+      toast.error(t('govForm.toast.error'));
+    }
+
+    if (data) {
+      toast.success(t('govForm.toast.success'));
+      resetForm();
+    }
+
     // createWebinar(values).then(() => {});
   };
 
@@ -78,7 +113,7 @@ const GovernmentRequest: FC = () => {
 
         <Formik
           initialValues={initialValues}
-          onSubmit={(values) => handleSubmit(values)}
+          onSubmit={handleSubmit}
           validationSchema={schema}
         >
           <Form className={styles.form}>
@@ -115,7 +150,6 @@ const GovernmentRequest: FC = () => {
                 name="name"
                 label={t('govForm.name.label')}
                 placeholder={t('govForm.name.placeholder')}
-                isRequired={false}
               />
             </div>
             <div className={styles.group}>
@@ -124,6 +158,7 @@ const GovernmentRequest: FC = () => {
                 label={t('govForm.transaction.label')}
                 placeholder={t('govForm.transaction.placeholder')}
                 rows={5}
+                isRequired
               />
             </div>
             <div className={styles.group}>
@@ -131,7 +166,6 @@ const GovernmentRequest: FC = () => {
                 name="topic"
                 label={t('govForm.topic.label')}
                 placeholder={t('govForm.topic.placeholder')}
-                isRequired={false}
               />
             </div>
             <div className={styles.group}>
@@ -140,6 +174,7 @@ const GovernmentRequest: FC = () => {
                 label={t('govForm.description.label')}
                 placeholder={t('govForm.description.placeholder')}
                 rows={5}
+                isRequired
               />
             </div>
 

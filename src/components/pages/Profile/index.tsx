@@ -13,9 +13,12 @@ import { Grid, GridItem } from '@consta/uikit/Grid';
 import { getForeignProfile, getProfile } from 'store/reducers/user';
 
 import Typography from 'components/Common/Typography';
+import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
 import { IUser } from 'types/interfaces/user';
+import { ITab } from 'types/interfaces/common';
+import { getBalanceHistoryService } from 'utils/api/routes/payment';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -23,18 +26,13 @@ import Achievements from './Achievements';
 import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
-import BalanceHistory from './BalanceHistory';
+import History from './History';
+import HistoryBalance from './History/HistoryBalance';
 import ReferralStats from './ReferralStats';
 import ReferralList from './ReferralList';
 import Settings from './Settings';
 import useStyles from './styles';
 import { mockPrograms, mockEvents } from './mockData';
-
-interface ITab {
-  id: number;
-  slug: string;
-  label: string;
-}
 
 const ProfilePage: FC = () => {
   const styles = useStyles();
@@ -45,8 +43,9 @@ const ProfilePage: FC = () => {
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
-  const { profile, foreignProfile } = useSelector(
-    (state: RootState) => state.user
+  const profile = useSelector((state: RootState) => state.user.profile);
+  const foreignProfile = useSelector(
+    (state: RootState) => state.user.foreignProfile
   );
 
   // getting profile
@@ -75,23 +74,23 @@ const ProfilePage: FC = () => {
         },
         {
           id: 4,
-          slug: `/profile/${params.id}/settings`,
-          label: t('profile.tabs.settings'),
+          slug: `/profile/${params.id}/referrals`,
+          label: t('profile.tabs.referrals'),
         },
         {
           id: 5,
-          slug: `/profile/${params.id}/referrals`,
-          label: t('profile.tabs.referrals'),
+          slug: `/profile/${params.id}/history`,
+          label: t('profile.tabs.history'),
+        },
+        {
+          id: 6,
+          slug: `/profile/${params.id}/settings`,
+          label: t('profile.tabs.settings'),
         },
       ];
     }
     return [
       { id: 1, slug: `/profile/${params.id}`, label: t('profile.tabs.main') },
-      {
-        id: 3,
-        slug: `/profile/${params.id}/referrals`,
-        label: t('profile.tabs.referrals'),
-      },
     ];
   }, [params.id, isMyProfile]);
 
@@ -167,25 +166,27 @@ const ProfilePage: FC = () => {
                   </GridItem>
                 </Grid>
               </div>
-              <div className={styles.section}>
-                <Courses list={viewingProfile.courses || null} />
-              </div>
+              {viewingProfile.courses && viewingProfile.courses.length > 0 && (
+                <div className={styles.section}>
+                  <Courses list={viewingProfile.courses || null} />
+                </div>
+              )}
             </>
           )}
         />
-        <Route
-          path={`${path}/partners`}
-          render={() => (
-            <>
-              <ReferralStats {...profileProps} />
-              <ReferralList />
-            </>
-          )}
-        />
-
         {/* restrict some routes */}
         {isMyProfile && (
           <>
+            <Route
+              path={`${path}/partners`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralList />
+                </>
+              )}
+            />
+
             <Route
               path={`${path}/balance`}
               render={() => (
@@ -193,15 +194,20 @@ const ProfilePage: FC = () => {
                   <div className={styles.section}>
                     <Balance />
                   </div>
-
-                  {/* <div className={styles.section}>
-                    <BalanceHistory />
-                  </div> */}
+                  <div className={styles.section}>
+                    <Pagination
+                      getList={getBalanceHistoryService}
+                      listComponent={HistoryBalance}
+                      queries={{ search: '' }}
+                    />
+                  </div>
                 </>
               )}
             />
 
-            <Route path={`${path}/settings`} render={() => <Settings />} />
+            <Route path={`${path}/settings`} component={Settings} />
+
+            <Route path={`${path}/history`} component={History} />
           </>
         )}
 

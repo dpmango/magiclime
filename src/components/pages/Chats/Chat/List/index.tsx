@@ -38,7 +38,7 @@ const List: FC<IProps> = ({
   allMessagesCount,
 }) => {
   const [readMessages, setReadMessages] = useState<number[]>([]);
-  const { id } = useSelector((state: RootState) => state.user.profile);
+  const id = useSelector((state: RootState) => state.user.profile.id);
   const styles = useStyles();
 
   useEffect(() => {

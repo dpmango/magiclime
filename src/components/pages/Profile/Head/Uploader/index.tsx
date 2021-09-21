@@ -35,7 +35,7 @@ const PorifleHeadUploader: FC = () => {
 
   const uploadLabelRef = useRef<HTMLLabelElement>(null);
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const clearInput = (target: any) => {
     // eslint-disable-next-line no-param-reassign
@@ -96,8 +96,32 @@ const PorifleHeadUploader: FC = () => {
     return true;
   }, []);
 
+  const handleDeleteClick = useCallback(() => {
+    dispatch(
+      updateProfileAvatar({
+        file: null,
+        successCallback: () => {
+          toast.success(t('profile.head.uploader.success'));
+        },
+        errorCallback: (message: string) => {
+          toast.error(t('profile.head.uploader.error'));
+        },
+      })
+    );
+  }, []);
+
   return (
     <>
+      {profile.avatar && (
+        <div className={styles.delete}>
+          <Button
+            iconLeft={SvgIcon.Close}
+            form="round"
+            size="xs"
+            onClick={() => handleDeleteClick()}
+          />
+        </div>
+      )}
       <input
         type="file"
         id="avatarUploader"
@@ -109,7 +133,7 @@ const PorifleHeadUploader: FC = () => {
         htmlFor="avatarUploader"
         className={styles.avatarUploader}
         ref={uploadLabelRef}
-        aria-label={t('profile.head.uploader.ctaAlt')}
+        aria-label={t('profile.head.uploader.uploadAlt')}
       >
         <Button
           iconLeft={SvgIcon.Camera}

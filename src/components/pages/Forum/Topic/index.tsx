@@ -49,14 +49,14 @@ const ForumTopicPage: FC<RouteComponentProps<{ topicId: string }>> = ({
     setLoading(true);
     getForumTopicList(topicId, search)
       .then((res) => {
-        setQuestions(res.data);
+        setQuestions(res.data.results);
       })
       .finally(() => setLoading(false));
   }, [debouncedSearch]);
 
   const addTopic = useCallback(
     (newTopic: ITopicListItem) => {
-      setQuestions((prev) => ({ ...prev, topics: [...prev, newTopic] }));
+      setQuestions((prev) => [newTopic, ...prev]);
     },
     [topic]
   );

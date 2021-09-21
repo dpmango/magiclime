@@ -26,8 +26,8 @@ const CoursesPage: FC = () => {
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [filterRequest, setFilterRequest] = useState<any>({});
   const [activeTags, setActiveTags] = useState<number[]>([]);
-  const { tags } = useSelector((state: RootState) => state.meta);
-  const { profile } = useSelector((state: RootState) => state.user);
+  const tags = useSelector((state: RootState) => state.meta.tags);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const handleTagsToggle = (id: number) => {
     let newValues = [...activeTags];
@@ -71,7 +71,7 @@ const CoursesPage: FC = () => {
 
     return {
       categories,
-      level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
+      // level: ['Любой', 'JUNIOR', 'MIDDLE', 'SENIOR'],
       types: ['Профессия', 'Программа', 'Курс'],
       priceRange,
       levelRange,
@@ -94,9 +94,9 @@ const CoursesPage: FC = () => {
 
   return (
     <div className={styles.root}>
-      <FeaturedCourse />
+      {/* <FeaturedCourse />
 
-      <ProfileCourses view="compact" list={profile.courses || null} />
+      <ProfileCourses view="compact" list={profile.courses || null} /> */}
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">
@@ -117,7 +117,6 @@ const CoursesPage: FC = () => {
               listComponent={CoursesList}
               queries={filterRequest}
               successCallback={(data) => setCourses(data)}
-              errorCallback={(err) => toast.error(t('course.list.error'))}
             />
           </GridItem>
 

@@ -20,12 +20,6 @@ export interface IForum {
   image: string;
 }
 
-export interface ITab {
-  id: number;
-  slug: string;
-  label: string;
-}
-
 export interface IAnswer {
   readonly id: number;
   text: string;

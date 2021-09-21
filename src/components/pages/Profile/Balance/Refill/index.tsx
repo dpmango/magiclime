@@ -1,6 +1,5 @@
-import React, { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
+import React, { FC, useState } from 'react';
+import { Formik, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
@@ -11,7 +10,6 @@ import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
 import FormikSelect from 'components/Common/Controls/Formik/Select';
 import { REQUIRED } from 'utils/formik/validation';
-import { RootState } from 'store/reducers/rootReducer';
 import { postRefillBalance } from 'utils/api/routes/payment';
 import useStyles from './styles';
 
@@ -56,7 +54,7 @@ const Refill: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
 
-  const { profile } = useSelector((state: RootState) => state.user);
+  const [error, setError] = useState<string>('');
 
   const initialValues = {
     currency: currencySelectList[0],
@@ -64,21 +62,26 @@ const Refill: FC = () => {
     amount: '',
   };
 
-  const handleSubmit = async (values: typeof initialValues) => {
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
+    setError('');
+
     const [err, data] = await postRefillBalance({
       amount: parseFloat(values.amount) / 100000,
     });
 
     if (err) {
+      setError(err);
       toast.error(t('profile.balance.refill.toast.error'));
       return;
     }
 
     // open new window with payment, watch redirect
-    toast(t('profile.balance.refill.toast.redirect'));
+    toast.success(t('profile.balance.refill.toast.redirect'));
+    resetForm();
     window.open(data.url);
-
-    // TODO watch redirect
   };
 
   const schema = Yup.object({
@@ -97,6 +100,15 @@ const Refill: FC = () => {
         validationSchema={schema}
       >
         <Form>
+          <Typography
+            view="alert"
+            align="center"
+            weight="semibold"
+            margin="0 0 12px"
+          >
+            {error}
+          </Typography>
+
           <div className={styles.uiGroup}>
             <FormikSelect
               items={currencySelectList}

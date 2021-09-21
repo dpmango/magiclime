@@ -1,10 +1,11 @@
 import { AxiosPromise } from 'types/common';
-import { IReferralTree } from 'types/interfaces/referrals';
-import { instance } from '../../index';
+import { IAxiosPaginatedResponse } from 'types/interfaces/common';
+import { IReferralTree, IRererralHistory } from 'types/interfaces/referrals';
+import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
 export const getReferralsService = (data: {
-  id: number | string;
+  id?: number | string;
   level: number;
   program: number;
 }): AxiosPromise<IReferralTree> => {
@@ -24,7 +25,7 @@ export const getReferralsService = (data: {
     };
   }
 
-  return instance.get(endpoints.referrals.list, {
+  return $api.get(endpoints.referrals.list, {
     params,
   });
 };
@@ -39,7 +40,7 @@ export const buyMatricesService = async ({
   matrixUserId?: number;
 }): Promise<[{ status: number } | null, any | null]> => {
   try {
-    const { data } = await instance.post(endpoints.referrals.buy, null, {
+    const { data } = await $api.post(endpoints.referrals.buy, null, {
       params: {
         level,
         program,
@@ -50,4 +51,17 @@ export const buyMatricesService = async ({
   } catch (error) {
     return [error, null];
   }
+};
+
+export const getMatricesHistoryService = (
+  page: number,
+  limit: number,
+  queries: any
+): AxiosPromise<IAxiosPaginatedResponse<IRererralHistory>> => {
+  return $api.get(endpoints.referrals.history, {
+    params: {
+      page: page || null,
+      page_size: limit || null,
+    },
+  });
 };

@@ -31,8 +31,11 @@ export default {
   payments: {
     root: '/payments/',
     balance: '/payments/balance/',
+    balanceHistory: '/payments/balance/history/',
+    bonuseHistory: '/payments/balance/bonuses_history/',
     buy: '/payments/buy/',
-    sell: '/payments/sell/', // todo
+    sell: '/payments/sell/',
+    transfer: '/payments/transfer/',
   },
   courses: {
     root: '/courses/',
@@ -57,5 +60,9 @@ export default {
   referrals: {
     list: '/auth/users/me/referrals/',
     buy: '/matrices/buy/',
+    history: '/matrices/history/',
+  },
+  feedback: {
+    government: '/feedback/government/',
   },
 };

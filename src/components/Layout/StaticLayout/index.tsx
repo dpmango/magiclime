@@ -1,25 +1,32 @@
 import React, { FC, useCallback, useState, useMemo } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Modal } from '@consta/uikit/Modal';
+import isEqual from 'lodash/isEqual';
 
 import Auth from 'components/Auth';
 import Landing from 'components/pages/Landing';
 import Government from 'components/pages/Static/Government';
 import GovernmentRequest from 'components/pages/Static/Government/Request';
 import Policy from 'components/pages/Static/Policy';
-
+import { RootState } from 'store/reducers/rootReducer';
+import { setAuthOpen } from 'store/reducers/settings';
 import StaticHeader from '../StaticHeader';
 import StaticFooter from '../StaticFooter';
 import useStyles from './styles';
 
 const StaticLayout: FC = () => {
   const styles = useStyles();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const [isAuthOpen, setAuthOpen] = useState(false);
+  const authOpen = useSelector(
+    (state: RootState) => state.settings.authOpen,
+    shallowEqual
+  );
 
   const closeModal = useCallback(() => {
-    setAuthOpen(false);
+    dispatch(setAuthOpen(false));
   }, []);
 
   const headerWhiteTheme = useMemo(() => {
@@ -28,17 +35,10 @@ const StaticLayout: FC = () => {
 
   return (
     <div className={styles.root}>
-      <StaticHeader
-        isWhite={headerWhiteTheme}
-        setAuthOpen={(v) => setAuthOpen(v)}
-      />
+      <StaticHeader isWhite={headerWhiteTheme} />
 
       <Switch>
-        <Route
-          exact
-          path="/home"
-          render={() => <Landing setAuthOpen={setAuthOpen} />}
-        />
+        <Route exact path="/home" component={Landing} />
         <Route exact path="/home/info/government" component={Government} />
         <Route
           exact
@@ -50,8 +50,8 @@ const StaticLayout: FC = () => {
 
       <StaticFooter />
 
-      <Modal isOpen={isAuthOpen} hasOverlay onOverlayClick={closeModal}>
-        <Auth closeModal={closeModal} />
+      <Modal isOpen={authOpen} hasOverlay onOverlayClick={closeModal}>
+        <Auth />
       </Modal>
     </div>
   );

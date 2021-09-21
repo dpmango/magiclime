@@ -31,7 +31,7 @@ export type UpdateProfileType = {
 };
 
 export type UpdateProfileAvatarType = {
-  file: File;
+  file: File | null;
   successCallback?: VoidFunction;
   errorCallback?: (error: string) => void;
 };

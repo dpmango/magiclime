@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: '100vw',
-    height: '100vh',
+    // width: '100vw',
+    // height: '100vh',
   },
   container: {
     width: '100%',
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   content: {
     width: '100%',
     minWidth: 1,
-    height: '100%',
+    height: '100vh',
   },
 }));
 

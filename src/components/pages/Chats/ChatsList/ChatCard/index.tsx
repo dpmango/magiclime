@@ -36,7 +36,7 @@ const ChatCard: FC<IProps> = ({ chat, chatId, setActiveChat }) => {
         <Typography
           weight="semibold"
           size="s"
-          margin="0 0 3px"
+          margin="0 0 2px"
           className={styles.text}
         >
           {chat.title}
