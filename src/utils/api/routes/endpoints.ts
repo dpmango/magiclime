@@ -73,4 +73,9 @@ export default {
   feedback: {
     government: '/feedback/government/',
   },
+  position: {
+    get: '/profile/position_requests/',
+    post: '/position-requests/',
+    approve: (id: number | string) => `/position-requests/${id}/approve/`,
+  },
 };

@@ -451,6 +451,12 @@ const Referrals: FC = () => {
               />
             </div>
             <div className={styles.filtersGroup}>
+              <Typography view="link" size="s" align="center">
+                Куда встанет клон?
+              </Typography>
+            </div>
+
+            <div className={styles.filtersGroup}>
               <TextField
                 value={filterSearch}
                 placeholder={t('profile.referral.filter.search')}

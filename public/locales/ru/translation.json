@@ -187,7 +187,7 @@
       "partners": "Структура",
       "settings": "Настройки",
       "referrals": "Команда",
-      "history": "История",
+      "history": "История операций",
       "applications": "Заявки"
     },
     "referralPlural": {
@@ -310,6 +310,7 @@
         "cta": "Запросить вывод"
       },
       "history": {
+        "titleShort": "История",
         "titleOperations": "История операций",
         "titleBalance": "История финансов",
         "titleBonuse": "История бонусов",
@@ -464,10 +465,13 @@
       }
     },
     "applications": {
-      "title": "Мои заявки",
+      "title": "Список заявок которые подали мои партнеры",
       "apply": {
         "title": "Подать заявку",
         "cta": "Подать заявку"
+      },
+      "my": {
+        "title": "Мои заявки"
       },
       "table": {
         "thLogin": "Логин",

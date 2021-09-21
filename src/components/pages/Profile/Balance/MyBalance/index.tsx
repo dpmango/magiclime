@@ -75,9 +75,9 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
                   >
                     {cell.main}
                   </Typography>
-                  <Typography view="secondary" size="xs">
+                  {/* <Typography view="secondary" size="xs">
                     {cell.secondary}
-                  </Typography>
+                  </Typography> */}
                 </Flex>
               </div>
             </GridItem>

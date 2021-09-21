@@ -9,6 +9,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ChoiceGroup } from '@consta/uikit/ChoiceGroup';
 
+import Flex from 'components/Common/Flex';
+import Typography from 'components/Common/Typography';
 import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { getBonuseHistoryService } from 'utils/api/routes/payment';
@@ -65,17 +67,28 @@ const ProfileHistory: FC = () => {
   }, [tab]);
 
   return (
-    <div>
-      <ChoiceGroup
-        value={tab}
-        onChange={({ value }) => setTab(value)}
-        items={tabs}
-        getLabel={(item) => item.label}
-        size="m"
-        multiple={false}
-        className={styles.tabs}
-        name="historyChoicegroup"
-      />
+    <div className={styles.root}>
+      <Flex align="center">
+        <Typography
+          margin="0 16px 0 0"
+          weight="semibold"
+          lineHeight="s"
+          size="2xl"
+        >
+          {t('profile.balance.history.titleShort')}
+        </Typography>
+
+        <ChoiceGroup
+          value={tab}
+          onChange={({ value }) => setTab(value)}
+          items={tabs}
+          getLabel={(item) => item.label}
+          size="m"
+          multiple={false}
+          className={styles.tabs}
+          name="historyChoicegroup"
+        />
+      </Flex>
 
       <Switch>
         <Route

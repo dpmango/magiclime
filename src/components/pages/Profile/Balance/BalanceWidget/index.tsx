@@ -58,9 +58,9 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
             >
               {formatPrice(balance.bitlimes)} BL
             </Typography>
-            <Typography view="secondary" size="xs">
+            {/* <Typography view="secondary" size="xs">
               {blToBtc(balance.bitlimes, btcRate)} mBtc
-            </Typography>
+            </Typography> */}
           </Flex>
         </>
       )}
