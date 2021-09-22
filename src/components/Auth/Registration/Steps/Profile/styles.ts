@@ -8,7 +8,8 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-start',
   },
   next: {
-    margin: '30px 0 24px',
+    // margin: '30px 0 24px',
+    margin: '0',
   },
   userAgreement: {
     '& > a': {

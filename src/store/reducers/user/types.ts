@@ -36,6 +36,11 @@ export type UpdateProfileAvatarType = {
   errorCallback?: (error: string) => void;
 };
 
+export type DeleteProfileAvatarType = {
+  successCallback?: VoidFunction;
+  errorCallback?: (error: string) => void;
+};
+
 export type ChangePasswordType = {
   data: {
     current_password: string;

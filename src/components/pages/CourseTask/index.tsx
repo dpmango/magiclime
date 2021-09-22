@@ -3,12 +3,18 @@
 /* eslint-disable react/no-danger */
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
-// import ReactPlayer from 'react-player';
+import { toast } from 'react-hot-toast';
+import { Loader } from '@consta/uikit/Loader';
 
 // import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { getCourseModule } from 'utils/api/routes/courses';
+import {
+  getCourseService,
+  getCourseChapterService,
+  completeCourseService,
+  completeChapterService,
+  completeExerciseService,
+} from 'utils/api/routes/courses';
 import { ScrollTo } from 'utils/helpers/scroll';
 import {
   ISection,
@@ -25,6 +31,7 @@ import useStyles from './styles';
 const CoursePage: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [course, setCourse] = useState<ICourseFull | null>(null);
+  const [chapter, setChapter] = useState<IChapter | null>(null);
   const [sections, setSections] = useState<ISection[]>([]);
   const { id }: { id: string } = useParams();
   const history = useHistory();
@@ -47,8 +54,8 @@ const CoursePage: FC = () => {
                   chapter: chapter.id,
                   chapterLabel: chapter.content,
                   label: exercis.title,
-                  compleated: false,
-                  available: true,
+                  compleated: exercis.is_completed,
+                  available: exercis.is_available,
                   current: chapterIdx === 0 && exercisIdx === 0,
                 });
               }
@@ -65,14 +72,24 @@ const CoursePage: FC = () => {
   const fetchCourse = useCallback(async (id: string) => {
     setLoading(true);
 
-    const [err, data] = await getCourseModule(id);
+    const [errCourse, course] = await getCourseService(id);
 
-    if (err) {
-      console.log({ err });
+    if (errCourse) {
+      toast.error('Error getting course');
     }
 
-    setCourse(data || null);
-    setSectionsFromCourse(data || null);
+    setCourse(course || null);
+    setSectionsFromCourse(course || null);
+
+    if (course) {
+      const [errChapter, chapter] = await getCourseChapterService(course!.id);
+
+      if (errChapter) {
+        toast.error('Error getting Exercis');
+      }
+
+      setChapter(chapter || null);
+    }
 
     setLoading(false);
   }, []);
@@ -89,12 +106,8 @@ const CoursePage: FC = () => {
     return nextSection ? nextSection.id : null;
   }, [sections]);
 
-  const getExercis = useMemo((): IExercis | null => {
+  const getExercis = useMemo(() => {
     if (course && course.chapters) {
-      const chapter = course.chapters.find((x) =>
-        x.exercises.map((e) => e.id).includes(activeSectionId)
-      );
-
       if (chapter && chapter.exercises) {
         const exercis = chapter.exercises.find((x) => x.id === activeSectionId);
         return exercis || null;
@@ -102,7 +115,7 @@ const CoursePage: FC = () => {
     }
 
     return null;
-  }, [activeSectionId, course]);
+  }, [activeSectionId, course, chapter]);
 
   const getContent = useMemo(() => {
     return getExercis?.content || '';
@@ -112,26 +125,35 @@ const CoursePage: FC = () => {
     return getExercis?.file || '';
   }, [getExercis]);
 
-  const handleContinue = useCallback(() => {
+  const handleContinue = useCallback(async () => {
     if (nextSectionId) {
-      // move to next section (compleate current, make next available and set current to next)
-      setSections([
-        ...sections.map((s) => ({
-          ...s,
-          ...{
-            compleated: s.id === activeSectionId || s.compleated,
-            available: s.id === nextSectionId || s.available,
-            current: s.id === nextSectionId,
-          },
-        })),
-      ]);
+      // const [err, data] = await completeExerciseService(activeSectionId);
+      const [err, data] = await completeCourseService(22);
 
-      ScrollTo(0);
+      if (!err) {
+        // move to next section (compleate current, make next available and set current to next)
+        setSections([
+          ...sections.map((s) => ({
+            ...s,
+            ...{
+              compleated: s.id === activeSectionId || s.compleated,
+              available: s.id === nextSectionId || s.available,
+              current: s.id === nextSectionId,
+            },
+          })),
+        ]);
+
+        ScrollTo(0);
+      }
     } else {
-      console.log('TODO - cshould be POST when changing sections?');
-      history.push('/courses');
+      const [err, data] = await completeCourseService(course!.id);
+
+      if (!err) {
+        toast.success('курс завершен');
+        history.push('/courses');
+      }
     }
-  }, [nextSectionId, activeSectionId, sections]);
+  }, [nextSectionId, activeSectionId, sections, course]);
 
   const handleSectionClick = useCallback(
     (section) => {
@@ -149,8 +171,6 @@ const CoursePage: FC = () => {
   );
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(`should fetch course ${id}`);
     fetchCourse(id);
   }, [id]);
 
@@ -158,26 +178,30 @@ const CoursePage: FC = () => {
     <div className={styles.root}>
       <Flex>
         <div className={styles.content}>
-          <div
-            className={sharedStyles.wysiwyg}
-            dangerouslySetInnerHTML={{ __html: getContent }}
-          />
-
-          {getFile && (
-            <div className={sharedStyles.wysiwyg}>
-              <div className="scaler" data-ar="16:9">
-                <video controls>
-                  <source src={getFile} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
+          {!loading ? (
+            <>
+              <div
+                className={sharedStyles.wysiwyg}
+                dangerouslySetInnerHTML={{ __html: getContent }}
+              />
+              {getFile && (
+                <div className={sharedStyles.wysiwyg}>
+                  <div className="scaler" data-ar="16:9">
+                    <video controls>
+                      <source src={getFile} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              )}
+              <AnswerBox
+                onContinue={handleContinue}
+                activeSectionId={activeSectionId}
+              />
+            </>
+          ) : (
+            <Loader />
           )}
-
-          <AnswerBox
-            onContinue={handleContinue}
-            activeSectionId={activeSectionId}
-          />
         </div>
 
         <Navigation

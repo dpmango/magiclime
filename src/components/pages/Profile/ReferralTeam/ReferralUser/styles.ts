@@ -2,19 +2,23 @@ import { makeStyles } from '@material-ui/core';
 
 interface IProps {
   nested?: boolean;
+  nested2?: boolean;
   root?: boolean;
-  clone?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
   referral: {
     position: 'relative',
-    background: ({ nested, root }) =>
-      nested || root ? 'var(--color-bg-default)' : 'var(--color-bg-stripe)',
+    background: ({ nested, nested2, root }) =>
+      nested || root || nested2
+        ? 'var(--color-bg-default)'
+        : 'var(--color-bg-stripe)',
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
-    cursor: ({ root, clone }) => (root || clone ? 'default' : 'pointer'),
+    marginLeft: ({ nested2 }) => (nested2 ? 40 : 0),
+    width: 'auto',
+    cursor: ({ root }) => (root ? 'default' : 'pointer'),
     '&:first-child': {
       borderTopWidth: 0,
     },
@@ -27,7 +31,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
       transform: 'translateY(-50%)',
     },
     '&::after': {
-      display: ({ clone }) => (!clone ? 'block' : 'none'),
+      display: 'block',
       width: 9,
       height: 9,
       left: ({ nested }) => (nested ? 20 : -24),
@@ -35,20 +39,17 @@ const useStyles = makeStyles<null, IProps>(() => ({
       borderRadius: '50%',
     },
     '&::before': {
-      width: ({ nested, clone }) => (nested ? (!clone ? 37 : 17) : 30),
+      width: ({ nested }) => (nested ? 37 : 30),
       height: 1,
       left: ({ nested }) => (nested ? -18 : -52),
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: ({ root, nested, clone }) => ({
+  referralUser: ({ root, nested }) => ({
     flex: '0 0 45%',
     minWidth: 1,
     paddingRight: 12,
     paddingLeft: !nested ? 0 : 30,
-    '& .Avatar': {
-      backgroundColor: clone ? 'var(--color-bg-default)' : 'inherit',
-    },
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
@@ -92,6 +93,17 @@ const useStyles = makeStyles<null, IProps>(() => ({
       textOverflow: 'ellipsis',
     },
   },
+  referralDatetime: {
+    flex: '0 0 25%',
+    marginLeft: 'auto',
+    textAlign: 'right',
+    '& .Text': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
+  },
+
   referralMatrixId: {
     flex: '0 0 18%',
     paddingRight: 12,
@@ -110,15 +122,12 @@ const useStyles = makeStyles<null, IProps>(() => ({
     flex: '0 0 12%',
     textAlign: 'left',
   },
-  clone: {
-    paddingLeft: 30,
-    marginLeft: 'auto',
-  },
-  cloneFree: {
-    borderRadius: '50%',
-    border: '1px solid var(--color-bg-border)',
-    width: 32,
-    height: 32,
+
+  referralUserData: {
+    flex: '0 0 100%',
+    width: '100%',
+    marginTop: 4,
+    paddingLeft: ({ nested }) => (nested ? 70 : 40),
   },
 }));
 

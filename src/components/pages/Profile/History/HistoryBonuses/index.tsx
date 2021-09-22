@@ -27,17 +27,13 @@ const HistoryBonuses: FC<IProps> = ({ data }) => {
       price: `${formatPrice(x.amount)}`,
       comment: x.comment,
       balance: `${formatPrice(x.balance)}`,
-      status: x.status,
-      icon: 'TODO',
+      // status: x.status,
+      // icon: 'TODO',
     }));
   }, [data]);
 
   return (
     <div>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.balance.history.titleBonuse')}
-      </Typography>
-
       <Filters />
 
       <Table

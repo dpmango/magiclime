@@ -13,30 +13,32 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
       minHeight: '180px',
       cursor: 'pointer',
       transition: 'opacity .25s ease-in-out',
-      backgroundColor: (() => {
-        switch (props.category) {
-          case 1:
-            return !props.darkmode ? '#D1FFF8' : 'var(--color-bg-secondary)';
-          case 2:
-            return !props.darkmode ? '#79D8A6' : 'var(--color-bg-secondary)';
-          case 3:
-            return !props.darkmode ? '#3AA2FE' : 'var(--color-bg-secondary)';
-          case 4:
-            return !props.darkmode ? '#E1F1EC' : 'var(--color-bg-secondary)';
-          case 5:
-            return !props.darkmode ? '#FCDA81' : 'var(--color-bg-secondary)';
-          case 6:
-            return !props.darkmode ? '#FF9D7E' : 'var(--color-bg-secondary)';
-          case 7:
-            return !props.darkmode ? '#8FF0E1' : 'var(--color-bg-secondary)';
-          case 8:
-            return !props.darkmode ? '#B5E8F7' : 'var(--color-bg-secondary)';
-          case 9:
-            return !props.darkmode ? '#F4D978' : 'var(--color-bg-secondary)';
-          default:
-            return !props.darkmode ? '#8FF0E1' : 'var(--color-bg-secondary)';
-        }
-      })(),
+      background: 'var(--color-bg-default)',
+      border: '1px solid var(--color-bg-border)',
+      // backgroundColor: (() => {
+      //   switch (props.category) {
+      //     case 1:
+      //       return !props.darkmode ? '#D1FFF8' : 'var(--color-bg-secondary)';
+      //     case 2:
+      //       return !props.darkmode ? '#79D8A6' : 'var(--color-bg-secondary)';
+      //     case 3:
+      //       return !props.darkmode ? '#3AA2FE' : 'var(--color-bg-secondary)';
+      //     case 4:
+      //       return !props.darkmode ? '#E1F1EC' : 'var(--color-bg-secondary)';
+      //     case 5:
+      //       return !props.darkmode ? '#FCDA81' : 'var(--color-bg-secondary)';
+      //     case 6:
+      //       return !props.darkmode ? '#FF9D7E' : 'var(--color-bg-secondary)';
+      //     case 7:
+      //       return !props.darkmode ? '#8FF0E1' : 'var(--color-bg-secondary)';
+      //     case 8:
+      //       return !props.darkmode ? '#B5E8F7' : 'var(--color-bg-secondary)';
+      //     case 9:
+      //       return !props.darkmode ? '#F4D978' : 'var(--color-bg-secondary)';
+      //     default:
+      //       return !props.darkmode ? '#8FF0E1' : 'var(--color-bg-secondary)';
+      //   }
+      // })(),
       '&:hover': {
         opacity: 0.8,
       },

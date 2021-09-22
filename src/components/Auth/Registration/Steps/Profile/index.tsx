@@ -6,7 +6,7 @@ import FormikInput from '../../../../Common/Controls/Formik/Input';
 import FormikCheckbox from '../../../../Common/Controls/Formik/Checkbox';
 import Flex from '../../../../Common/Flex';
 import Typography from '../../../../Common/Typography';
-import SocialNetworks from '../../../SocialNetworks';
+// import SocialNetworks from '../../../SocialNetworks';
 
 const ProfileStep: FC = () => {
   const styles = useStyles();
@@ -33,16 +33,13 @@ const ProfileStep: FC = () => {
           isRequired={false}
           placeholder="Введите код"
         />
-        <FormikInput label="Телефон" name="phone" isRequired={false} />
+        {/* <FormikInput label="Телефон" name="phone" isRequired={false} /> */}
       </div>
-      <Button
-        type="submit"
-        className={styles.next}
-        label="Вперёд"
-        iconRight={IconForward}
-        width="full"
-      />
-      <Flex align="center" margin="0 0 16px">
+      <Flex
+        align="center"
+        // margin="0 0 16px"
+        margin="30px 0 24px"
+      >
         <FormikCheckbox name="user_agreement" label="" />
         <Typography margin="0 0 0 8px" className={styles.userAgreement}>
           Я подтверждаю согласие на обработку персональных данных в соответствии
@@ -50,14 +47,21 @@ const ProfileStep: FC = () => {
           <a href="/">Пользовательского соглашения</a>
         </Typography>
       </Flex>
-      <FormikCheckbox
-        name="mailing_agree"
-        label="Я согласен получать уведомления о новых продуктах и предложениях Lime"
+      <Button
+        type="submit"
+        className={styles.next}
+        label="Вперёд"
+        iconRight={IconForward}
+        width="full"
       />
-      <Typography margin="25px 0 8px" align="center" size="l">
-        Через социальную сеть
-      </Typography>
-      <SocialNetworks />
+      {/* <FormikCheckbox */}
+      {/*  name="mailing_agree" */}
+      {/*  label="Я согласен получать уведомления о новых продуктах и предложениях Lime" */}
+      {/* /> */}
+      {/* <Typography margin="25px 0 8px" align="center" size="l"> */}
+      {/*  Через социальную сеть */}
+      {/* </Typography> */}
+      {/* <SocialNetworks /> */}
     </>
   );
 };

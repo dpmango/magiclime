@@ -19,6 +19,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     position: 'sticky',
     top: '64px',
     alignItems: 'flex-start',
+    alignSelf: 'flex-start',
     flexDirection: 'column',
     borderRight: `1px solid ${COLORS.layoutBorderColor}`,
   },

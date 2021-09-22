@@ -94,9 +94,9 @@ const CoursesPage: FC = () => {
 
   return (
     <div className={styles.root}>
-      {/* <FeaturedCourse />
+      <FeaturedCourse />
 
-      <ProfileCourses view="compact" list={profile.courses || null} /> */}
+      <ProfileCourses view="compact" list={profile.courses || null} />
 
       <div className={styles.content}>
         <Typography weight="semibold" size="3xl" lineHeight="l">

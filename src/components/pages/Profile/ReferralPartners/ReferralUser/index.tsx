@@ -43,7 +43,7 @@ const ReferralUser: FC<IProps> = ({
   onReferralClick,
   onBuyClick,
 }) => {
-  const styles = useStyles({ nested, root, clone: is_clone });
+  const styles = useStyles({ nested, root, clone: is_clone, clone_enabled });
   const { t } = useTranslation();
 
   const handleCopyRefClick = useCallback(
@@ -60,6 +60,23 @@ const ReferralUser: FC<IProps> = ({
     [id, level, program]
   );
 
+  const handleCardClick = useCallback(() => {
+    if (!is_clone) {
+      onReferralClick && onReferralClick(id || 0);
+    } else {
+      clone_enabled && onBuyClick && onBuyClick(clone_id || 0);
+    }
+  }, [is_clone, clone_enabled, clone_id, onReferralClick, onBuyClick]);
+
+  const handleBuyClick = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onBuyClick && onBuyClick(clone_id || 0);
+    },
+    [clone_id, onBuyClick]
+  );
+
   const referralsPlural = useMemo(() => {
     return Plurize(
       referrals_count || 0,
@@ -73,15 +90,11 @@ const ReferralUser: FC<IProps> = ({
     if (!created_at) {
       return ' ';
     }
-    return moment(created_at).format('DD.MM.YYYY, HH:mm');
+    return moment(created_at).format('DD.MM.YY, HH:mm:ss');
   }, [created_at]);
 
   return (
-    <Flex
-      align="center"
-      className={styles.referral}
-      onClick={() => !is_clone && onReferralClick && onReferralClick(id || 0)}
-    >
+    <Flex align="center" className={styles.referral} onClick={handleCardClick}>
       <Flex align="center" className={styles.referralUser}>
         {!is_clone ? (
           <Avatar
@@ -91,7 +104,7 @@ const ReferralUser: FC<IProps> = ({
           />
         ) : (
           <Flex align="center" justify="center" className={styles.cloneFree}>
-            <ContaIcons.Plus size="s" view="brand" />
+            {clone_enabled && <ContaIcons.Plus size="s" view="brand" />}
           </Flex>
         )}
 
@@ -189,7 +202,7 @@ const ReferralUser: FC<IProps> = ({
               size="s"
               view="primary"
               form="round"
-              onClick={() => onBuyClick && onBuyClick(clone_id || 0)}
+              onClick={handleBuyClick}
               label={t('profile.referral.buy.cta')}
             />
           )}

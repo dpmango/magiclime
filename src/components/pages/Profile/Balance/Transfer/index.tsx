@@ -22,10 +22,10 @@ type SelectItem = {
 
 const paymentSelectList: SelectItem[] = [
   {
-    label: 'USDT',
+    label: 'BitLime',
     icon: '/images/bitlime.svg',
     disabled: true,
-    id: 2,
+    id: 1,
   },
 ];
 

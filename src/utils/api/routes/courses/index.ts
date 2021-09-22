@@ -1,6 +1,6 @@
 import { AxiosPromise } from 'types/common';
 import { ICourse, ICourseRecommended } from 'types/interfaces/courses';
-import { ICourseFull } from 'components/pages/CourseTask/types';
+import { ICourseFull, IChapter } from 'components/pages/CourseTask/types';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { instance as $api } from '../../index';
 import { filterToParams } from './mappers';
@@ -43,7 +43,7 @@ export const getCoursesService = (
 };
 
 export const getRecommendedCourseService = async (): Promise<
-  [Error | null, ICourseRecommended[] | null]
+  [any | null, ICourseRecommended[] | null]
 > => {
   try {
     const { data } = await $api.get(endpoints.courses.recommended);
@@ -53,9 +53,22 @@ export const getRecommendedCourseService = async (): Promise<
   }
 };
 
-export const getCourseModule = async (
+export const buyCourseService = async (
+  id: number | string
+): Promise<[any | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.buy(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+// courseTask actions
+export const getCourseService = async (
   id: string
-): Promise<[Error | null, ICourseFull | null]> => {
+): Promise<[any | null, ICourseFull | null]> => {
   try {
     const { data } = await $api.get(endpoints.courses.byId(id));
 
@@ -65,11 +78,47 @@ export const getCourseModule = async (
   }
 };
 
-export const buyCourseService = async (
-  id: number | string
-): Promise<[Error | null, any | null]> => {
+export const getCourseChapterService = async (
+  id: number
+): Promise<[any | null, IChapter | null]> => {
   try {
-    const { data } = await $api.post(endpoints.courses.buy(id));
+    const { data } = await $api.get(endpoints.courses.currentChapter(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const completeCourseService = async (
+  id: number
+): Promise<[any | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.completeCourse(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const completeChapterService = async (
+  id: number
+): Promise<[any | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.completeChapter(id));
+
+    return [null, data];
+  } catch (error) {
+    return [error, null];
+  }
+};
+
+export const completeExerciseService = async (
+  id: number
+): Promise<[any | null, any | null]> => {
+  try {
+    const { data } = await $api.post(endpoints.courses.completeExercise(id));
 
     return [null, data];
   } catch (error) {

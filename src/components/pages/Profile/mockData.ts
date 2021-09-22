@@ -1,4 +1,4 @@
-import { IProgram, IEvent } from './types';
+import { IProgram } from './types';
 
 export const mockPrograms: IProgram[] = [
   {
@@ -168,12 +168,4 @@ export const mockPrograms: IProgram[] = [
     referrals: [],
     referralsTotal: 0,
   },
-];
-
-export const mockEvents: IEvent[] = [
-  { id: 1, title: '+ 15 опыта' },
-  { id: 2, title: 'Вебинар “SEO-специалист” скоро начнётся' },
-  { id: 3, title: 'Вы не окончили курс “Instagram-маркетолог”' },
-  { id: 4, title: '+ 15 опыта' },
-  { id: 5, title: '+ 15 опыта' },
 ];

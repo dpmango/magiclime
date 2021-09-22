@@ -1,4 +1,4 @@
-import React, { useMemo, FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { Loader } from '@consta/uikit/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -26,6 +26,7 @@ interface IProps<T, U> {
   listComponent: FC<ComponentProps<T>>;
   queries?: U;
   limit?: number;
+  onStartCallback?: () => void;
   successCallback?: (data: any) => void;
   errorCallback?: (err?: AxiosError) => void;
 }
@@ -34,6 +35,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   getList,
   listComponent: Component,
   limit = 10,
+  onStartCallback,
   successCallback,
   errorCallback,
   queries = {} as U,
@@ -65,6 +67,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   }, [queries]);
 
   useEffect(() => {
+    onStartCallback && onStartCallback();
     page === 1 && setInitialLoading(true);
 
     getList(page, limit, queries)
@@ -90,7 +93,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   }, [state]);
 
   return (
-    <div className={styles.root} id="scrollableTarget">
+    <div className={styles.root}>
       {initialLoading ? (
         <Loader className={styles.loader} />
       ) : (

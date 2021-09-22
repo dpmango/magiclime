@@ -76,10 +76,11 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
           {isMyProfile ? (
             <BalanceWidget btcRate={rates.price} inline />
           ) : (
-            <Button
-              onClick={handleSendMessage}
-              label={t('profile.head.sendMessage')}
-            />
+            <></>
+            // <Button
+            //   onClick={handleSendMessage}
+            //   label={t('profile.head.sendMessage')}
+            // />
           )}
         </Flex>
       </div>

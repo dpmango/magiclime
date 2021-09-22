@@ -66,18 +66,10 @@ const useStyles = makeStyles({
       width: '100%',
     },
   },
-  filtersMatrixBtn: {
-    marginRight: 6,
-    marginBottom: 6,
-  },
+
   cta: {
     marginTop: 16,
     textAlign: 'center',
-  },
-  modalCta: {
-    '& .Button': {
-      marginRight: 16,
-    },
   },
 });
 
