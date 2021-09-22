@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   photoField: {
     flex: 1,
     boxShadow:
-      '0px 2px 2px rgba(0, 32, 51, 0.02), 0px 2px 8px rgba(0, 32, 51, 0.16)',
+      '0px 2px 2px var(--color-bg-system), 0px 2px 8px var(--color-bg-system)',
     borderRadius: '10px',
     padding: '16px 0',
     marginRight: '20px',
@@ -21,6 +21,9 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     '& > svg': {
       marginTop: '25px',
+      '& > path': {
+        fill: 'var(--color-bg-system)',
+      },
     },
     '& img': {
       width: '100%',

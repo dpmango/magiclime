@@ -7,20 +7,9 @@ import PhotoField from '../../../../Common/Controls/PhotoField';
 import Flex from '../../../../Common/Flex';
 import useStyles from './styles';
 import { UserIcon } from '../../../../../assets/icons';
-import { ChangeType, SetStateType } from '../../../../../types/common';
-import { uploadImage } from '../../../../../utils/api/routes/other';
 
 const Additional: FC = () => {
   const styles = useStyles();
-
-  const handleChange = (
-    e: ChangeType,
-    setValue: (name: string, message?: any) => void
-  ) => {
-    uploadImage(e.target!.files![0]).then((res) => {
-      setValue('avatar_id', res.data);
-    });
-  };
 
   return (
     <Flex margin="0 0 40px">

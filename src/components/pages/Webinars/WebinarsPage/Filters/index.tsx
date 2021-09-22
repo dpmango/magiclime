@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../store/reducers/rootReducer';
 import { SetStateType } from '../../../../../types/common';
 import { ICategory, ICity } from '../../../../../types/interfaces/meta';
+import { ChangeTracker } from '../../../../Common/Controls/Formik/ChangeTracker';
 import { IFilters } from '../../types';
 import useStyles from './styles';
 
@@ -43,8 +44,9 @@ const Filters: FC<{ setFilters: SetStateType<IFilters> }> = ({
         handleSubmit(data);
       }}
     >
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, resetForm, dirty, submitForm }) => (
         <Form>
+          <ChangeTracker />
           <div className={styles.formBlock}>
             <Field
               placeholder="Поиск по вебинарам"
@@ -81,7 +83,17 @@ const Filters: FC<{ setFilters: SetStateType<IFilters> }> = ({
               isRequired={false}
             />
           </div>
-          <Button label="Искать" view="primary" type="submit" width="full" />
+          <Button
+            disabled={!dirty}
+            label="Сбросить"
+            className={styles.reset}
+            type="button"
+            width="full"
+            onClick={() => {
+              resetForm();
+              submitForm();
+            }}
+          />
         </Form>
       )}
     </Formik>

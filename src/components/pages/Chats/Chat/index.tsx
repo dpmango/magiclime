@@ -173,7 +173,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
         setTimeout(() => {
           elem.scrollTop = elem.scrollHeight;
           dispatch({ type: 'SET_SCROLL', payload: null });
-        }, 0);
+        }, 50);
       } else {
         const firstIndex = getFirstUnreadIndex(
           LIMIT,

@@ -8,12 +8,12 @@ export interface IChat {
   unreaded_count: number;
 }
 
-interface IImageMessage extends IPhoto {
+export interface IImageMessage extends IPhoto {
   name: string;
   size: number;
 }
 
-interface IFileMessage {
+export interface IFileMessage {
   readonly id: number;
   file: string;
   name: string;

@@ -70,6 +70,9 @@ const useStyles = makeStyles<null, { isWhite: boolean }>(() => ({
     },
   },
   enterbutton: {
+    '&:first-of-type': {
+      marginRight: '16px',
+    },
     background: ({ isWhite }) =>
       isWhite ? 'hsla(0,0%,100%,0.2)' : 'var(--color-bg-brand)',
   },

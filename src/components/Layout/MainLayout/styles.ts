@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   content: {
     width: '100%',
     minWidth: 1,
-    // height: '100vh',
+    minHeight: 'calc(100vh - 64px)',
   },
 }));
 

@@ -6,7 +6,8 @@
         "webinar": "Webinars",
         "articles": "Articles"
       },
-      "login": "Login"
+      "login": "Login",
+      "registration": "Sign up"
     },
     "footer": {
       "logo": "Academy",
@@ -279,7 +280,8 @@
     "members": "Участники",
     "youLearn": "Вы узнаете",
     "aboutFormat": "Пару слов о формате",
-    "aboutSpeakers": "О спикерах"
+    "aboutSpeakers": "О спикерах",
+    "participate": "Принять участие"
   },
   "chats": {
     "toAnswer": "Ответить"

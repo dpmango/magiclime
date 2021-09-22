@@ -23,6 +23,17 @@ const useStyles = makeStyles({
       fontWeight: '400',
     },
   },
+  reset: {
+    background: 'var(--color-typo-alert)',
+    marginBottom: '16px',
+    '&:hover': {
+      opacity: '0.7',
+      background: 'var(--color-typo-alert)',
+    },
+    '&:disabled': {
+      background: 'var(--color-control-bg-disable) !important',
+    },
+  },
 });
 
 export default useStyles;

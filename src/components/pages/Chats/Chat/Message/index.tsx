@@ -1,33 +1,19 @@
-import { IconDocBlank } from '@consta/uikit/IconDocBlank';
-import React, {
-  FC,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, useContext, useMemo, useRef, useState } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
 import moment from 'moment';
 import { Button } from '@consta/uikit/Button';
 import { IconChat } from '@consta/uikit/IconChat';
 import { IconMeatball } from '@consta/uikit/IconMeatball';
-import { ContextMenu } from '@consta/uikit/ContextMenu';
-import { IconWarning } from '@consta/uikit/IconWarning';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Text } from '@consta/uikit/Text';
-import { ComponentType } from '../../../../../types/common';
 import { ChatContext } from '../../context';
+import Dropdown from './Dropdown';
+import Files from './FIles';
+import Images from './Images';
 import useStyles from './styles';
 import Flex from '../../../../Common/Flex';
 import { IMessage } from '../../types';
-
-type DropdownItem = {
-  name: string;
-  icon: ComponentType;
-};
 
 interface IProps {
   message: IMessage;
@@ -41,16 +27,9 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const { chatContext, setChatContext } = useContext(ChatContext);
   const { t } = useTranslation();
 
-  const items = [{ name: t('common.complain'), icon: IconWarning }];
-
   const replyMessage = () => {
     setChatContext({ ...chatContext, replyMessage: message });
   };
-
-  const renderLeftSide = useCallback((item: DropdownItem) => {
-    const Icon = item.icon;
-    return <Icon size="s" />;
-  }, []);
 
   const format = useMemo(() => {
     if (moment().isAfter(moment(message.created_at), 'day')) return 'DD MMMM';
@@ -101,33 +80,10 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
           </div>
         )}
         {message.attached_files.length > 0 && (
-          <Flex direction="column">
-            {message.attached_files.map((file) => (
-              <div key={file.id} className={styles.file}>
-                <Button iconLeft={IconDocBlank} size="l" form="round" />
-                <div>
-                  <Text weight="semibold" className={styles.fileName}>
-                    {file.name}
-                  </Text>
-                  <Text view="secondary">
-                    {(file.size / 1024 / 1024).toFixed(2)} Мб
-                  </Text>
-                </div>
-              </div>
-            ))}
-          </Flex>
+          <Files files={message.attached_files} />
         )}
         {message.attached_images.length > 0 && (
-          <Flex direction="column">
-            {message.attached_images.map((img) => (
-              <img
-                src={img.image}
-                key={img.id}
-                alt="chat_image"
-                className={styles.messageImage}
-              />
-            ))}
-          </Flex>
+          <Images images={message.attached_images} />
         )}
         <Flex margin="0 0 8px" className={styles.container}>
           <Text className={styles.text}>{message.text}</Text>
@@ -149,17 +105,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
             size="xs"
             onlyIcon
           />
-          {isOpen && (
-            <ContextMenu
-              items={items}
-              getLabel={(item: DropdownItem) => item.name}
-              anchorRef={buttonRef}
-              size="s"
-              getLeftSideBar={renderLeftSide}
-              direction="downStartLeft"
-              onClickOutside={() => setIsOpen(false)}
-            />
-          )}
+          {isOpen && <Dropdown buttonRef={buttonRef} setOpen={setIsOpen} />}
         </Flex>
       </div>
     </Flex>

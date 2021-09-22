@@ -47,9 +47,9 @@ const Registration: FC = () => {
     switch (step) {
       case 1:
         return <ProfileStep />;
+      // case 2:
+      //   return <UserType />;
       case 2:
-        return <UserType />;
-      case 3:
         return <Additional />;
       default:
         return <ProfileStep />;
@@ -62,10 +62,10 @@ const Registration: FC = () => {
     password: '',
     passwordConfirm: '',
     media_sponsor: query.get('ref') || '',
-    phone: '',
+    // phone: '',
     user_agreement: false,
-    mailing_agree: false,
-    user_type: '',
+    // mailing_agree: false,
+    // user_type: '',
     name: '',
     about: '',
     avatar_id: null,
@@ -96,7 +96,7 @@ const Registration: FC = () => {
       return Yup.string().trim().length(0);
     }),
     user_agreement: REQUIRED_CHECKBOX('user_agreement'),
-    name: step === 3 ? REQUIRED : Yup.string(),
+    name: step === 2 ? REQUIRED : Yup.string(),
   });
 
   const errorCallback = (error: string) => {
@@ -105,7 +105,7 @@ const Registration: FC = () => {
   };
 
   const handleSubmit = (values: typeof initialValues) => {
-    if (step !== 3) {
+    if (step !== 2) {
       setStep((step + 1) as StepType);
     } else {
       const data = { ...values };
@@ -147,7 +147,7 @@ const Registration: FC = () => {
           {errorMessage}
         </Typography>
       )}
-      <Stepper currentStep={step} setCurrentStep={setStep} />
+      {/* <Stepper currentStep={step} setCurrentStep={setStep} /> */}
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -171,8 +171,8 @@ const Registration: FC = () => {
                 <Button
                   width="full"
                   type="submit"
-                  label={step === 3 ? t('common.finalize') : t('common.next')}
-                  iconRight={step !== 3 ? IconForward : undefined}
+                  label={step === 2 ? t('common.finalize') : t('common.next')}
+                  iconRight={step !== 2 ? IconForward : undefined}
                 />
               </GridItem>
             </Grid>
