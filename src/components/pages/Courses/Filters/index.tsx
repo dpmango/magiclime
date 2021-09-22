@@ -51,15 +51,6 @@ const Filters: FC<IProps> = ({ filter, onUpdate }) => {
               />
             </div>
 
-            <div className={styles.ctaBlock}>
-              <Button
-                type="submit"
-                view="secondary"
-                size="s"
-                label={t('course.filter.cta')}
-              />
-            </div>
-
             <div className={styles.formBlock}>
               <FormikCheckboxGroup
                 label={t('course.filter.categories')}

@@ -34,10 +34,6 @@ const HistoryBonuses: FC<IProps> = ({ data }) => {
 
   return (
     <div>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.balance.history.titleBonuse')}
-      </Typography>
-
       <Filters />
 
       <Table

@@ -48,6 +48,10 @@ export const updateUserAvatar = (file: File | null): AxiosPromise<IUser> => {
   return instance.post(endpoints.profile.options.avatar, formData);
 };
 
+export const deleteUserAvatar = (): AxiosPromise<IUser> => {
+  return instance.delete(endpoints.profile.options.avatar);
+};
+
 export const changeUserPassword = (data: {
   current_password: string;
   new_password: string;

@@ -28,7 +28,7 @@ const HistoryBalance: FC<IProps> = ({ data }) => {
 
   return (
     <div>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
+      <Typography margin="42px 0 0" weight="semibold" lineHeight="s" size="2xl">
         {t('profile.balance.history.titleOperations')}
       </Typography>
 

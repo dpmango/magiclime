@@ -4,12 +4,12 @@ import {
   getAchivementsService,
   getEventsService,
 } from 'utils/api/routes/profile';
-import { IAchievement, IBalance } from 'types/interfaces/profile';
+import { IAchievement, IBalance, IEvent } from 'types/interfaces/profile';
 
 const initialState = {
   balance: {} as IBalance,
   achivements: [] as IAchievement[],
-  events: [] as any[],
+  events: [] as IEvent[],
 };
 
 const profileSlice = createSlice({
@@ -66,7 +66,7 @@ export const getEvents = createAsyncThunk(
     try {
       const response = await getEventsService();
       if (response?.status === 200) {
-        dispatch(setEvents(response.data));
+        dispatch(setEvents(response.data!.results));
       }
       return response.data;
     } catch (err) {

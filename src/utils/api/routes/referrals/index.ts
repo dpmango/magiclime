@@ -1,6 +1,10 @@
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
-import { IReferralTree, IRererralHistory } from 'types/interfaces/referrals';
+import {
+  IReferralTree,
+  IRererralHistory,
+  IClone,
+} from 'types/interfaces/referrals';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
@@ -27,6 +31,23 @@ export const getReferralsService = (data: {
 
   return $api.get(endpoints.referrals.list, {
     params,
+  });
+};
+
+export const getClonesService = (data: {
+  level: number;
+  program: number;
+  page?: number;
+  limit?: number;
+}): AxiosPromise<IAxiosPaginatedResponse<IClone>> => {
+  console.log('clones serv');
+  return $api.get(endpoints.referrals.clones, {
+    params: {
+      level: data.level,
+      program: data.program,
+      page: data.page || null,
+      page_size: data.limit || null,
+    },
   });
 };
 

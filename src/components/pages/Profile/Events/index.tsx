@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
-import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
 import { IconArrowRight } from '@consta/uikit/IconArrowRight';
-import { useTranslation } from 'react-i18next';
 
-import { IEvent } from 'components/pages/Profile/types';
+import Typography from 'components/Common/Typography';
+import Flex from 'components/Common/Flex';
+import { RootState } from 'store/reducers/rootReducer';
+
 import useStyles from './styles';
 
-interface IProps {
-  list: IEvent[];
-}
-
-const Events: FC<IProps> = ({ list }) => {
+const Events: FC = () => {
   const styles = useStyles();
   const { t } = useTranslation();
+
+  const events = useSelector((state: RootState) => state.profile.events);
 
   return (
     <Flex direction="column" className={styles.root}>
@@ -23,10 +23,10 @@ const Events: FC<IProps> = ({ list }) => {
       </Typography>
 
       <Flex direction="column" className={styles.box}>
-        {list && list.length ? (
+        {events && events.length ? (
           <>
             <div className={styles.boxList}>
-              {list.map((event) => (
+              {events.map((event) => (
                 <Flex align="center" className={styles.event} key={event.id}>
                   <div className={styles.eventBox} />
                   <div className={styles.eventContent}>
@@ -36,13 +36,13 @@ const Events: FC<IProps> = ({ list }) => {
               ))}
             </div>
 
-            <Button
+            {/* <Button
               label={t('profile.events.more')}
               size="s"
               view="secondary"
               className={styles.boxCta}
               iconRight={IconArrowRight}
-            />
+            /> */}
           </>
         ) : (
           <Typography

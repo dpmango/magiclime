@@ -16,9 +16,9 @@ import Typography from 'components/Common/Typography';
 import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
+import { getMatricesHistoryService } from 'utils/api/routes/referrals';
 import { IUser } from 'types/interfaces/user';
 import { ITab } from 'types/interfaces/common';
-import { getBalanceHistoryService } from 'utils/api/routes/payment';
 
 import Head from './Head';
 import ProgramList from './ProgramList';
@@ -27,12 +27,14 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import History from './History';
-import HistoryBalance from './History/HistoryBalance';
+import HistoryOperations from './History/HistoryOperations';
+import Applications from './Applications';
 import ReferralStats from './ReferralStats';
-import ReferralList from './ReferralList';
+import ReferralPartners from './ReferralPartners';
+import ReferralTeam from './ReferralTeam';
 import Settings from './Settings';
 import useStyles from './styles';
-import { mockPrograms, mockEvents } from './mockData';
+import { mockPrograms } from './mockData';
 
 const ProfilePage: FC = () => {
   const styles = useStyles();
@@ -84,6 +86,11 @@ const ProfilePage: FC = () => {
         },
         {
           id: 6,
+          slug: `/profile/${params.id}/applications`,
+          label: t('profile.tabs.applications'),
+        },
+        {
+          id: 7,
           slug: `/profile/${params.id}/settings`,
           label: t('profile.tabs.settings'),
         },
@@ -161,9 +168,7 @@ const ProfilePage: FC = () => {
                   <GridItem>
                     <Achievements {...profileProps} />
                   </GridItem>
-                  <GridItem>
-                    <Events list={mockEvents} />
-                  </GridItem>
+                  <GridItem>{isMyProfile && <Events />}</GridItem>
                 </Grid>
               </div>
               {viewingProfile.courses && viewingProfile.courses.length > 0 && (
@@ -178,16 +183,6 @@ const ProfilePage: FC = () => {
         {isMyProfile && (
           <>
             <Route
-              path={`${path}/partners`}
-              render={() => (
-                <>
-                  <ReferralStats {...profileProps} />
-                  <ReferralList />
-                </>
-              )}
-            />
-
-            <Route
               path={`${path}/balance`}
               render={() => (
                 <>
@@ -195,19 +190,45 @@ const ProfilePage: FC = () => {
                     <Balance />
                   </div>
                   <div className={styles.section}>
-                    <Pagination
-                      getList={getBalanceHistoryService}
-                      listComponent={HistoryBalance}
-                      queries={{ search: '' }}
-                    />
+                    <History />
                   </div>
                 </>
               )}
             />
 
-            <Route path={`${path}/settings`} component={Settings} />
+            <Route
+              path={`${path}/partners`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralPartners />
+                </>
+              )}
+            />
 
-            <Route path={`${path}/history`} component={History} />
+            <Route
+              path={`${path}/referrals`}
+              render={() => (
+                <>
+                  <ReferralStats {...profileProps} />
+                  <ReferralTeam />
+                </>
+              )}
+            />
+
+            <Route
+              path={`${path}/history`}
+              render={() => (
+                <Pagination
+                  getList={getMatricesHistoryService}
+                  listComponent={HistoryOperations}
+                  queries={{ search: '' }}
+                />
+              )}
+            />
+
+            <Route path={`${path}/applications`} component={Applications} />
+            <Route path={`${path}/settings`} component={Settings} />
           </>
         )}
 

@@ -42,6 +42,13 @@ export default {
     byId: (id: number | string) => `/courses/${id}/`,
     buy: (id: number | string) => `/courses/${id}/buy/`,
     status: (id: number | string) => `/courses/${id}/status/`, // todo
+    currentChapter: (id: number | string) => `/courses/${id}/current_chapter/`,
+    answer: (id: number | string) => `/courses/tasks/${id}/answer/`,
+    completeCourse: (id: number | string) => `/courses/course/${id}/complete/`,
+    completeChapter: (id: number | string) =>
+      `/courses/chapters/${id}/complete/`,
+    completeExercises: (id: number | string) =>
+      `/courses/exercises/${id}/complete/`,
     recommended: '/courses/recommended/',
     active: '/courses/active/', // todo
     actual: '/courses/actual/', // todo
@@ -59,10 +66,16 @@ export default {
   },
   referrals: {
     list: '/auth/users/me/referrals/',
+    clones: '/matrices/clones/',
     buy: '/matrices/buy/',
     history: '/matrices/history/',
   },
   feedback: {
     government: '/feedback/government/',
+  },
+  position: {
+    get: '/profile/position_requests/',
+    post: '/position-requests/',
+    approve: (id: number | string) => `/position-requests/${id}/approve/`,
   },
 };

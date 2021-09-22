@@ -9,6 +9,15 @@ export interface IBalance {
   bonus_points: number;
   user?: number;
 }
+export interface IEvent {
+  readonly id: number;
+  user: number;
+  title: string;
+  description?: string;
+  event_type: number;
+  date: Date;
+}
+
 export interface IAchievementGroup {
   readonly id: number;
   title: string;
