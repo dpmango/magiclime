@@ -8,5 +8,4 @@ export const logoutFunc = () => {
   Cookies.remove('refresh');
   deleteAuthHeader();
   store.dispatch(logout());
-  window.location.pathname = '/home';
 };

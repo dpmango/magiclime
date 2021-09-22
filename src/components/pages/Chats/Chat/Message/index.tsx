@@ -1,4 +1,3 @@
-import { IconDocBlank } from '@consta/uikit/IconDocBlank';
 import React, { FC, useContext, useMemo, useRef, useState } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
 import moment from 'moment';
