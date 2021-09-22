@@ -29,7 +29,8 @@
         "webinar": "Вебинары",
         "articles": "Статьи"
       },
-      "login": "Войти"
+      "login": "Войти",
+      "registration": "Регистрация"
     },
     "footer": {
       "logo": "Академия",

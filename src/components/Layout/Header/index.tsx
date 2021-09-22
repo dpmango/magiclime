@@ -93,7 +93,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                 <HeaderLogin
                   isLogged={isLogged}
                   isMinified={isMobile}
-                  personName={profile.name}
+                  personName={profile.username}
                   personAvatarUrl={profile.avatar ? profile.avatar.image : ''}
                   personInfo="127 место"
                   className={styles.clickBlock}

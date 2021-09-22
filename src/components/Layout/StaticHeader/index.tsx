@@ -136,6 +136,16 @@ const Header: FC<IProps> = ({ isWhite = false }) => {
                 dispatch(setAuth({ opened: true, type: 'sign_in' }))
               }
             />
+            <Button
+              className={styles.enterbutton}
+              form="round"
+              size="s"
+              iconRight={SvgIcon.ChevronRight}
+              label={t('landing.header.registration')}
+              onClick={() =>
+                dispatch(setAuth({ opened: true, type: 'sign_up' }))
+              }
+            />
           </Flex>
         </Flex>
       </div>

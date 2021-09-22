@@ -112,17 +112,12 @@ const Login: FC = () => {
             <Button label="Войти" width="full" type="submit" />
           </Form>
         </Formik>
-        <Typography align="center" margin="16px 0 8px">
-          Или с помощью
-        </Typography>
-        <SocialNetworks />
-        <Typography
-          align="center"
-          margin="16px auto 0"
-          size="s"
-          className={styles.license}
-        >
-          При авторизации через социальную сеть, вы принимаете условия
+        {/* <Typography align="center" margin="16px 0 8px"> */}
+        {/*  Или с помощью */}
+        {/* </Typography> */}
+        {/* <SocialNetworks /> */}
+        <Typography margin="16px auto 0" size="s" className={styles.license}>
+          При авторизации вы принимаете условия
           <Text view="link" as="a" size="s">
             Пользовательского соглашения
           </Text>
