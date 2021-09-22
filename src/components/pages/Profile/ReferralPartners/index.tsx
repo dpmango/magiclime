@@ -317,7 +317,8 @@ const Referrals: FC = () => {
                           setModalConfirm({ opened: true, id })
                         }
                       />
-                      {group.children &&
+                      {selectedLevel !== 0 &&
+                        group.children &&
                         group.children.map((referral: IReferralTree, cidx) => (
                           <ReferralUser
                             key={referral.id || cidx}

@@ -34,14 +34,14 @@ export const columns: IColumn[] = [
     accessor: 'balance',
     sortable: true,
   },
-  {
-    title: 'Статус',
-    accessor: 'status',
-    sortable: true,
-  },
-  {
-    title: 'Иконка',
-    accessor: 'icon',
-    sortable: true,
-  },
+  // {
+  //   title: 'Статус',
+  //   accessor: 'status',
+  //   sortable: true,
+  // },
+  // {
+  //   title: 'Иконка',
+  //   accessor: 'icon',
+  //   sortable: true,
+  // },
 ];

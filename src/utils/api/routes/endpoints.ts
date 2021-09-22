@@ -44,10 +44,10 @@ export default {
     status: (id: number | string) => `/courses/${id}/status/`, // todo
     currentChapter: (id: number | string) => `/courses/${id}/current_chapter/`,
     answer: (id: number | string) => `/courses/tasks/${id}/answer/`,
-    completeCourse: (id: number | string) => `/courses/course/${id}/complete/`,
+    completeCourse: (id: number | string) => `/courses/${id}/complete/`,
     completeChapter: (id: number | string) =>
       `/courses/chapters/${id}/complete/`,
-    completeExercises: (id: number | string) =>
+    completeExercise: (id: number | string) =>
       `/courses/exercises/${id}/complete/`,
     recommended: '/courses/recommended/',
     active: '/courses/active/', // todo
@@ -67,6 +67,7 @@ export default {
   referrals: {
     list: '/auth/users/me/referrals/',
     clones: '/matrices/clones/',
+    team: '/profile/referrals/',
     buy: '/matrices/buy/',
     history: '/matrices/history/',
   },

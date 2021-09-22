@@ -40,7 +40,6 @@ export const getClonesService = (data: {
   page?: number;
   limit?: number;
 }): AxiosPromise<IAxiosPaginatedResponse<IClone>> => {
-  console.log('clones serv');
   return $api.get(endpoints.referrals.clones, {
     params: {
       level: data.level,
@@ -48,6 +47,23 @@ export const getClonesService = (data: {
       page: data.page || null,
       page_size: data.limit || null,
     },
+  });
+};
+
+export const getTeamService = (data: {
+  id?: number | string;
+}): AxiosPromise<IReferralTree> => {
+  let params = {};
+
+  if (data.id && data.id !== 'me') {
+    params = {
+      ...params,
+      matrixUserId: data.id,
+    };
+  }
+
+  return $api.get(endpoints.referrals.team, {
+    params,
   });
 };
 

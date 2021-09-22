@@ -1,17 +1,17 @@
 /* eslint-disable no-plusplus */
 // 1000.00 -> 1 000.00
-export const formatPrice = (num: number): string => {
+export const formatPrice = (num: number, digits = 2): string => {
   const spacesRegex = /\B(?=(\d{3})+(?!\d))/g;
   if (num === null || num === undefined) {
     return '0.00';
   }
 
   if (typeof num === 'number') {
-    return num.toFixed(2).replace(spacesRegex, ' ');
+    return num.toFixed(digits).replace(spacesRegex, ' ');
   }
 
   if (typeof num === 'string') {
-    return parseFloat(num).toFixed(2).replace(spacesRegex, ' ');
+    return parseFloat(num).toFixed(digits).replace(spacesRegex, ' ');
   }
 
   return '';

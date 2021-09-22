@@ -3,8 +3,6 @@ import { IReferralTree } from 'types/interfaces/referrals';
 
 export interface IRequestPayload {
   id?: number | string;
-  program: number;
-  level: number;
 }
 export interface ICrumbsPage {
   icon?: React.FC;

@@ -27,8 +27,8 @@ const HistoryBalance: FC<IProps> = ({ data }) => {
       price: `${formatPrice(x.amount)} BL`,
       comment: x.comment,
       balance: `${formatPrice(x.balance)} BL`,
-      status: x.status,
-      icon: 'TODO',
+      // status: x.status,
+      // icon: 'TODO',
     }));
   }, [data]);
 

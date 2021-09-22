@@ -13,6 +13,8 @@ import { IconHamburger } from '@consta/uikit/IconHamburger';
 import { RootState } from 'store/reducers/rootReducer';
 import { SetStateType, Theme } from 'types/common';
 import useResolution from 'hooks/useResolution';
+import { formatPrice } from 'utils/helpers/formatPrice';
+
 import { MenuContext } from '../Menu/context';
 import UserDropdown from './UserDropdown';
 import bitcoin from '../../../assets/images/bitcoin.png';
@@ -38,7 +40,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
   const balance = useSelector((state: RootState) => state.profile.balance);
 
   const myBalance = useMemo(() => {
-    return `${balance.bitlimes || `${0}`} Bl`;
+    return `${formatPrice(balance.bitlimes, 0) || `${0}`} Bl`;
   }, [balance]);
 
   return (
@@ -69,7 +71,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
               <HeaderLogin
                 isLogged={isLogged}
                 isMinified={isMobile}
-                personName={`${profile.experience} опыта`}
+                personName={`${formatPrice(balance.bonus_points, 0)} баллов`}
                 personInfo={`${profile.level} уровень`}
                 personAvatarUrl="/images/experience.svg"
                 className={styles.clickBlock}
@@ -93,7 +95,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                 <HeaderLogin
                   isLogged={isLogged}
                   isMinified={isMobile}
-                  personName={profile.name}
+                  personName={profile.username}
                   personAvatarUrl={profile.avatar ? profile.avatar.image : ''}
                   personInfo="127 место"
                   className={styles.clickBlock}

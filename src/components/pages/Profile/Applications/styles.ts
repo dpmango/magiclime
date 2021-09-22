@@ -72,6 +72,9 @@ const useStyles = makeStyles({
       },
     },
   },
+  text: {
+    maxWidth: 600,
+  },
 });
 
 export default useStyles;

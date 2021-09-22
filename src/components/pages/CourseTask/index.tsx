@@ -4,12 +4,16 @@
 import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { Loader } from '@consta/uikit/Loader';
 
 // import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import {
   getCourseService,
   getCourseChapterService,
+  completeCourseService,
+  completeChapterService,
+  completeExerciseService,
 } from 'utils/api/routes/courses';
 import { ScrollTo } from 'utils/helpers/scroll';
 import {
@@ -121,26 +125,35 @@ const CoursePage: FC = () => {
     return getExercis?.file || '';
   }, [getExercis]);
 
-  const handleContinue = useCallback(() => {
+  const handleContinue = useCallback(async () => {
     if (nextSectionId) {
-      // move to next section (compleate current, make next available and set current to next)
-      setSections([
-        ...sections.map((s) => ({
-          ...s,
-          ...{
-            compleated: s.id === activeSectionId || s.compleated,
-            available: s.id === nextSectionId || s.available,
-            current: s.id === nextSectionId,
-          },
-        })),
-      ]);
+      // const [err, data] = await completeExerciseService(activeSectionId);
+      const [err, data] = await completeCourseService(22);
 
-      ScrollTo(0);
+      if (!err) {
+        // move to next section (compleate current, make next available and set current to next)
+        setSections([
+          ...sections.map((s) => ({
+            ...s,
+            ...{
+              compleated: s.id === activeSectionId || s.compleated,
+              available: s.id === nextSectionId || s.available,
+              current: s.id === nextSectionId,
+            },
+          })),
+        ]);
+
+        ScrollTo(0);
+      }
     } else {
-      console.log('TODO - cshould be POST when changing sections?');
-      history.push('/courses');
+      const [err, data] = await completeCourseService(course!.id);
+
+      if (!err) {
+        toast.success('курс завершен');
+        history.push('/courses');
+      }
     }
-  }, [nextSectionId, activeSectionId, sections]);
+  }, [nextSectionId, activeSectionId, sections, course]);
 
   const handleSectionClick = useCallback(
     (section) => {
@@ -165,26 +178,30 @@ const CoursePage: FC = () => {
     <div className={styles.root}>
       <Flex>
         <div className={styles.content}>
-          <div
-            className={sharedStyles.wysiwyg}
-            dangerouslySetInnerHTML={{ __html: getContent }}
-          />
-
-          {getFile && (
-            <div className={sharedStyles.wysiwyg}>
-              <div className="scaler" data-ar="16:9">
-                <video controls>
-                  <source src={getFile} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
+          {!loading ? (
+            <>
+              <div
+                className={sharedStyles.wysiwyg}
+                dangerouslySetInnerHTML={{ __html: getContent }}
+              />
+              {getFile && (
+                <div className={sharedStyles.wysiwyg}>
+                  <div className="scaler" data-ar="16:9">
+                    <video controls>
+                      <source src={getFile} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
+              )}
+              <AnswerBox
+                onContinue={handleContinue}
+                activeSectionId={activeSectionId}
+              />
+            </>
+          ) : (
+            <Loader />
           )}
-
-          <AnswerBox
-            onContinue={handleContinue}
-            activeSectionId={activeSectionId}
-          />
         </div>
 
         <Navigation

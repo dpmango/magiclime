@@ -7,3 +7,9 @@ export type ReferralsPayloadType = {
   successCallback?: (res: IReferralTree) => void;
   errorCallback?: () => void;
 };
+
+export type TeamPayloadType = {
+  id?: number | string;
+  successCallback?: (res: IReferralTree) => void;
+  errorCallback?: () => void;
+};

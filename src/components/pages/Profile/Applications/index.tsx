@@ -65,7 +65,26 @@ const ProfileApplications: FC = () => {
   return (
     <div className={styles.root}>
       <div className={rootStyles.section}>
-        <Typography weight="semibold" lineHeight="s" size="2xl">
+        <div className={styles.text}>
+          <Typography weight="semibold" lineHeight="s" size="2xl">
+            Что такое заявка?
+          </Typography>
+
+          <Typography margin="12px 0 0" lineHeight="s" size="s">
+            Заявка это возможность доверить покупку места в матрице вашему
+            пригласителю. Он сможет выбрать оптимальное место, чтобы поставить
+            Вас. Деньги будут списаны с вашего счета. После открытия матрицы, Вы
+            сможете самостоятельно выбирать порядок размещения дальнейших мест в
+            ней.
+          </Typography>
+        </div>
+
+        <Typography
+          margin="24px 0 0"
+          weight="semibold"
+          lineHeight="s"
+          size="2xl"
+        >
           {t('profile.applications.title')}
         </Typography>
 
@@ -115,7 +134,7 @@ const ProfileApplications: FC = () => {
                       align="stretch"
                       className={styles.actions}
                     >
-                      <Button size="s" label={t('common.actions.accept')} />
+                      {/* <Button size="s" label={t('common.actions.accept')} /> */}
                       <Button
                         size="s"
                         view="secondary"
@@ -138,6 +157,14 @@ const ProfileApplications: FC = () => {
         >
           {t('profile.applications.apply.title')}
         </Typography>
+
+        <div className={styles.text}>
+          <Typography margin="12px 0 0" lineHeight="s" size="s">
+            Вы можете подать заявку на активацию вашей матрицы спонсором. После
+            этого, он может поставить вас в позицию выбранную по своему
+            усмотрению в указанной матрице, деньги будут списаны с вашего счета.
+          </Typography>
+        </div>
 
         <div className={styles.apply}>
           <Flex>

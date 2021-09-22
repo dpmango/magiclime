@@ -11,6 +11,7 @@ import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
 import { copyToClipboard } from 'utils/helpers/clipboard';
+import { formatPrice } from 'utils/helpers/formatPrice';
 // import { Button } from '@consta/uikit/Button';
 
 import useStyles from './styles';
@@ -31,8 +32,9 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
     (e) => {
       e.preventDefault();
 
+      // https://magiclime.academy/?ref=
       copyToClipboard(
-        `https://magiclime.academy/?ref=${profile.referral_number}`,
+        `${profile.referral_number}`,
         t('profile.head.copySuccess'),
         t('profile.head.copyError')
       );
@@ -67,7 +69,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
                   name="name"
                   size="s"
                   form="round"
-                  value={`https://magiclime.academy/?ref=${profile.referral_number}`}
+                  value={`${profile.referral_number}`}
                   leftSide={IconCopy}
                   className={styles.input}
                   onClick={handleCopyRefClick}
@@ -89,7 +91,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
             </Typography>
             <Flex align="baseline">
               <Typography size="xl" weight="semibold" view="brand">
-                {balance.bonus_points}
+                {formatPrice(balance.bonus_points, 0)}
               </Typography>
               {/* <Typography size="xl" weight="light" view="brand">
                 &nbsp;B

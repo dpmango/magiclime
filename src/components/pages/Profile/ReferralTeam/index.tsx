@@ -6,6 +6,8 @@ import React, {
   useEffect,
   MouseEvent,
 } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
@@ -17,11 +19,13 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { IReferralTree } from 'types/interfaces/referrals';
+import { getTeam } from 'store/reducers/referrals';
 
 import useSharedStyles from 'assets/styles/Shared';
+import { useQuery } from 'hooks/useQuery';
 import ReferralUser from './ReferralUser';
 import { buildTree } from './functions';
-import { ICrumbsPage, IMappedData } from './types';
+import { ICrumbsPage, IRequestPayload, IMappedData } from './types';
 import useStyles from './styles';
 
 import { referralsTree } from './mockData';
@@ -29,7 +33,10 @@ import { referralsTree } from './mockData';
 const ReferralsTeam: FC = () => {
   const styles = useStyles();
   const sharedStyles = useSharedStyles({});
-
+  const history = useHistory();
+  const location = useLocation();
+  const query = useQuery();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [filterSearch, setFilterSearch] = useState<string | null>('');
@@ -37,24 +44,68 @@ const ReferralsTeam: FC = () => {
   const loading = false;
   const error = false;
 
+  // api actions
+  const requestTeam = useCallback(async ({ id }: { id?: number | string }) => {
+    await dispatch(
+      getTeam({
+        id,
+        successCallback: (res?: IReferralTree) => {
+          const params = new URLSearchParams({
+            id: `${res!.id}`,
+          });
+
+          history.replace({
+            pathname: location.pathname,
+            search: params.toString(),
+          });
+        },
+        errorCallback: () => {
+          history.replace({
+            pathname: location.pathname,
+            search: '',
+          });
+        },
+      })
+    );
+  }, []);
+
+  // initial request with url getters & setters
+  useEffect(() => {
+    const fetch = async () => {
+      const id = query.get('id');
+
+      const params = {
+        id: undefined,
+      } as IRequestPayload;
+
+      if (id) {
+        params.id = id;
+      }
+
+      await requestTeam(params);
+    };
+
+    fetch();
+  }, []);
+
   // click handlers
   const handleBreadcrumbClick = useCallback(
     (page: ICrumbsPage, e: MouseEvent): void => {
       e.preventDefault();
 
       if (page.link !== '#') {
-        // requestTeam({
-        //   id: page.link,
-        // });
+        requestTeam({
+          id: page.link,
+        });
       }
     },
     []
   );
 
   const handleReferralClick = useCallback((id: number): void => {
-    // requestTeam({
-    //   id,
-    // });
+    requestTeam({
+      id,
+    });
   }, []);
 
   // main data getter

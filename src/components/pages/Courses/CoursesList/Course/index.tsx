@@ -32,10 +32,12 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
   const balance = useSelector((state: RootState) => state.profile.balance);
 
   const handleCardClick = useCallback(() => {
+    // else if (profile.level < item.level) {
+    //   toast.error(t('course.buy.errorLevel'));
+    // }
+
     if (item.is_bought) {
       history.push(`/courses/${item.id}`);
-    } else if (profile.level < item.level) {
-      toast.error(t('course.buy.errorLevel'));
     } else if (balance.bitlimes < parseInt(item.price, 10)) {
       toast.error(t('course.buy.errorMoney'));
     } else {

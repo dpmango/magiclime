@@ -36,26 +36,26 @@ export const buildMatrixLevels = (programId: number): number[] => {
       fromZero = false;
       break;
     case 2:
-      levels = 5;
+      levels = 6;
       break;
     case 3:
-      levels = 5;
+      levels = 6;
       break;
     case 4:
-      levels = 5;
+      levels = 6;
       break;
     case 5:
       levels = 6;
-      fromZero = false;
       break;
     case 6:
-      levels = 7;
-
+      levels = 11;
+      fromZero = false;
       break;
     default:
       break;
   }
 
+  console.log('levels change', levels);
   return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
 };
 

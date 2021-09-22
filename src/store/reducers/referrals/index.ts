@@ -4,15 +4,17 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   getReferralsService,
   getClonesService,
+  getTeamService,
 } from 'utils/api/routes/referrals';
 import { IReferralTree, IClone } from 'types/interfaces/referrals';
-import { ReferralsPayloadType } from './types';
+import { ReferralsPayloadType, TeamPayloadType } from './types';
 
 const initialState = {
   loading: true,
   error: '',
   referralsTree: {} as IReferralTree,
   clones: [] as IClone[],
+  team: {} as IReferralTree,
 };
 
 export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
@@ -58,6 +60,26 @@ export const getClones = createAsyncThunk<any, ReferralsPayloadType>(
   }
 );
 
+export const getTeam = createAsyncThunk<any, TeamPayloadType>(
+  'referrals/getTeam',
+  async (payload, { dispatch, rejectWithValue }) => {
+    const { successCallback, errorCallback, ...data } = payload;
+
+    try {
+      const response = await getTeamService(data);
+
+      if (response?.status === 200) {
+        dispatch(setTeamTree(response.data));
+        successCallback && successCallback(response.data);
+      }
+      return response.data;
+    } catch (err) {
+      errorCallback && errorCallback();
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const referralsSlice = createSlice({
   name: 'article',
   initialState,
@@ -67,6 +89,9 @@ const referralsSlice = createSlice({
     },
     setClones: (state, action: PayloadAction<IClone[]>) => {
       state.clones = action.payload;
+    },
+    setTeamTree: (state, action: PayloadAction<IReferralTree>) => {
+      state.team = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -86,6 +111,7 @@ const referralsSlice = createSlice({
   },
 });
 
-export const { setReferralsTree, setClones, setError } = referralsSlice.actions;
+export const { setReferralsTree, setClones, setTeamTree, setError } =
+  referralsSlice.actions;
 
 export default referralsSlice.reducer;
