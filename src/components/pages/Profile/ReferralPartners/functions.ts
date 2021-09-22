@@ -61,7 +61,7 @@ export const buildMatrixLevels = (programId: number): number[] => {
 
 export const buildTree = ({
   referralsTree,
-  initialLvl,
+  level,
 }: IBuildTree): IMappedData => {
   const withClones = (childs: IReferralTree[]) => {
     let childsCopy = childs;
@@ -91,7 +91,7 @@ export const buildTree = ({
     // firstly, create space wrapper for main referal based on array length
     // some programs have 0 level, it means 3 direct referrals with no sub-refs
     // if program starts with 1 level, only 2 direct referrals allowed and each one inclues 2 sub-refs
-    if (initialLvl !== 0) {
+    if (level !== 0) {
       if (childs.length === 0) {
         childsCopy = [{ ...mainClone, clone_enabled: true }, mainClone];
       }
@@ -121,7 +121,7 @@ export const buildTree = ({
     }
 
     // then append child clones if < 2 items
-    if (initialLvl !== 0) {
+    if (level !== 0) {
       childsCopy = [
         ...childsCopy.map((x, mainIdx) => {
           let clones: any[] = [];

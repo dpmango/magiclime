@@ -265,9 +265,9 @@ const Referrals: FC = () => {
   const mappedData = useMemo((): IMappedData => {
     return buildTree({
       referralsTree,
-      initialLvl: getInitialLevel(filterProgram.id),
+      level: selectedLevel,
     });
-  }, [referralsTree, filterProgram.id]);
+  }, [referralsTree, selectedLevel]);
 
   return (
     <div className={styles.root}>
