@@ -6,7 +6,7 @@ import React, {
   useEffect,
   MouseEvent,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,8 @@ import { IconSearch } from '@consta/uikit/IconSearch';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { IReferralTree } from 'types/interfaces/referrals';
+import { RootState } from 'store/reducers/rootReducer';
+import { IReferralTeam } from 'types/interfaces/referrals';
 import { getTeam } from 'store/reducers/referrals';
 
 import useSharedStyles from 'assets/styles/Shared';
@@ -27,8 +28,6 @@ import ReferralUser from './ReferralUser';
 import { buildTree } from './functions';
 import { ICrumbsPage, IRequestPayload, IMappedData } from './types';
 import useStyles from './styles';
-
-import { referralsTree } from './mockData';
 
 const ReferralsTeam: FC = () => {
   const styles = useStyles();
@@ -41,15 +40,19 @@ const ReferralsTeam: FC = () => {
 
   const [filterSearch, setFilterSearch] = useState<string | null>('');
 
-  const loading = false;
-  const error = false;
+  const teamTree = useSelector((state: RootState) => state.referrals.team);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>('');
 
   // api actions
   const requestTeam = useCallback(async ({ id }: { id?: number | string }) => {
+    setLoading(true);
+    setError('');
+
     await dispatch(
       getTeam({
         id,
-        successCallback: (res?: IReferralTree) => {
+        successCallback: (res?: IReferralTeam) => {
           const params = new URLSearchParams({
             id: `${res!.id}`,
           });
@@ -64,9 +67,13 @@ const ReferralsTeam: FC = () => {
             pathname: location.pathname,
             search: '',
           });
+
+          setError('Ошибка при получении команды');
         },
       })
     );
+
+    setLoading(false);
   }, []);
 
   // initial request with url getters & setters
@@ -110,8 +117,8 @@ const ReferralsTeam: FC = () => {
 
   // main data getter
   const mappedData = useMemo((): IMappedData => {
-    return buildTree({ referralsTree });
-  }, [referralsTree]);
+    return buildTree({ teamTree });
+  }, [teamTree]);
 
   console.log({ mappedData });
   return (
@@ -145,15 +152,15 @@ const ReferralsTeam: FC = () => {
                   <ReferralUser data={mappedData.root} root />
                 )}
 
-                {mappedData.childrens &&
-                  mappedData.childrens.map((group: IReferralTree, idx) => (
+                {mappedData.children &&
+                  mappedData.children.map((group: IReferralTeam, idx) => (
                     <div key={group.id || idx} className={styles.referralGroup}>
                       <ReferralUser
                         data={group}
                         onReferralClick={handleReferralClick}
                       />
                       {group.children &&
-                        group.children.map((referral: IReferralTree, cidx) => (
+                        group.children.map((referral: IReferralTeam, cidx) => (
                           <div
                             key={group.id || idx}
                             className={styles.referralGroup}
@@ -166,7 +173,7 @@ const ReferralsTeam: FC = () => {
                             />
                             {referral.children &&
                               referral.children.map(
-                                (referral2: IReferralTree, cidx) => (
+                                (referral2: IReferralTeam, cidx) => (
                                   <ReferralUser
                                     data={referral2}
                                     key={referral2.id || cidx}

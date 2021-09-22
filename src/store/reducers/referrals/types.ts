@@ -1,4 +1,4 @@
-import { IReferralTree } from 'types/interfaces/referrals';
+import { IReferralTree, IReferralTeam } from 'types/interfaces/referrals';
 
 export type ReferralsPayloadType = {
   id?: number | string;
@@ -10,6 +10,6 @@ export type ReferralsPayloadType = {
 
 export type TeamPayloadType = {
   id?: number | string;
-  successCallback?: (res: IReferralTree) => void;
+  successCallback?: (res: IReferralTeam) => void;
   errorCallback?: () => void;
 };

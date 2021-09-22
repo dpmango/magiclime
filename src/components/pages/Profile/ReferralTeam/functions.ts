@@ -13,22 +13,22 @@ const defaultCrumbs: ICrumbsPage[] = [
   },
 ];
 
-export const buildTree = ({ referralsTree }: IBuildTree): IMappedData => {
+export const buildTree = ({ teamTree }: IBuildTree): IMappedData => {
   return {
-    root: !isEmpty(referralsTree) ? referralsTree : null,
-    childrens: !isEmpty(referralsTree) ? referralsTree.children : [],
+    root: !isEmpty(teamTree) ? teamTree : null,
+    children: !isEmpty(teamTree) ? teamTree.children : [],
     crumbs: [
       ...defaultCrumbs,
-      ...(referralsTree.ancestors
-        ? referralsTree.ancestors.map((a) => ({
+      ...(teamTree.ancestors
+        ? teamTree.ancestors.map((a) => ({
             label: a.username || 'unknown',
             link: `${a.id}` || '#',
           }))
         : []),
       ...[
         {
-          label: referralsTree.username || 'unknown',
-          link: `${referralsTree.id}` || '#',
+          label: teamTree.username || 'unknown',
+          link: `${teamTree.id}` || '#',
           isActive: true,
         },
       ],

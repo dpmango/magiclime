@@ -1,5 +1,5 @@
 import React from 'react';
-import { IReferralTree } from 'types/interfaces/referrals';
+import { IReferralTeam } from 'types/interfaces/referrals';
 
 export interface IRequestPayload {
   id?: number | string;
@@ -12,12 +12,12 @@ export interface ICrumbsPage {
 }
 
 export interface IBuildTree {
-  referralsTree: IReferralTree;
+  teamTree: IReferralTeam;
 }
 
 export interface IMappedData {
-  root: IReferralTree | null;
-  childrens: IReferralTree[];
+  root: IReferralTeam | null;
+  children: IReferralTeam[];
   crumbs: ICrumbsPage[];
 }
 

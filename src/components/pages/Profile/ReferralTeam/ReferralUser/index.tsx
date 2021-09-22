@@ -11,12 +11,12 @@ import Flex from 'components/Common/Flex';
 import { Plurize } from 'utils/helpers/plurize';
 import { timeToTimeStamp } from 'utils/helpers/formatDate';
 import { copyToClipboard } from 'utils/helpers/clipboard';
-import { IReferralTree } from 'types/interfaces/referrals';
+import { IReferralTeam } from 'types/interfaces/referrals';
 
 import useStyles from './styles';
 
 interface IProps {
-  data: IReferralTree;
+  data: IReferralTeam;
   nested?: boolean;
   nested2?: boolean;
   root?: boolean;
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 const ReferralUser: FC<IProps> = ({
-  data: { id, username, avatar, referrals_count, created_at },
+  data: { id, username, avatar, email, date_joined, level, name },
   nested,
   nested2,
   root,
@@ -33,21 +33,21 @@ const ReferralUser: FC<IProps> = ({
   const styles = useStyles({ nested, nested2, root });
   const { t } = useTranslation();
 
-  const referralsPlural = useMemo(() => {
-    return Plurize(
-      referrals_count || 0,
-      t('profile.spacePlural.one'),
-      t('profile.spacePlural.two'),
-      t('profile.spacePlural.five')
-    );
-  }, [referrals_count]);
+  // const referralsPlural = useMemo(() => {
+  //   return Plurize(
+  //     referrals_count || 0,
+  //     t('profile.spacePlural.one'),
+  //     t('profile.spacePlural.two'),
+  //     t('profile.spacePlural.five')
+  //   );
+  // }, [referrals_count]);
 
   const timestamp = useMemo(() => {
-    if (!created_at) {
+    if (!date_joined) {
       return ' ';
     }
-    return moment(created_at).format('DD.MM.YY, HH:mm:ss');
-  }, [created_at]);
+    return moment(date_joined).format('DD.MM.YY, HH:mm:ss');
+  }, [date_joined]);
 
   return (
     <Flex
@@ -69,7 +69,7 @@ const ReferralUser: FC<IProps> = ({
               {username}&nbsp;
               {!root && (
                 <Typography view="secondary" lineHeight="s" size="m">
-                  [Уровень 1]
+                  [{t('profile.referral.card.level')} {level}]
                 </Typography>
               )}
             </Flex>
@@ -82,7 +82,7 @@ const ReferralUser: FC<IProps> = ({
               weight="semibold"
               view="ghost"
             >
-              Уровень 4
+              {t('profile.referral.card.level')} {level}
             </Typography>
           )}
         </div>
@@ -132,7 +132,7 @@ const ReferralUser: FC<IProps> = ({
             </Typography>
           </div>
 
-          <div className={styles.referralCount}>
+          {/* <div className={styles.referralCount}>
             <Typography
               size={root ? 'l' : 's'}
               view={root ? 'primary' : 'secondary'}
@@ -149,7 +149,7 @@ const ReferralUser: FC<IProps> = ({
                 {referralsPlural}
               </Typography>
             )}
-          </div>
+          </div> */}
         </>
       ) : (
         <>
@@ -160,10 +160,10 @@ const ReferralUser: FC<IProps> = ({
           </div>
           <Flex align="center" className={styles.referralUserData}>
             <Typography margin="0 16px 0 0px" size="s" weight="regular">
-              Анастасия Романова
+              {name}
             </Typography>
             <Typography size="s" weight="regular">
-              example@gmail.com
+              {email}
             </Typography>
           </Flex>
         </>

@@ -6,7 +6,11 @@ import {
   getClonesService,
   getTeamService,
 } from 'utils/api/routes/referrals';
-import { IReferralTree, IClone } from 'types/interfaces/referrals';
+import {
+  IReferralTree,
+  IReferralTeam,
+  IClone,
+} from 'types/interfaces/referrals';
 import { ReferralsPayloadType, TeamPayloadType } from './types';
 
 const initialState = {
@@ -14,7 +18,7 @@ const initialState = {
   error: '',
   referralsTree: {} as IReferralTree,
   clones: [] as IClone[],
-  team: {} as IReferralTree,
+  team: {} as IReferralTeam,
 };
 
 export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
@@ -90,7 +94,7 @@ const referralsSlice = createSlice({
     setClones: (state, action: PayloadAction<IClone[]>) => {
       state.clones = action.payload;
     },
-    setTeamTree: (state, action: PayloadAction<IReferralTree>) => {
+    setTeamTree: (state, action: PayloadAction<IReferralTeam>) => {
       state.team = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {

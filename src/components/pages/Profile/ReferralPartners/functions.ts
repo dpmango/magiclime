@@ -55,7 +55,6 @@ export const buildMatrixLevels = (programId: number): number[] => {
       break;
   }
 
-  console.log('levels change', levels);
   return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
 };
 

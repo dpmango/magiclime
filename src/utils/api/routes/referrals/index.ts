@@ -2,6 +2,7 @@ import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import {
   IReferralTree,
+  IReferralTeam,
   IRererralHistory,
   IClone,
 } from 'types/interfaces/referrals';
@@ -52,7 +53,7 @@ export const getClonesService = (data: {
 
 export const getTeamService = (data: {
   id?: number | string;
-}): AxiosPromise<IReferralTree> => {
+}): AxiosPromise<IReferralTeam> => {
   let params = {};
 
   if (data.id && data.id !== 'me') {
