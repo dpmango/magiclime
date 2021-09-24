@@ -17,7 +17,7 @@ export const getForums = async (): Promise<
     const { data } = await $api.get(endpoints.forum.root);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -29,7 +29,7 @@ export const getForumTopic = async (
     const { data } = await $api.get(endpoints.forum.byId(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, {} as ITopic];
   }
 };

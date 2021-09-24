@@ -35,7 +35,7 @@ export const getArticles = createAsyncThunk<unknown, ArticlesPayloadType>(
         dispatch(setArticles(response.data.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }

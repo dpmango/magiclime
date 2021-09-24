@@ -48,7 +48,7 @@ export const getRecommendedCourseService = async (): Promise<
   try {
     const { data } = await $api.get(endpoints.courses.recommended);
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -60,7 +60,7 @@ export const buyCourseService = async (
     const { data } = await $api.post(endpoints.courses.buy(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -73,7 +73,7 @@ export const getCourseService = async (
     const { data } = await $api.get(endpoints.courses.byId(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -85,7 +85,7 @@ export const getCourseChapterService = async (
     const { data } = await $api.get(endpoints.courses.currentChapter(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -97,7 +97,7 @@ export const completeCourseService = async (
     const { data } = await $api.post(endpoints.courses.completeCourse(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -109,7 +109,7 @@ export const completeChapterService = async (
     const { data } = await $api.post(endpoints.courses.completeChapter(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -121,7 +121,7 @@ export const completeExerciseService = async (
     const { data } = await $api.post(endpoints.courses.completeExercise(id));
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };

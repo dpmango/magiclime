@@ -65,15 +65,26 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
                 >
                   {t('profile.referral.stats.link')}
                 </Typography>
-                <TextField
-                  name="name"
-                  size="s"
-                  form="round"
-                  value={`${profile.referral_number}`}
-                  leftSide={IconCopy}
-                  className={styles.input}
-                  onClick={handleCopyRefClick}
-                />
+                {profile.is_bought_1level_bitlime ? (
+                  <TextField
+                    name="name"
+                    size="s"
+                    form="round"
+                    value={`${profile.referral_number}`}
+                    leftSide={IconCopy}
+                    className={styles.input}
+                    onClick={handleCopyRefClick}
+                  />
+                ) : (
+                  <Typography
+                    size="s"
+                    weight="semibold"
+                    margin="12px 0 0px"
+                    view="primary"
+                  >
+                    {t('profile.referral.stats.linkEmpty')}
+                  </Typography>
+                )}
               </div>
             </GridItem>
           </>

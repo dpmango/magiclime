@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component, Dispatch, SetStateAction } from 'react';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 // Тип для передачи других компонент в качестве props
 export type ComponentType<T = any> = typeof Component | React.FC<T>;
@@ -11,6 +11,8 @@ export type SetStateType<T = any> = Dispatch<SetStateAction<T>>;
 
 // Более короткая запись axios ответа
 export type AxiosPromise<T = any> = Promise<AxiosResponse<T>>;
+
+export type AxiosCatchError = Error | AxiosError;
 
 export enum Language {
   RU = 'ru',

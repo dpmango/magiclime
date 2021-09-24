@@ -49,7 +49,7 @@ export const getCategories = createAsyncThunk<unknown, PaginationPayloadType>(
         dispatch(setCategories(response.data.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -65,7 +65,7 @@ export const getTags = createAsyncThunk<unknown, PaginationPayloadType>(
         dispatch(setTags(response.data.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -81,7 +81,7 @@ export const getRates = createAsyncThunk<unknown>(
         dispatch(setRates(response.data));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -97,7 +97,7 @@ export const getCities = createAsyncThunk<unknown, PaginationPayloadType>(
         dispatch(setCities(response.data.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -114,7 +114,7 @@ export const getAllMeta = createAsyncThunk<unknown, null>(
       dispatch(getRates());
 
       return true;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }

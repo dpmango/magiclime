@@ -11,7 +11,7 @@ export const getBitcoinService = async (): Promise<
     const { data } = await $api.get('/bitcoin/');
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };

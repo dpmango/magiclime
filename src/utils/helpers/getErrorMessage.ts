@@ -11,8 +11,8 @@ interface IError {
 export const getErrorMessage = (err: IError) => {
   let errText = '';
 
+  // console.log('getting error message', err);
   try {
-    console.log(err);
     if (!isObject(err.data)) {
       throw new Error();
     }

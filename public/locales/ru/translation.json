@@ -272,17 +272,17 @@
         }
       },
       "withdrawal": {
-        "title": "Возврат средств",
+        "title": "Списать баллы",
         "payment": {
           "label": "Валюта возврата"
         },
         "credentials": {
-          "label": "Запросить возврат денежных средств",
-          "placeholder": "Введите адрес кошелька"
+          "label": "Код",
+          "placeholder": "кошелёк"
         },
         "amount": {
           "label": "Сумма возврата",
-          "placeholder": "Введите сумму в BL"
+          "placeholder": "Количество баллов"
         },
         "cta": "Запросить возврат",
         "toast": {
@@ -335,6 +335,7 @@
     "referral": {
       "stats": {
         "link": "Реферальный код",
+        "linkEmpty": "Необходимо купить первый уровень в BitLime",
         "bounspoints": "Бонусные Баллы",
         "invited": "Приглашено",
         "matrix": "Матрица",

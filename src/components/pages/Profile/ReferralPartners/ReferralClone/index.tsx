@@ -53,6 +53,12 @@ const ReferralClone: FC<IProps> = ({
           {timestamp}
         </Typography>
       </div>
+
+      <div className={styles.referralId}>
+        <Typography size="s" view="primary" weight="regular">
+          {id}
+        </Typography>
+      </div>
     </Flex>
   );
 };

@@ -69,6 +69,7 @@ export const buildTree = ({
       is_clone: true,
       clone_id: referralsTree.id,
       clone_enabled: false,
+      price: referralsTree.price,
       children: [],
     };
 
@@ -128,6 +129,7 @@ export const buildTree = ({
             is_clone: true,
             clone_id: x.id || referralsTree.id,
             clone_enabled: mainIdx === 0 ? haveAnyOneFilled : haveAnyTwoFilled,
+            price: referralsTree.price,
           };
 
           if (x.children && x.children.length === 0) {

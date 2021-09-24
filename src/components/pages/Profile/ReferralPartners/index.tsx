@@ -17,13 +17,18 @@ import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
+import cns from 'classnames';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals, getClones } from 'store/reducers/referrals';
 import { getBalance } from 'store/reducers/profile';
-import { buyMatricesService } from 'utils/api/routes/referrals';
+import { getProfile } from 'store/reducers/user';
+import {
+  buyMatricesService,
+  getClonePositionService,
+} from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
 import { IReferralTree, IClone } from 'types/interfaces/referrals';
 import { ISelectOption } from 'types/interfaces/common';
@@ -222,15 +227,17 @@ const Referrals: FC = () => {
   }, []);
 
   const handleBuyClick = useCallback(
-    async (id?: number) => {
+    async (id?: number, partner?: string) => {
       if (buyProcessing) return;
 
       setBuyProcessing(true);
+      setModalConfirm({ opened: false, id: 0 });
 
       const [err, res] = await buyMatricesService({
         level: selectedLevel,
         program: filterProgram.id,
         matrixUserId: id,
+        positionRequestUserId: partner ? parseInt(partner, 10) : undefined,
       });
 
       if (err || !res) {
@@ -245,7 +252,6 @@ const Referrals: FC = () => {
       }
 
       // toast.success(t('profile.referral.buy.toast.success'));
-      setModalConfirm({ opened: false, id: 0 });
       setModalSuccess({ opened: true });
 
       await requestReferrals({
@@ -256,10 +262,28 @@ const Referrals: FC = () => {
 
       await dispatch(getBalance());
 
+      await dispatch(getProfile({}));
+
       setBuyProcessing(false);
     },
     [buyProcessing, selectedLevel, filterProgram, savedUserId]
   );
+
+  const handleClonePlaceClick = useCallback(async () => {
+    const [err, data] = await getClonePositionService({
+      matrixUserId: parseInt(query.get('id') || '', 10),
+      program: filterProgram.id,
+      level: selectedLevel,
+    });
+
+    if (!err) {
+      requestReferrals({
+        id: data!.parent_matrixUserId,
+        program: filterProgram.id,
+        level: selectedLevel,
+      });
+    }
+  }, [filterProgram, selectedLevel, query]);
 
   // main data getter
   const mappedData = useMemo((): IMappedData => {
@@ -334,6 +358,16 @@ const Referrals: FC = () => {
                         ))}
                     </div>
                   ))}
+
+                {buyProcessing && (
+                  <div className={cns(sharedStyles.loader, styles.loader)}>
+                    <Loader />
+
+                    <Typography margin="32px 0 0" align="center" size="s">
+                      Покупка может занять до 1 минуты. Пожалуйста подождите
+                    </Typography>
+                  </div>
+                )}
               </div>
 
               {clones && (
@@ -377,7 +411,7 @@ const Referrals: FC = () => {
             </>
           )}
 
-          {(buyProcessing || loading) && (
+          {loading && (
             <div className={sharedStyles.loader}>
               <Loader />
             </div>
@@ -423,7 +457,12 @@ const Referrals: FC = () => {
               />
             </div>
             <div className={styles.filtersGroup}>
-              <Typography view="link" size="s" align="center">
+              <Typography
+                view="link"
+                size="s"
+                align="center"
+                onClick={handleClonePlaceClick}
+              >
                 Куда встанет клон?
               </Typography>
             </div>

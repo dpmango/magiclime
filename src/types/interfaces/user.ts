@@ -27,4 +27,5 @@ export interface IUser {
   media_sponsor: string;
   username: string;
   is_staff: boolean;
+  is_bought_1level_bitlime: boolean;
 }

@@ -20,7 +20,7 @@ export const copyToClipboard = (
     if (tSucces) {
       toast.success(tSucces);
     }
-  } catch (err) {
+  } catch (err: any) {
     if (tError) {
       toast.error(`${tError} : ${err.message}`);
     }

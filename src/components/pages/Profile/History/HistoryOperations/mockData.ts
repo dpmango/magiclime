@@ -2,6 +2,7 @@ export interface IColumn {
   title: string;
   accessor: string;
   sortable?: boolean;
+  width?: number;
 }
 
 export const columns: IColumn[] = [
@@ -9,6 +10,7 @@ export const columns: IColumn[] = [
     title: 'ID',
     accessor: 'id',
     sortable: false,
+    width: 100,
   },
   {
     title: 'Дата',

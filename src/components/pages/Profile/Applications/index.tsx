@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState, useMemo } from 'react';
+import React, { FC, useEffect, useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
 import { Select } from '@consta/uikit/Select';
 import { toast } from 'react-hot-toast';
@@ -7,47 +8,78 @@ import { toast } from 'react-hot-toast';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import {
-  getApplicationsService,
+  getOutcomingApplicationsService,
+  getIncomingApplicationsService,
   postApplicationService,
+  approveApplicationService,
+  rejectApplicationService,
 } from 'utils/api/routes/position';
+import { RootState } from 'store/reducers/rootReducer';
 import { ISelectOption } from 'types/interfaces/common';
+import {
+  IApplicationOutcoming,
+  IApplicationIncoming,
+} from 'types/interfaces/profile';
+import {
+  programOptions,
+  buildMatrixLevels,
+  getInitialLevel,
+} from 'components/pages/Profile/ReferralPartners/functions';
 
-import { content } from './mockData';
 import useStyles from './styles';
 import useRootStyles from '../styles';
-
-const matrixOptions: ISelectOption[] = [
-  { id: 1, label: '1' },
-  { id: 2, label: '2' },
-  { id: 3, label: '3' },
-  { id: 4, label: '4' },
-  { id: 5, label: '5' },
-  { id: 6, label: '6' },
-];
 
 const ProfileApplications: FC = () => {
   const styles = useStyles();
   const rootStyles = useRootStyles();
   const { t } = useTranslation();
 
-  const [matrix, setMatrix] = useState<ISelectOption | null>(matrixOptions[0]);
-  const [applications, setApplications] = useState([]);
+  const [program, setProgram] = useState<ISelectOption>(programOptions[0]);
+  const matrixLevels: ISelectOption[] = useMemo(() => {
+    return buildMatrixLevels(program!.id).map((x: number) => ({
+      id: x,
+      label: `${x}`,
+    }));
+  }, [program]);
+  const [level, setLevel] = useState<ISelectOption>(matrixLevels[0]);
 
-  const fetchApplications = async () => {
-    const [err, data] = await getApplicationsService();
+  const [outcomingApplications, setOutcomingApplications] = useState<
+    IApplicationOutcoming[]
+  >([]);
+  const [incomingApplications, setIncomingApplications] = useState<
+    IApplicationIncoming[]
+  >([]);
+
+  const profile = useSelector((state: RootState) => state.user.profile);
+
+  const fetchOutcomingApplications = async () => {
+    const [err, data] = await getOutcomingApplicationsService();
 
     if (err) {
       toast.error(err);
       return;
     }
 
-    setApplications(data);
+    setOutcomingApplications(data || []);
   };
 
-  const handleApplicationPost = async () => {
+  const fetchIncomingApplications = async () => {
+    const [err, data] = await getIncomingApplicationsService();
+
+    if (err) {
+      toast.error(err);
+      return;
+    }
+
+    setIncomingApplications(data || []);
+  };
+
+  const handleApplicationPost = useCallback(async () => {
     const [err, data] = await postApplicationService({
-      from_user: 42,
-      to_user: 1,
+      from_user: profile.id,
+      // to_user: profile.id,
+      level: level!.id,
+      program: program!.id,
     });
 
     if (err) {
@@ -55,12 +87,87 @@ const ProfileApplications: FC = () => {
       return;
     }
 
-    await fetchApplications();
-  };
+    toast.success('Заявка создана');
+    await fetchOutcomingApplications();
+  }, [level, program]);
+
+  const handleRejectClick = useCallback(
+    async (id: number, type: 'outcoming' | 'incoming') => {
+      const [err, data] = await rejectApplicationService(id);
+
+      if (err) {
+        toast.error(err);
+        return;
+      }
+
+      toast.success('Заявка отклонена');
+      if (type === 'outcoming') {
+        await fetchOutcomingApplications();
+      } else if (type === 'incoming') {
+        await fetchIncomingApplications();
+      }
+    },
+    []
+  );
+
+  const handleApproveClick = useCallback(
+    async (id: number, type: 'outcoming' | 'incoming') => {
+      const [err, data] = await approveApplicationService(id);
+
+      if (err) {
+        toast.error(err);
+        return;
+      }
+
+      toast.success('Заявка принята');
+      if (type === 'outcoming') {
+        await fetchOutcomingApplications();
+      } else if (type === 'incoming') {
+        await fetchIncomingApplications();
+      }
+    },
+    []
+  );
+
+  const handleProgramChange = useCallback((program: ISelectOption) => {
+    setProgram(program);
+    const initialLvl = getInitialLevel(program.id);
+    setLevel({ id: initialLvl, label: `${initialLvl}` });
+  }, []);
 
   useEffect(() => {
-    fetchApplications();
+    fetchOutcomingApplications();
+    fetchIncomingApplications();
   }, []);
+
+  // getters
+  const contentOutcoming = useMemo(() => {
+    if (outcomingApplications && outcomingApplications.length) {
+      return outcomingApplications.map((x: IApplicationOutcoming) => ({
+        id: x.id,
+        login: x.to_user.username,
+        name: x.to_user.name,
+        email: x.to_user.email,
+        phone: x.to_user.phone,
+      }));
+    }
+
+    return [];
+  }, [outcomingApplications]);
+
+  const contentIncoming = useMemo(() => {
+    if (incomingApplications && incomingApplications.length) {
+      return incomingApplications.map((x: IApplicationIncoming) => ({
+        id: x.id,
+        login: x.from_user.username,
+        name: x.from_user.name,
+        email: x.from_user.email,
+        phone: x.from_user.phone,
+      }));
+    }
+
+    return [];
+  }, [incomingApplications]);
 
   return (
     <div className={styles.root}>
@@ -113,9 +220,9 @@ const ProfileApplications: FC = () => {
             <th />
           </thead>
           <tbody className={styles.tbody}>
-            {content &&
-              content.map((tr) => (
-                <tr>
+            {contentIncoming &&
+              contentIncoming.map((tr) => (
+                <tr key={tr.id} data-id={tr.id}>
                   <td>
                     <Typography size="s">{tr.login}</Typography>
                   </td>
@@ -139,15 +246,28 @@ const ProfileApplications: FC = () => {
                         size="s"
                         view="secondary"
                         label={t('common.actions.reject')}
+                        onClick={() => handleRejectClick(tr.id, 'incoming')}
                       />
                     </Flex>
                   </td>
                 </tr>
               ))}
+
+            {contentIncoming && contentIncoming.length === 0 && (
+              <Typography
+                view="alert"
+                align="center"
+                weight="semibold"
+                margin="0 0 12px"
+              >
+                Заявки не найдены
+              </Typography>
+            )}
           </tbody>
         </table>
       </div>
 
+      {/* next section */}
       <div className={rootStyles.section}>
         <Typography
           margin="24px 0 0"
@@ -168,11 +288,18 @@ const ProfileApplications: FC = () => {
 
         <div className={styles.apply}>
           <Flex>
-            <div className={styles.applySelect}>
+            <div className={styles.applyProgram}>
               <Select
-                value={matrix}
-                onChange={({ value }) => setMatrix(value)}
-                items={matrixOptions}
+                value={program}
+                onChange={({ value }) => handleProgramChange(value!)}
+                items={programOptions}
+              />
+            </div>
+            <div className={styles.applyLevel}>
+              <Select
+                value={level}
+                onChange={({ value }) => setLevel(value!)}
+                items={matrixLevels}
               />
             </div>
 
@@ -219,9 +346,9 @@ const ProfileApplications: FC = () => {
             <th />
           </thead>
           <tbody className={styles.tbody}>
-            {content &&
-              content.map((tr) => (
-                <tr>
+            {contentOutcoming &&
+              contentOutcoming.map((tr) => (
+                <tr key={tr.id} data-id={tr.id}>
                   <td>
                     <Typography size="s">{tr.login}</Typography>
                   </td>
@@ -244,11 +371,23 @@ const ProfileApplications: FC = () => {
                         size="s"
                         view="secondary"
                         label={t('common.actions.reject')}
+                        onClick={() => handleRejectClick(tr.id, 'outcoming')}
                       />
                     </Flex>
                   </td>
                 </tr>
               ))}
+
+            {contentOutcoming && contentOutcoming.length === 0 && (
+              <Typography
+                view="alert"
+                align="center"
+                weight="semibold"
+                margin="0 0 12px"
+              >
+                Заявки не найдены
+              </Typography>
+            )}
           </tbody>
         </table>
       </div>

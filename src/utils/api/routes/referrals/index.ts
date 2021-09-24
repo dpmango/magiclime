@@ -72,10 +72,12 @@ export const buyMatricesService = async ({
   level,
   program,
   matrixUserId,
+  positionRequestUserId,
 }: {
   level: number;
   program: number;
   matrixUserId?: number;
+  positionRequestUserId?: number;
 }): Promise<[{ status: number } | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.referrals.buy, null, {
@@ -83,10 +85,11 @@ export const buyMatricesService = async ({
         level,
         program,
         matrixUserId,
+        positionRequestUserId,
       },
     });
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };
@@ -102,4 +105,27 @@ export const getMatricesHistoryService = (
       page_size: limit || null,
     },
   });
+};
+
+export const getClonePositionService = async ({
+  level,
+  program,
+  matrixUserId,
+}: {
+  level: number;
+  program: number;
+  matrixUserId?: number;
+}): Promise<[any | null, any | null]> => {
+  try {
+    const { data } = await $api.get(endpoints.referrals.clonePlace, {
+      params: {
+        level,
+        program,
+        matrixUserId,
+      },
+    });
+    return [null, data];
+  } catch (error: any) {
+    return [error, null];
+  }
 };

@@ -43,6 +43,11 @@ const useStyles = makeStyles(() => ({
       textOverflow: 'ellipsis',
     },
   },
+  referralId: {
+    flex: '0 0 30%',
+    textAlign: 'right',
+    paddingRight: 12,
+  },
 }));
 
 export default useStyles;

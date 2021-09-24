@@ -6,6 +6,10 @@ const useStyles = makeStyles({
       marginRight: 16,
     },
   },
+  partners: {
+    marginTop: 24,
+    textAlign: 'center',
+  },
 });
 
 export default useStyles;

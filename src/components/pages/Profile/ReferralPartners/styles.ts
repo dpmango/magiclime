@@ -27,9 +27,11 @@ const useStyles = makeStyles({
     },
   },
   referrals: {
+    position: 'relative',
     marginTop: 28,
     paddingLeft: 52,
   },
+  loader: {},
 
   referralGroup: {
     position: 'relative',

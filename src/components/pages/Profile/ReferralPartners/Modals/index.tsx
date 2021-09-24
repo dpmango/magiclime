@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@consta/uikit/Button';
+import { TextField } from '@consta/uikit/TextField';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -13,7 +14,7 @@ import useStyles from './styles';
 interface IProps {
   modalConfirm: IModalProps;
   setModalConfirm: SetStateType<IModalProps>;
-  handleBuyClick: (id?: number) => void;
+  handleBuyClick: (id?: number, partner?: string) => void;
   modalSuccess: Omit<IModalProps, 'id'>;
   setModalSuccess: SetStateType<Omit<IModalProps, 'id'>>;
 }
@@ -28,6 +29,12 @@ const ReferralModals: FC<IProps> = ({
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [partner, setPartner] = useState<string>('');
+
+  const handleCtaClick = () => {
+    handleBuyClick(modalConfirm.id || undefined, partner);
+    setPartner('');
+  };
   return (
     <>
       <BaseModal
@@ -43,16 +50,21 @@ const ReferralModals: FC<IProps> = ({
           Откатить операцию невозможно.
         </Typography>
 
+        <div className={styles.partners}>
+          <TextField
+            value={partner}
+            onChange={({ value }) => setPartner(value || '')}
+            placeholder="Поставьте партнера"
+          />
+        </div>
+
         <Flex
           align="center"
           justify="center"
           margin="32px 0 0"
           className={styles.modalCta}
         >
-          <Button
-            label={t('common.actions.buy')}
-            onClick={() => handleBuyClick(modalConfirm.id || undefined)}
-          />
+          <Button label={t('common.actions.buy')} onClick={handleCtaClick} />
           <Button
             label={t('common.actions.cancel')}
             view="secondary"

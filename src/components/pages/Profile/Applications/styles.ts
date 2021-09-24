@@ -9,9 +9,14 @@ const useStyles = makeStyles({
   apply: {
     marginTop: 24,
   },
-  applySelect: {
+  applyProgram: {
     width: '100%',
-    maxWidth: 100,
+    maxWidth: 160,
+    marginRight: 16,
+  },
+  applyLevel: {
+    width: '100%',
+    maxWidth: 80,
     marginRight: 16,
   },
   table: {
@@ -46,7 +51,7 @@ const useStyles = makeStyles({
       fontSize: 14,
       verticalAlign: 'middle',
       '&:nth-child(2)': {
-        width: 150,
+        // width: 150,
       },
       '&:nth-child(5)': {
         width: 160,
