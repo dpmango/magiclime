@@ -23,23 +23,23 @@ type SelectItem = {
 
 const paymentSelectList: SelectItem[] = [
   {
-    label: 'Bitcoin',
-    icon: '/images/bitcoin.svg',
+    label: 'Баллы',
+    icon: '/images/bitlime.svg',
     disabled: false,
     id: 1,
   },
-  {
-    label: 'USDT',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 2,
-  },
-  {
-    label: 'RUB',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 3,
-  },
+  // {
+  //   label: 'USDT',
+  //   icon: '/images/bitlime.svg',
+  //   disabled: true,
+  //   id: 2,
+  // },
+  // {
+  //   label: 'RUB',
+  //   icon: '/images/bitlime.svg',
+  //   disabled: true,
+  //   id: 3,
+  // },
 ];
 
 const Withdrawal: FC = () => {

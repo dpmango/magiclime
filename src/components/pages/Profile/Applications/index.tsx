@@ -195,33 +195,33 @@ const ProfileApplications: FC = () => {
           {t('profile.applications.title')}
         </Typography>
 
-        <table className={styles.table}>
-          <thead className={styles.thead}>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thLogin')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thName')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thEmail')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thPhone')}
-              </Typography>
-            </th>
-            <th />
-          </thead>
-          <tbody className={styles.tbody}>
-            {contentIncoming &&
-              contentIncoming.map((tr) => (
+        {contentIncoming && contentIncoming.length !== 0 ? (
+          <table className={styles.table}>
+            <thead className={styles.thead}>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thLogin')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thName')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thEmail')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thPhone')}
+                </Typography>
+              </th>
+              <th />
+            </thead>
+            <tbody className={styles.tbody}>
+              {contentIncoming.map((tr) => (
                 <tr key={tr.id} data-id={tr.id}>
                   <td>
                     <Typography size="s">{tr.login}</Typography>
@@ -252,19 +252,13 @@ const ProfileApplications: FC = () => {
                   </td>
                 </tr>
               ))}
-
-            {contentIncoming && contentIncoming.length === 0 && (
-              <Typography
-                view="alert"
-                align="center"
-                weight="semibold"
-                margin="0 0 12px"
-              >
-                Заявки не найдены
-              </Typography>
-            )}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        ) : (
+          <Typography margin="24px 0" weight="semibold">
+            {t('profile.applications.table.empty')}
+          </Typography>
+        )}
       </div>
 
       {/* next section */}
@@ -321,33 +315,33 @@ const ProfileApplications: FC = () => {
           {t('profile.applications.my.title')}
         </Typography>
 
-        <table className={styles.table}>
-          <thead className={styles.thead}>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thLogin')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thName')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thEmail')}
-              </Typography>
-            </th>
-            <th>
-              <Typography size="xs" weight="semibold">
-                {t('profile.applications.table.thPhone')}
-              </Typography>
-            </th>
-            <th />
-          </thead>
-          <tbody className={styles.tbody}>
-            {contentOutcoming &&
-              contentOutcoming.map((tr) => (
+        {contentOutcoming && contentOutcoming.length !== 0 ? (
+          <table className={styles.table}>
+            <thead className={styles.thead}>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thLogin')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thName')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thEmail')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thPhone')}
+                </Typography>
+              </th>
+              <th />
+            </thead>
+            <tbody className={styles.tbody}>
+              {contentOutcoming.map((tr) => (
                 <tr key={tr.id} data-id={tr.id}>
                   <td>
                     <Typography size="s">{tr.login}</Typography>
@@ -377,19 +371,13 @@ const ProfileApplications: FC = () => {
                   </td>
                 </tr>
               ))}
-
-            {contentOutcoming && contentOutcoming.length === 0 && (
-              <Typography
-                view="alert"
-                align="center"
-                weight="semibold"
-                margin="0 0 12px"
-              >
-                Заявки не найдены
-              </Typography>
-            )}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        ) : (
+          <Typography margin="24px 0" weight="semibold">
+            {t('profile.applications.table.empty')}
+          </Typography>
+        )}
       </div>
     </div>
   );

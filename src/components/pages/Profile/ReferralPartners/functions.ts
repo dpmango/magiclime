@@ -45,7 +45,7 @@ export const buildMatrixLevels = (programId: number): number[] => {
       levels = 6;
       break;
     case 5:
-      levels = 6;
+      levels = 7;
       break;
     case 6:
       levels = 11;
