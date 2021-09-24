@@ -127,8 +127,8 @@ const CoursePage: FC = () => {
 
   const handleContinue = useCallback(async () => {
     if (nextSectionId) {
-      // const [err, data] = await completeExerciseService(activeSectionId);
-      const [err, data] = await completeCourseService(22);
+      const [err, data] = await completeExerciseService(activeSectionId);
+      // const [err, data] = await completeCourseService(22);
 
       if (!err) {
         // move to next section (compleate current, make next available and set current to next)

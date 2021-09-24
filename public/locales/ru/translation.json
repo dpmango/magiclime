@@ -278,8 +278,8 @@
           "label": "Валюта возврата"
         },
         "credentials": {
-          "label": "Код",
-          "placeholder": "кошелёк"
+          "label": "Кошелек",
+          "placeholder": "Введите № кошелька"
         },
         "amount": {
           "label": "Сумма списания",
