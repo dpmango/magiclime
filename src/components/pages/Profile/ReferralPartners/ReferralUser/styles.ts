@@ -10,6 +10,7 @@ interface IProps {
 const useStyles = makeStyles<null, IProps>(() => ({
   referral: {
     position: 'relative',
+    width: 'auto',
     background: ({ nested, root }) =>
       nested || root ? 'var(--color-bg-default)' : 'var(--color-bg-stripe)',
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
@@ -111,6 +112,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralCount: {
     flex: '0 0 12%',
     textAlign: 'left',
+  },
+  clonePrice: {
+    paddingRight: 12,
   },
   clone: {
     paddingLeft: 30,

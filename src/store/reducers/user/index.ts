@@ -97,7 +97,7 @@ export const login = createAsyncThunk<object, LoginPayloadType>(
       });
 
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         switch (err.status) {
           case 403:
@@ -128,7 +128,7 @@ export const registration = createAsyncThunk<object, RegistrationPayloadType>(
       dispatch(userRegistration(profile));
       successCallback && successCallback();
       return { access, refresh, ...profile };
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         switch (err.status) {
           case 403:
@@ -155,7 +155,7 @@ export const getProfile = createAsyncThunk<object, GetProfileType>(
         successCallback && successCallback(response.data);
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -175,7 +175,7 @@ export const getForeignProfile = createAsyncThunk<
     }
 
     return response.data;
-  } catch (err) {
+  } catch (err: any) {
     return rejectWithValue(err.response.data);
   }
 });
@@ -191,7 +191,7 @@ export const updateProfile = createAsyncThunk<object, UpdateProfileType>(
         successCallback && successCallback();
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         if (err.data) {
           Object.keys(err.data).forEach((key) => {
@@ -226,7 +226,7 @@ export const updateProfileAvatar = createAsyncThunk<
       }
 
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         if (err.data) {
           Object.keys(err.data).forEach((key) => {
@@ -257,7 +257,7 @@ export const deleteProfileAvatar = createAsyncThunk<
       }
 
       return response;
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         if (err.data) {
           Object.keys(err.data).forEach((key) => {
@@ -282,7 +282,7 @@ export const changePassword = createAsyncThunk<object, ChangePasswordType>(
         successCallback && successCallback();
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       if (errorCallback) {
         if (err.data) {
           Object.keys(err.data).forEach((key) => {

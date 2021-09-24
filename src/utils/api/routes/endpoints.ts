@@ -68,6 +68,7 @@ export default {
     list: '/auth/users/me/referrals/',
     clones: '/matrices/clones/',
     team: '/profile/referrals/',
+    clonePlace: '/matrices/future_clone_place/',
     buy: '/matrices/buy/',
     history: '/matrices/history/',
   },
@@ -75,8 +76,10 @@ export default {
     government: '/feedback/government/',
   },
   position: {
-    get: '/profile/position_requests/',
+    outcoming: '/profile/position_requests/',
+    incoming: '/position-requests/',
     post: '/position-requests/',
     approve: (id: number | string) => `/position-requests/${id}/approve/`,
+    reject: (id: number | string) => `/position-requests/${id}/reject/`,
   },
 };

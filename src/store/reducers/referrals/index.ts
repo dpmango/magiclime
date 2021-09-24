@@ -34,7 +34,7 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
         successCallback && successCallback(response.data);
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       dispatch(
         // todo - locale should be defined on backend
         setError('Вы еще не приобрели место в выбранном уровне')
@@ -57,7 +57,7 @@ export const getClones = createAsyncThunk<any, ReferralsPayloadType>(
         dispatch(setClones(response.data!.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       dispatch(setClones([]));
       return rejectWithValue(err.response.data);
     }
@@ -77,7 +77,7 @@ export const getTeam = createAsyncThunk<any, TeamPayloadType>(
         successCallback && successCallback(response.data);
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       errorCallback && errorCallback();
       return rejectWithValue(err.response.data);
     }

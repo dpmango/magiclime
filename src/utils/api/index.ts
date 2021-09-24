@@ -42,7 +42,7 @@ instance.interceptors.response.use(
         Cookies.set('access', access, { expires: 10 / 24 });
         originalRequest.headers.Authorization = `Bearer ${access}`;
         return await Axios(originalRequest);
-      } catch (err) {
+      } catch (err: any) {
         logoutFunc();
       }
     }

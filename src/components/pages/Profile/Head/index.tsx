@@ -62,7 +62,7 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
             <Typography weight="semibold" lineHeight="s" size="4xl">
               {profile.name}
             </Typography>
-            {isMyProfile && (
+            {isMyProfile && profile.is_bought_1level_bitlime && (
               <Typography
                 view="secondary"
                 weight="semibold"

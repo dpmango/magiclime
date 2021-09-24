@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     border: '1px solid var(--color-bg-border)',
     borderRadius: 10,
     padding: 24,
+    height: '100%',
   },
 
   input: {

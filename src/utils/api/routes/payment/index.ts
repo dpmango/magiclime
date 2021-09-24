@@ -60,7 +60,7 @@ export const postRefillBalance = async (
     const { data } = await $api.post(endpoints.payments.buy, request);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [getErrorMessage(error), null];
   }
 };
@@ -72,7 +72,7 @@ export const postWithdrawalBalance = async (
     const { data } = await $api.post(endpoints.payments.sell, request);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [getErrorMessage(error), null];
   }
 };
@@ -84,7 +84,7 @@ export const postTransferBalance = async (
     const { data } = await $api.post(endpoints.payments.transfer, request);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
 
     return [getErrorMessage(error), null];

@@ -126,8 +126,14 @@ const useStyles = makeStyles<null, IProps>(() => ({
   referralUserData: {
     flex: '0 0 100%',
     width: '100%',
+    minWidth: 1,
     marginTop: 4,
     paddingLeft: ({ nested }) => (nested ? 70 : 40),
+    '& .Text': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
   },
 }));
 

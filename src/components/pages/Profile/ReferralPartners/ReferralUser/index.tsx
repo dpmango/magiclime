@@ -9,6 +9,7 @@ import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { Plurize } from 'utils/helpers/plurize';
+import { formatPrice } from 'utils/helpers/formatPrice';
 import { timeToTimeStamp } from 'utils/helpers/formatDate';
 import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IReferralTree } from 'types/interfaces/referrals';
@@ -35,6 +36,7 @@ const ReferralUser: FC<IProps> = ({
     is_clone,
     clone_id,
     clone_enabled,
+    price,
   },
   level,
   program,
@@ -142,7 +144,7 @@ const ReferralUser: FC<IProps> = ({
           view={root ? 'brand' : 'primary'}
           weight={root ? 'semibold' : 'regular'}
         >
-          {timestamp}
+          {!clone_enabled ? timestamp : <>{formatPrice(price || 0)} BL</>}
         </Typography>
         {root && (
           <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
@@ -196,17 +198,19 @@ const ReferralUser: FC<IProps> = ({
           </div>
         </>
       ) : (
-        <div className={styles.clone}>
-          {clone_enabled && (
-            <Button
-              size="s"
-              view="primary"
-              form="round"
-              onClick={handleBuyClick}
-              label={t('profile.referral.buy.cta')}
-            />
-          )}
-        </div>
+        <>
+          <div className={styles.clone}>
+            {clone_enabled && (
+              <Button
+                size="s"
+                view="primary"
+                form="round"
+                onClick={handleBuyClick}
+                label={t('profile.referral.buy.cta')}
+              />
+            )}
+          </div>
+        </>
       )}
     </Flex>
   );

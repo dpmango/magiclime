@@ -19,7 +19,7 @@ export const postGovernmentFeedback = async (
     const { data } = await $api.post(endpoints.feedback.government, request);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };

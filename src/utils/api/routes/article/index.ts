@@ -22,7 +22,7 @@ export const getArticleByIdService = async (
     const { data } = await instance.get(`articles/${id}/`);
 
     return [null, data];
-  } catch (error) {
+  } catch (error: any) {
     return [error, null];
   }
 };

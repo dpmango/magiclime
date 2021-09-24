@@ -39,7 +39,7 @@ export const getBalance = createAsyncThunk(
         dispatch(setBalance(response.data));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -54,7 +54,7 @@ export const getAchivements = createAsyncThunk(
         dispatch(setAchievements(response.data!.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -69,7 +69,7 @@ export const getEvents = createAsyncThunk(
         dispatch(setEvents(response.data!.results));
       }
       return response.data;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }
@@ -83,7 +83,7 @@ export const getAllProfile = createAsyncThunk(
       dispatch(getAchivements());
       dispatch(getEvents());
       return true;
-    } catch (err) {
+    } catch (err: any) {
       return rejectWithValue(err.response.data);
     }
   }

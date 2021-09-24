@@ -90,7 +90,7 @@ const Login: FC = () => {
         >
           <Form>
             <div className={styles.field}>
-              <FormikInput name="email" placeholder="Ваш логин" />
+              <FormikInput name="email" placeholder="Ваш E-mail" />
             </div>
             <div className={styles.field}>
               <FormikInput

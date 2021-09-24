@@ -74,3 +74,26 @@ export interface IBonuseHistory {
   executor: number;
   to_user?: any;
 }
+
+export interface IApplicationUser {
+  id: number;
+  username: string;
+  email: string;
+  phone?: string;
+  name: string;
+}
+export interface IApplicationOutcoming {
+  id: number;
+  from_user: number;
+  to_user: IApplicationUser;
+  level: number;
+  program: number;
+}
+
+export interface IApplicationIncoming {
+  id: number;
+  from_user: IApplicationUser;
+  to_user: number;
+  level: number;
+  program: number;
+}
