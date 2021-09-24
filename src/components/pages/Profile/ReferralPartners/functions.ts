@@ -58,10 +58,35 @@ export const buildMatrixLevels = (programId: number): number[] => {
   return [...Array(levels).keys()].map((x) => x + (fromZero ? 0 : 1));
 };
 
+const matrixPositionPlaces = (
+  level: number,
+  program: number
+): [number, number] => {
+  let count: [number, number] = [2, 2];
+
+  if (level === 0) {
+    count = [3, 0];
+  }
+
+  // lime matrix have specific positions
+  if (program === 6) {
+    if ([8, 9, 10].includes(level)) {
+      count = [3, 0];
+    } else if (level === 11) {
+      count = [2, 0];
+    }
+  }
+
+  return count;
+};
+
 export const buildTree = ({
   referralsTree,
   level,
+  program,
 }: IBuildTree): IMappedData => {
+  const count = matrixPositionPlaces(level, program);
+
   const withClones = (childs: IReferralTree[]) => {
     let childsCopy = childs;
 
@@ -88,10 +113,11 @@ export const buildTree = ({
       haveAnyTwoFilled = false;
     }
 
-    // firstly, create space wrapper for main referal based on array length
+    // firstly, create space wrapper for direct referal based on array length
     // some programs have 0 level, it means 3 direct referrals with no sub-refs
     // if program starts with 1 level, only 2 direct referrals allowed and each one inclues 2 sub-refs
-    if (level !== 0) {
+
+    if (count[0] === 2) {
       if (childs.length === 0) {
         childsCopy = [{ ...mainClone, clone_enabled: true }, mainClone];
       }
@@ -99,7 +125,7 @@ export const buildTree = ({
       if (childs.length === 1) {
         childsCopy = [...childsCopy, { ...mainClone, clone_enabled: true }];
       }
-    } else {
+    } else if (count[0] === 3) {
       if (childs.length === 0) {
         childsCopy = [
           { ...mainClone, clone_enabled: true },
@@ -120,8 +146,8 @@ export const buildTree = ({
       }
     }
 
-    // then append child clones if < 2 items
-    if (level !== 0) {
+    // then append child clones
+    if (count[1] === 2) {
       childsCopy = [
         ...childsCopy.map((x, mainIdx) => {
           let clones: any[] = [];
@@ -156,6 +182,7 @@ export const buildTree = ({
   };
 
   return {
+    positions: count,
     root: !isEmpty(referralsTree) ? referralsTree : null,
     childrens: !isEmpty(referralsTree)
       ? withClones(referralsTree.children)

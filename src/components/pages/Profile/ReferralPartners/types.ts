@@ -16,9 +16,11 @@ export interface ICrumbsPage {
 export interface IBuildTree {
   referralsTree: IReferralTree;
   level: number;
+  program: number;
 }
 
 export interface IMappedData {
+  positions: [number, number];
   root: IReferralTree | null;
   childrens: IReferralTree[];
   crumbs: ICrumbsPage[];

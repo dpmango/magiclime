@@ -290,8 +290,9 @@ const Referrals: FC = () => {
     return buildTree({
       referralsTree,
       level: selectedLevel,
+      program: filterProgram.id,
     });
-  }, [referralsTree, selectedLevel]);
+  }, [referralsTree, selectedLevel, filterProgram]);
 
   return (
     <div className={styles.root}>
@@ -341,7 +342,7 @@ const Referrals: FC = () => {
                           setModalConfirm({ opened: true, id })
                         }
                       />
-                      {selectedLevel !== 0 &&
+                      {mappedData.positions[1] !== 0 &&
                         group.children &&
                         group.children.map((referral: IReferralTree, cidx) => (
                           <ReferralUser

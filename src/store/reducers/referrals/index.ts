@@ -35,10 +35,7 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
       }
       return response.data;
     } catch (err: any) {
-      dispatch(
-        // todo - locale should be defined on backend
-        setError('Вы еще не приобрели место в выбранном уровне')
-      );
+      dispatch(setError(err.data[0]));
       errorCallback && errorCallback();
       return rejectWithValue(err.response.data);
     }
