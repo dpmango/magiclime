@@ -1,12 +1,14 @@
 import React, {
   FC,
   useCallback,
+  useMemo,
   ChangeEvent,
   useState,
   useRef,
   SyntheticEvent,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Button } from '@consta/uikit/Button';
@@ -30,8 +32,9 @@ const PorifleHeadUploader: FC = () => {
   >();
 
   const styles = useStyles();
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { path } = useRouteMatch();
+  const { t } = useTranslation();
 
   const uploadLabelRef = useRef<HTMLLabelElement>(null);
 
@@ -109,7 +112,9 @@ const PorifleHeadUploader: FC = () => {
     );
   }, []);
 
-  return (
+  const isActionsVisible = window.location.pathname.includes('/settings');
+
+  return isActionsVisible ? (
     <>
       {profile.avatar && (
         <div className={styles.delete}>
@@ -142,7 +147,7 @@ const PorifleHeadUploader: FC = () => {
         />
       </label>
     </>
-  );
+  ) : null;
 };
 
 export default PorifleHeadUploader;
