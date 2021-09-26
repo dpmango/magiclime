@@ -79,6 +79,10 @@ const useStyles = makeStyles({
   clones: {
     marginTop: 36,
   },
+  apply: {
+    maxWidth: 400,
+    margin: '0 auto',
+  },
 });
 
 export default useStyles;

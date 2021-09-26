@@ -15,3 +15,14 @@ export const getEventsService = (): AxiosPromise<
 > => {
   return $api.get(endpoints.profile.events);
 };
+
+export const getProgramsService = (): AxiosPromise<
+  IAxiosPaginatedResponse<IEvent>
+> => {
+  return $api.get(endpoints.profile.options.programs, {
+    params: {
+      level: 1,
+      program: 1,
+    },
+  });
+};

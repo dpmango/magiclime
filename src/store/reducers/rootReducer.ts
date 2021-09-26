@@ -4,6 +4,7 @@ import articleReducer from './article';
 import settingsReducer from './settings';
 import metaReducer from './meta';
 import referralsReducer from './referrals';
+import applicationsReducer from './applications';
 import profileReducer from './profile';
 
 export const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
   meta: metaReducer,
   article: articleReducer,
   referrals: referralsReducer,
+  applications: applicationsReducer,
   profile: profileReducer,
 });
 

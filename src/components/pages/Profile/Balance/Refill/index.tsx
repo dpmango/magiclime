@@ -27,18 +27,18 @@ const currencySelectList: SelectItem[] = [
     disabled: false,
     id: 1,
   },
-  {
-    label: 'USDT',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 2,
-  },
-  {
-    label: 'RUB',
-    icon: '/images/bitlime.svg',
-    disabled: true,
-    id: 3,
-  },
+  // {
+  //   label: 'USDT',
+  //   icon: '/images/bitlime.svg',
+  //   disabled: true,
+  //   id: 2,
+  // },
+  // {
+  //   label: 'RUB',
+  //   icon: '/images/bitlime.svg',
+  //   disabled: true,
+  //   id: 3,
+  // },
 ];
 
 const paymentSelectList: SelectItem[] = [

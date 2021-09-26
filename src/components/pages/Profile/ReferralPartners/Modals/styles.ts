@@ -7,8 +7,9 @@ const useStyles = makeStyles({
     },
   },
   partners: {
-    marginTop: 24,
     textAlign: 'center',
+    maxWidth: '260px',
+    margin: '24px auto 0',
   },
 });
 
