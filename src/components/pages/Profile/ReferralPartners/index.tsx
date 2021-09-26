@@ -34,9 +34,11 @@ import { IReferralTree, IClone } from 'types/interfaces/referrals';
 import { ISelectOption } from 'types/interfaces/common';
 
 import useSharedStyles from 'assets/styles/Shared';
+import ApplicationsApply from 'components/pages/Profile/Applications/Apply';
 import ReferralUser from './ReferralUser';
 import ReferralClone from './ReferralClone';
 import Modals from './Modals';
+
 import {
   programOptions,
   buildTree,
@@ -85,6 +87,7 @@ const Referrals: FC = () => {
   const loading = useSelector((state: RootState) => state.referrals.loading);
   const error = useSelector((state: RootState) => state.referrals.error);
   const clones = useSelector((state: RootState) => state.referrals.clones);
+  const profile = useSelector((state: RootState) => state.user.profile);
 
   const matrixLevels: number[] = useMemo(() => {
     return buildMatrixLevels(filterProgram.id);
@@ -294,6 +297,12 @@ const Referrals: FC = () => {
     });
   }, [referralsTree, selectedLevel, filterProgram]);
 
+  const buyBtnAvailable = useMemo(() => {
+    const firstMatrix = filterProgram.id === 1 && selectedLevel === 1;
+
+    return profile.is_bought_1level_bitlime || firstMatrix;
+  }, [filterProgram, selectedLevel]);
+
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
@@ -403,11 +412,20 @@ const Referrals: FC = () => {
                 {error}
               </Typography>
 
-              <div className={styles.cta}>
-                <Button
-                  onClick={() => setModalConfirm({ id: 0, opened: true })}
-                  label={t('profile.referral.buy.cta')}
-                />
+              {buyBtnAvailable && (
+                <div className={styles.cta}>
+                  <Button
+                    onClick={() => setModalConfirm({ id: 0, opened: true })}
+                    label={t('profile.referral.buy.cta')}
+                  />
+                </div>
+              )}
+
+              <Typography align="center" weight="semibold" margin="24px 0 0">
+                {t('common.shorts.or')}
+              </Typography>
+              <div className={styles.apply}>
+                <ApplicationsApply withIntroText={false} />
               </div>
             </>
           )}
@@ -450,23 +468,27 @@ const Referrals: FC = () => {
                 ))}
               </Flex>
             </div>
-            <div className={styles.filtersGroup}>
-              <Button
-                width="full"
-                onClick={() => setModalConfirm({ id: 0, opened: true })}
-                label={t('profile.referral.buy.cta')}
-              />
-            </div>
-            <div className={styles.filtersGroup}>
-              <Typography
-                view="link"
-                size="s"
-                align="center"
-                onClick={handleClonePlaceClick}
-              >
-                Куда встанет клон?
-              </Typography>
-            </div>
+            {buyBtnAvailable && (
+              <>
+                <div className={styles.filtersGroup}>
+                  <Button
+                    width="full"
+                    onClick={() => setModalConfirm({ id: 0, opened: true })}
+                    label={t('profile.referral.buy.cta')}
+                  />
+                </div>
+                <div className={styles.filtersGroup}>
+                  <Typography
+                    view="link"
+                    size="s"
+                    align="center"
+                    onClick={handleClonePlaceClick}
+                  >
+                    Куда встанет клон?
+                  </Typography>
+                </div>
+              </>
+            )}
 
             <div className={styles.filtersGroup}>
               <TextField

@@ -179,6 +179,9 @@
     "dates": {
       "today": "Сегодня",
       "yesterday": "Вчера"
+    },
+    "shorts": {
+      "or": "или"
     }
   },
   "profile": {
@@ -369,7 +372,8 @@
         },
         "modal": {
           "confirmTitle": "Купить место?",
-          "successTitle": "Место успешно куплено"
+          "successTitle": "Место успешно куплено",
+          "selectApplication": "Выберите заявку"
         },
         "service": {
           "longawait": "Покупка может занять до 1 минуты, пожалуйста подождите"

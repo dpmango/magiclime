@@ -1,13 +1,19 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
 import { TextField } from '@consta/uikit/TextField';
+import { Select } from '@consta/uikit/Select';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import BaseModal from 'components/Common/BaseModal';
 
 import { SetStateType } from 'types/common';
+import { ISelectOption } from 'types/interfaces/common';
+import { getIncoming } from 'store/reducers/applications';
+import { RootState } from 'store/reducers/rootReducer';
+
 import { IModalProps } from '../types';
 import useStyles from './styles';
 
@@ -27,14 +33,26 @@ const ReferralModals: FC<IProps> = ({
   handleBuyClick,
 }) => {
   const styles = useStyles();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const [partner, setPartner] = useState<string>('');
+  const incomingSelectOptions = useSelector(
+    (state: RootState) => state.applications.incomingSelect
+  );
+
+  const [partner, setPartner] = useState<ISelectOption>(
+    incomingSelectOptions[0]
+  );
 
   const handleCtaClick = () => {
-    handleBuyClick(modalConfirm.id || undefined, partner);
-    setPartner('');
+    handleBuyClick(modalConfirm.id || undefined, partner.id.toString());
+    setPartner(incomingSelectOptions[0]);
   };
+
+  useEffect(() => {
+    dispatch(getIncoming());
+  }, []);
+
   return (
     <>
       <BaseModal
@@ -50,13 +68,18 @@ const ReferralModals: FC<IProps> = ({
           Откатить операцию невозможно.
         </Typography>
 
-        <div className={styles.partners}>
-          <TextField
-            value={partner}
-            onChange={({ value }) => setPartner(value || '')}
-            placeholder="Поставьте партнера"
-          />
-        </div>
+        {incomingSelectOptions && incomingSelectOptions.length > 0 && (
+          <div className={styles.partners}>
+            <Select
+              items={incomingSelectOptions}
+              value={partner}
+              placeholder={t('profile.referral.buy.modal.selectApplication')}
+              onChange={({ value }) =>
+                setPartner(value || incomingSelectOptions[0])
+              }
+            />
+          </div>
+        )}
 
         <Flex
           align="center"

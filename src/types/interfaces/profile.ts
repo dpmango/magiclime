@@ -97,3 +97,11 @@ export interface IApplicationIncoming {
   level: number;
   program: number;
 }
+
+export interface IApplicationsDisplay {
+  id: number;
+  login: string;
+  name: string;
+  email: string;
+  phone?: string;
+}
