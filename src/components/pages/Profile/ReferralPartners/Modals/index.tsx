@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
@@ -13,6 +13,7 @@ import { SetStateType } from 'types/common';
 import { ISelectOption } from 'types/interfaces/common';
 import { getIncoming } from 'store/reducers/applications';
 import { RootState } from 'store/reducers/rootReducer';
+import { IApplicationSelect } from 'types/interfaces/profile';
 
 import { IModalProps } from '../types';
 import useStyles from './styles';
@@ -23,6 +24,8 @@ interface IProps {
   handleBuyClick: (id?: number, partner?: string) => void;
   modalSuccess: Omit<IModalProps, 'id'>;
   setModalSuccess: SetStateType<Omit<IModalProps, 'id'>>;
+  levelID?: number;
+  programID?: number;
 }
 
 const ReferralModals: FC<IProps> = ({
@@ -31,6 +34,8 @@ const ReferralModals: FC<IProps> = ({
   modalSuccess,
   setModalSuccess,
   handleBuyClick,
+  levelID,
+  programID,
 }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
@@ -40,11 +45,10 @@ const ReferralModals: FC<IProps> = ({
     (state: RootState) => state.applications.incomingSelect
   );
 
-  const [partner, setPartner] = useState<ISelectOption>(
-    incomingSelectOptions[0]
-  );
+  const [partner, setPartner] = useState<ISelectOption | null>(null);
 
   const handleCtaClick = () => {
+    console.log('cta click', partner);
     handleBuyClick(
       modalConfirm.id || undefined,
       partner ? partner.id.toString() : ''
@@ -52,8 +56,20 @@ const ReferralModals: FC<IProps> = ({
     setPartner(incomingSelectOptions[0]);
   };
 
+  const selectableItems = useMemo(() => {
+    if (levelID !== undefined && programID !== undefined) {
+      return incomingSelectOptions.filter(
+        (x: IApplicationSelect) =>
+          x.level === levelID && x.program === programID
+      );
+    }
+
+    return incomingSelectOptions;
+  }, [incomingSelectOptions, levelID, programID]);
+
   useEffect(() => {
     dispatch(getIncoming());
+    setPartner(null);
   }, []);
 
   return (
@@ -71,15 +87,13 @@ const ReferralModals: FC<IProps> = ({
           Откатить операцию невозможно.
         </Typography>
 
-        {incomingSelectOptions && incomingSelectOptions.length > 0 && (
+        {selectableItems && selectableItems.length > 0 && (
           <div className={styles.partners}>
             <Select
-              items={incomingSelectOptions}
+              items={selectableItems}
               value={partner}
               placeholder={t('profile.referral.buy.modal.selectApplication')}
-              onChange={({ value }) =>
-                setPartner(value || incomingSelectOptions[0])
-              }
+              onChange={({ value }) => setPartner(value || null)}
             />
           </div>
         )}

@@ -10,7 +10,7 @@ export const columns: IColumn[] = [
     title: 'ID',
     accessor: 'id',
     sortable: false,
-    width: 100,
+    // width: 100,
   },
   {
     title: 'Дата',

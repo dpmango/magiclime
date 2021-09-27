@@ -104,4 +104,13 @@ export interface IApplicationsDisplay {
   name: string;
   email: string;
   phone?: string;
+  level: number;
+  program: number;
+}
+
+export interface IApplicationSelect {
+  id: number;
+  label: string;
+  level: number;
+  program: number;
 }

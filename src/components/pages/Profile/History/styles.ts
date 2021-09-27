@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     // marginBottom: 24,
   },
   table: {
+    width: '100%',
     marginTop: 24,
   },
 });

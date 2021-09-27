@@ -413,20 +413,26 @@ const Referrals: FC = () => {
               </Typography>
 
               {buyBtnAvailable && (
-                <div className={styles.cta}>
-                  <Button
-                    onClick={() => setModalConfirm({ id: 0, opened: true })}
-                    label={t('profile.referral.buy.cta')}
-                  />
-                </div>
-              )}
+                <>
+                  <div className={styles.cta}>
+                    <Button
+                      onClick={() => setModalConfirm({ id: 0, opened: true })}
+                      label={t('profile.referral.buy.cta')}
+                    />
+                  </div>
 
-              <Typography align="center" weight="semibold" margin="24px 0 0">
-                {t('common.shorts.or')}
-              </Typography>
-              <div className={styles.apply}>
-                <ApplicationsApply withIntroText={false} />
-              </div>
+                  <Typography
+                    align="center"
+                    weight="semibold"
+                    margin="24px 0 0"
+                  >
+                    {t('common.shorts.or')}
+                  </Typography>
+                  <div className={styles.apply}>
+                    <ApplicationsApply withIntroText={false} />
+                  </div>
+                </>
+              )}
             </>
           )}
 
@@ -508,6 +514,8 @@ const Referrals: FC = () => {
         handleBuyClick={handleBuyClick}
         modalSuccess={modalSuccess}
         setModalSuccess={setModalSuccess}
+        levelID={selectedLevel}
+        programID={filterProgram.id}
       />
     </div>
   );

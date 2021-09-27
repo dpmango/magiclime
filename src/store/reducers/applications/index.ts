@@ -12,13 +12,14 @@ import {
   IApplicationOutcoming,
   IApplicationIncoming,
   IApplicationsDisplay,
+  IApplicationSelect,
 } from 'types/interfaces/profile';
 import { ISelectOption } from 'types/interfaces/common';
 
 const initialState = {
   outcoming: [] as IApplicationsDisplay[],
   incoming: [] as IApplicationsDisplay[],
-  incomingSelect: [] as ISelectOption[],
+  incomingSelect: [] as IApplicationSelect[],
 };
 
 export const getOutcoming = createAsyncThunk(
@@ -71,6 +72,8 @@ const applicationsSlice = createSlice({
           name: x.to_user.name,
           email: x.to_user.email,
           phone: x.to_user.phone,
+          level: x.level,
+          program: x.program,
         })
       );
 
@@ -84,12 +87,16 @@ const applicationsSlice = createSlice({
           name: x.from_user.name,
           email: x.from_user.email,
           phone: x.from_user.phone,
+          level: x.level,
+          program: x.program,
         })
       );
 
       const dataSelectMapped = dataMapped.map((x) => ({
         id: x.id,
         label: `${x.id} - ${x.login}`,
+        level: x.level,
+        program: x.program,
       }));
 
       state.incoming = [...dataMapped];
