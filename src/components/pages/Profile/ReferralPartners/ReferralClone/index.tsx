@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
-import { IconCopy } from '@consta/uikit/IconCopy';
+import { IconForward } from '@consta/uikit/IconForward';
 import moment from 'moment';
 
 import Typography from 'components/Common/Typography';
@@ -18,7 +18,14 @@ interface IProps {
 }
 
 const ReferralClone: FC<IProps> = ({
-  data: { id, username, avatar, created_at, created_from_username },
+  data: {
+    id,
+    username,
+    avatar,
+    created_at,
+    created_from_username,
+    creation_reason,
+  },
   onReferralClick,
 }) => {
   const styles = useStyles();
@@ -29,17 +36,18 @@ const ReferralClone: FC<IProps> = ({
     (e) => {
       e.preventDefault();
       e.stopPropagation();
+      if (creation_reason) {
+        const level = query.get('level');
+        const program = query.get('program');
 
-      const level = query.get('level');
-      const program = query.get('program');
-
-      copyToClipboard(
-        `https://magiclime.academy/profile/me/partners/?id=${id}&level=${level}&program=${program}`,
-        t('profile.referral.card.copySuccess'),
-        t('profile.referral.card.copyError')
-      );
+        copyToClipboard(
+          `https://magiclime.academy/profile/me/partners/?${creation_reason}`,
+          t('profile.referral.card.copySuccess'),
+          t('profile.referral.card.copyError')
+        );
+      }
     },
-    [id, query]
+    [id, query, creation_reason]
   );
 
   const timestamp = useMemo(() => {
@@ -85,7 +93,7 @@ const ReferralClone: FC<IProps> = ({
           >
             {created_from_username} ({id})
           </Typography>
-          <IconCopy size="s" />
+          {creation_reason && <IconForward size="s" />}
         </Flex>
       </div>
     </Flex>
