@@ -45,7 +45,10 @@ const ReferralModals: FC<IProps> = ({
   );
 
   const handleCtaClick = () => {
-    handleBuyClick(modalConfirm.id || undefined, partner.id.toString());
+    handleBuyClick(
+      modalConfirm.id || undefined,
+      partner ? partner.id.toString() : ''
+    );
     setPartner(incomingSelectOptions[0]);
   };
 
