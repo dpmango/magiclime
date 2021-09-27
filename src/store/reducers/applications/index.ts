@@ -15,6 +15,8 @@ import {
   IApplicationSelect,
 } from 'types/interfaces/profile';
 import { ISelectOption } from 'types/interfaces/common';
+import { getProgramById } from 'components/pages/Profile/ReferralPartners/functions';
+import moment from 'moment';
 
 const initialState = {
   outcoming: [] as IApplicationsDisplay[],
@@ -69,9 +71,9 @@ const applicationsSlice = createSlice({
         (x: IApplicationOutcoming): IApplicationsDisplay => ({
           id: x.id,
           login: x.to_user.username,
-          name: x.to_user.name,
-          email: x.to_user.email,
-          phone: x.to_user.phone,
+          matrix: `${getProgramById(x.program)} ${x.level}`,
+          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+          status: 'todo',
           level: x.level,
           program: x.program,
         })
@@ -84,9 +86,9 @@ const applicationsSlice = createSlice({
         (x: IApplicationIncoming): IApplicationsDisplay => ({
           id: x.id,
           login: x.from_user.username,
-          name: x.from_user.name,
-          email: x.from_user.email,
-          phone: x.from_user.phone,
+          matrix: `${getProgramById(x.program)} ${x.level}`,
+          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+          status: 'todo',
           level: x.level,
           program: x.program,
         })

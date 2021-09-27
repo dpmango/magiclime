@@ -481,9 +481,11 @@
       },
       "table": {
         "thLogin": "Логин",
-        "thName": "ФИО",
-        "thEmail": "Email",
-        "thPhone": "Телефон",
+        "thMatrix": "Матрица",
+        "thDate": "Дата",
+        "thStatus": "Статус",
+        "thActions": "Действия",
+        "thId": "ID",
         "empty": "Заявки не найдены"
       }
     }

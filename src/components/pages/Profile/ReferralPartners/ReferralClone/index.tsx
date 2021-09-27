@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const ReferralClone: FC<IProps> = ({
-  data: { id, username, avatar, created_at },
+  data: { id, username, avatar, created_at, created_from_username },
   onReferralClick,
 }) => {
   const styles = useStyles();
@@ -83,7 +83,7 @@ const ReferralClone: FC<IProps> = ({
             view="primary"
             weight="regular"
           >
-            {id}
+            {created_from_username} ({id})
           </Typography>
           <IconCopy size="s" />
         </Flex>

@@ -28,6 +28,8 @@ export interface IClone {
   avatar: IPhoto | null;
   referrals_count: number;
   created_at: string;
+  created_from_username: string;
+  creation_reason?: string;
 }
 
 export interface IReferralTeam {

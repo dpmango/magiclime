@@ -23,6 +23,10 @@ export const programOptions: ISelectOption[] = [
   { id: 6, label: 'LIME' },
 ];
 
+export const getProgramById = (id: number): string => {
+  return programOptions!.find((x) => x.id === id)!.label;
+};
+
 export const getInitialLevel = (id: number): number => {
   return [2, 3, 4, 5].includes(id) ? 0 : 1;
 };

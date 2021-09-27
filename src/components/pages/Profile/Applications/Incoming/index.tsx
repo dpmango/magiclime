@@ -67,20 +67,29 @@ const ApplicationsIncoming: FC = () => {
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thName')}
+                  {t('profile.applications.table.thMatrix')}
                 </Typography>
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thEmail')}
+                  {t('profile.applications.table.thDate')}
                 </Typography>
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thPhone')}
+                  {t('profile.applications.table.thStatus')}
                 </Typography>
               </th>
-              <th />
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thActions')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thId')}
+                </Typography>
+              </th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
@@ -90,13 +99,13 @@ const ApplicationsIncoming: FC = () => {
                   <Typography size="s">{tr.login}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.name}</Typography>
+                  <Typography size="s">{tr.matrix}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.email}</Typography>
+                  <Typography size="s">{tr.date}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.phone}</Typography>
+                  <Typography size="s">{tr.status}</Typography>
                 </td>
                 <td>
                   <Flex
@@ -112,6 +121,9 @@ const ApplicationsIncoming: FC = () => {
                       onClick={() => handleRejectClick(tr.id)}
                     />
                   </Flex>
+                </td>
+                <td>
+                  <Typography size="s">{tr.id}</Typography>
                 </td>
               </tr>
             ))}
