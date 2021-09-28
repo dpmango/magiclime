@@ -86,11 +86,11 @@ const useStyles = makeStyles({
     },
     '59.4%': {
       left: '0',
-      bottom: 'calc(100% - 44px)',
+      bottom: 'calc(100% - 45px)',
     },
     '100%': {
       left: '0',
-      bottom: 'calc(100% - 44px)',
+      bottom: 'calc(100% - 45px)',
     },
   },
   '@keyframes h_2': {
@@ -157,11 +157,11 @@ const useStyles = makeStyles({
       bottom: '-18px',
     },
     '59.4%': {
-      left: 'calc(100% - 75px)',
+      left: 'calc(100% - 75.5px)',
       bottom: '-18px',
     },
     '100%': {
-      left: 'calc(100% - 75px)',
+      left: 'calc(100% - 75.5px)',
       bottom: '-18px',
     },
   },
