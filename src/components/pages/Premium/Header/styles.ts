@@ -1,222 +1,285 @@
 import { makeStyles } from '@material-ui/core';
 
-const baseAnimation = (name: string, delay: number) => ({
+const baseCubeAnimation = (name: string, duration = 3) => ({
   animationName: `$${name}`,
-  animationDuration: '2.5s',
-  animationIterationCount: 'infinite',
+  animationDuration: `${duration}s`,
+  // animationIterationCount: 'infinite',
   animationDirection: 'alternate',
   animationFillMode: 'forwards',
-  transition: 'all 1.5s',
-  animationDelay: `${delay}s`,
+  // transition: 'all 1.5s',
+  // animationDelay: `${delay}s`,
   animationTimingFunction: 'ease-in-out',
 });
+
+const baseElementAnimation = (name: string) =>
+  `$${name} 1.2s ease-in-out infinite alternate`;
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    background: 'rgba(17, 68, 167, 1)',
-    paddingTop: '80px',
     marginBottom: '95px',
-    height: '480px',
   },
-  text: {
-    color: '#fff',
+  block: {
+    display: 'flex',
+    flex: 1,
+  },
+  card: {
+    width: '210px',
+    transition: 'all 0.2s',
+    '&:hover': {
+      cursor: 'pointer',
+      transform: 'translateY(-5px)',
+    },
+    '&:not(:last-of-type)': {
+      marginRight: '15px',
+    },
+    '& > svg': {
+      width: '100%',
+      height: '140px',
+      marginBottom: '16px',
+      borderRadius: '12px',
+      objectFit: 'cover',
+    },
+  },
+  checkIcon: {
+    marginLeft: '5px',
   },
   cubeContainer: {
     position: 'relative',
-    width: 'min-content',
-    margin: '100px auto 0',
+    maxWidth: '500px',
+    transform: 'scale(.829)',
+    // width: 'min-content',
   },
-  base: {},
-  isScale: {
-    transform: 'scaleX(-1)',
+  basement: {
+    animation: baseElementAnimation('jump'),
+    marginTop: '5px',
   },
-  edge: {
-    zIndex: 20,
+  cube: {
     position: 'absolute',
+    opacity: 0,
+    zIndex: 20,
   },
-  h_1: {
-    left: '-20px',
-    bottom: 'calc(100% - 3px)',
-    ...baseAnimation('h_1', 0.4),
+  centerCube: {
+    left: '176px',
+    bottom: '221px',
+    animationDelay: '0s !important',
+    ...baseCubeAnimation('centerCube', 1),
   },
-  h_2: {
-    left: '33px',
-    bottom: 'calc(100% + 20px)',
-    ...baseAnimation('h_2', 0.2),
+  cube_1: {
+    animationDelay: '1s',
+    ...baseCubeAnimation('cube_1'),
   },
-  h_3: {
-    left: '90px',
-    bottom: 'calc(100% - 6px)',
-    ...baseAnimation('h_3', 0.6),
+  cube_2: {
+    animationDelay: '1.2s',
+    ...baseCubeAnimation('cube_2'),
   },
-  v_1: {
-    left: 'calc(100% + 10px)',
-    bottom: 'calc(100% - 87px)',
-    ...baseAnimation('v_1', 0.8),
+  cube_3: {
+    animationDelay: '1.4s',
+    ...baseCubeAnimation('cube_3'),
   },
-  v_2: {
-    left: 'calc(100% - 32px)',
-    bottom: '-18px',
-    ...baseAnimation('v_2', 1),
+  cube_4: {
+    animationDelay: '1.6s',
+    ...baseCubeAnimation('cube_4'),
   },
-  v_3: {
-    left: '18px',
-    bottom: '-18px',
-    ...baseAnimation('v_3', 1.2),
+  cube_5: {
+    animationDelay: '1.2s',
+    ...baseCubeAnimation('cube_5'),
   },
-  v_4: {
-    left: '-30px',
-    bottom: 'calc(100% - 87px)',
-    ...baseAnimation('v_4', 1.4),
+  cube_6: {
+    animationDelay: '1.8s',
+    ...baseCubeAnimation('cube_6'),
   },
-  v_5: {
-    left: '-70px',
-    bottom: 'calc(100% - 66px)',
-    ...baseAnimation('v_5', 1.6),
+  shadow: {
+    opacity: 1,
+    position: 'absolute',
+    left: '109px',
+    bottom: '80px',
+    animation: baseElementAnimation('shadowScale'),
   },
-  '@keyframes h_1': {
+  borderShadow: {
+    position: 'absolute',
+    left: '9px',
+    bottom: 0,
+    animation: baseElementAnimation('borderShadowScale'),
+  },
+  border: {
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    zIndex: 10,
+    animation: baseElementAnimation('borderJump'),
+  },
+  '@keyframes borderJump': {
     '0%': {
-      left: '-20px',
-      bottom: 'calc(100% - 3px)',
-    },
-    '40.5%': {
-      left: '-20px',
-      bottom: 'calc(100% - 3px)',
-    },
-    '59.4%': {
-      left: '0',
-      bottom: 'calc(100% - 45px)',
+      transform: 'translateY(-3px)',
     },
     '100%': {
-      left: '0',
-      bottom: 'calc(100% - 45px)',
+      transform: 'translateY(3px)',
     },
   },
-  '@keyframes h_2': {
+  '@keyframes jump': {
     '0%': {
-      left: '33px',
-      bottom: 'calc(100% + 20px)',
-    },
-    '40.5%': {
-      left: '33px',
-      bottom: 'calc(100% + 20px)',
-    },
-    '59.4%': {
-      left: '37px',
-      bottom: 'calc(100% - 23.5px)',
+      transform: 'translateY(-8px)',
     },
     '100%': {
-      left: '37px',
-      bottom: 'calc(100% - 23.5px)',
+      transform: 'translateY(8px)',
     },
   },
-  '@keyframes h_3': {
+  '@keyframes borderShadowScale': {
     '0%': {
-      left: '90px',
-      bottom: 'calc(100% - 6px)',
+      transform: 'scale(1.035)',
     },
-    '40.5%': {
-      left: '90px',
-      bottom: 'calc(100% - 6px)',
-    },
-    '59.4%': {
-      left: '73.5px',
-      bottom: 'calc(100% - 45px)',
-    },
-    '100%': {
-      left: '73.5px',
-      bottom: 'calc(100% - 45px)',
+    '100% ': {
+      transform: 'scale(1)',
     },
   },
-  '@keyframes v_1': {
+  '@keyframes shadowScale': {
     '0%': {
-      left: 'calc(100% + 10px)',
-      bottom: 'calc(100% - 87px)',
+      transform: 'scale(1.045)',
     },
-    '40.5%': {
-      left: 'calc(100% + 10px)',
-      bottom: 'calc(100% - 87px)',
-    },
-    '59.4%': {
-      left: 'calc(100% - 38.5px)',
-      bottom: 'calc(100% - 87px)',
-    },
-    '100%': {
-      left: 'calc(100% - 38.5px)',
-      bottom: 'calc(100% - 87x)',
+    '100% ': {
+      transform: 'scale(0.95)',
     },
   },
-  '@keyframes v_2': {
+  '@keyframes centerCube': {
     '0%': {
-      left: 'calc(100% - 32px)',
-      bottom: '-18px',
+      transform: 'scale(2.5)',
     },
-    '40.5%': {
-      left: 'calc(100% - 32px)',
-      bottom: '-18px',
-    },
-    '59.4%': {
-      left: 'calc(100% - 75.5px)',
-      bottom: '-18px',
-    },
-    '100%': {
-      left: 'calc(100% - 75.5px)',
-      bottom: '-18px',
+    '100% ': {
+      opacity: 0.8,
+      transform: 'scale(1)',
     },
   },
-  '@keyframes v_3': {
+  '@keyframes cube_1': {
     '0%': {
-      left: '18px',
-      bottom: '-18px',
+      opacity: 0,
+      left: 0,
+      bottom: '275px',
     },
-    '40.5%': {
-      left: '18px',
-      bottom: '-18px',
+    '20%': {
+      opacity: 1,
+      left: 0,
+      bottom: '275px',
     },
-    '59.4%': {
-      left: '37px',
-      bottom: '-18px',
+    '50%': {
+      opacity: 1,
+      left: '103px',
+      bottom: '264px',
     },
     '100%': {
-      left: '37px',
-      bottom: '-18px',
+      opacity: 1,
+      left: '103px',
+      bottom: '264px',
     },
   },
-  '@keyframes v_4': {
+  '@keyframes cube_2': {
     '0%': {
-      left: '-30px',
-      bottom: 'calc(100% - 87px)',
+      opacity: 0,
+      left: 0,
+      bottom: '65px',
     },
-    '40.5%': {
-      left: '-30px',
-      bottom: 'calc(100% - 87px)',
+    '20%': {
+      opacity: 1,
+      left: 0,
+      bottom: '65px',
     },
-    '59.4%': {
-      left: '0',
-      bottom: 'calc(100% - 87px)',
+    '50%': {
+      opacity: 1,
+      left: '103px',
+      bottom: '180px',
     },
     '100%': {
-      left: '0',
-      bottom: 'calc(100% - 87px)',
+      opacity: 1,
+      left: '103px',
+      bottom: '180px',
     },
   },
-  '@keyframes v_5': {
+  '@keyframes cube_3': {
     '0%': {
-      left: '-70px',
-      bottom: 'calc(100% - 66px)',
+      opacity: 0,
+      left: '177px',
+      bottom: '345px',
     },
-    '40.5%': {
-      left: '-70px',
-      bottom: 'calc(100% - 66px)',
+    '20%': {
+      opacity: 1,
+      left: '177px',
+      bottom: '345px',
     },
-    '59.4%': {
-      left: '0',
-      bottom: 'calc(100% - 66px)',
+    '50% ': {
+      opacity: 1,
+      left: '177px',
+      bottom: '306px',
     },
     '100%': {
-      left: '0',
-      bottom: 'calc(100% - 66px)',
+      opacity: 1,
+      left: '177px',
+      bottom: '306px',
+    },
+  },
+  '@keyframes cube_4': {
+    '0%': {
+      opacity: 0,
+      left: '370px',
+      bottom: '225px',
+    },
+    '20%': {
+      opacity: 1,
+      left: '370px',
+      bottom: '225px',
+    },
+    '50%': {
+      opacity: 1,
+      left: '250px',
+      bottom: '264px',
+    },
+    '100%': {
+      opacity: 1,
+      left: '250px',
+      bottom: '264px',
+    },
+  },
+  '@keyframes cube_5': {
+    '0%': {
+      opacity: 0,
+      left: '290px',
+      bottom: '135px',
+    },
+    '20%': {
+      opacity: 1,
+      left: '290px',
+      bottom: '135px',
+    },
+    '50%': {
+      opacity: 1,
+      left: '250px',
+      bottom: '180px',
+    },
+    '100% ': {
+      opacity: 1,
+      left: '250px',
+      bottom: '180px',
+    },
+  },
+  '@keyframes cube_6': {
+    '0%': {
+      opacity: 0,
+      left: '176px',
+      bottom: '25px',
+    },
+    '20%': {
+      opacity: 1,
+      left: '176px',
+      bottom: '25px',
+    },
+    '50%': {
+      opacity: 1,
+      left: '176px',
+      bottom: '138px',
+    },
+    '100%': {
+      opacity: 1,
+      left: '176px',
+      bottom: '138px',
     },
   },
 });
