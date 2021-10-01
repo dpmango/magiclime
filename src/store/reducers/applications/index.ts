@@ -62,6 +62,19 @@ export const getIncoming = createAsyncThunk(
   }
 );
 
+const statusToText = (status: number) => {
+  switch (status) {
+    case 1:
+      return 'новый';
+    case 2:
+      return 'исполнено';
+    case 3:
+      return 'отклонено';
+    default:
+      return '';
+  }
+};
+
 const applicationsSlice = createSlice({
   name: 'applications',
   initialState,
@@ -73,7 +86,8 @@ const applicationsSlice = createSlice({
           login: x.to_user.username,
           matrix: `${getProgramById(x.program)} ${x.level}`,
           date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
-          status: 'todo',
+          status: x.status,
+          statusText: statusToText(x.status),
           level: x.level,
           program: x.program,
         })
@@ -88,7 +102,8 @@ const applicationsSlice = createSlice({
           login: x.from_user.username,
           matrix: `${getProgramById(x.program)} ${x.level}`,
           date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
-          status: 'todo',
+          statusText: statusToText(x.status),
+          status: x.status,
           level: x.level,
           program: x.program,
         })

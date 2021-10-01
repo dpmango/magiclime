@@ -89,6 +89,7 @@ export interface IApplicationOutcoming {
   created_at: Date;
   level: number;
   program: number;
+  status: number;
 }
 
 export interface IApplicationIncoming {
@@ -98,6 +99,7 @@ export interface IApplicationIncoming {
   created_at: Date;
   level: number;
   program: number;
+  status: number;
 }
 
 export interface IApplicationsDisplay {
@@ -105,7 +107,8 @@ export interface IApplicationsDisplay {
   login: string;
   matrix: string;
   date: string;
-  status: string;
+  statusText: string;
+  status: number;
   level: number;
   program: number;
 }

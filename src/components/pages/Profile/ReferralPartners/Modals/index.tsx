@@ -48,12 +48,11 @@ const ReferralModals: FC<IProps> = ({
   const [partner, setPartner] = useState<ISelectOption | null>(null);
 
   const handleCtaClick = () => {
-    console.log('cta click', partner);
     handleBuyClick(
       modalConfirm.id || undefined,
       partner ? partner.id.toString() : ''
     );
-    setPartner(incomingSelectOptions[0]);
+    setPartner(null);
   };
 
   const selectableItems = useMemo(() => {
