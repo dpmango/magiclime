@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     flex: 1,
   },
   card: {
-    width: '210px',
+    width: '260px',
     transition: 'all 0.2s',
     '&:hover': {
       cursor: 'pointer',
@@ -50,9 +50,17 @@ const useStyles = makeStyles({
     transform: 'scale(.829)',
     // width: 'min-content',
   },
+  title: {
+    fontSize: 64,
+  },
   basement: {
     animation: baseElementAnimation('jump'),
     marginTop: '5px',
+    zIndex: 2,
+  },
+  titlearticle: {
+    margin: '2px 0 4px',
+    textShadow: '0 0 black',
   },
   cube: {
     position: 'absolute',

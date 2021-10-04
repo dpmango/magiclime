@@ -11,7 +11,7 @@ const Inside: FC = () => {
       {
         id: 1,
         icon: 'images/premium/inside.svg',
-        title: 'Что внутри',
+        title: 'Бонусная программа',
         description:
           'Чтобы попасть на площадку вам нужно получить приглашение от одного из пользователей',
         className: styles.topLeft,
@@ -19,7 +19,7 @@ const Inside: FC = () => {
       {
         id: 2,
         icon: 'images/premium/inside.svg',
-        title: 'Что внутри',
+        title: 'Чаты',
         description:
           'Чтобы попасть на площадку вам нужно получить приглашение от одного из пользователей',
         className: styles.topRight,
@@ -27,7 +27,7 @@ const Inside: FC = () => {
       {
         id: 3,
         icon: 'images/premium/inside.svg',
-        title: 'Что внутри',
+        title: 'Видеотрансляции',
         description:
           'Чтобы попасть на площадку вам нужно получить приглашение от одного из пользователей',
         className: styles.bottomLeft,
@@ -35,7 +35,7 @@ const Inside: FC = () => {
       {
         id: 4,
         icon: 'images/premium/inside.svg',
-        title: 'Что внутри',
+        title: 'Сообщество',
         description:
           'Чтобы попасть на площадку вам нужно получить приглашение от одного из пользователей',
         className: styles.bottomRight,

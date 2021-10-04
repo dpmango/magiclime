@@ -11,27 +11,27 @@ export const Cube = ({ className }: { className: string }) => (
   >
     <path
       d="M72.9819 84.6107V166.799L1.35411 126.001V43.2285L72.9819 84.6107Z"
-      fill="#1d83da"
-      fillOpacity="0.74"
-      stroke="#1d83da"
-      strokeOpacity="0.74"
-      strokeWidth="1.57219"
+      fill="#35DB8A"
+      fillOpacity="0.84"
+      stroke="#35DB8A"
+      strokeOpacity="0.84"
+      strokeWidth="1.57250"
     />
     <path
       d="M146.778 43.2227V125.999L74.5501 166.805V84.6124L146.778 43.2227Z"
-      fill="#1d83da"
+      fill="#35DB8A"
       fillOpacity="0.5"
-      stroke="#4C95E9"
+      stroke="#00D36D"
       strokeOpacity="0.63"
-      strokeWidth="1.57219"
+      strokeWidth="1.57250"
     />
     <path
       d="M73.7695 83.2597L2.13904 41.8759L73.7695 1.07495L145.987 41.8759L73.7695 83.2597Z"
-      fill="#1d83da"
+      fill="#35DB8A"
       fillOpacity="0.5"
-      stroke="#4C95E9"
+      stroke="#00D36D"
       strokeOpacity="0.63"
-      strokeWidth="1.57219"
+      strokeWidth="1.57250"
     />
   </svg>
 );
@@ -63,27 +63,27 @@ export const CenterCube = ({ className }: { className: string }) => (
   >
     <path
       d="M72.9819 84.6107V166.799L1.35411 126.001V43.2285L72.9819 84.6107Z"
-      fill="#1d83da"
-      fillOpacity="0.74"
-      stroke="#1d83da"
-      strokeOpacity="0.74"
-      strokeWidth="1.57219"
+      fill="#35DB8A"
+      fillOpacity="0.84"
+      stroke="#35DB8A"
+      strokeOpacity="0.84"
+      strokeWidth="1.57250"
     />
     <path
       d="M146.778 43.2227V125.999L74.5501 166.805V84.6124L146.778 43.2227Z"
-      fill="#1d83da"
+      fill="#35DB8A"
       fillOpacity="0.5"
-      stroke="#4C95E9"
+      stroke="#00D36D"
       strokeOpacity="0.63"
-      strokeWidth="1.57219"
+      strokeWidth="1.57250"
     />
     <path
       d="M73.7695 83.2597L2.13904 41.8759L73.7695 1.07495L145.987 41.8759L73.7695 83.2597Z"
-      fill="#1d83da"
+      fill="#35DB8A"
       fillOpacity="0.5"
-      stroke="#4C95E9"
+      stroke="#00D36D"
       strokeOpacity="0.63"
-      strokeWidth="1.57219"
+      strokeWidth="1.57250"
     />
   </svg>
 );
@@ -100,25 +100,25 @@ export const Border = ({ className }: { className: string }) => (
     <g clipPath="url(#clip1)">
       <path
         d="M487 143.873V154L248 12.8284V3L485.834 143.278L487 143.873Z"
-        fill="#1d83da"
-        fillOpacity="0.87"
+        fill="#67F8B1"
+        fillOpacity="0.47"
       />
       <path
         d="M9 143.739V154L248 11.2603V1L10.1659 143.136L9 143.739Z"
-        fill="#1d83da"
-        fillOpacity="0.74"
+        fill="#67F8B1"
+        fillOpacity="0.47"
       />
       <path
         d="M249.205 1.60509L247.996 1L0.04953 144.102L246.787 286.6L247.996 287.205L495.943 144.102L249.205 1.60509ZM9.4231 144.102L247.996 6.44576L486.569 144.102L247.996 282.061L9.4231 144.102Z"
-        fill="#86B5EB"
+        fill="#40E896"
       />
       <path
         d="M247.996 287.129V297.112L0.04953 154.01V143.724L246.787 286.221L247.996 287.129Z"
-        fill="#86B5EB"
+        fill="#40E896"
       />
       <path
         d="M247.996 287.129V297.112L495.943 154.01V143.724L249.206 286.221L247.996 287.129Z"
-        fill="#86B5EB"
+        fill="#40E896"
       />
     </g>
     <defs>
@@ -161,208 +161,208 @@ export const BorderShadow = ({ className }: { className: string }) => (
 export const Spiderweb1 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="219"
+    width="250"
     height="140"
-    viewBox="0 0 219 140"
+    viewBox="0 0 250 140"
     fill="none"
   >
     <g clipPath="url(#clip0)">
       <path
         d="M118.831 -63.8237L78.7706 5.56264"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M153.524 -43.7935L113.464 25.5929"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M168.187 10.9297L98.8008 -29.1306"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M188.217 -23.7634L148.157 45.6229"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M222.91 -3.73315L182.85 65.6532"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M237.574 50.99L168.187 10.9297"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M257.604 16.2969L188.217 -23.7634"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M257.604 16.2969L217.543 85.6832"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M44.0774 -14.4675L4.01719 54.9188"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M58.7405 40.2559L-10.6459 0.195617"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M78.7706 5.56274L9.38428 -34.4975"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M78.7706 5.56274L38.7104 74.9491"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M113.464 25.5928L73.4036 94.9791"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M128.127 80.3162L58.7405 40.2559"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M148.157 45.6228L78.7707 5.56256"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M148.157 45.6228L108.097 115.009"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M182.85 65.6531L142.79 135.039"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M197.513 120.376L128.127 80.3162"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M217.543 85.6831L148.157 45.6229"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M217.543 85.6831L177.483 155.069"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M252.237 105.713L212.176 175.1"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M266.9 160.437L197.513 120.376"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M286.93 125.743L217.543 85.6832"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M4.01721 54.9187L-36.043 124.305"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M18.6803 109.642L-50.7061 69.5816"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M38.7104 74.9487L-30.676 34.8885"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M38.7104 74.9487L-1.34984 144.335"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M73.4036 94.979L33.3433 164.365"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M88.0666 149.702L18.6803 109.642"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M108.097 115.009L38.7104 74.949"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M108.097 115.009L68.0365 184.396"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M142.79 135.039L102.73 204.426"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
         d="M177.483 155.069L108.097 115.009"
-        stroke="#1d83da"
-        strokeOpacity="0.74"
+        stroke="#35DB8A"
+        strokeOpacity="0.84"
         strokeWidth="0.400602"
       />
       <path
@@ -533,7 +533,7 @@ export const Spiderweb1 = (
     </g>
     <defs>
       <clipPath id="clip0">
-        <rect width="219" height="140" fill="white" />
+        <rect width="250" height="140" fill="white" />
       </clipPath>
     </defs>
   </svg>
@@ -542,9 +542,9 @@ export const Spiderweb1 = (
 export const Spiderweb2 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="219"
+    width="250"
     height="140"
-    viewBox="0 0 219 140"
+    viewBox="0 0 250 140"
     fill="none"
   >
     <g clipPath="url(#clip35)">
@@ -862,10 +862,10 @@ export const Spiderweb2 = (
     <defs>
       <clipPath id="clip35">
         <rect
-          width="219"
+          width="250"
           height="140"
           fill="white"
-          transform="translate(219 140) rotate(-180)"
+          transform="translate(250 140) rotate(-180)"
         />
       </clipPath>
     </defs>

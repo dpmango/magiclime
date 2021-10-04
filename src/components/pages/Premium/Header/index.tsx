@@ -18,36 +18,40 @@ const Header: FC = () => {
   const styles = useStyles();
   return (
     <div className={styles.root}>
-      <Typography size="4xl" weight="bold" margin="0 0 25px">
-        Цифровой университет
+      <Typography weight="semibold" margin="0 0 16px" className={styles.title}>
+        Новые возможности
       </Typography>
       <Typography size="xl" margin="0 0 95px">
-        Мы не стремимся изменить образование, мы стремимся
+        Откройте для себя доступ к совершенно новому способу
         <br />
-        сделать образование доступнее и удобнее.
+        обучаться, общаться и развиваться.
       </Typography>
       <Flex align="stretch">
         <div className={styles.block}>
           <div className={styles.card}>
             {Spiderweb1}
             <Typography view="link" size="xs">
-              Университет ИТМО
+              Lime Academy
               <IconCheck size="xs" className={styles.checkIcon} />
             </Typography>
-            <Typography size="xl">Цифровизация ИТМО</Typography>
+            <Typography size="l" className={styles.titlearticle}>
+              Обновление платформы 1.0
+            </Typography>
             <Typography view="ghost" size="s">
-              Новая инфраструктура Университета ИТМО
+              Новая инфраструктура Lime Academy
             </Typography>
           </div>
           <div className={styles.card}>
             {Spiderweb2}
             <Typography view="link" size="xs">
-              Университет ИТМО
+              Lime Jure
               <IconCheck size="xs" className={styles.checkIcon} />
             </Typography>
-            <Typography size="xl">Цифровизация ИТМО</Typography>
+            <Typography size="l" className={styles.titlearticle}>
+              Наши сертификаты
+            </Typography>
             <Typography view="ghost" size="s">
-              Новая инфраструктура Университета ИТМО
+              Мы платформа с открытым исходным кодом и политикой
             </Typography>
           </div>
         </div>

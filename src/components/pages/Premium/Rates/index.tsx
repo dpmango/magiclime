@@ -25,7 +25,7 @@ const Rates: FC = () => {
       },
       {
         id: 2,
-        title: 'Партнёр',
+        title: 'Ученик',
         icon: 'images/premium/partner.svg',
         price: 0.0004,
         description: 'Для опытных пользователей, которые хотят большего',
@@ -41,9 +41,9 @@ const Rates: FC = () => {
       },
       {
         id: 3,
-        title: 'Преподаватель',
+        title: 'Партнёр',
         icon: 'images/premium/teacher.svg',
-        price: 0.001,
+        price: 0.0011,
         description: 'Для тех, кто готов делиться опытом',
         availableDescription: 'Дополнительно к "Новичку" и "Партнёру"',
         available: [
@@ -55,7 +55,7 @@ const Rates: FC = () => {
       },
       {
         id: 4,
-        title: 'Наставник',
+        title: 'Преподаватель',
         icon: 'images/premium/mentor.svg',
         price: 10,
         description: 'Развивай и поддерживай свою команду',
@@ -74,9 +74,11 @@ const Rates: FC = () => {
   return (
     <>
       <div className={styles.header}>
-        <Typography className={styles.headerItem}>Для начинающик</Typography>
         <Typography className={styles.headerItem}>
-          Для команд и бизнеса
+          Для новых учеников
+        </Typography>
+        <Typography className={styles.headerItem}>
+          Для профессионалов
         </Typography>
       </div>
       <div className={styles.rates}>
