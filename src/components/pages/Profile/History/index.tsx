@@ -18,28 +18,24 @@ import useStyles from './styles';
 
 const ProfileHistory: FC = () => {
   const styles = useStyles();
-  // const { path } = useRouteMatch();
-  // const params: { id: string } = useParams();
-  // const history = useHistory();
-  // const firstRender = useFirstRender();
   const { t } = useTranslation();
 
   const tabs: ITab[] = useMemo(() => {
     return [
       {
         id: 1,
-        slug: `finance`,
-        label: t('profile.history.tabs.finance'),
+        slug: `bonuses`,
+        label: t('profile.history.tabs.bonuses'),
       },
       {
         id: 2,
-        slug: `bonuses`,
-        label: t('profile.history.tabs.bonuses'),
+        slug: `finance`,
+        label: t('profile.history.tabs.finance'),
       },
     ];
   }, []);
 
-  const [tab, setTab] = useState<string>('finance');
+  const [tab, setTab] = useState<string>('bonuses');
 
   return (
     <div className={styles.root}>

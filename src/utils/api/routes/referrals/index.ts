@@ -52,6 +52,8 @@ export const getClonesService = (data: {
 };
 
 export const getTeamService = (data: {
+  program: number;
+  search: string;
   id?: number | string;
 }): AxiosPromise<IReferralTeam> => {
   let params = {};
@@ -60,6 +62,8 @@ export const getTeamService = (data: {
     params = {
       ...params,
       matrixUserId: data.id,
+      username: data.search || null,
+      program: data.program,
     };
   }
 
@@ -72,12 +76,12 @@ export const buyMatricesService = async ({
   level,
   program,
   matrixUserId,
-  positionRequestUserId,
+  positionRequestId,
 }: {
   level: number;
   program: number;
   matrixUserId?: number;
-  positionRequestUserId?: number;
+  positionRequestId?: number;
 }): Promise<[{ status: number } | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.referrals.buy, null, {
@@ -85,7 +89,7 @@ export const buyMatricesService = async ({
         level,
         program,
         matrixUserId,
-        positionRequestUserId,
+        positionRequestId,
       },
     });
     return [null, data];

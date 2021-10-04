@@ -25,17 +25,17 @@ const MyBalance: FC<IProps> = ({ btcRate }) => {
     return [
       {
         label: t('profile.balance.my.available'),
-        main: `${formatPrice(balance.available_for_withdrawal)} BL`,
+        main: `${formatPrice(balance.available_for_withdrawal)}`,
         secondary: `${blToBtc(balance.available_for_withdrawal, btcRate)} mBtc`,
       },
       {
         label: t('profile.balance.my.earned'),
-        main: `${formatPrice(balance.total_earned)} BL`,
+        main: `${formatPrice(balance.total_earned)}`,
         secondary: `${blToBtc(balance.total_earned, btcRate)} mBtc`,
       },
       {
         label: t('profile.balance.my.output'),
-        main: `${formatPrice(balance.total_output)} BL`,
+        main: `${formatPrice(balance.total_output)}`,
         secondary: `${blToBtc(balance.total_output, btcRate)} mBtc`,
       },
     ];

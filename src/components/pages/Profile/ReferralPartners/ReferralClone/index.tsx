@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
+import { IconForward } from '@consta/uikit/IconForward';
 import moment from 'moment';
 
 import Typography from 'components/Common/Typography';
@@ -15,11 +15,17 @@ interface IProps {
 }
 
 const ReferralClone: FC<IProps> = ({
-  data: { id, username, avatar, created_at },
+  data: {
+    id,
+    username,
+    avatar,
+    created_at,
+    created_from_username,
+    creation_reason,
+  },
   onReferralClick,
 }) => {
   const styles = useStyles();
-  const { t } = useTranslation();
 
   const timestamp = useMemo(() => {
     if (!created_at) {
@@ -54,11 +60,24 @@ const ReferralClone: FC<IProps> = ({
         </Typography>
       </div>
 
-      <div className={styles.referralId}>
-        <Typography size="s" view="primary" weight="regular">
-          {id}
-        </Typography>
-      </div>
+      <a
+        className={styles.referralId}
+        target="_blank"
+        href={`${process.env.REACT_APP_API_DOMAIN}/profile/me/partners/?${creation_reason}`}
+        rel="noreferrer"
+      >
+        <Flex align="center" justify="flex-end">
+          <Typography
+            margin="0 6px 0 0"
+            size="s"
+            view="primary"
+            weight="regular"
+          >
+            {id}
+          </Typography>
+          {creation_reason && <IconForward size="s" />}
+        </Flex>
+      </a>
     </Flex>
   );
 };

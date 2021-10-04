@@ -12,13 +12,16 @@ import {
   IApplicationOutcoming,
   IApplicationIncoming,
   IApplicationsDisplay,
+  IApplicationSelect,
 } from 'types/interfaces/profile';
 import { ISelectOption } from 'types/interfaces/common';
+import { getProgramById } from 'components/pages/Profile/ReferralPartners/functions';
+import moment from 'moment';
 
 const initialState = {
   outcoming: [] as IApplicationsDisplay[],
   incoming: [] as IApplicationsDisplay[],
-  incomingSelect: [] as ISelectOption[],
+  incomingSelect: [] as IApplicationSelect[],
 };
 
 export const getOutcoming = createAsyncThunk(
@@ -59,6 +62,19 @@ export const getIncoming = createAsyncThunk(
   }
 );
 
+const statusToText = (status: number) => {
+  switch (status) {
+    case 1:
+      return 'новый';
+    case 2:
+      return 'исполнено';
+    case 3:
+      return 'отклонено';
+    default:
+      return '';
+  }
+};
+
 const applicationsSlice = createSlice({
   name: 'applications',
   initialState,
@@ -68,9 +84,12 @@ const applicationsSlice = createSlice({
         (x: IApplicationOutcoming): IApplicationsDisplay => ({
           id: x.id,
           login: x.to_user.username,
-          name: x.to_user.name,
-          email: x.to_user.email,
-          phone: x.to_user.phone,
+          matrix: `${getProgramById(x.program)} ${x.level}`,
+          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+          status: x.status,
+          statusText: statusToText(x.status),
+          level: x.level,
+          program: x.program,
         })
       );
 
@@ -81,15 +100,20 @@ const applicationsSlice = createSlice({
         (x: IApplicationIncoming): IApplicationsDisplay => ({
           id: x.id,
           login: x.from_user.username,
-          name: x.from_user.name,
-          email: x.from_user.email,
-          phone: x.from_user.phone,
+          matrix: `${getProgramById(x.program)} ${x.level}`,
+          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+          statusText: statusToText(x.status),
+          status: x.status,
+          level: x.level,
+          program: x.program,
         })
       );
 
       const dataSelectMapped = dataMapped.map((x) => ({
         id: x.id,
         label: `${x.id} - ${x.login}`,
+        level: x.level,
+        program: x.program,
       }));
 
       state.incoming = [...dataMapped];

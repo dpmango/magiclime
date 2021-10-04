@@ -2,29 +2,25 @@ import { toast } from 'react-hot-toast';
 
 export const copyToClipboard = (
   value: string,
-  tSucces?: string,
+  tSuccess?: string,
   tError?: string
 ): void => {
-  const textArea = document.createElement('textarea');
-  textArea.value = value;
-  textArea.style.opacity = '0';
-  textArea.style.position = 'absolute';
-  textArea.style.top = window.scrollY ? `${window.scrollY}px` : '0';
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+  const listener = (e: Event & ClipboardEvent) => {
+    (e.clipboardData as DataTransfer).setData('text/plain', value);
+    e.preventDefault();
+  };
 
   try {
-    const successful = document.execCommand('copy');
-    const msg = successful ? 'successful' : 'unsuccessful';
-    if (tSucces) {
-      toast.success(tSucces);
+    document.addEventListener('copy', listener);
+    document.execCommand('copy');
+    document.removeEventListener('copy', listener);
+
+    if (tSuccess) {
+      toast.success(tSuccess);
     }
-  } catch (err: any) {
+  } catch (err) {
     if (tError) {
       toast.error(`${tError} : ${err.message}`);
     }
   }
-
-  // document.body.removeChild(textArea);
 };

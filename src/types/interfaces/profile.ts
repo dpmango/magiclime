@@ -86,22 +86,36 @@ export interface IApplicationOutcoming {
   id: number;
   from_user: number;
   to_user: IApplicationUser;
+  created_at: Date;
   level: number;
   program: number;
+  status: number;
 }
 
 export interface IApplicationIncoming {
   id: number;
   from_user: IApplicationUser;
   to_user: number;
+  created_at: Date;
   level: number;
   program: number;
+  status: number;
 }
 
 export interface IApplicationsDisplay {
   id: number;
   login: string;
-  name: string;
-  email: string;
-  phone?: string;
+  matrix: string;
+  date: string;
+  statusText: string;
+  status: number;
+  level: number;
+  program: number;
+}
+
+export interface IApplicationSelect {
+  id: number;
+  label: string;
+  level: number;
+  program: number;
 }

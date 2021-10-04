@@ -47,6 +47,10 @@ const useStyles = makeStyles(() => ({
     flex: '0 0 30%',
     textAlign: 'right',
     paddingRight: 12,
+    cursor: 'pointer',
+    '& span': {
+      color: 'var(--color-typo-brand)',
+    },
   },
 }));
 

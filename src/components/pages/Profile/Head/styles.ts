@@ -10,6 +10,9 @@ const useStyles = makeStyles({
     height: 84,
     lineHeight: '84px',
     fontSize: 24,
+    '& > img': {
+      objectFit: 'cover',
+    },
   },
   avatarWrapper: {
     position: 'relative',

@@ -12,6 +12,7 @@ import {
   approveApplicationService,
   rejectApplicationService,
 } from 'utils/api/routes/position';
+import { IApplicationsDisplay } from 'types/interfaces/profile';
 
 import useStyles from './styles';
 
@@ -67,36 +68,45 @@ const ApplicationsOutcoming: FC = () => {
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thName')}
+                  {t('profile.applications.table.thMatrix')}
                 </Typography>
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thEmail')}
+                  {t('profile.applications.table.thDate')}
                 </Typography>
               </th>
               <th>
                 <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thPhone')}
+                  {t('profile.applications.table.thStatus')}
                 </Typography>
               </th>
-              <th />
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thActions')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thId')}
+                </Typography>
+              </th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            {outcoming.map((tr) => (
+            {outcoming.map((tr: IApplicationsDisplay) => (
               <tr key={tr.id} data-id={tr.id}>
                 <td>
                   <Typography size="s">{tr.login}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.name}</Typography>
+                  <Typography size="s">{tr.matrix}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.email}</Typography>
+                  <Typography size="s">{tr.date}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.phone}</Typography>
+                  <Typography size="s">{tr.statusText}</Typography>
                 </td>
                 <td>
                   <Flex
@@ -105,13 +115,19 @@ const ApplicationsOutcoming: FC = () => {
                     className={styles.actions}
                   >
                     {/* <Button size="s" label={t('common.actions.accept')} /> */}
-                    <Button
-                      size="s"
-                      view="secondary"
-                      label={t('common.actions.reject')}
-                      onClick={() => handleRejectClick(tr.id)}
-                    />
+
+                    {tr.status === 1 && (
+                      <Button
+                        size="s"
+                        view="secondary"
+                        label={t('common.actions.reject')}
+                        onClick={() => handleRejectClick(tr.id)}
+                      />
+                    )}
                   </Flex>
+                </td>
+                <td>
+                  <Typography size="s">{tr.id}</Typography>
                 </td>
               </tr>
             ))}

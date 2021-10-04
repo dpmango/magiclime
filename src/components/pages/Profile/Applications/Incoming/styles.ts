@@ -24,9 +24,6 @@ const useStyles = makeStyles({
       textAlign: 'left',
       paddingTop: 16,
       paddingBottom: 16,
-      '&:nth-child(5)': {
-        borderLeft: 0,
-      },
     },
   },
   tbody: {
@@ -37,14 +34,14 @@ const useStyles = makeStyles({
         // width: 150,
       },
       '&:nth-child(5)': {
-        width: 160,
-        borderLeft: 0,
-        textAlign: 'right',
+        // width: 160,
+        // textAlign: 'right',
       },
     },
   },
   actions: {
     marginLeft: 'auto',
+    marginRight: 'auto',
     maxWidth: 124,
     '& .Button': {
       marginBottom: 8,
