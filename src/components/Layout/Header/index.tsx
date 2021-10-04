@@ -59,33 +59,34 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
   }, [balance]);
 
   const handleBuyClick = useCallback(async () => {
-    if (buyProcessing) return;
-
-    setBuyProcessing(true);
-
-    const [err, res] = await buyMatricesService({
-      level: 1,
-      program: 1,
-    });
-
-    if (err || !res) {
-      if (err && err!.status === 400) {
-        toast.error(t('profile.referral.buy.toast.error400'));
-      } else {
-        toast.error(t('profile.referral.buy.toast.error500'));
-      }
-
-      setBuyProcessing(false);
-      return;
-    }
-
-    toast.success(t('profile.referral.buy.toast.success'));
-
-    await dispatch(getBalance());
-
-    await dispatch(getProfile({}));
-
-    setBuyProcessing(false);
+    history.push('/buy_premium');
+    // if (buyProcessing) return;
+    //
+    // setBuyProcessing(true);
+    //
+    // const [err, res] = await buyMatricesService({
+    //   level: 1,
+    //   program: 1,
+    // });
+    //
+    // if (err || !res) {
+    //   if (err && err!.status === 400) {
+    //     toast.error(t('profile.referral.buy.toast.error400'));
+    //   } else {
+    //     toast.error(t('profile.referral.buy.toast.error500'));
+    //   }
+    //
+    //   setBuyProcessing(false);
+    //   return;
+    // }
+    //
+    // toast.success(t('profile.referral.buy.toast.success'));
+    //
+    // await dispatch(getBalance());
+    //
+    // await dispatch(getProfile({}));
+    //
+    // setBuyProcessing(false);
   }, [buyProcessing]);
 
   return (

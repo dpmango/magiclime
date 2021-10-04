@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProfile } from 'store/reducers/profile';
 import Flex from 'components/Common/Flex';
 import Container from 'components/Common/Container';
+import Premium from '../../pages/Premium';
 import Menu from '../Menu';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import { RootState } from '../../../store/reducers/rootReducer';
@@ -57,6 +58,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
                 path="/"
                 render={() => <Redirect to="/profile/me" />}
               />
+              <Route path="/buy_premium" component={Premium} />
               <Route
                 path="/chats/:id?"
                 render={(props) => (
