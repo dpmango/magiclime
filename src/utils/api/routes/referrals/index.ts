@@ -76,12 +76,12 @@ export const buyMatricesService = async ({
   level,
   program,
   matrixUserId,
-  positionRequestId,
+  positionRequestUserId,
 }: {
   level: number;
   program: number;
   matrixUserId?: number;
-  positionRequestId?: number;
+  positionRequestUserId?: number;
 }): Promise<[{ status: number } | null, any | null]> => {
   try {
     const { data } = await $api.post(endpoints.referrals.buy, null, {
@@ -89,7 +89,7 @@ export const buyMatricesService = async ({
         level,
         program,
         matrixUserId,
-        positionRequestId,
+        positionRequestUserId,
       },
     });
     return [null, data];

@@ -67,7 +67,7 @@ export default {
   referrals: {
     list: '/auth/users/me/referrals/',
     clones: '/matrices/clones/',
-    team: '/profile/referrals/',
+    team: '/matrices/my_team/',
     clonePlace: '/matrices/future_clone_place/',
     buy: '/matrices/buy/',
     history: '/matrices/history/',

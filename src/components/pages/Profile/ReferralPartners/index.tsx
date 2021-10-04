@@ -240,7 +240,7 @@ const Referrals: FC = () => {
         level: selectedLevel,
         program: filterProgram.id,
         matrixUserId: id,
-        positionRequestId: partner ? parseInt(partner, 10) : undefined,
+        positionRequestUserId: partner ? parseInt(partner, 10) : undefined,
       });
 
       if (err || !res) {
