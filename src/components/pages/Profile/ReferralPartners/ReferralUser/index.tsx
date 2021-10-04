@@ -54,7 +54,7 @@ const ReferralUser: FC<IProps> = ({
       e.stopPropagation();
 
       copyToClipboard(
-        `https://magiclime.academy/profile/me/partners/?id=${id}&level=${level}&program=${program}`,
+        `${process.env.REACT_APP_API_DOMAIN}/profile/me/partners/?id=${id}&level=${level}&program=${program}`,
         t('profile.referral.card.copySuccess'),
         t('profile.referral.card.copyError')
       );

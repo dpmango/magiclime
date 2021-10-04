@@ -1,3 +1,4 @@
+import { Select } from '@consta/uikit/Select';
 import React, {
   FC,
   useState,
@@ -6,9 +7,9 @@ import React, {
   useEffect,
   MouseEvent,
 } from 'react';
+import { v4 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { Grid, GridItem } from '@consta/uikit/Grid';
 import { Breadcrumbs } from '@consta/uikit/Breadcrumbs';
@@ -17,13 +18,14 @@ import { Loader } from '@consta/uikit/Loader';
 import { IconSearch } from '@consta/uikit/IconSearch';
 
 import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
 import { RootState } from 'store/reducers/rootReducer';
 import { IReferralTeam } from 'types/interfaces/referrals';
 import { getTeam } from 'store/reducers/referrals';
 
 import useSharedStyles from 'assets/styles/Shared';
 import { useQuery } from 'hooks/useQuery';
+import { useDebounce } from '../../../../hooks/useDebounce';
+import { programOptions } from '../ReferralPartners/functions';
 import ReferralUser from './ReferralUser';
 import { buildTree } from './functions';
 import { ICrumbsPage, IRequestPayload, IMappedData } from './types';
@@ -38,43 +40,51 @@ const ReferralsTeam: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const [filterSearch, setFilterSearch] = useState<string | null>('');
+  const [filterSearch, setFilterSearch] = useState('');
+  const [program, setProgram] = useState(programOptions[0]);
 
   const teamTree = useSelector((state: RootState) => state.referrals.team);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
+  const debouncedSearch = useDebounce(filterSearch, 300);
+
   // api actions
-  const requestTeam = useCallback(async ({ id }: { id?: number | string }) => {
-    setLoading(true);
-    setError('');
+  const requestTeam = useCallback(
+    async ({ id }: { id?: number | string }) => {
+      setLoading(true);
+      setError('');
 
-    await dispatch(
-      getTeam({
-        id,
-        successCallback: (res?: IReferralTeam) => {
-          const params = new URLSearchParams({
-            id: `${res!.id}`,
-          });
+      await dispatch(
+        getTeam({
+          id,
+          search: debouncedSearch,
+          program: program.id,
+          successCallback: (res?: IReferralTeam) => {
+            const params = new URLSearchParams({
+              id: `${res!.id}`,
+            });
 
-          history.replace({
-            pathname: location.pathname,
-            search: params.toString(),
-          });
-        },
-        errorCallback: () => {
-          history.replace({
-            pathname: location.pathname,
-            search: '',
-          });
+            history.replace({
+              pathname: location.pathname,
+              search: params.toString(),
+            });
+          },
+          errorCallback: () => {
+            history.replace({
+              pathname: location.pathname,
+              search: '',
+            });
 
-          setError('Ошибка при получении команды');
-        },
-      })
-    );
+            setError('Ошибка при получении команды');
+          },
+        })
+      );
 
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    },
+    [debouncedSearch, program]
+  );
 
   // initial request with url getters & setters
   useEffect(() => {
@@ -93,7 +103,7 @@ const ReferralsTeam: FC = () => {
     };
 
     fetch();
-  }, []);
+  }, [debouncedSearch, program]);
 
   // click handlers
   const handleBreadcrumbClick = useCallback(
@@ -120,7 +130,6 @@ const ReferralsTeam: FC = () => {
     return buildTree({ teamTree });
   }, [teamTree]);
 
-  console.log({ mappedData });
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
@@ -160,23 +169,22 @@ const ReferralsTeam: FC = () => {
                         onReferralClick={handleReferralClick}
                       />
                       {group.children &&
-                        group.children.map((referral: IReferralTeam, cidx) => (
+                        group.children.map((referral: IReferralTeam) => (
                           <div
-                            key={group.id || idx}
+                            key={group.id || uuid()}
                             className={styles.referralGroup}
                           >
                             <ReferralUser
                               data={referral}
-                              key={referral.id || cidx}
                               onReferralClick={handleReferralClick}
                               nested
                             />
                             {referral.children &&
                               referral.children.map(
-                                (referral2: IReferralTeam, cidx) => (
+                                (referral2: IReferralTeam) => (
                                   <ReferralUser
                                     data={referral2}
-                                    key={referral2.id || cidx}
+                                    key={referral2.id || uuid()}
                                     onReferralClick={handleReferralClick}
                                     nested2
                                   />
@@ -212,11 +220,19 @@ const ReferralsTeam: FC = () => {
         <GridItem col="1">
           <div className={styles.filters}>
             <div className={styles.filtersGroup}>
+              <Select
+                items={programOptions}
+                value={program}
+                placeholder={t('profile.referral.filter.level')}
+                onChange={({ value }) => setProgram(value!)}
+              />
+            </div>
+            <div className={styles.filtersGroup}>
               <TextField
                 value={filterSearch}
                 placeholder={t('profile.referral.filter.search')}
                 rightSide={IconSearch}
-                onChange={({ value }) => setFilterSearch(value)}
+                onChange={({ value }) => setFilterSearch(value || '')}
               />
             </div>
           </div>

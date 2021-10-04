@@ -52,6 +52,8 @@ export const getClonesService = (data: {
 };
 
 export const getTeamService = (data: {
+  program: number;
+  search: string;
   id?: number | string;
 }): AxiosPromise<IReferralTeam> => {
   let params = {};
@@ -60,6 +62,8 @@ export const getTeamService = (data: {
     params = {
       ...params,
       matrixUserId: data.id,
+      username: data.search || null,
+      program: data.program,
     };
   }
 

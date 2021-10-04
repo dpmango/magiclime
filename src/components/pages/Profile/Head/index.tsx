@@ -49,7 +49,7 @@ const ProfileHead: FC<IProps> = ({ profile, isMyProfile }) => {
     <Flex align="center" className={styles.root} margin="0 0px">
       <div className={styles.avatarWrapper}>
         <Avatar
-          url={profile.avatar?.image}
+          url={profile.avatar ? profile.avatar.image : ''}
           name={profile.name}
           className={styles.avatar}
         />

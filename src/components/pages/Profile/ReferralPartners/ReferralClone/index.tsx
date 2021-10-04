@@ -1,14 +1,11 @@
-import React, { FC, useMemo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { FC, useMemo } from 'react';
 import { Avatar } from '@consta/uikit/Avatar';
 import { IconForward } from '@consta/uikit/IconForward';
 import moment from 'moment';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IClone } from 'types/interfaces/referrals';
-import { useQuery } from 'hooks/useQuery';
 
 import useStyles from './styles';
 
@@ -29,26 +26,6 @@ const ReferralClone: FC<IProps> = ({
   onReferralClick,
 }) => {
   const styles = useStyles();
-  const query = useQuery();
-  const { t } = useTranslation();
-
-  const handleCopyRefClick = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (creation_reason) {
-        const level = query.get('level');
-        const program = query.get('program');
-
-        copyToClipboard(
-          `https://magiclime.academy/profile/me/partners/?${creation_reason}`,
-          t('profile.referral.card.copySuccess'),
-          t('profile.referral.card.copyError')
-        );
-      }
-    },
-    [id, query, creation_reason]
-  );
 
   const timestamp = useMemo(() => {
     if (!created_at) {
@@ -83,7 +60,12 @@ const ReferralClone: FC<IProps> = ({
         </Typography>
       </div>
 
-      <div className={styles.referralId} onClick={handleCopyRefClick}>
+      <a
+        className={styles.referralId}
+        target="_blank"
+        href={`${process.env.REACT_APP_API_DOMAIN}/profile/me/partners/?${creation_reason}`}
+        rel="noreferrer"
+      >
         <Flex align="center" justify="flex-end">
           <Typography
             margin="0 6px 0 0"
@@ -91,11 +73,11 @@ const ReferralClone: FC<IProps> = ({
             view="primary"
             weight="regular"
           >
-            {created_from_username} ({id})
+            {id}
           </Typography>
           {creation_reason && <IconForward size="s" />}
         </Flex>
-      </div>
+      </a>
     </Flex>
   );
 };

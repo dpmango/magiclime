@@ -48,14 +48,8 @@ const useStyles = makeStyles(() => ({
     textAlign: 'right',
     paddingRight: 12,
     cursor: 'pointer',
-    '& .Icon': {
-      color: '#C7CFCE',
-      transition: 'color .25s ease-in-out',
-    },
-    '&:hover': {
-      '& .Icon': {
-        color: 'var(--color-typo-brand)',
-      },
+    '& span': {
+      color: 'var(--color-typo-brand)',
     },
   },
 }));
