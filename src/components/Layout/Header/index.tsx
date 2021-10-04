@@ -94,7 +94,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
                     personName={`${formatPrice(
                       balance.bonus_points,
                       0
-                    )} баллов`}
+                    )} бонусов`}
                     personInfo={`${profile.level} уровень`}
                     personAvatarUrl="/images/experience.svg"
                     className={styles.clickBlock}

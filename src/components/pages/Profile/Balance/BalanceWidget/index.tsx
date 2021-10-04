@@ -23,7 +23,7 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
 
   return (
     <div className={styles.root}>
-      {showRate && (
+      {/* {showRate && (
         <Flex align="center">
           <div className={styles.coinIcon}>
             <img src="/images/bitcoin.png" alt="btc" />
@@ -37,7 +37,7 @@ const BalanceWidget: FC<IProps> = ({ btcRate, inline, showRate = true }) => {
             </Typography>
           </div>
         </Flex>
-      )}
+      )} */}
       {!inline && (
         <>
           <Typography

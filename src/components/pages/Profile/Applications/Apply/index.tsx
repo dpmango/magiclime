@@ -76,7 +76,7 @@ const ApplicationsApply: FC<IProps> = ({ withIntroText = true }) => {
           </Typography>
 
           <div className={styles.text}>
-            <Typography margin="12px 0 0" lineHeight="s" size="s">
+            <Typography margin="12px 0 0" lineHeight="m" size="s">
               Вы можете подать заявку на активацию вашей матрицы спонсором.
               После этого, он может поставить вас в позицию выбранную по своему
               усмотрению в указанной матрице, деньги будут списаны с вашего
