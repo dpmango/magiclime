@@ -111,7 +111,7 @@ const Referrals: FC<IProps> = ({ profile, isMyProfile }) => {
           </div>
         </GridItem>
         <GridItem>
-          <div className={styles.box} style={{ opacity: 0.5 }}>
+          <div className={styles.box}>
             <Typography
               size="xs"
               weight="semibold"
