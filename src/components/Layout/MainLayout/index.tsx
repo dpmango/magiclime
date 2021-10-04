@@ -7,6 +7,7 @@ import { getAllProfile } from 'store/reducers/profile';
 import Flex from 'components/Common/Flex';
 import Container from 'components/Common/Container';
 import Premium from '../../pages/Premium';
+import PrivateRoute from '../../PrivateRoute';
 import Menu from '../Menu';
 import { ChatContextProvider } from '../../pages/Chats/context';
 import { RootState } from '../../../store/reducers/rootReducer';
@@ -36,8 +37,8 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
 
-  const is_staff = useSelector(
-    (state: RootState) => state.user.profile.is_staff,
+  const { is_staff, is_bought_1level_bitlime } = useSelector(
+    (state: RootState) => state.user.profile,
     isEqual
   );
 
@@ -58,7 +59,13 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
                 path="/"
                 render={() => <Redirect to="/profile/me" />}
               />
-              <Route path="/buy_premium" component={Premium} />
+              <PrivateRoute
+                path="/buy_premium"
+                access={!is_bought_1level_bitlime}
+                redirect="/profile/me"
+              >
+                <Premium />
+              </PrivateRoute>
               <Route
                 path="/chats/:id?"
                 render={(props) => (

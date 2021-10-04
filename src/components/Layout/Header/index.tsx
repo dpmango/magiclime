@@ -49,7 +49,6 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
   const { t } = useTranslation();
 
   const [isOpen, setOpen] = useState(false);
-  const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
   const isLogged = useSelector((state: RootState) => state.user.isLogged);
   const profile = useSelector((state: RootState) => state.user.profile);
   const balance = useSelector((state: RootState) => state.profile.balance);
@@ -60,34 +59,7 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
 
   const handleBuyClick = useCallback(async () => {
     history.push('/buy_premium');
-    // if (buyProcessing) return;
-    //
-    // setBuyProcessing(true);
-    //
-    // const [err, res] = await buyMatricesService({
-    //   level: 1,
-    //   program: 1,
-    // });
-    //
-    // if (err || !res) {
-    //   if (err && err!.status === 400) {
-    //     toast.error(t('profile.referral.buy.toast.error400'));
-    //   } else {
-    //     toast.error(t('profile.referral.buy.toast.error500'));
-    //   }
-    //
-    //   setBuyProcessing(false);
-    //   return;
-    // }
-    //
-    // toast.success(t('profile.referral.buy.toast.success'));
-    //
-    // await dispatch(getBalance());
-    //
-    // await dispatch(getProfile({}));
-    //
-    // setBuyProcessing(false);
-  }, [buyProcessing]);
+  }, []);
 
   return (
     <div className={styles.root}>

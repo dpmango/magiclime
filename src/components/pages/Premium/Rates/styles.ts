@@ -34,13 +34,18 @@ const useStyles = makeStyles({
     },
   },
   buy: {
-    transition: 'all .3s linear',
-    color: 'rgba(235, 87, 87, 1)',
-    background: 'rgba(253, 245, 242, 1)',
+    transition: 'opacity .3s linear',
+    background: 'var(--color-bg-brand)',
+    color: '#fff',
     '&:hover': {
-      background: 'rgba(235, 87, 87, 1)',
-      color: '#fff',
+      opacity: 0.7,
     },
+    '&:disabled': {
+      background: 'var(--color-control-bg-disable)',
+    },
+  },
+  selected: {
+    background: 'var(--color-typo-normal) !important',
   },
 });
 

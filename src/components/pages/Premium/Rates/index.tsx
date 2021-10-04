@@ -1,11 +1,41 @@
+import React, { FC, useCallback, useMemo } from 'react';
 import { Button } from '@consta/uikit/Button';
-import React, { FC, useMemo } from 'react';
+import { toast } from 'react-hot-toast';
+import cln from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { getBalance } from '../../../../store/reducers/profile';
+import { getProfile } from '../../../../store/reducers/user';
+import { buyMatricesService } from '../../../../utils/api/routes/referrals';
 import Flex from '../../../Common/Flex';
 import Typography from '../../../Common/Typography';
 import useStyles from './styles';
 
 const Rates: FC = () => {
   const styles = useStyles();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const buyRate = useCallback(async (level: number, program: number) => {
+    const [err, res] = await buyMatricesService({
+      level,
+      program,
+    });
+
+    if (err || !res) {
+      if (err && err!.status === 400) {
+        toast.error(t('profile.referral.buy.toast.error400'));
+      } else {
+        toast.error(t('profile.referral.buy.toast.error500'));
+      }
+    } else {
+      toast.success(t('profile.referral.buy.toast.success'));
+
+      await dispatch(getBalance());
+
+      await dispatch(getProfile({}));
+    }
+  }, []);
 
   const rates = useMemo(
     () => [
@@ -14,6 +44,9 @@ const Rates: FC = () => {
         title: 'Новичок',
         icon: 'images/premium/beginner.svg',
         price: 0,
+        selected: true,
+        disabled: true,
+        buyFunc: () => {},
         description: 'Регистрируйся и узнай о новой платформе',
         availableDescription: 'Для тебя доступно',
         available: [
@@ -28,6 +61,7 @@ const Rates: FC = () => {
         title: 'Ученик',
         icon: 'images/premium/partner.svg',
         price: 0.0004,
+        buyFunc: () => buyRate(1, 6),
         description: 'Для опытных пользователей, которые хотят большего',
         availableDescription: 'Дополнительно к "Новичку"',
         available: [
@@ -44,6 +78,7 @@ const Rates: FC = () => {
         title: 'Партнёр',
         icon: 'images/premium/teacher.svg',
         price: 0.0011,
+        buyFunc: () => buyRate(1, 1),
         description: 'Для тех, кто готов делиться опытом',
         availableDescription: 'Дополнительно к "Новичку" и "Партнёру"',
         available: [
@@ -60,6 +95,8 @@ const Rates: FC = () => {
         price: 10,
         description: 'Развивай и поддерживай свою команду',
         availableDescription: 'Дополнительно',
+        disabled: true,
+        buyFunc: () => {},
         available: [
           { id: 1, name: 'Управляй своими командами через чаты' },
           { id: 2, name: 'Создавай вебинары для команд' },
@@ -89,7 +126,14 @@ const Rates: FC = () => {
             <Typography weight="bold" size="3xl" margin="6px 0 21px">
               {rate.price} BTC
             </Typography>
-            <Button label="Оплатить" className={styles.buy} />
+            <Button
+              label={rate.selected ? 'Выбрано' : 'Оплатить'}
+              className={cln(styles.buy, {
+                [styles.selected]: !!rate.selected,
+              })}
+              disabled={!!rate.disabled}
+              onClick={rate.buyFunc}
+            />
             <Typography margin="19px 0 15px" view="secondary" size="s">
               {rate.description}
             </Typography>
