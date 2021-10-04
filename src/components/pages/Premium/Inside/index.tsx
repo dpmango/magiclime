@@ -51,7 +51,7 @@ const Inside: FC = () => {
       </Typography>
       <div className={styles.container}>
         <img
-          src="https://uprostim.com/wp-content/uploads/2021/05/image032-6.jpg"
+          src="images/premium/imgclass.svg"
           alt="banner"
           className={styles.image}
         />

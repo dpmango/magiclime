@@ -27,7 +27,7 @@ const Rates: FC = () => {
         id: 2,
         title: 'Партнёр',
         icon: 'images/premium/partner.svg',
-        price: 4,
+        price: 0.0004,
         description: 'Для опытных пользователей, которые хотят большего',
         availableDescription: 'Дополнительно к "Новичку"',
         available: [
@@ -43,7 +43,7 @@ const Rates: FC = () => {
         id: 3,
         title: 'Преподаватель',
         icon: 'images/premium/teacher.svg',
-        price: 8,
+        price: 0.001,
         description: 'Для тех, кто готов делиться опытом',
         availableDescription: 'Дополнительно к "Новичку" и "Партнёру"',
         available: [
@@ -64,6 +64,7 @@ const Rates: FC = () => {
           { id: 1, name: 'Управляй своими командами через чаты' },
           { id: 2, name: 'Создавай вебинары для команд' },
           { id: 3, name: 'Чат "Лидеров"' },
+          { id: 4, name: 'Создавай собственные курсы"' },
         ],
       },
     ],
@@ -84,7 +85,7 @@ const Rates: FC = () => {
             <img src={rate.icon} alt="rate_icon" />
             <Typography size="2xl">{rate.title}</Typography>
             <Typography weight="bold" size="3xl" margin="6px 0 21px">
-              ${rate.price}
+              {rate.price} BTC
             </Typography>
             <Button label="Оплатить" className={styles.buy} />
             <Typography margin="19px 0 15px" view="secondary" size="s">
