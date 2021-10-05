@@ -479,8 +479,15 @@ const Referrals: FC = () => {
                 <div className={styles.filtersGroup}>
                   <Button
                     width="full"
+                    loading={!referralsTree.price}
                     onClick={() => setModalConfirm({ id: 0, opened: true })}
-                    label={t('profile.referral.buy.cta')}
+                    label={
+                      referralsTree.price
+                        ? `${t('profile.referral.buy.cta')} ${
+                            referralsTree.price
+                          } ${t('profile.referral.buy.bonuses')}`
+                        : ''
+                    }
                   />
                 </div>
                 <div className={styles.filtersGroup}>

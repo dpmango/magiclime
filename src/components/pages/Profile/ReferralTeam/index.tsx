@@ -44,6 +44,7 @@ const ReferralsTeam: FC = () => {
   const [program, setProgram] = useState(programOptions[0]);
 
   const teamTree = useSelector((state: RootState) => state.referrals.team);
+  const { id } = useSelector((state: RootState) => state.user.profile);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
@@ -51,9 +52,9 @@ const ReferralsTeam: FC = () => {
 
   // api actions
   const requestTeam = useCallback(
-    async ({ id }: { id?: number | string }) => {
+    async (id: string | number) => {
       setLoading(true);
-      setError('');
+      error && setError('');
 
       await dispatch(
         getTeam({
@@ -88,21 +89,7 @@ const ReferralsTeam: FC = () => {
 
   // initial request with url getters & setters
   useEffect(() => {
-    const fetch = async () => {
-      const id = query.get('id');
-
-      const params = {
-        id: undefined,
-      } as IRequestPayload;
-
-      if (id) {
-        params.id = id;
-      }
-
-      await requestTeam(params);
-    };
-
-    fetch();
+    requestTeam(id);
   }, [debouncedSearch, program]);
 
   // click handlers
@@ -111,18 +98,14 @@ const ReferralsTeam: FC = () => {
       e.preventDefault();
 
       if (page.link !== '#') {
-        requestTeam({
-          id: page.link,
-        });
+        requestTeam(page.link);
       }
     },
     []
   );
 
   const handleReferralClick = useCallback((id: number): void => {
-    requestTeam({
-      id,
-    });
+    requestTeam(id);
   }, []);
 
   // main data getter

@@ -9,9 +9,9 @@ export type ReferralsPayloadType = {
 };
 
 export type TeamPayloadType = {
+  id: string | number;
   program: number;
   search: string;
-  id?: number | string;
   successCallback?: (res: IReferralTeam) => void;
   errorCallback?: () => void;
 };

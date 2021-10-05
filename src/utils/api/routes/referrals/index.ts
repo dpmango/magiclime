@@ -52,20 +52,15 @@ export const getClonesService = (data: {
 };
 
 export const getTeamService = (data: {
+  id: string | number;
   program: number;
   search: string;
-  id?: number | string;
 }): AxiosPromise<IReferralTeam> => {
-  let params = {};
-
-  if (data.id && data.id !== 'me') {
-    params = {
-      ...params,
-      matrixUserId: data.id,
-      username: data.search || null,
-      program: data.program,
-    };
-  }
+  const params = {
+    user_id: data.id,
+    username: data.search || null,
+    program: data.program,
+  };
 
   return $api.get(endpoints.referrals.team, {
     params,
