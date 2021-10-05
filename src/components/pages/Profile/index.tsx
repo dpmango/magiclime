@@ -6,6 +6,7 @@ import {
   useHistory,
   useRouteMatch,
   useParams,
+  useLocation,
 } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Tabs } from '@consta/uikit/Tabs';
@@ -42,6 +43,7 @@ const ProfilePage: FC = () => {
   const params: { id: string } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const firstRender = useFirstRender();
   const { t } = useTranslation();
 
@@ -114,6 +116,13 @@ const ProfilePage: FC = () => {
   }, []);
 
   const [tab, setTab] = useState<ITab>(getTabWithRouter);
+
+  useEffect(() => {
+    if (location.pathname !== tab.slug) {
+      const correctTab = tabs.find((tab) => tab.slug === location.pathname);
+      correctTab && setTab(correctTab);
+    }
+  }, [location.pathname]);
 
   // effects
   useEffect(() => {

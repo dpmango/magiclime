@@ -34,6 +34,7 @@ const ReferralUser: FC<IProps> = ({
     referrals_count,
     created_at,
     is_clone,
+    is_clever,
     clone_id,
     clone_enabled,
     price,
@@ -45,7 +46,13 @@ const ReferralUser: FC<IProps> = ({
   onReferralClick,
   onBuyClick,
 }) => {
-  const styles = useStyles({ nested, root, clone: is_clone, clone_enabled });
+  const styles = useStyles({
+    nested,
+    root,
+    clone: is_clone,
+    clone_enabled,
+    clever: is_clever,
+  });
   const { t } = useTranslation();
 
   const handleCopyRefClick = useCallback(
@@ -206,9 +213,7 @@ const ReferralUser: FC<IProps> = ({
                 view="primary"
                 form="round"
                 onClick={handleBuyClick}
-                label={`${formatPrice(price || 0)} ${t(
-                  'profile.referral.buy.bonuses'
-                )}`}
+                label={`${price || 0} ${t('profile.referral.buy.bonuses')}`}
               />
             )}
           </div>

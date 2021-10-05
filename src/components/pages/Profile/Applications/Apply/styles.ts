@@ -20,6 +20,10 @@ const useStyles = makeStyles({
   text: {
     maxWidth: 600,
   },
+  link: {
+    marginTop: '20px',
+    color: 'var(--color-typo-alert) !important',
+  },
 });
 
 export default useStyles;

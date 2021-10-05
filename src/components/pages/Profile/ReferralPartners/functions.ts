@@ -2,6 +2,7 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 
 import ConstaIcons from 'assets/icons/ConstaIcons';
+import { Link } from 'react-router-dom';
 import { IReferralTree } from 'types/interfaces/referrals';
 import { ISelectOption } from 'types/interfaces/common';
 import { IBuildTree, ICrumbsPage, IMappedData } from './types';
@@ -100,6 +101,7 @@ export const buildTree = ({
       clone_enabled: false,
       price: referralsTree.price,
       children: [],
+      is_clever: false,
     };
 
     let haveAnyOneFilled = false;
@@ -184,7 +186,6 @@ export const buildTree = ({
 
     return childsCopy;
   };
-
   return {
     positions: count,
     root: !isEmpty(referralsTree) ? referralsTree : null,

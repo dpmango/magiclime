@@ -5,6 +5,7 @@ interface IProps {
   root?: boolean;
   clone?: boolean;
   clone_enabled?: boolean;
+  clever: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
@@ -13,7 +14,12 @@ const useStyles = makeStyles<null, IProps>(() => ({
     width: 'auto',
     background: ({ nested, root }) =>
       nested || root ? 'var(--color-bg-default)' : 'var(--color-bg-stripe)',
-    border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
+    border: ({ root, clever }) =>
+      root
+        ? 0
+        : `1px solid ${
+            clever ? 'var(--color-typo-alert)' : 'var(--color-bg-border)'
+          }`,
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
     cursor: ({ root, clone, clone_enabled }) =>

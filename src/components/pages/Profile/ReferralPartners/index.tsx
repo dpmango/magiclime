@@ -429,7 +429,11 @@ const Referrals: FC = () => {
                     {t('common.shorts.or')}
                   </Typography>
                   <div className={styles.apply}>
-                    <ApplicationsApply withIntroText={false} />
+                    <ApplicationsApply
+                      withIntroText={false}
+                      defaultProgram={filterProgram.id}
+                      defaultLevel={selectedLevel}
+                    />
                   </div>
                 </>
               )}

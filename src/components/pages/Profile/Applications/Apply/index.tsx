@@ -6,6 +6,7 @@ import { Select } from '@consta/uikit/Select';
 import { toast } from 'react-hot-toast';
 
 import Typography from 'components/Common/Typography';
+import { Link } from 'react-router-dom';
 import Flex from 'components/Common/Flex';
 import { postApplicationService } from 'utils/api/routes/position';
 import { getOutcoming } from 'store/reducers/applications';
@@ -21,9 +22,15 @@ import useStyles from './styles';
 
 interface IProps {
   withIntroText?: boolean;
+  defaultLevel?: number;
+  defaultProgram?: number;
 }
 
-const ApplicationsApply: FC<IProps> = ({ withIntroText = true }) => {
+const ApplicationsApply: FC<IProps> = ({
+  withIntroText = true,
+  defaultProgram,
+  defaultLevel,
+}) => {
   const styles = useStyles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -43,12 +50,12 @@ const ApplicationsApply: FC<IProps> = ({ withIntroText = true }) => {
     const [err, data] = await postApplicationService({
       from_user: profile.id,
       // to_user: profile.id,
-      level: level!.id,
-      program: program!.id,
+      level: defaultLevel || level!.id,
+      program: defaultProgram || program!.id,
     });
 
     if (err) {
-      toast.error(err);
+      toast.error('Вы уже есть в программе');
       return;
     }
 
@@ -87,26 +94,36 @@ const ApplicationsApply: FC<IProps> = ({ withIntroText = true }) => {
       )}
 
       <div className={styles.apply}>
-        <Flex>
-          <div className={styles.applyProgram}>
-            <Select
-              value={program}
-              onChange={({ value }) => handleProgramChange(value!)}
-              items={programOptions}
-            />
-          </div>
-          <div className={styles.applyLevel}>
-            <Select
-              value={level}
-              onChange={({ value }) => setLevel(value!)}
-              items={matrixLevels}
-            />
-          </div>
+        <Flex align="center" direction={withIntroText ? 'row' : 'column'}>
+          {withIntroText && (
+            <>
+              <div className={styles.applyProgram}>
+                <Select
+                  value={program}
+                  onChange={({ value }) => handleProgramChange(value!)}
+                  items={programOptions}
+                />
+              </div>
+              <div className={styles.applyLevel}>
+                <Select
+                  value={level}
+                  onChange={({ value }) => setLevel(value!)}
+                  items={matrixLevels}
+                />
+              </div>
+            </>
+          )}
 
           <Button
             label={t('profile.applications.apply.cta')}
             onClick={handleApplicationPost}
           />
+
+          {!withIntroText && (
+            <Link to="/profile/me/applications" className={styles.link}>
+              Что такое заявка?
+            </Link>
+          )}
         </Flex>
       </div>
     </>
