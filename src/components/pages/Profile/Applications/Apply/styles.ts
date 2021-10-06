@@ -21,8 +21,7 @@ const useStyles = makeStyles({
     maxWidth: 600,
   },
   link: {
-    marginTop: '20px',
-    color: 'var(--color-typo-alert) !important',
+    marginLeft: '20px',
   },
 });
 

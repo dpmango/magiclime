@@ -37,10 +37,11 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
 
-  const { is_staff, is_bought_1level_bitlime } = useSelector(
-    (state: RootState) => state.user.profile,
-    isEqual
-  );
+  const {
+    is_staff,
+    is_bought_1level_bitlime,
+    has_bought_matrix_positions: havePremium,
+  } = useSelector((state: RootState) => state.user.profile, isEqual);
 
   useEffect(() => {
     dispatch(getAllProfile());
@@ -80,9 +81,22 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
               <Route exact path="/courses/:id/info" component={Course} />
               <Route exact path="/faq" component={Articles} />
               <Route exact path="/faq/:id" component={Article} />
-              <Route path="/forum" component={Forum} />
+              <PrivateRoute
+                path="/forum"
+                access={havePremium}
+                redirect="/profile/me"
+              >
+                <Forum />
+              </PrivateRoute>
               <Route path="/webinars" component={Webinars} />
-              <Route path="/rating" component={Rating} />
+              <PrivateRoute
+                path="/rating"
+                access={havePremium}
+                redirect="/profile/me"
+              >
+                <Rating />
+              </PrivateRoute>
+
               <Route path="/news" component={News} />
             </Switch>
           ) : (

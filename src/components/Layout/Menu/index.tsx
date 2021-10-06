@@ -1,10 +1,12 @@
 import React, { FC, useEffect, useMemo, useState, useContext } from 'react';
 import { IconLineAndBarChart } from '@consta/uikit/IconLineAndBarChart';
+import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { NavLink, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
+import cln from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useCheckDefaultTheme } from '../../../hooks/useCheckDefaultTheme';
+import { RootState } from '../../../store/reducers/rootReducer';
 import Flex from '../../Common/Flex';
 import Typography from '../../Common/Typography';
 import Container from '../../Common/Container';
@@ -18,6 +20,9 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
     index: 1,
   });
   const { isFull } = useContext(MenuContext);
+  const { has_bought_matrix_positions: havePremium } = useSelector(
+    (state: RootState) => state.user.profile
+  );
 
   const isDefault = useCheckDefaultTheme();
   const { t } = useTranslation();
@@ -86,30 +91,35 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
         path: '/forum',
         name: t('menu.forum'),
         icon: icons.ForumIcon,
+        disabled: !havePremium,
       },
       {
-        path: '/programs',
-        name: t('menu.programs'),
-        icon: icons.ProgramIcon,
+        path: '/rating',
+        name: t('menu.rating'),
+        icon: icons.RatingIcon,
+        disabled: !havePremium,
       },
       { name: t('menu.extra') },
       {
         path: '/marketplace',
         name: t('menu.marketplace'),
         icon: icons.MarketIcon,
+        disabled: !havePremium,
       },
       {
-        path: '/rating',
-        name: t('menu.rating'),
-        icon: icons.RatingIcon,
+        path: '/programs',
+        name: t('menu.programs'),
+        icon: icons.ProgramIcon,
+        disabled: !havePremium,
       },
       {
         path: '/games',
         name: t('menu.games'),
         icon: icons.GameIcon,
+        disabled: !havePremium,
       },
     ],
-    []
+    [havePremium]
   );
 
   const adminLinks = useMemo(
@@ -139,21 +149,25 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
     []
   );
 
-  const linksArray = useMemo(() => (isAdmin ? adminLinks : links), [isAdmin]);
+  const linksArray = useMemo<
+    Array<{ name: string; path?: string; icon?: FC<any>; disabled?: boolean }>
+  >(() => (isAdmin ? adminLinks : links), [isAdmin, havePremium]);
 
   return (
     <Container className={styles.root}>
       <Flex
         direction="column"
         margin="0 0 12px"
-        className={classNames(styles.animation, styles.relative)}
+        className={cln(styles.animation, styles.relative)}
       >
         {linksArray.map((link) => (
           <React.Fragment key={uuid()}>
             {link.icon && link.path ? (
               <NavLink
                 to={link.path}
-                className={styles.link}
+                className={cln(styles.link, {
+                  [styles.disableLink]: !!link.disabled,
+                })}
                 activeClassName={styles.activeLink}
               >
                 <link.icon className={styles.icon} size="s" />
@@ -173,7 +187,7 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
                 view="secondary"
                 size="xs"
                 weight="regular"
-                className={classNames(styles.text, styles.section)}
+                className={cln(styles.text, styles.section)}
               >
                 {link.name}
               </Typography>

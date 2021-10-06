@@ -76,6 +76,24 @@ const useStyles = makeStyles<null, IProps>(() => ({
       color: 'var(--color-typo-brand)',
     },
   },
+  disableLink: {
+    pointerEvents: 'none',
+    '& > div': {
+      color: 'var(--color-control-bg-disable) !important',
+    },
+    '& path': {
+      fill: 'var(--color-control-bg-disable) !important',
+    },
+    '&:hover': {
+      textShadow: 'none',
+      '& > span': {
+        color: 'var(--color-control-bg-disable) !important',
+      },
+      '& > div': {
+        color: 'var(--color-control-bg-disable) !important',
+      },
+    },
+  },
   animation: {
     transition: 'all .235s linear',
     width: '100%',

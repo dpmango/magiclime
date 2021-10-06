@@ -6,7 +6,7 @@ import { Select } from '@consta/uikit/Select';
 import { toast } from 'react-hot-toast';
 
 import Typography from 'components/Common/Typography';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Flex from 'components/Common/Flex';
 import { postApplicationService } from 'utils/api/routes/position';
 import { getOutcoming } from 'store/reducers/applications';
@@ -33,6 +33,7 @@ const ApplicationsApply: FC<IProps> = ({
 }) => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { t } = useTranslation();
 
   const [program, setProgram] = useState<ISelectOption>(programOptions[0]);
@@ -114,16 +115,21 @@ const ApplicationsApply: FC<IProps> = ({
             </>
           )}
 
-          <Button
-            label={t('profile.applications.apply.cta')}
-            onClick={handleApplicationPost}
-          />
+          <Flex justify="center">
+            <Button
+              label={t('profile.applications.apply.cta')}
+              onClick={handleApplicationPost}
+            />
 
-          {!withIntroText && (
-            <Link to="/profile/me/applications" className={styles.link}>
-              Что такое заявка?
-            </Link>
-          )}
+            {!withIntroText && (
+              <Button
+                label="Что такое заявка?"
+                view="secondary"
+                onClick={() => history.push('/profile/me/applications')}
+                className={styles.link}
+              />
+            )}
+          </Flex>
         </Flex>
       </div>
     </>

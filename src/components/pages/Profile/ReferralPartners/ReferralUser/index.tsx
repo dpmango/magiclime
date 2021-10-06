@@ -213,7 +213,9 @@ const ReferralUser: FC<IProps> = ({
                 view="primary"
                 form="round"
                 onClick={handleBuyClick}
-                label={`${price || 0} ${t('profile.referral.buy.bonuses')}`}
+                label={`${t('profile.referral.buy.cta')} ${price || 0} ${t(
+                  'profile.referral.buy.bonuses'
+                )}`}
               />
             )}
           </div>
