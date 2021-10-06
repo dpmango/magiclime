@@ -17,20 +17,18 @@ import useStyles from './styles';
 
 interface IProps {
   data: IReferralTeam;
-  nested?: boolean;
-  nested2?: boolean;
+  nestedLevel?: number;
   root?: boolean;
   onReferralClick?: (id: number) => void;
 }
 
 const ReferralUser: FC<IProps> = ({
   data: { id, username, avatar, email, date_joined, level, name },
-  nested,
-  nested2,
   root,
+  nestedLevel = 0,
   onReferralClick,
 }) => {
-  const styles = useStyles({ nested, nested2, root });
+  const styles = useStyles({ nestedLevel, root });
   const { t } = useTranslation();
 
   // const referralsPlural = useMemo(() => {

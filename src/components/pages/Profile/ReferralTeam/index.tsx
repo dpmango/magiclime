@@ -28,6 +28,7 @@ import { useDebounce } from '../../../../hooks/useDebounce';
 import { programOptions } from '../ReferralPartners/functions';
 import ReferralUser from './ReferralUser';
 import { buildTree } from './functions';
+import Tree from './Tree';
 import { ICrumbsPage, IRequestPayload, IMappedData } from './types';
 import useStyles from './styles';
 
@@ -143,40 +144,10 @@ const ReferralsTeam: FC = () => {
                 {mappedData.root && (
                   <ReferralUser data={mappedData.root} root />
                 )}
-
-                {mappedData.children &&
-                  mappedData.children.map((group: IReferralTeam, idx) => (
-                    <div key={group.id || idx} className={styles.referralGroup}>
-                      <ReferralUser
-                        data={group}
-                        onReferralClick={handleReferralClick}
-                      />
-                      {group.children &&
-                        group.children.map((referral: IReferralTeam) => (
-                          <div
-                            key={group.id || uuid()}
-                            className={styles.referralGroup}
-                          >
-                            <ReferralUser
-                              data={referral}
-                              onReferralClick={handleReferralClick}
-                              nested
-                            />
-                            {referral.children &&
-                              referral.children.map(
-                                (referral2: IReferralTeam) => (
-                                  <ReferralUser
-                                    data={referral2}
-                                    key={referral2.id || uuid()}
-                                    onReferralClick={handleReferralClick}
-                                    nested2
-                                  />
-                                )
-                              )}
-                          </div>
-                        ))}
-                    </div>
-                  ))}
+                <Tree
+                  tree={mappedData.children}
+                  clickFunc={handleReferralClick}
+                />
               </div>
             </>
           ) : (

@@ -28,4 +28,6 @@ export interface IUser {
   username: string;
   is_staff: boolean;
   is_bought_1level_bitlime: boolean;
+  lime_purchased: boolean;
+  has_bought_matrix_positions: boolean;
 }

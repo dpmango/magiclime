@@ -35,7 +35,6 @@ import ReferralPartners from './ReferralPartners';
 import ReferralTeam from './ReferralTeam';
 import Settings from './Settings';
 import useStyles from './styles';
-import { mockPrograms } from './mockData';
 
 const ProfilePage: FC = () => {
   const styles = useStyles();
@@ -166,7 +165,7 @@ const ProfilePage: FC = () => {
             <>
               {isMyProfile ? (
                 <div className={styles.section}>
-                  <ProgramList list={mockPrograms} />
+                  <ProgramList />
                 </div>
               ) : (
                 <ReferralStats {...profileProps} />

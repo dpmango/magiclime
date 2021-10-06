@@ -27,6 +27,7 @@ export default {
     },
     achievements: '/profile/achievements/',
     events: '/profile/events/',
+    programsList: '/profile/',
   },
   payments: {
     root: '/payments/',

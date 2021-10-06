@@ -85,40 +85,37 @@ const Header = ({ theme, setTheme }: IHeaderProps) => {
         }
         rightSide={
           <>
-            {profile.is_bought_1level_bitlime ? (
-              <>
-                <HeaderModule indent="m">
-                  <HeaderLogin
-                    isLogged={isLogged}
-                    isMinified={isMobile}
-                    personName={`${formatPrice(
-                      balance.bonus_points,
-                      0
-                    )} бонусов`}
-                    personInfo={`${profile.level} уровень`}
-                    personAvatarUrl="/images/experience.svg"
-                    className={styles.clickBlock}
-                  />
-                </HeaderModule>
-                <HeaderModule indent="m">
-                  <HeaderLogin
-                    isLogged={isLogged}
-                    isMinified={isMobile}
-                    personName={myBalance}
-                    personInfo="Баланс"
-                    personAvatarUrl={bitcoin}
-                    className={styles.clickBlock}
-                    onClick={() => history.push('/profile/me/balance/')}
-                  />
-                </HeaderModule>
-              </>
-            ) : (
-              <Button
-                view="secondary"
-                size="s"
-                label="Купить премиум"
-                onClick={handleBuyClick}
+            <HeaderModule indent="m">
+              <HeaderLogin
+                isLogged={isLogged}
+                isMinified={isMobile}
+                personName={`${formatPrice(balance.bonus_points, 0)} бонусов`}
+                personInfo={`${profile.level} уровень`}
+                personAvatarUrl="/images/experience.svg"
+                className={styles.clickBlock}
               />
+            </HeaderModule>
+            {profile.is_bought_1level_bitlime ? (
+              <HeaderModule indent="m">
+                <HeaderLogin
+                  isLogged={isLogged}
+                  isMinified={isMobile}
+                  personName={myBalance}
+                  personInfo="Баланс"
+                  personAvatarUrl={bitcoin}
+                  className={styles.clickBlock}
+                  onClick={() => history.push('/profile/me/balance/')}
+                />
+              </HeaderModule>
+            ) : (
+              <HeaderModule indent="m">
+                <Button
+                  view="secondary"
+                  size="s"
+                  label="Купить премиум"
+                  onClick={handleBuyClick}
+                />
+              </HeaderModule>
             )}
 
             <HeaderModule indent="s" className={styles.relative}>

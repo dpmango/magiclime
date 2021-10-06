@@ -1,6 +1,7 @@
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { IAchievement, IEvent } from 'types/interfaces/profile';
+import { IProgram } from '../../../../components/pages/Profile/types';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
 
@@ -19,10 +20,9 @@ export const getEventsService = (): AxiosPromise<
 export const getProgramsService = (): AxiosPromise<
   IAxiosPaginatedResponse<IEvent>
 > => {
-  return $api.get(endpoints.profile.options.programs, {
-    params: {
-      level: 1,
-      program: 1,
-    },
-  });
+  return $api.get(endpoints.profile.options.programs);
+};
+
+export const getProgramsList = (): AxiosPromise<IProgram[]> => {
+  return $api.get(endpoints.profile.programsList);
 };

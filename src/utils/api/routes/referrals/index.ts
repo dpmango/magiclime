@@ -60,6 +60,7 @@ export const getTeamService = (data: {
     user_id: data.id,
     username: data.search || null,
     program: data.program,
+    max_deep: 5,
   };
 
   return $api.get(endpoints.referrals.team, {

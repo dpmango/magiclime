@@ -1,27 +1,24 @@
 import { makeStyles } from '@material-ui/core';
 
 interface IProps {
-  nested?: boolean;
-  nested2?: boolean;
+  nestedLevel: number;
   root?: boolean;
 }
 
 const useStyles = makeStyles<null, IProps>(() => ({
   referral: {
     position: 'relative',
-    background: ({ nested, nested2, root }) =>
-      nested || root || nested2
-        ? 'var(--color-bg-default)'
-        : 'var(--color-bg-stripe)',
+    background: ({ nestedLevel, root }) =>
+      nestedLevel === 0 && !root
+        ? 'var(--color-bg-stripe)'
+        : 'var(--color-bg-default)',
     border: ({ root }) => (root ? 0 : '1px solid var(--color-bg-border)'),
     padding: ({ root }) => (root ? '0px 26px 0px 12px' : '13px 26px 12px 12px'),
     marginBottom: ({ root }) => (root ? 32 : 0),
-    marginLeft: ({ nested2 }) => (nested2 ? 40 : 0),
+    marginLeft: ({ nestedLevel }) =>
+      !nestedLevel ? 0 : `${31 * nestedLevel}px`,
     width: 'auto',
     cursor: ({ root }) => (root ? 'default' : 'pointer'),
-    '&:first-child': {
-      borderTopWidth: 0,
-    },
     '&::before, &::after': {
       display: 'block',
       content: "''",
@@ -34,22 +31,22 @@ const useStyles = makeStyles<null, IProps>(() => ({
       display: 'block',
       width: 9,
       height: 9,
-      left: ({ nested }) => (nested ? 20 : -24),
+      left: ({ nestedLevel }) => -24 + nestedLevel * -1,
       background: 'linear-gradient(41.87deg, #58CC01 0%, #57D4F6 102.92%)',
       borderRadius: '50%',
     },
     '&::before': {
-      width: ({ nested }) => (nested ? 37 : 30),
+      width: 30,
       height: 1,
-      left: ({ nested }) => (nested ? -18 : -52),
+      left: -52,
       borderBottom: '1px dashed var(--color-bg-border)',
     },
   },
-  referralUser: ({ root, nested }) => ({
+  referralUser: ({ root, nestedLevel }) => ({
     flex: '0 0 45%',
     minWidth: 1,
     paddingRight: 12,
-    paddingLeft: !nested ? 0 : 30,
+    paddingLeft: 30,
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
@@ -128,7 +125,7 @@ const useStyles = makeStyles<null, IProps>(() => ({
     width: '100%',
     minWidth: 1,
     marginTop: 4,
-    paddingLeft: ({ nested }) => (nested ? 70 : 40),
+    paddingLeft: 40,
     '& .Text': {
       overflow: 'hidden',
       whiteSpace: 'nowrap',

@@ -107,7 +107,7 @@ export const getAllMeta = createAsyncThunk<unknown, null>(
   'meta/getAllMeta',
   async (payload, { dispatch, rejectWithValue }) => {
     try {
-      dispatch(getCategories({}));
+      // dispatch(getCategories({}));
       dispatch(getCities({}));
       // dispatch(getCountries({}));
       dispatch(getTags({}));

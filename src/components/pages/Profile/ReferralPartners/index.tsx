@@ -298,9 +298,14 @@ const Referrals: FC = () => {
   }, [referralsTree, selectedLevel, filterProgram]);
 
   const buyBtnAvailable = useMemo(() => {
-    const firstMatrix = filterProgram.id === 1 && selectedLevel === 1;
+    const isBitlime = filterProgram.id === 1 && selectedLevel === 1;
+    const isLime = filterProgram.id === 4 && selectedLevel === 1;
 
-    return profile.is_bought_1level_bitlime || firstMatrix;
+    return (
+      profile.is_bought_1level_bitlime ||
+      (!profile.has_bought_matrix_positions && (isLime || isBitlime)) ||
+      (profile.lime_purchased && isBitlime)
+    );
   }, [filterProgram, selectedLevel]);
 
   return (
@@ -316,7 +321,11 @@ const Referrals: FC = () => {
         className={styles.grid}
       >
         <GridItem col="3" className={styles.gridColMain}>
-          {!error ? (
+          {loading ? (
+            <div className={sharedStyles.loader}>
+              <Loader />
+            </div>
+          ) : !error ? (
             <>
               <Breadcrumbs
                 className={styles.breadcrumbs}
@@ -407,7 +416,7 @@ const Referrals: FC = () => {
                 view="alert"
                 align="center"
                 weight="semibold"
-                margin="0 0 12px"
+                margin="58px 0 12px"
               >
                 {error}
               </Typography>
@@ -438,12 +447,6 @@ const Referrals: FC = () => {
                 </>
               )}
             </>
-          )}
-
-          {loading && (
-            <div className={sharedStyles.loader}>
-              <Loader />
-            </div>
           )}
         </GridItem>
 
@@ -478,7 +481,7 @@ const Referrals: FC = () => {
                 ))}
               </Flex>
             </div>
-            {buyBtnAvailable && (
+            {!error && (
               <>
                 <div className={styles.filtersGroup}>
                   <Button
@@ -507,14 +510,16 @@ const Referrals: FC = () => {
               </>
             )}
 
-            <div className={styles.filtersGroup}>
-              <TextField
-                value={filterSearch}
-                placeholder={t('profile.referral.filter.search')}
-                rightSide={IconSearch}
-                onChange={({ value }) => setFilterSearch(value)}
-              />
-            </div>
+            {!error && (
+              <div className={styles.filtersGroup}>
+                <TextField
+                  value={filterSearch}
+                  placeholder={t('profile.referral.filter.search')}
+                  rightSide={IconSearch}
+                  onChange={({ value }) => setFilterSearch(value)}
+                />
+              </div>
+            )}
           </div>
         </GridItem>
       </Grid>

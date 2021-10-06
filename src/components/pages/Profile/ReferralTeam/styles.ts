@@ -30,33 +30,6 @@ const useStyles = makeStyles({
     marginTop: 28,
     paddingLeft: 52,
   },
-
-  referralGroup: {
-    position: 'relative',
-    borderTop: '1px solid var(--color-bg-border)',
-    '&::after, &::before': {
-      display: 'block',
-      content: "' '",
-      position: 'absolute',
-      zIndex: 1,
-      top: 29,
-      width: 1,
-      borderLeft: '1px dashed var(--color-bg-border)',
-    },
-    '&::before': {
-      left: -52,
-      bottom: -30,
-    },
-    '&::after': {
-      left: -19,
-      bottom: 30,
-    },
-    '&:last-child': {
-      '&::before': {
-        display: 'none',
-      },
-    },
-  },
   filters: {
     marginTop: 58,
   },
