@@ -68,7 +68,7 @@ const Account: FC = () => {
     sponsor: REQUIRED,
     login: REQUIRED,
     email: EMAIL,
-    phone: PHONE,
+    phone: PHONE.required('Обязательное поле'),
   });
 
   // actions
@@ -271,18 +271,6 @@ const Account: FC = () => {
                     />
                   )}
                 </FileField>
-              </div>
-            </div>
-
-            <div className={styles.section} style={{ opacity: 0.5 }}>
-              <div className={styles.uiGroup}>
-                <FormikSwitch
-                  label="Lorem ipsum dolor sit amet"
-                  name="switch1"
-                />
-              </div>
-              <div className={styles.uiGroup}>
-                <FormikSwitch label="Lorem ipsum" name="switch2" />
               </div>
             </div>
 

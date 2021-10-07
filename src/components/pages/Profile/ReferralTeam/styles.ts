@@ -23,6 +23,10 @@ const useStyles = makeStyles({
       },
       '&_active': {
         color: 'var(--color-typo-primary)',
+        padding: '0 8px',
+        borderRadius: 'var(--control-radius)',
+        background: 'var(--color-bg-system)',
+        lineHeight: '24px',
       },
     },
   },

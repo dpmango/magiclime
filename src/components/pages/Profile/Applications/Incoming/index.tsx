@@ -1,3 +1,4 @@
+import { Badge } from '@consta/uikit/Badge';
 import React, { FC, useEffect, useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,6 +64,11 @@ const ApplicationsIncoming: FC = () => {
             <tr>
               <th>
                 <Typography size="xs" weight="semibold">
+                  {t('profile.applications.table.thId')}
+                </Typography>
+              </th>
+              <th>
+                <Typography size="xs" weight="semibold">
                   {t('profile.applications.table.thLogin')}
                 </Typography>
               </th>
@@ -86,18 +92,13 @@ const ApplicationsIncoming: FC = () => {
                   {t('profile.applications.table.thActions')}
                 </Typography>
               </th>
-              <th>
-                <Typography size="xs" weight="semibold">
-                  {t('profile.applications.table.thId')}
-                </Typography>
-              </th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
             {incoming.map((tr: IApplicationsDisplay) => (
               <tr key={tr.id} data-id={tr.id}>
                 <td>
-                  <Typography size="s">{tr.login}</Typography>
+                  <Typography size="s">{tr.id}</Typography>
                 </td>
                 <td>
                   <Typography size="s">{tr.matrix}</Typography>
@@ -106,7 +107,16 @@ const ApplicationsIncoming: FC = () => {
                   <Typography size="s">{tr.date}</Typography>
                 </td>
                 <td>
-                  <Typography size="s">{tr.statusText}</Typography>
+                  <Badge
+                    status={
+                      tr.status === 1
+                        ? 'system'
+                        : tr.status === 2
+                        ? 'success'
+                        : 'error'
+                    }
+                    label={tr.statusText}
+                  />
                 </td>
                 <td>
                   <Flex
@@ -126,7 +136,7 @@ const ApplicationsIncoming: FC = () => {
                   </Flex>
                 </td>
                 <td>
-                  <Typography size="s">{tr.id}</Typography>
+                  <Typography size="s">{tr.login}</Typography>
                 </td>
               </tr>
             ))}
