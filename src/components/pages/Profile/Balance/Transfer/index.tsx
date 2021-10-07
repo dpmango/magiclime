@@ -16,7 +16,7 @@ import useStyles from './styles';
 type SelectItem = {
   label: string;
   id: number;
-  disabled: boolean;
+  disabled?: boolean;
   icon?: string;
 };
 
@@ -24,8 +24,12 @@ const paymentSelectList: SelectItem[] = [
   {
     label: 'BitLime',
     icon: '/images/bitlime.svg',
-    disabled: true,
     id: 1,
+  },
+  {
+    label: 'Бонусы',
+    icon: '/images/bitlime.svg',
+    id: 2,
   },
 ];
 
@@ -50,6 +54,7 @@ const Transfer: FC = () => {
     const [err, data] = await postTransferBalance({
       amount: parseFloat(values.amount) / 100000,
       to_user: values.credentials,
+      transfer_type: values.payment.id,
     });
 
     if (err) {

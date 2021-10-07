@@ -24,9 +24,6 @@ const useStyles = makeStyles<null, IProps>(() => ({
     marginBottom: ({ root }) => (root ? 32 : 0),
     cursor: ({ root, clone, clone_enabled }) =>
       root || (clone && !clone_enabled) ? 'default' : 'pointer',
-    '&:first-child': {
-      borderTopWidth: 0,
-    },
     '&::before, &::after': {
       display: 'block',
       content: "''",

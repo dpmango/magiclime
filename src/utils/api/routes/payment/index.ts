@@ -21,6 +21,7 @@ export interface IRequestWithdrawal {
 export interface IRequestTransfer {
   amount: number;
   to_user: string;
+  transfer_type: number;
 }
 
 export const getBalanceService = (): AxiosPromise<IBalance> => {
