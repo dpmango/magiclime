@@ -72,6 +72,9 @@ export const getTeam = createAsyncThunk<any, TeamPayloadType>(
       if (response?.status === 200) {
         dispatch(setTeamTree(response.data));
         successCallback && successCallback(response.data);
+      } else if (response?.status === 204) {
+        successCallback &&
+          successCallback('Вы не принимаете участие в данной программе!');
       }
       return response.data;
     } catch (err: any) {

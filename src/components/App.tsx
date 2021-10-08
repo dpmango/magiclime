@@ -1,7 +1,7 @@
-import React, { FC, useMemo, useCallback, useEffect, memo } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
@@ -76,7 +76,7 @@ const App: FC = () => {
           position="top-right"
           toastOptions={{
             className: 'h-toast',
-            duration: 5000,
+            duration: 50000,
           }}
         />
       </ErrorBoundary>

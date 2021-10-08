@@ -12,6 +12,6 @@ export type TeamPayloadType = {
   id: string | number;
   program: number;
   search: string;
-  successCallback?: (res: IReferralTeam) => void;
+  successCallback?: (res: IReferralTeam | string) => void;
   errorCallback?: () => void;
 };

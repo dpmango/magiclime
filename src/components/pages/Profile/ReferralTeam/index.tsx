@@ -62,15 +62,19 @@ const ReferralsTeam: FC = () => {
           id,
           search: debouncedSearch,
           program: program.id,
-          successCallback: (res?: IReferralTeam) => {
-            const params = new URLSearchParams({
-              id: `${res!.id}`,
-            });
+          successCallback: (res?: IReferralTeam | string) => {
+            if (typeof res === 'string') {
+              setError(res);
+            } else {
+              const params = new URLSearchParams({
+                id: `${res!.id}`,
+              });
 
-            history.replace({
-              pathname: location.pathname,
-              search: params.toString(),
-            });
+              history.replace({
+                pathname: location.pathname,
+                search: params.toString(),
+              });
+            }
           },
           errorCallback: () => {
             history.replace({
@@ -156,7 +160,7 @@ const ReferralsTeam: FC = () => {
                 view="alert"
                 align="center"
                 weight="semibold"
-                margin="0 0 12px"
+                margin="58px 0 12px"
               >
                 {error}
               </Typography>
