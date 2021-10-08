@@ -75,7 +75,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
 
   useEffect(() => {
     const listener = (msg: any) => {
-      if (msg.data && msg.data.id) {
+      if (msg.data && msg.data.id && msg.data.chat === +chatId) {
         renderNewMessage(msg.data, dispatch, ref.current);
       }
     };
@@ -183,7 +183,7 @@ const Chat: FC<IProps> = ({ socket, chatId }) => {
         const firstUnread = Array.from(elem.children).filter(
           (item) => !!item.id
         )[firstIndex] as HTMLDivElement;
-        if (firstUnread.offsetTop > elem.clientHeight) {
+        if (firstUnread && firstUnread.offsetTop > elem.clientHeight) {
           elem.scrollTop =
             firstUnread.offsetTop -
             elem.clientHeight +

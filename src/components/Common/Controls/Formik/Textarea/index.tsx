@@ -7,9 +7,11 @@ import Typography from '../../../Typography';
 import useStyles from '../Input/styles';
 import { getNestedValue } from '../../../../../utils/formik/getNestedValue';
 
-interface IProps extends TextFieldProps {
+// @ts-ignore
+interface IProps extends TextFieldProps<string> {
   label?: string;
   isRequired?: boolean;
+  rows?: number;
 }
 
 const FormikTextarea = (props: IProps) => {
@@ -40,9 +42,9 @@ const FormikTextareaComponent = MemoWrapper(
             {isRequired && <span className={styles.star}>*</span>}
           </Typography>
         )}
+        {/* @ts-ignore */}
         <TextField
           type="textarea"
-          rows={3}
           className={styles.input}
           value={value}
           state={fieldError && fieldTouched ? 'alert' : undefined}

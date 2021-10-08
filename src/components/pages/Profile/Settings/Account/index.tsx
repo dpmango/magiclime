@@ -126,22 +126,8 @@ const Account: FC = () => {
     }
 
     const showFile = (blob: Blob) => {
-      const newBlob = new Blob([blob], { type: 'application/pdf' });
-
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob);
-        return;
-      }
-
-      // Create a link pointing to the ObjectURL containing the blob.
-      const data = window.URL.createObjectURL(newBlob);
-      const link = document.createElement('a');
-      link.href = data;
-      link.download = 'myprofile.pdf';
-      link.click();
-      setTimeout(() => {
-        window.URL.revokeObjectURL(data);
-      }, 100);
+      // Я удалил тело функции, т.к. там используется window.navigator.msSaveOrOpenBlob
+      // , а в новой спецификации это свойство было удалено + всё равно это нужно будет делать через api
     };
 
     showFile(data);

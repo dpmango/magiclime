@@ -18,7 +18,7 @@ export const copyToClipboard = (
     if (tSuccess) {
       toast.success(tSuccess);
     }
-  } catch (err) {
+  } catch (err: any) {
     if (tError) {
       toast.error(`${tError} : ${err.message}`);
     }

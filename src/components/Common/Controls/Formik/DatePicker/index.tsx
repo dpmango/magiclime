@@ -16,7 +16,7 @@ import { useClickOutside } from '../../../../../hooks/useClickOutside';
 import { RootState } from '../../../../../store/reducers/rootReducer';
 import { Language } from '../../../../../types/common';
 
-interface IProps extends Omit<TextFieldProps, 'onChange'> {
+interface IProps extends Omit<TextFieldProps<string>, 'onChange'> {
   label?: string;
   isRequired?: boolean;
   dateFormat?: string;

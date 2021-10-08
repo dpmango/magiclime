@@ -13,7 +13,7 @@ import MemoWrapper from '../MemoWrapper';
 
 import useStyles from './styles';
 
-interface IProps extends TextFieldProps {
+interface IProps extends TextFieldProps<string> {
   label?: string;
   mask?: RegExp[];
   isRequired?: boolean;

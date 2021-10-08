@@ -116,7 +116,9 @@ const Panel: FC<IProps> = ({ chatId, socket }) => {
         <TextField
           value={message}
           maxRows={15}
-          onKeyDown={(e) => handleKeyDown(e)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
+            handleKeyDown(e)
+          }
           onChange={({ value }) => setMessage(value as string)}
           type="textarea"
           placeholder="Новое сообщение"

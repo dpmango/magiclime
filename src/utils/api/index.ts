@@ -17,7 +17,7 @@ export const setAuthToken = (token: string) => {
 };
 
 export const deleteAuthHeader = () => {
-  delete instance.defaults.headers.Authorization;
+  delete instance.defaults.headers?.Authorization;
 };
 
 instance.interceptors.response.use(

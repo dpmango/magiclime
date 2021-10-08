@@ -38,6 +38,7 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
 
   const updateChat = useCallback(
     (msg: IMessage) => {
+      console.log(msg, chatId);
       const arr = chats.map((chat) => {
         if (chat.id === msg.chat) {
           return {

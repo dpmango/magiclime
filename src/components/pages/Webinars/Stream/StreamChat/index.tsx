@@ -88,7 +88,9 @@ const StreamChat = () => {
           className={styles.input}
           value={value}
           onChange={({ value }) => setValue(value || '')}
-          onKeyDown={(e) => handleKeyDown(e)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
+            handleKeyDown(e)
+          }
           placeholder="Новое сообщение"
           type="textarea"
           form="brick"

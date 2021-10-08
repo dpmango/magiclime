@@ -35,7 +35,7 @@ const Additional: FC = () => {
       </div>
       <div className={styles.inputsWrapper}>
         <FormikInput label="Имя" name="name" placeholder="Ваше имя" />
-        <FormikTextarea label="О себе" name="about" />
+        <FormikTextarea label="О себе" name="about" rows={3} />
       </div>
     </Flex>
   );
