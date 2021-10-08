@@ -101,6 +101,9 @@ const ApplicationsIncoming: FC = () => {
                   <Typography size="s">{tr.id}</Typography>
                 </td>
                 <td>
+                  <Typography size="s">{tr.login}</Typography>
+                </td>
+                <td>
                   <Typography size="s">{tr.matrix}</Typography>
                 </td>
                 <td>
@@ -134,9 +137,6 @@ const ApplicationsIncoming: FC = () => {
                       />
                     )}
                   </Flex>
-                </td>
-                <td>
-                  <Typography size="s">{tr.login}</Typography>
                 </td>
               </tr>
             ))}

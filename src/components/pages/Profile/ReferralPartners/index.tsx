@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, {
   FC,
   useState,
@@ -63,10 +64,20 @@ const Referrals: FC = () => {
   const { t } = useTranslation();
 
   const [filterSearch, setFilterSearch] = useState<string | null>('');
-  const [filterProgram, setFilterProgram] = useState<ISelectOption>(
-    programOptions[0]
-  );
-  const [selectedLevel, setSelectedLevels] = useState<number>(1);
+  const filterProgram: ISelectOption = Cookies.get('program')
+    ? (JSON.parse(Cookies.get('program') as string) as ISelectOption)
+    : programOptions[0];
+  const selectedLevel: number = Cookies.get('level')
+    ? +(Cookies.get('level') as string)
+    : 1;
+
+  const setFilterProgram = useCallback((filter: ISelectOption) => {
+    Cookies.set('program', JSON.stringify(filter));
+  }, []);
+  const setSelectedLevel = useCallback((level: number) => {
+    Cookies.set('level', level.toString());
+  }, []);
+
   const [buyProcessing, setBuyProcessing] = useState<boolean>(false);
   const [savedUserId, setSavedUsedId] = useState<number | string | undefined>(
     undefined
@@ -165,7 +176,7 @@ const Referrals: FC = () => {
       }
 
       if (level) {
-        setSelectedLevels(parseInt(level, 10));
+        setSelectedLevel(parseInt(level, 10));
         params.level = parseInt(level, 10);
       }
 
@@ -208,7 +219,7 @@ const Referrals: FC = () => {
 
   const handleMatrixLevelClick = useCallback(
     (n: number) => {
-      setSelectedLevels(n);
+      setSelectedLevel(n);
 
       requestReferrals({
         program: filterProgram.id,
@@ -221,7 +232,7 @@ const Referrals: FC = () => {
   const handleFilterProgramChange = useCallback((program: ISelectOption) => {
     setFilterProgram(program);
     const initialLvl = getInitialLevel(program.id);
-    setSelectedLevels(initialLvl);
+    setSelectedLevel(initialLvl);
 
     requestReferrals({
       program: program.id,

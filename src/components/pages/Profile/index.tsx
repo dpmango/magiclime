@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { FC, useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -139,6 +140,13 @@ const ProfilePage: FC = () => {
       dispatch(getForeignProfile({ id: parseInt(params.id, 10) }));
     }
   }, [params.id]);
+
+  useEffect(() => {
+    return () => {
+      Cookies.remove('program');
+      Cookies.remove('level');
+    };
+  }, []);
 
   const profileProps = {
     profile: viewingProfile,
