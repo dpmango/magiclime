@@ -16,33 +16,43 @@ interface IProps {
 }
 
 const ProgramCard: FC<IProps> = ({ data }) => {
+  const level = useMemo(() => {
+    return data.all_levels[0] === 0 ? data.matrix_level + 1 : data.matrix_level;
+  }, []);
+
   const progressWidth = useMemo(() => {
-    const percent = Math.round((data.progress[0] / data.progress[1]) * 100);
+    const percent = Math.round((level / data.all_levels.length) * 100);
 
     return `${percent}%`;
-  }, [data.progress]);
+  }, []);
+
+  const randomBackground = useMemo(() => {
+    const colors = ['green', 'lime', 'blue', 'violet'];
+    const index = Math.floor(Math.random() * colors.length);
+    return colors[index];
+  }, []);
 
   const styles = useStyles({
-    heroBackground: data.background,
+    heroBackground: randomBackground,
     progressWidth,
-    disabled: data.disabled,
+    disabled: data.is_closed,
   });
   const { t } = useTranslation();
 
   const referralsTotalPlural = useMemo(() => {
     const plural = Plurize(
-      data.referralsTotal,
+      data.referrals.length,
       t('profile.referralPlural.one'),
       t('profile.referralPlural.two'),
       t('profile.referralPlural.five')
     );
 
-    return `${data.referralsTotal} ${plural}`;
-  }, [data.referralsTotal]);
+    return `${data.referrals.length} ${plural}`;
+  }, [data.referrals.length]);
 
   const partnerLink = useMemo(() => {
-    return `/profile/me/partners?program=${data.id}`;
-  }, [data.id]);
+    return `/profile/me/partners?program=${data.program}`;
+  }, [data.program]);
 
   return (
     <Flex direction="column" className={styles.card}>
@@ -55,11 +65,11 @@ const ProgramCard: FC<IProps> = ({ data }) => {
               lineHeight="s"
               view="secondary"
             >
-              + {data.profit} mBL
+              + 3.130 mBL
             </Typography>
           </div>
           <div className={styles.image}>
-            <img src={data.image} alt={data.title} />
+            <img src="/images/program-silver.svg" alt={data.program_label} />
           </div>
         </div>
         <Flex direction="column" align="stretch" className={styles.content}>
@@ -69,7 +79,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             size="2xl"
             className={styles.title}
           >
-            {data.title}
+            {data.program_label}
           </Typography>
           <Typography
             weight="semibold"
@@ -77,12 +87,12 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             view="secondary"
             className={styles.matrixLevel}
           >
-            {data.matrixLevel} {t('profile.programCard.matrixLevel')}
+            {level} {t('profile.programCard.matrixLevel')}
           </Typography>
 
           <div className={styles.meta}>
             <Typography weight="semibold">
-              {data.level} {t('profile.programCard.level')}
+              {level} {t('profile.programCard.level')}
             </Typography>
             <div className={styles.progress}>
               <div className={styles.progresInner} />
@@ -94,7 +104,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
                 lineHeight="s"
                 weight="semibold"
               >
-                {data.league} {t('profile.programCard.league')}
+                Серебрянная {t('profile.programCard.league')}
               </Typography>
               <Typography
                 view="ghost"
@@ -102,13 +112,13 @@ const ProgramCard: FC<IProps> = ({ data }) => {
                 lineHeight="s"
                 weight="semibold"
               >
-                {data.progress[0]} / {data.progress[1]}
+                {level} / {data.all_levels.length}
               </Typography>
             </Flex>
           </div>
 
           <div className={styles.referral}>
-            {data.referralsTotal ? (
+            {data.referrals.length ? (
               <Flex align="center" justify="space-between">
                 <Members members={data.referrals} />
                 <Typography
@@ -136,7 +146,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
         </Flex>
       </Flex>
 
-      {data.disabled && (
+      {data.is_closed && (
         <div className={styles.context}>
           <Typography
             view="secondary"

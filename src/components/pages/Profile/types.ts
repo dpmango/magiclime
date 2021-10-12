@@ -2,23 +2,19 @@ import { IPhoto } from '../../../types/interfaces/common';
 
 export interface IProgramReferral {
   readonly id: number;
-  avatar: IPhoto;
+  avatar: IPhoto | null;
   name?: string;
 }
 
 export interface IProgram {
-  readonly id: number;
-  disabled?: boolean;
-  profit: number;
-  background: string;
-  image: string;
-  title: string;
-  matrixLevel: number;
-  level: number;
-  league: string;
-  progress: [number, number];
+  readonly program: number;
+  is_closed: boolean;
+  // background: string;
+  // image: string;
+  program_label: string;
+  matrix_level: number;
   referrals: IProgramReferral[];
-  referralsTotal: number;
+  all_levels: number[];
 }
 
 export interface ICourse {

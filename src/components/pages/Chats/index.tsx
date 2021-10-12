@@ -35,6 +35,15 @@ const Chats: FC<RouteComponentProps<{ id?: string }>> = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (
+      chatContext.removedChatId &&
+      +activeChat === chatContext.removedChatId
+    ) {
+      setActiveChat(0);
+    }
+  }, [chatContext.removedChatId]);
+
   return (
     <Flex>
       {chatContext.mode === 'list' ? (

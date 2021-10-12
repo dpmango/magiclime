@@ -48,7 +48,13 @@ const Header: FC<IProps> = ({ chat, loading }) => {
             iconLeft={IconKebab}
             onClick={() => setIsOpen(!isOpen)}
           />
-          {isOpen && <Dropdown buttonRef={buttonRef} setOpen={setIsOpen} />}
+          {isOpen && (
+            <Dropdown
+              buttonRef={buttonRef}
+              setOpen={setIsOpen}
+              chatId={chat.id}
+            />
+          )}
         </>
       )}
     </Flex>

@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Text } from '@consta/uikit/Text';
@@ -118,9 +118,11 @@ const Login: FC = () => {
         {/* <SocialNetworks /> */}
         <Typography margin="16px auto 0" size="s" className={styles.license}>
           При авторизации вы принимаете условия
-          <Text view="link" as="a" size="s">
-            Пользовательского соглашения
-          </Text>
+          <Link to="/home/info/rules" onClick={closeModal}>
+            <Text view="link" size="s">
+              Пользовательского соглашения
+            </Text>
+          </Link>
         </Typography>
       </div>
       <Button

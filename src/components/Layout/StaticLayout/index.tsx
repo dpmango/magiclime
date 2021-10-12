@@ -11,6 +11,8 @@ import GovernmentRequest from 'components/pages/Static/Government/Request';
 import Policy from 'components/pages/Static/Policy';
 import { RootState } from 'store/reducers/rootReducer';
 import { setAuthOpen } from 'store/reducers/settings';
+import Container from '../../Common/Container';
+import Agreement from '../../pages/Static/Agreement';
 import StaticHeader from '../StaticHeader';
 import StaticFooter from '../StaticFooter';
 import useStyles from './styles';
@@ -34,7 +36,7 @@ const StaticLayout: FC = () => {
   }, [pathname]);
 
   return (
-    <div className={styles.root}>
+    <Container className={styles.root}>
       <StaticHeader isWhite={headerWhiteTheme} />
 
       <Switch>
@@ -45,7 +47,8 @@ const StaticLayout: FC = () => {
           path="/home/info/government/request"
           component={GovernmentRequest}
         />
-        <Route exact path="/home/info/privacy" component={Policy} />
+        <Route exact path="/home/info/confidential" component={Policy} />
+        <Route exact path="/home/info/rules" component={Agreement} />
       </Switch>
 
       <StaticFooter />
@@ -58,7 +61,7 @@ const StaticLayout: FC = () => {
       >
         <Auth />
       </Modal>
-    </div>
+    </Container>
   );
 };
 

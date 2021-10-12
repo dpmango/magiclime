@@ -57,7 +57,9 @@ const Webinar: FC<RouteComponentProps<{ id: string }>> = ({
             <Typography view="ghost" size="xs" margin="0 0 8px">
               {t('webinar.city')}
             </Typography>
-            <Typography weight="semibold">{webinar.city.title}</Typography>
+            <Typography weight="semibold">
+              {webinar.city && webinar.city.title}
+            </Typography>
           </div>
         </div>
 

@@ -23,7 +23,7 @@ const Dropdown: FC<IProps> = ({ buttonRef, setOpen }) => {
       name: t('common.complain'),
       icon: IconWarning,
       clickCallback: () => {
-        window.location.assign('lime_academy@mail.com');
+        window.location.href = 'mailto:test@mail.ru?subject=Жалоба';
       },
     },
   ];

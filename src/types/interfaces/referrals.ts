@@ -42,6 +42,7 @@ export interface IReferralTeam {
   email: string;
   date_joined: Date;
   level: number;
+  max_program_level: number;
   name: string;
   children: IReferralTeam[];
   ancestors: IAncestor[];

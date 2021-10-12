@@ -38,7 +38,6 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
 
   const updateChat = useCallback(
     (msg: IMessage) => {
-      console.log(msg, chatId);
       const arr = chats.map((chat) => {
         if (chat.id === msg.chat) {
           return {
@@ -87,6 +86,12 @@ const ChatsList: FC<IProps> = ({ socket, chatId, setActiveChat }) => {
       socket.off('my_response', responseListener);
     };
   }, [chats, chatId]);
+
+  useEffect(() => {
+    if (chatContext.removedChatId) {
+      setChats(chats.filter((chat) => chat.id !== chatContext.removedChatId));
+    }
+  }, [chatContext.removedChatId]);
 
   useEffect(() => {
     setLoading(true);

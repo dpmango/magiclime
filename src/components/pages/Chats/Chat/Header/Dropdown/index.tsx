@@ -1,7 +1,15 @@
 import { ContextMenu } from '@consta/uikit/ContextMenu';
-import React, { FC, MouseEvent, RefObject, useCallback } from 'react';
+import React, {
+  FC,
+  MouseEvent,
+  RefObject,
+  useCallback,
+  useContext,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { SetStateType } from '../../../../../../types/common';
+import { leaveChat } from '../../../../../../utils/api/routes/chat';
+import { ChatContext } from '../../../context';
 
 type DropdownItem = {
   name: string;
@@ -11,16 +19,20 @@ type DropdownItem = {
 interface IProps {
   buttonRef: RefObject<HTMLButtonElement>;
   setOpen: SetStateType<boolean>;
+  chatId: number;
 }
 
-const Dropdown: FC<IProps> = ({ buttonRef, setOpen }) => {
+const Dropdown: FC<IProps> = ({ buttonRef, setOpen, chatId }) => {
   const { t } = useTranslation();
+  const { chatContext, setChatContext } = useContext(ChatContext);
 
   const items: DropdownItem[] = [
     {
       name: 'Выйти из беседы',
       clickCallback: () => {
-        console.log('Log out');
+        leaveChat(chatId).then(() => {
+          setChatContext({ ...chatContext, removedChatId: chatId });
+        });
       },
     },
   ];

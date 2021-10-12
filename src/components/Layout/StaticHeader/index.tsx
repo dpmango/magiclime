@@ -124,7 +124,10 @@ const Header: FC<IProps> = ({ isWhite = false }) => {
               tabIndex={0}
               onClick={switchTheme}
             >
-              <SvgIcon.Moon size="s" />
+              <SvgIcon.Moon
+                size="s"
+                view={theme === Theme.Dark ? 'success' : 'primary'}
+              />
             </div>
             <Button
               className={styles.enterbutton}

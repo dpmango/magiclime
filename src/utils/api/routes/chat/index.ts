@@ -1,16 +1,13 @@
-import { AxiosPromise } from '../../../../types/common';
-import {
-  IAxiosPaginatedResponse,
-  IPhoto,
-} from '../../../../types/interfaces/common';
-import { IUser } from '../../../../types/interfaces/user';
-import { instance } from '../../index';
 import {
   IChat,
   IChatDetail,
   IGroup,
   IMessage,
 } from '../../../../components/pages/Chats/types';
+import { AxiosPromise } from '../../../../types/common';
+import { IAxiosPaginatedResponse } from '../../../../types/interfaces/common';
+import { IUser } from '../../../../types/interfaces/user';
+import { instance } from '../../index';
 
 export const getChatsList = (
   title: string,
@@ -78,4 +75,8 @@ export const getChatMessages = (
       page_size: limit || null,
     },
   });
+};
+
+export const leaveChat = (id: number): AxiosPromise => {
+  return instance.post(`/chats/${id}/exit/`);
 };

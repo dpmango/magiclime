@@ -110,14 +110,6 @@ const WebinarCard: FC<IProps> = ({ item }) => {
             size="s"
             label={t('webinar.participate')}
           />
-          {/* <Button */}
-          {/*  as="a" */}
-          {/*  href={item.connect_url} */}
-          {/*  form="round" */}
-          {/*  size="s" */}
-          {/*  label={t('webinar.participate')} */}
-          {/* /> */}
-
           <Flex align="center" className={styles.referralWrapper}>
             {item.participants && (
               <Members

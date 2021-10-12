@@ -26,7 +26,7 @@ export interface IWebinar {
   city: {
     id: number;
     title: string;
-  };
+  } | null;
   connect_url: string;
   participants: IWebinarReferral[];
   creator: IWebinarAuthor | null;

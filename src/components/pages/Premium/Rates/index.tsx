@@ -92,7 +92,7 @@ const Rates: FC = () => {
         id: 4,
         title: 'Преподаватель',
         icon: 'images/premium/mentor.svg',
-        price: 10,
+        price: null,
         description: 'Развивай и поддерживай свою команду',
         availableDescription: 'Дополнительно',
         disabled: true,
@@ -124,7 +124,7 @@ const Rates: FC = () => {
             <img src={rate.icon} alt="rate_icon" />
             <Typography size="2xl">{rate.title}</Typography>
             <Typography weight="bold" size="3xl" margin="6px 0 21px">
-              {rate.price} BTC
+              {rate.price ? `${rate.price} BTC` : 'Недоступно'}
             </Typography>
             <Button
               label={rate.selected ? 'Выбрано' : 'Оплатить'}

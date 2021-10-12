@@ -145,20 +145,27 @@ const ReferralUser: FC<IProps> = ({
         </div>
       </Flex>
 
-      <div className={styles.referralDate}>
-        <Typography
-          size={root ? 'l' : 's'}
-          view={root ? 'brand' : 'primary'}
-          weight={root ? 'semibold' : 'regular'}
-        >
-          {timestamp}
-        </Typography>
-        {root && (
-          <Typography size="xs" margin="6px 0 0" weight="semibold" view="ghost">
-            {t('profile.referral.card.date')}
+      {!is_clone && (
+        <div className={styles.referralDate}>
+          <Typography
+            size={root ? 'l' : 's'}
+            view={root ? 'brand' : 'primary'}
+            weight={root ? 'semibold' : 'regular'}
+          >
+            {timestamp}
           </Typography>
-        )}
-      </div>
+          {root && (
+            <Typography
+              size="xs"
+              margin="6px 0 0"
+              weight="semibold"
+              view="ghost"
+            >
+              {t('profile.referral.card.date')}
+            </Typography>
+          )}
+        </div>
+      )}
 
       {!is_clone ? (
         <>

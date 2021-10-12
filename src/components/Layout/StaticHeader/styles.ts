@@ -24,8 +24,8 @@ const useStyles = makeStyles<null, { isWhite: boolean }>(() => ({
     fontSize: 18,
     paddingLeft: 24,
     letterSpacing: 0.3,
-    color: ({ isWhite }) =>
-      isWhite ? 'var(--color-bg-default)' : 'var(--color-typo-primary)',
+    // color: ({ isWhite }) =>
+    //   isWhite ? 'var(--color-bg-default)' : 'var(--color-typo-primary)',
   },
   menu: {
     listStyle: 'none',

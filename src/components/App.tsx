@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import isEqual from 'lodash/isEqual';
 import { Theme } from '@consta/uikit/Theme';
@@ -57,26 +57,19 @@ const App: FC = () => {
   return (
     <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
       <ErrorBoundary>
-        <MenuContextProvider>
-          <Switch>
-            <PrivateRoute
-              path="/home"
-              redirect="/profile/me"
-              access={!isLogged}
-            >
-              <StaticLayout />
-            </PrivateRoute>
-
-            <PrivateRoute path="/" redirect="/home" access={isLogged}>
+        <Switch>
+          <Route path="/home" component={StaticLayout} />
+          <PrivateRoute path="/" redirect="/home" access={isLogged}>
+            <MenuContextProvider>
               <MainLayout theme={stateTheme} setTheme={handleSetTheme} />
-            </PrivateRoute>
-          </Switch>
-        </MenuContextProvider>
+            </MenuContextProvider>
+          </PrivateRoute>
+        </Switch>
         <Toaster
           position="top-right"
           toastOptions={{
             className: 'h-toast',
-            duration: 50000,
+            duration: 5000,
           }}
         />
       </ErrorBoundary>

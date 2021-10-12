@@ -6,6 +6,7 @@ type ChatContextType = {
   replyMessage: IMessage | null;
   mode: 'list' | 'creation';
   newChat: IChat | null;
+  removedChatId: number | null;
 };
 
 type ProviderValue = {
@@ -23,6 +24,7 @@ export const ChatContextProvider: FC = ({ children }) => {
     replyMessage: null,
     mode: 'list',
     newChat: null,
+    removedChatId: null,
   });
 
   return (

@@ -5,8 +5,10 @@ import { Button } from '@consta/uikit/Button';
 import { IconChat } from '@consta/uikit/IconChat';
 import { IconMeatball } from '@consta/uikit/IconMeatball';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Text } from '@consta/uikit/Text';
+import { RootState } from '../../../../../store/reducers/rootReducer';
 import { ChatContext } from '../../context';
 import Dropdown from './Dropdown';
 import Files from './FIles';
@@ -22,10 +24,13 @@ interface IProps {
 
 const Message: FC<IProps> = ({ message, onReplyClick }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const styles = useStyles();
+  const id = useSelector((state: RootState) => state.user.profile.id);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { chatContext, setChatContext } = useContext(ChatContext);
   const { t } = useTranslation();
+  const styles = useStyles({
+    isOwn: message.creator.id === id,
+  });
 
   const replyMessage = () => {
     setChatContext({ ...chatContext, replyMessage: message });
@@ -50,7 +55,7 @@ const Message: FC<IProps> = ({ message, onReplyClick }) => {
           className={styles.avatar}
         />
       </Link>
-      <div className={styles.w100}>
+      <div className={styles.body}>
         <Flex align="center" margin="0 0 4px">
           <Link to={`/profile/${message.creator.id}`}>
             <Text size="s" weight="semibold">

@@ -67,6 +67,7 @@
     "no-underscore-dangle": ["error", {
       "allow": ["_retry"]
     }],
+    "spaced-comment": "off",
     "@typescript-eslint/ban-types": "warn",
     "@typescript-eslint/naming-convention": ["error", {
       "selector": "default",

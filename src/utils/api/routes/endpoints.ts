@@ -27,7 +27,8 @@ export default {
     },
     achievements: '/profile/achievements/',
     events: '/profile/events/',
-    programsList: '/profile/',
+    programsList: '/matrices/programs_info/',
+    getLevel: '/matrices/max_level_in_program/',
   },
   payments: {
     root: '/payments/',

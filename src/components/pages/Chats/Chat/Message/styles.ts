@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<null, { isOwn?: boolean }>(() => ({
   avatar: {
     width: '52px',
     height: '52px',
@@ -18,7 +18,9 @@ const useStyles = makeStyles(() => ({
     margin: '-4px 12px 0',
     background: '#C7CFCE',
   },
-  text: {},
+  text: {
+    whiteSpace: 'break-spaces',
+  },
   container: {
     maxWidth: '630px',
   },
@@ -27,8 +29,32 @@ const useStyles = makeStyles(() => ({
       background: 'transparent',
     },
   },
-  w100: {
-    width: '100%',
+  body: {
+    //width: '100%',
+    background: ({ isOwn }) =>
+      isOwn ? 'var(--color-bg-link)' : 'var(--color-bg-secondary)',
+    padding: '10px',
+    borderRadius: '5px',
+    borderTopLeftRadius: 0,
+    position: 'relative',
+    '&::before, &::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+    },
+    '&::before': {
+      background: 'inherit',
+      height: '15px',
+      width: '10px',
+      left: '-9px',
+    },
+    '&::after': {
+      background: 'var(--color-bg-default)',
+      borderTopRightRadius: '100%',
+      height: '16px',
+      width: '10px',
+      left: '-10px',
+    },
   },
   date: {
     lineHeight: '24px',

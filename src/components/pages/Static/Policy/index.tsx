@@ -1,17 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable react/no-danger */
-import React, { FC, useEffect, useState, useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Checkbox } from '@consta/uikit/Checkbox';
-import { Button } from '@consta/uikit/Button';
-import moment from 'moment';
+import Content from 'components/Common/Content';
 
 import Flex from 'components/Common/Flex';
-import Typography from 'components/Common/Typography';
-import Content from 'components/Common/Content';
+import React, { FC } from 'react';
 
 import useStyles from './styles';
 
@@ -20,7 +10,8 @@ const PolicyPage: FC = () => {
 
   const contentData = {
     author: 'MagicLime',
-    title: 'Политика безопастности',
+    title: 'Политика конфиденциальности',
+    timestamp: '2021-04-06',
     text: `
       <h3>Только для правительственных и правоохранительных органов:</h3>
       <p>Добро пожаловать в систему запросов Binance для правоохранительных органов (LERS). Государственные и правоохранительные органы могут использовать эту систему для отправки информационных запросов. Binance будет рассматривать каждый случай и осуществлять сотрудничество в рамках каждого запроса для раскрытия информации в соответствии со своими Условиями использования и применимого законодательства.</p>

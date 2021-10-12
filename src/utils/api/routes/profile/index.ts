@@ -26,3 +26,11 @@ export const getProgramsService = (): AxiosPromise<
 export const getProgramsList = (): AxiosPromise<IProgram[]> => {
   return $api.get(endpoints.profile.programsList);
 };
+
+export const getUserProgramLevel = (
+  program: number
+): AxiosPromise<{
+  max_level: number | null;
+}> => {
+  return $api.get(endpoints.profile.getLevel, { params: { program } });
+};

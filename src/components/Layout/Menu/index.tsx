@@ -107,15 +107,15 @@ const Menu: FC<{ isAdmin: boolean }> = ({ isAdmin }) => {
         disabled: !havePremium,
       },
       {
-        path: '/programs',
-        name: t('menu.programs'),
-        icon: icons.ProgramIcon,
-        disabled: !havePremium,
-      },
-      {
         path: '/games',
         name: t('menu.games'),
         icon: icons.GameIcon,
+        disabled: !havePremium,
+      },
+      {
+        path: '/programs',
+        name: t('menu.help'),
+        icon: icons.ProgramIcon,
         disabled: !havePremium,
       },
     ],

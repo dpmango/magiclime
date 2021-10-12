@@ -122,6 +122,7 @@ const useStyles = makeStyles<null, { rank: number }>(() => ({
     lineHeight: '110px',
     boxShadow: '0px 0px 20px rgba(249, 209, 34, 0.3)',
     border: '2px solid var(--color-bg-default)',
+    fontSize: '36px',
   },
   featuredStats: {
     marginTop: '24px',

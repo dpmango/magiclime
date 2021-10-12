@@ -1,10 +1,7 @@
-import React, { FC, useState, useEffect, ReactNode } from 'react';
-import * as Yup from 'yup';
-import Typography from 'components/Common/Typography';
-import ConstaIcons from 'assets/icons/ConstaIcons';
-import { Button } from '@consta/uikit/Button';
 import { Modal } from '@consta/uikit/Modal';
-import { SetStateType } from '../../../types/common';
+import ConstaIcons from 'assets/icons/ConstaIcons';
+import Typography from 'components/Common/Typography';
+import React, { FC, ReactNode } from 'react';
 
 import useStyles from './styles';
 
@@ -13,6 +10,8 @@ interface IProps {
   isOpen: boolean;
   dynamicSize?: boolean;
   theme?: 'default' | 'narrow';
+  withIcon?: boolean;
+  icon?: string;
   children?: ReactNode;
   setModalOpen: (status: boolean) => void;
 }
@@ -22,6 +21,8 @@ const BaseModal: FC<IProps> = ({
   isOpen,
   setModalOpen,
   theme = 'default',
+  withIcon = true,
+  icon = '/images/default-modal-icon.svg',
   dynamicSize,
   children,
 }) => {
@@ -33,8 +34,14 @@ const BaseModal: FC<IProps> = ({
         isOpen={isOpen}
         hasOverlay
         onOverlayClick={(): void => setModalOpen(false)}
+        rootClassName={styles.root}
       >
         <div className={styles.modal}>
+          {withIcon && (
+            <div className={styles.icon}>
+              <img src={icon} alt="modal_icon" />
+            </div>
+          )}
           <Typography
             size="3xl"
             lineHeight="m"

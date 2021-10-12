@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import moment from 'moment';
 /* eslint-disable react/no-danger */
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
@@ -27,7 +28,7 @@ const Content: FC<IProps> = ({ data }) => {
 
   return (
     <div className={styles.content}>
-      <Flex align="center" wrap="wrap">
+      <Flex direction="column">
         {data.author && (
           <Flex align="center" className={styles.user}>
             <Avatar size="s" name={data.author} url={data.author_image} />
@@ -38,13 +39,8 @@ const Content: FC<IProps> = ({ data }) => {
         )}
 
         {data.timestamp && (
-          <Typography
-            size="xs"
-            margin="0 0 0 10px"
-            view="secondary"
-            className={styles.date}
-          >
-            {data.timestamp}
+          <Typography size="xs" margin="20px 0 0" className={styles.date}>
+            Дата публикации: {moment(data.timestamp).format('LL')}
           </Typography>
         )}
       </Flex>

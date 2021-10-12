@@ -17,6 +17,7 @@ import {
   buildMatrixLevels,
   getInitialLevel,
 } from 'components/pages/Profile/ReferralPartners/functions';
+import { getUserProgramLevel } from '../../../../../utils/api/routes/profile';
 
 import useStyles from './styles';
 
@@ -47,6 +48,24 @@ const ApplicationsApply: FC<IProps> = ({
 
   const profile = useSelector((state: RootState) => state.user.profile);
 
+  const getLevel = useCallback(
+    (id: number) => {
+      getUserProgramLevel(id).then((res) => {
+        const level = res.data.max_level;
+        let initialLvl: number;
+        if (!level) initialLvl = matrixLevels[0].id;
+        else {
+          initialLvl =
+            level === matrixLevels.length
+              ? matrixLevels[level - 1].id
+              : matrixLevels[level].id;
+        }
+        setLevel({ id: initialLvl, label: `${initialLvl}` });
+      });
+    },
+    [matrixLevels]
+  );
+
   const handleApplicationPost = useCallback(async () => {
     const [err, data] = await postApplicationService({
       from_user: profile.id,
@@ -66,9 +85,11 @@ const ApplicationsApply: FC<IProps> = ({
 
   const handleProgramChange = useCallback((program: ISelectOption) => {
     setProgram(program);
-    const initialLvl = getInitialLevel(program.id);
-    setLevel({ id: initialLvl, label: `${initialLvl}` });
   }, []);
+
+  useEffect(() => {
+    getLevel(program.id);
+  }, [program.id]);
 
   return (
     <>

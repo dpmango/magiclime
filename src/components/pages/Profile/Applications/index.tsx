@@ -1,16 +1,14 @@
-import React, { FC, useEffect, useState, useMemo, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 // import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@consta/uikit/Button';
-
 import Typography from 'components/Common/Typography';
+import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import useRootStyles from '../styles';
+import Apply from './Apply';
+import IncomingApplications from './Incoming';
 
 import OutcomingApplications from './Outcoming';
-import IncomingApplications from './Incoming';
-import Apply from './Apply';
 
 import useStyles from './styles';
-import useRootStyles from '../styles';
 
 const ProfileApplications: FC = () => {
   const styles = useStyles();

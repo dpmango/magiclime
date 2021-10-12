@@ -32,12 +32,12 @@ const RatingPage: FC = () => {
       </Typography>
 
       <Grid cols="4" gap="xl" className={styles.content}>
-        <GridItem col="3">
+        <GridItem col="4">
           <UserList rating={usersRating} />
         </GridItem>
-        <GridItem col="1">
-          <FilterList setFilters={setFilters} />
-        </GridItem>
+        {/*<GridItem col="1">*/}
+        {/*<FilterList setFilters={setFilters} />*/}
+        {/*</GridItem>*/}
       </Grid>
     </div>
   );

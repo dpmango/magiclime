@@ -1,16 +1,11 @@
 import React, { FC, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Avatar } from '@consta/uikit/Avatar';
-import { Button } from '@consta/uikit/Button';
 import { IconCopy } from '@consta/uikit/IconCopy';
 import moment from 'moment';
 
-import ContaIcons from 'assets/icons/ConstaIcons';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
-import { Plurize } from 'utils/helpers/plurize';
-import { timeToTimeStamp } from 'utils/helpers/formatDate';
-import { copyToClipboard } from 'utils/helpers/clipboard';
 import { IReferralTeam } from 'types/interfaces/referrals';
 
 import useStyles from './styles';
@@ -23,7 +18,16 @@ interface IProps {
 }
 
 const ReferralUser: FC<IProps> = ({
-  data: { id, username, avatar, email, date_joined, level, name },
+  data: {
+    id,
+    username,
+    avatar,
+    email,
+    date_joined,
+    max_program_level,
+    level,
+    name,
+  },
   root,
   nestedLevel = 0,
   onReferralClick,
@@ -80,7 +84,7 @@ const ReferralUser: FC<IProps> = ({
               weight="semibold"
               view="ghost"
             >
-              {t('profile.referral.card.level')} {level}
+              {t('profile.referral.card.level')} {max_program_level}
             </Typography>
           )}
         </div>
