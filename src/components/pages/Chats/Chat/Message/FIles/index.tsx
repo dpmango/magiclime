@@ -8,7 +8,7 @@ import { IFileMessage } from '../../../types';
 import useStyles from '../styles';
 
 const Files: FC<{ files: IFileMessage[] }> = ({ files }) => {
-  const styles = useStyles();
+  const styles = useStyles({});
 
   const downloadFile = (src: string, name: string) => {
     saveAs(src, name);
