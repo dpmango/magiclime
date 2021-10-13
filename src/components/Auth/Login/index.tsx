@@ -14,6 +14,7 @@ import Typography from 'components/Common/Typography';
 import { login } from 'store/reducers/user';
 import { setAuthType, setAuthOpen, setAuth } from 'store/reducers/settings';
 import { EMAIL, REQUIRED } from 'utils/formik/validation';
+import { SetStateType } from '../../../types/common';
 
 import useStyles from './styles';
 import SocialNetworks from '../SocialNetworks';
@@ -102,9 +103,10 @@ const Login: FC = () => {
             <Flex align="center" justify="space-between" margin="0 0 16px">
               <FormikCheckbox name="remember" label="Запомнить меня" />
               <Text
-                size="s"
+                size="xs"
                 view="link"
-                onClick={() => dispatch(setAuthType('pass_recovery'))}
+                onClick={() => dispatch(setAuthType('recovery'))}
+                className={styles.recovery}
               >
                 Забыли пароль?
               </Text>
@@ -116,10 +118,10 @@ const Login: FC = () => {
         {/*  Или с помощью */}
         {/* </Typography> */}
         {/* <SocialNetworks /> */}
-        <Typography margin="16px auto 0" size="s" className={styles.license}>
+        <Typography margin="16px auto 0" size="xs" className={styles.license}>
           При авторизации вы принимаете условия
           <Link to="/home/info/rules" onClick={closeModal}>
-            <Text view="link" size="s">
+            <Text view="link" size="xs">
               Пользовательского соглашения
             </Text>
           </Link>
