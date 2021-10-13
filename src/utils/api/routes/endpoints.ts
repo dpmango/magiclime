@@ -29,6 +29,7 @@ export default {
     events: '/profile/events/',
     programsList: '/matrices/programs_info/',
     getLevel: '/matrices/max_level_in_program/',
+    invited: '/matrices/invited_noactive_users/',
   },
   payments: {
     root: '/payments/',

@@ -1,6 +1,7 @@
 import { AxiosPromise } from 'types/common';
 import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import { IAchievement, IEvent } from 'types/interfaces/profile';
+import { IInvitedUser } from '../../../../components/pages/Profile/ReferralTeam/types';
 import { IProgram } from '../../../../components/pages/Profile/types';
 import { instance as $api } from '../../index';
 import endpoints from '../endpoints';
@@ -33,4 +34,8 @@ export const getUserProgramLevel = (
   max_level: number | null;
 }> => {
   return $api.get(endpoints.profile.getLevel, { params: { program } });
+};
+
+export const getInvitedUsers = (): AxiosPromise<IInvitedUser[]> => {
+  return $api.get(endpoints.profile.invited);
 };
