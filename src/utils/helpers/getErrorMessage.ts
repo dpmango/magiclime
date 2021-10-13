@@ -4,7 +4,7 @@ interface IError {
   status: number;
   statusText: string;
   data: {
-    [key: string]: string[];
+    [key: string]: string[] | string;
   };
 }
 
@@ -19,10 +19,17 @@ export const getErrorMessage = (err: IError) => {
 
     const errors = Object.keys(err.data);
 
-    errors.forEach((key, idx) => {
-      const postFix = idx + 1 !== errors.length ? '|| ' : '';
-      errText += `${key}: ${err.data[key][0]} ${postFix}`;
-    });
+    if (errors.length && errors[0] === 'detail') {
+      const detailErr = err.data.detail;
+      if (!Array.isArray(detailErr)) {
+        errText = detailErr;
+      }
+    } else {
+      errors.forEach((key, idx) => {
+        const postFix = idx + 1 !== errors.length ? '|| ' : '';
+        errText += `${key}: ${err.data[key][0]} ${postFix}`;
+      });
+    }
   } catch (e) {
     errText = 'Error';
   }
