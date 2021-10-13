@@ -27,7 +27,7 @@ export interface IAchievement {
   readonly id: number;
   title: string;
   opened: boolean;
-  group?: IAchievementGroup;
+  group: IAchievementGroup;
 }
 
 export interface IActivementsGrouped {
