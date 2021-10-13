@@ -22,6 +22,7 @@ import cns from 'classnames';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
+import Pagination from 'components/Common/Pagination';
 import { RootState } from 'store/reducers/rootReducer';
 import { getReferrals, getClones } from 'store/reducers/referrals';
 import { getBalance } from 'store/reducers/profile';
@@ -29,6 +30,7 @@ import { getProfile } from 'store/reducers/user';
 import {
   buyMatricesService,
   getClonePositionService,
+  getClonesService,
 } from 'utils/api/routes/referrals';
 import { useQuery } from 'hooks/useQuery';
 import { IReferralTree, IClone } from 'types/interfaces/referrals';
@@ -53,6 +55,21 @@ import {
   IModalProps,
 } from './types';
 import useStyles from './styles';
+
+interface IRenderClones {
+  data: IClone[];
+}
+
+const RenderClones: FC<IRenderClones> = ({ data, ...props }) => {
+  console.log(props);
+  return (
+    <>
+      {data.map((clone: IClone) => {
+        return <ReferralClone key={clone.id} data={clone} {...props} />;
+      })}
+    </>
+  );
+};
 
 const Referrals: FC = () => {
   const styles = useStyles();
@@ -136,12 +153,12 @@ const Referrals: FC = () => {
           })
         );
 
-        await dispatch(
-          getClones({
-            program,
-            level,
-          })
-        );
+        // await dispatch(
+        //   getClones({
+        //     program,
+        //     level,
+        //   })
+        // );
       }
     },
     [buyProcessing]
@@ -319,6 +336,15 @@ const Referrals: FC = () => {
     );
   }, [filterProgram, selectedLevel]);
 
+  const getClonesList = async (page: number, limit: number, queries: any) => {
+    return getClonesService({
+      page,
+      limit,
+      program: queries.program,
+      level: queries.level,
+    });
+  };
+
   return (
     <div className={styles.root}>
       <Typography weight="semibold" lineHeight="s" size="2xl">
@@ -411,13 +437,15 @@ const Referrals: FC = () => {
                     {t('profile.referral.clones.title')}
                   </Typography>
 
-                  {clones.map((clone: IClone) => (
-                    <ReferralClone
-                      key={clone.id}
-                      onReferralClick={handleReferralClick}
-                      data={clone}
-                    />
-                  ))}
+                  <Pagination
+                    getList={getClonesList}
+                    listComponent={RenderClones}
+                    queries={{
+                      program: filterProgram.id,
+                      level: selectedLevel,
+                    }}
+                    listProps={{ onReferralClick: handleReferralClick }}
+                  />
                 </div>
               )}
             </>

@@ -41,13 +41,15 @@ export const getClonesService = (data: {
   page?: number;
   limit?: number;
 }): AxiosPromise<IAxiosPaginatedResponse<IClone>> => {
+  const params = {
+    level: data.level,
+    program: data.program,
+    page: data.page || null,
+    page_size: data.limit || null,
+  };
+
   return $api.get(endpoints.referrals.clones, {
-    params: {
-      level: data.level,
-      program: data.program,
-      page: data.page || null,
-      page_size: data.limit || null,
-    },
+    params,
   });
 };
 

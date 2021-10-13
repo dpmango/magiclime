@@ -11,7 +11,7 @@ import useStyles from './styles';
 
 interface IProps {
   data: IClone;
-  onReferralClick: (id: number) => void;
+  onReferralClick?: (id: number) => void;
 }
 
 const ReferralClone: FC<IProps> = ({
