@@ -68,3 +68,27 @@ export const getProfilePdf = async (): Promise<[Error | null, any | null]> => {
     return [error, null];
   }
 };
+
+export const sendMailForRecovery = (email: string): AxiosPromise => {
+  return instance.post(endpoints.users.resetPassword, { email });
+};
+
+export const sendEmail = (redirect = '/profile/me'): AxiosPromise => {
+  return instance.post(endpoints.auth.sendEmail, {
+    params: {
+      EMAIL_SUCCESS_VERIFY_REDIRECT_LINK:
+        process.env.REACT_APP_API_DOMAIN + redirect,
+      EMAIL_FAILED_VERIFY_REDIRECT_LINK:
+        process.env.REACT_APP_API_DOMAIN + redirect,
+    },
+  });
+};
+
+export const resetPasswordConfirm = (data: {
+  uid: string;
+  token: string;
+  new_password: string;
+  re_new_password: string;
+}): AxiosPromise => {
+  return instance.post(endpoints.users.resetPasswordConfirm, data);
+};

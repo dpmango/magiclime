@@ -30,4 +30,5 @@ export interface IUser {
   is_bought_1level_bitlime: boolean;
   lime_purchased: boolean;
   has_bought_matrix_positions: boolean;
+  email_confirmed: boolean;
 }

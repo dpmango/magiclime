@@ -1,8 +1,8 @@
-import { form } from '@consta/uikit/__internal__/cjs-src/components/SelectComponentsDeprecated/types';
 import { Button } from '@consta/uikit/Button';
 import { IconClose } from '@consta/uikit/IconClose';
 import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { setAuthOpen, setAuthType } from '../../../store/reducers/settings';
 import Typography from '../../Common/Typography';
 import ChangePassword from './ChangePassword';
@@ -10,8 +10,9 @@ import EnterEmail from './EnterEmail';
 import useStyles from './styles';
 
 const Recovery: FC = () => {
-  const styles = useStyles();
+  const styles = useStyles({});
   const dispatch = useDispatch();
+  const { uid, token } = useParams<{ uid?: string; token?: string }>();
   const [errorMessage, setErrorMessage] = useState('');
 
   const closeModal = useCallback(() => {
@@ -49,8 +50,15 @@ const Recovery: FC = () => {
             {errorMessage}
           </Typography>
         )}
-        {/*<EnterEmail setError={setErrorMessage} />*/}
-        <ChangePassword setError={setErrorMessage} />
+        {uid && token ? (
+          <ChangePassword
+            setError={setErrorMessage}
+            uid={uid as string}
+            token={token as string}
+          />
+        ) : (
+          <EnterEmail setError={setErrorMessage} />
+        )}
       </div>
       <Button
         className={styles.login}

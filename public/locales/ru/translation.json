@@ -391,6 +391,10 @@
       }
     },
     "settings": {
+      "needConfirm": "Ваш email не подтверждён!",
+      "confirm": "Подтвердить",
+      "confirmationError": "Ошибка! Письмо не отправлено!",
+      "confirmationSuccess": "Письмо отправлено на ваш email!",
       "navigation": {
         "sectionMain": "Основная информация",
         "sectionActivity": "моя активность",

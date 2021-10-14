@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState, useMemo } from 'react';
+import React, { FC, useCallback, useState, useMemo, useEffect } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Modal } from '@consta/uikit/Modal';
@@ -10,7 +10,7 @@ import Government from 'components/pages/Static/Government';
 import GovernmentRequest from 'components/pages/Static/Government/Request';
 import Policy from 'components/pages/Static/Policy';
 import { RootState } from 'store/reducers/rootReducer';
-import { setAuthOpen } from 'store/reducers/settings';
+import { setAuthOpen, setAuthType } from 'store/reducers/settings';
 import Container from '../../Common/Container';
 import Agreement from '../../pages/Static/Agreement';
 import StaticHeader from '../StaticHeader';
@@ -35,12 +35,23 @@ const StaticLayout: FC = () => {
     return pathname === '/home';
   }, [pathname]);
 
+  useEffect(() => {
+    if (/\/reset_password\/[\d\w-_]+\/[\d\w-_]+/.test(pathname)) {
+      dispatch(setAuthType('recovery'));
+      dispatch(setAuthOpen(true));
+    }
+  }, [pathname]);
+
   return (
     <Container className={styles.root}>
       <StaticHeader isWhite={headerWhiteTheme} />
 
       <Switch>
-        <Route exact path="/home" component={Landing} />
+        <Route
+          exact
+          path={['/home', '/reset_password/:uid/:token']}
+          component={Landing}
+        />
         <Route exact path="/home/info/government" component={Government} />
         <Route
           exact

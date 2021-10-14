@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles<null, { success?: boolean }>(() => ({
   container: {
     position: 'relative',
     width: '360px',
@@ -28,6 +28,10 @@ const useStyles = makeStyles(() => ({
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
     color: 'var(--color-typo-brand)',
+  },
+  message: {
+    color: ({ success }) =>
+      success ? 'var(--color-typo-success)' : 'var(--color-typo-alert)',
   },
 }));
 
