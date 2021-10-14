@@ -26,6 +26,7 @@ import useSharedStyles from 'assets/styles/Shared';
 import { useQuery } from 'hooks/useQuery';
 import { useDebounce } from '../../../../hooks/useDebounce';
 import { programOptions } from '../ReferralPartners/functions';
+import InvitedUsers from './InvitedUsers';
 import ReferralUser from './ReferralUser';
 import { buildTree } from './functions';
 import Tree from './Tree';
@@ -172,6 +173,7 @@ const ReferralsTeam: FC = () => {
               <Loader />
             </div>
           )}
+          <InvitedUsers />
         </GridItem>
 
         {/* Filters */}

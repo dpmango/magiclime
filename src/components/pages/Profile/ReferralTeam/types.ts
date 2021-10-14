@@ -1,5 +1,6 @@
 import React from 'react';
 import { IReferralTeam } from 'types/interfaces/referrals';
+import { IPhoto } from '../../../../types/interfaces/common';
 
 export interface IRequestPayload {
   id?: number | string;
@@ -24,4 +25,14 @@ export interface IMappedData {
 export interface IModalProps {
   opened: boolean;
   id: number;
+}
+
+export interface IInvitedUser {
+  readonly id: number;
+  avatar: IPhoto | null;
+  date_joined: string;
+  email: string;
+  level: number;
+  name: string;
+  username: string;
 }
