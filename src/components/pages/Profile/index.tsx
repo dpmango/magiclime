@@ -18,7 +18,6 @@ import Typography from 'components/Common/Typography';
 import Pagination from 'components/Common/Pagination';
 import { useFirstRender } from 'hooks/useFirstRender';
 import { RootState } from 'store/reducers/rootReducer';
-import { getMatricesHistoryService } from 'utils/api/routes/referrals';
 import { IUser } from 'types/interfaces/user';
 import { ITab } from 'types/interfaces/common';
 
@@ -29,7 +28,7 @@ import Events from './Events';
 import Courses from './Courses';
 import Balance from './Balance';
 import History from './History';
-import HistoryOperations from './History/HistoryOperations';
+import Operations from './Operations';
 import Applications from './Applications';
 import ReferralStats from './ReferralStats';
 import ReferralPartners from './ReferralPartners';
@@ -232,17 +231,7 @@ const ProfilePage: FC = () => {
               )}
             />
 
-            <Route
-              path={`${path}/history`}
-              render={() => (
-                <Pagination
-                  getList={getMatricesHistoryService}
-                  listComponent={HistoryOperations}
-                  queries={{ search: '' }}
-                />
-              )}
-            />
-
+            <Route path={`${path}/history`} component={Operations} />
             <Route path={`${path}/applications`} component={Applications} />
             <Route path={`${path}/settings`} component={Settings} />
           </>

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, memo } from 'react';
 import { AxiosError } from 'axios';
 import { Loader } from '@consta/uikit/Loader';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -16,8 +16,7 @@ type ComponentProps<T> = {
 
 type DefaultQueries = {
   search?: string;
-  program?: number;
-  level?: number;
+  [key: string]: any;
 };
 
 interface IProps<T, U> {
@@ -26,7 +25,7 @@ interface IProps<T, U> {
     limit: number,
     queries: U
   ) => AxiosPromise<IAxiosPaginatedResponse<T>>;
-  listComponent: FC<ComponentProps<T>>;
+  listComponent: FC<ComponentProps<any>>;
   listProps?: any;
   queries?: U;
   limit?: number;
@@ -35,6 +34,7 @@ interface IProps<T, U> {
   errorCallback?: (err?: AxiosError) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const Pagination = <T extends object, U extends DefaultQueries>({
   getList,
   listComponent: Component,
@@ -56,12 +56,12 @@ const Pagination = <T extends object, U extends DefaultQueries>({
 
   const debouncedQueries = useDebounce(queries, 300);
 
-  useEffect(() => {
-    setState({
-      count: 0,
-      data: [],
-    });
-  }, []);
+  // useEffect(() => {
+  //   setState({
+  //     count: 0,
+  //     data: [],
+  //   });
+  // }, []);
 
   useEffect(() => {
     setPage(1);
@@ -117,4 +117,4 @@ const Pagination = <T extends object, U extends DefaultQueries>({
   );
 };
 
-export default Pagination;
+export default memo(Pagination);

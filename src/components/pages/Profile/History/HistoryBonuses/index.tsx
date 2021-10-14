@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Table } from '@consta/uikit/Table';
@@ -20,6 +20,8 @@ const HistoryBonuses: FC<IProps> = ({ data }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
+  const [filterQueries, setFilterQueries] = useState({});
+
   const contentRows = useMemo(() => {
     return data.map((x) => ({
       id: `${x.id}`,
@@ -34,7 +36,7 @@ const HistoryBonuses: FC<IProps> = ({ data }) => {
 
   return (
     <div>
-      <Filters />
+      <Filters setFilterQueries={setFilterQueries} />
 
       <Table
         borderBetweenColumns

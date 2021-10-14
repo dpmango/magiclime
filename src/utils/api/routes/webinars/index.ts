@@ -9,7 +9,7 @@ import { instance } from '../../index';
 export const getWebinarsList = (
   page: number,
   limit: number,
-  queries: IFilters
+  queries: any
 ): AxiosPromise<IAxiosPaginatedResponse<IWebinar>> => {
   return instance.get('/webinars/', {
     params: {
