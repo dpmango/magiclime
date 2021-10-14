@@ -81,6 +81,7 @@ export default {
   position: {
     outcoming: '/profile/position_requests/',
     incoming: '/position-requests/',
+    activeIncoming: '/position-requests/active/',
     post: '/position-requests/',
     approve: (id: number | string) => `/position-requests/${id}/approve/`,
     reject: (id: number | string) => `/position-requests/${id}/reject/`,

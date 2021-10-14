@@ -1,5 +1,4 @@
 import { AxiosPromise } from 'types/common';
-import { IAxiosPaginatedResponse } from 'types/interfaces/common';
 import {
   IApplicationOutcoming,
   IApplicationIncoming,
@@ -74,4 +73,10 @@ export const rejectApplicationService = async (
   } catch (error: any) {
     return [getErrorMessage(error), null];
   }
+};
+
+export const getActiveIncomingApplicationsService = (): AxiosPromise<
+  IApplicationIncoming[]
+> => {
+  return $api.get(endpoints.position.activeIncoming);
 };

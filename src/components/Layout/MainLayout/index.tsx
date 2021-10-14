@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProfile } from 'store/reducers/profile';
 import Flex from 'components/Common/Flex';
 import Container from 'components/Common/Container';
+import { getAllMeta } from '../../../store/reducers/meta';
 import Premium from '../../pages/Premium';
 import PrivateRoute from '../../PrivateRoute';
 import Menu from '../Menu';
@@ -46,6 +47,7 @@ const MainLayout: FC<IProps> = ({ theme, setTheme }) => {
 
   useEffect(() => {
     dispatch(getAllProfile());
+    dispatch(getAllMeta(null));
   }, []);
 
   return (
