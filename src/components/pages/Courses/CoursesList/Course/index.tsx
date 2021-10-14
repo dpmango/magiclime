@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
 import { toast } from 'react-hot-toast';
+import cns from 'classnames';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -45,6 +46,17 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
     }
   }, [item]);
 
+  const isBlurred = useMemo(() => {
+    if (balance.bitlimes < parseInt(item.price, 10)) {
+      return true;
+    }
+    if (profile.level < item.level && item.level !== 1) {
+      return true;
+    }
+
+    return false;
+  }, [balance.bitlimes, profile.level, item.price]);
+
   const ctaButtonLabel = useMemo(() => {
     if (item.is_bought) {
       return t('course.card.bought');
@@ -55,7 +67,10 @@ const CourseCard: FC<IProps> = ({ item, openModal }) => {
   }, [item]);
 
   return (
-    <div onClick={handleCardClick} className={styles.root}>
+    <div
+      onClick={handleCardClick}
+      className={cns(styles.root, isBlurred && 'blured')}
+    >
       <div className={styles.content}>
         <div>
           <Typography as="p" size="s" className={styles.detail}>
