@@ -18,15 +18,15 @@ const Events: FC = () => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      <Typography weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.events.title')}
-      </Typography>
+      {events && events.length && (
+        <>
+          <Typography weight="semibold" lineHeight="s" size="2xl">
+            {t('profile.events.title')}
+          </Typography>
 
-      <Flex direction="column" className={styles.box}>
-        {events && events.length ? (
-          <>
+          <Flex direction="column" className={styles.box}>
             <div className={styles.boxList}>
-              {events.map((event) => (
+              {events.slice(0, 9).map((event) => (
                 <Flex align="center" className={styles.event} key={event.id}>
                   <div className={styles.eventBox} />
                   <div className={styles.eventContent}>
@@ -43,19 +43,9 @@ const Events: FC = () => {
               className={styles.boxCta}
               iconRight={IconArrowRight}
             /> */}
-          </>
-        ) : (
-          <Typography
-            view="secondary"
-            weight="semibold"
-            lineHeight="s"
-            size="xl"
-            align="center"
-          >
-            {t('profile.events.empty')}
-          </Typography>
-        )}
-      </Flex>
+          </Flex>
+        </>
+      )}
     </Flex>
   );
 };

@@ -15,6 +15,10 @@ const useStyles = makeStyles<null, { category: number; darkmode: boolean }>(
       transition: 'opacity .25s ease-in-out',
       background: 'var(--color-bg-default)',
       border: '1px solid var(--color-bg-border)',
+      '&.blured': {
+        filter: 'blur(6px)',
+        pointerEvents: 'none',
+      },
       // backgroundColor: (() => {
       //   switch (props.category) {
       //     case 1:

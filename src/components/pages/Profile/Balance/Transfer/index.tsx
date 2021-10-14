@@ -52,7 +52,7 @@ const Transfer: FC = () => {
     setError('');
 
     const [err, data] = await postTransferBalance({
-      amount: parseFloat(values.amount) / 100000,
+      amount: parseFloat(values.amount),
       to_user: values.credentials,
       transfer_type: values.payment.id,
     });
