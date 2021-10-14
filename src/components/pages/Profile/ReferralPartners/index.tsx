@@ -61,7 +61,6 @@ interface IRenderClones {
 }
 
 const RenderClones: FC<IRenderClones> = ({ data, ...props }) => {
-  console.log(props);
   return (
     <>
       {data.map((clone: IClone) => {
