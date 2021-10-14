@@ -29,7 +29,7 @@ export interface ICoursesParams {
 export const getCoursesService = (
   page: number,
   limit: number,
-  queries: IFilter
+  queries: any
 ): AxiosPromise<IAxiosPaginatedResponse<ICourse>> => {
   const params: ICoursesParams = filterToParams(queries, {});
 

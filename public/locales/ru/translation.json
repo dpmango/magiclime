@@ -325,6 +325,9 @@
         "pare": {
           "label": "Пара"
         },
+        "program": {
+          "label": "Программа"
+        },
         "search": {
           "label": "Поиск",
           "placeholder": "Введите запрос..."

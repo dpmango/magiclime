@@ -18,7 +18,7 @@ const Events: FC = () => {
 
   return (
     <Flex direction="column" className={styles.root}>
-      {events && events.length && (
+      {events && events.length > 0 && (
         <>
           <Typography weight="semibold" lineHeight="s" size="2xl">
             {t('profile.events.title')}

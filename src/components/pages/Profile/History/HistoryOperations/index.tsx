@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import { Table } from '@consta/uikit/Table';
@@ -6,7 +6,6 @@ import { Table } from '@consta/uikit/Table';
 import Typography from 'components/Common/Typography';
 import { IRererralHistory } from 'types/interfaces/referrals';
 
-import Filters from '../Filter';
 import { columns } from './mockData';
 import useStyles from '../styles';
 
@@ -14,7 +13,7 @@ interface IProps {
   data: IRererralHistory[];
 }
 
-const HistoryBalance: FC<IProps> = ({ data }) => {
+const HistoryOperations: FC<IProps> = ({ data }) => {
   const styles = useStyles();
   const { t } = useTranslation();
 
@@ -27,28 +26,20 @@ const HistoryBalance: FC<IProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <div>
-      <Typography margin="42px 0 0" weight="semibold" lineHeight="s" size="2xl">
-        {t('profile.balance.history.titleOperations')}
-      </Typography>
-
-      <Filters />
-
-      <Table
-        borderBetweenColumns
-        borderBetweenRows
-        // @ts-ignore
-        columns={columns}
-        rows={contentRows}
-        className={styles.table}
-        emptyRowsPlaceholder={
-          <Typography weight="semibold" size="xl">
-            {t('profile.balance.history.empty')}
-          </Typography>
-        }
-      />
-    </div>
+    <Table
+      borderBetweenColumns
+      borderBetweenRows
+      // @ts-ignore
+      columns={columns}
+      rows={contentRows}
+      className={styles.table}
+      emptyRowsPlaceholder={
+        <Typography weight="semibold" size="xl">
+          {t('profile.balance.history.empty')}
+        </Typography>
+      }
+    />
   );
 };
 
-export default HistoryBalance;
+export default memo(HistoryOperations);

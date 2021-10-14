@@ -120,10 +120,11 @@ const useStyles = makeStyles<null, IProps>(() => ({
     paddingRight: 12,
   },
   clone: {
-    paddingLeft: 30,
+    paddingLeft: 0,
     marginLeft: 'auto',
   },
   cloneFree: {
+    flex: '0 0 auto',
     borderRadius: '50%',
     border: '1px solid var(--color-bg-border)',
     width: 32,

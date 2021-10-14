@@ -105,6 +105,9 @@ export const getMatricesHistoryService = (
     params: {
       page: page || null,
       page_size: limit || null,
+      from_date: queries.from_date || null,
+      to_date: queries.to_date || null,
+      program: queries.program || null,
     },
   });
 };
