@@ -24,7 +24,7 @@ export enum Theme {
   Dark = 'dark',
 }
 
-export type AuthType = 'sign_in' | 'sign_up' | 'pass_recovery';
+export type AuthType = 'sign_in' | 'sign_up' | 'recovery';
 
 // размеры шрифтов consta
 export type SizeType =

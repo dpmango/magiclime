@@ -37,6 +37,13 @@ const useStyles = makeStyles({
   dangerBtn: {
     color: '#E64646',
   },
+  needConfirm: {
+    display: 'flex',
+    alignItems: 'center',
+    '& > span': {
+      marginRight: '10px',
+    },
+  },
 });
 
 export default useStyles;

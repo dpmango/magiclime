@@ -53,7 +53,10 @@ const App: FC = () => {
     <Theme preset={stateTheme === 'default' ? presetGpnDefault : presetGpnDark}>
       <ErrorBoundary>
         <Switch>
-          <Route path="/home" component={StaticLayout} />
+          <Route
+            path={['/home', '/reset_password/:uid/:token']}
+            component={StaticLayout}
+          />
           <PrivateRoute path="/" redirect="/home" access={isLogged}>
             <MenuContextProvider>
               <MainLayout theme={stateTheme} setTheme={handleSetTheme} />

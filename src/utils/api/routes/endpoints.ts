@@ -3,6 +3,7 @@ export default {
     root: '/auth/',
     create: '/auth/jwt/create/',
     refresh: '/auth/jwt/refresh/',
+    sendEmail: '/auth/email/send/',
   },
   admin: {
     root: '/admin/',
@@ -16,6 +17,8 @@ export default {
     me: '/auth/users/me/',
     byId: (id: number | string) => `/auth/users/${id}/`,
     password: '/auth/users/set_password/',
+    resetPassword: '/auth/users/reset_password/',
+    resetPasswordConfirm: '/auth/users/reset_password_confirm/',
   },
   profile: {
     root: '/profile/',

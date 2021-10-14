@@ -1,7 +1,9 @@
-import React, { FC, useState, useCallback, ChangeEvent } from 'react';
+import { IconAlert } from '@consta/uikit/IconAlert';
+import React, { FC, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
+import { useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { FileField } from '@consta/uikit/FileField';
@@ -14,11 +16,10 @@ import moment from 'moment';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import FormikInput from 'components/Common/Controls/Formik/Input';
-import FormikSwitch from 'components/Common/Controls/Formik/Switch';
 import { REQUIRED, EMAIL, PHONE } from 'utils/formik/validation';
 import { RootState } from 'store/reducers/rootReducer';
 import { updateProfile } from 'store/reducers/user';
-import { getProfilePdf } from 'utils/api/routes/auth';
+import { getProfilePdf, sendEmail } from 'utils/api/routes/auth';
 import { logoutFunc } from 'utils/helpers/logout';
 import { bytesToMegaBytes } from 'utils/helpers/formatBytes';
 
@@ -33,6 +34,7 @@ const uploader = {
 const Account: FC = () => {
   const styles = useStyles();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
 
   const [files, setFiles] = useState<File[]>([]);
@@ -63,6 +65,16 @@ const Account: FC = () => {
       })
     );
   };
+
+  const confirmEmail = useCallback(() => {
+    sendEmail(pathname)
+      .then(() => {
+        toast.success(t('profile.settings.confirmationSuccess'));
+      })
+      .catch(() => {
+        toast.error(t('profile.settings.confirmationError'));
+      });
+  }, []);
 
   const schema = Yup.object({
     sponsor: REQUIRED,
@@ -209,6 +221,26 @@ const Account: FC = () => {
                       'profile.settings.account.email.placeholder'
                     )}
                   />
+                  {!profile.email_confirmed && (
+                    <div>
+                      <Typography
+                        size="xs"
+                        view="alert"
+                        margin="8px 0"
+                        className={styles.needConfirm}
+                      >
+                        <IconAlert view="alert" size="s" />
+                        {t('profile.settings.needConfirm')}
+                      </Typography>
+                      <Button
+                        view="primary"
+                        type="button"
+                        size="xs"
+                        label={t('profile.settings.confirm')}
+                        onClick={confirmEmail}
+                      />
+                    </div>
+                  )}
                 </GridItem>
                 <GridItem>
                   <FormikInput

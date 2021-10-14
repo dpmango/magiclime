@@ -35,6 +35,7 @@ export const PHONE = Yup.string().test(
     )
 );
 
-export const CONFIRM = Yup.string()
-  .required(validationMessages.required)
-  .oneOf([Yup.ref('password'), null], 'Пароли не совпадают');
+export const CONFIRM = (name = 'password') =>
+  Yup.string()
+    .required(validationMessages.required)
+    .oneOf([Yup.ref(name), null], 'Пароли не совпадают');

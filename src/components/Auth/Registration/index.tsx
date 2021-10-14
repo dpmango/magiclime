@@ -85,7 +85,7 @@ const Registration: FC = () => {
     )
       .min(8, t('auth.signup.validation.password.min'))
       .max(30, t('auth.signup.validation.password.max')),
-    passwordConfirm: CONFIRM,
+    passwordConfirm: CONFIRM(),
     media_sponsor: Yup.lazy((value) => {
       if (value && value.trim().length > 0) {
         return Yup.string().length(

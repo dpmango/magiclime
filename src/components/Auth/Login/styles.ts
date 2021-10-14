@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   container: {
     position: 'relative',
-    maxWidth: '400px',
+    width: '360px',
   },
   form: {
     padding: '24px 24px 32px',
-    maxWidth: '400px',
-    // РР сделать 360 на вход и 680 на регу
+    width: '100%',
   },
   closeBtn: {
     position: 'absolute',
@@ -27,6 +26,13 @@ const useStyles = makeStyles(() => ({
     '& > a': {
       marginLeft: '5px',
       fontWeight: '500',
+    },
+  },
+  recovery: {
+    cursor: 'pointer',
+    transition: 'opacity .2s linear',
+    '&:hover': {
+      opacity: 0.7,
     },
   },
   registration: {

@@ -6,6 +6,7 @@ const useStyles = makeStyles(() => ({
   },
   fullHeightModal: {
     maxHeight: '100%',
+    minWidth: 'auto',
   },
 }));
 
