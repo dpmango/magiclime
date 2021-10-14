@@ -11,10 +11,13 @@ import useStyles from './styles';
 type ComponentProps<T> = {
   data: T[];
   [key: string]: any;
+  onReferralClick?: (id: number) => void;
 };
 
 type DefaultQueries = {
   search?: string;
+  program?: number;
+  level?: number;
 };
 
 interface IProps<T, U> {
@@ -24,6 +27,7 @@ interface IProps<T, U> {
     queries: U
   ) => AxiosPromise<IAxiosPaginatedResponse<T>>;
   listComponent: FC<ComponentProps<T>>;
+  listProps?: any;
   queries?: U;
   limit?: number;
   onStartCallback?: () => void;
@@ -34,6 +38,7 @@ interface IProps<T, U> {
 const Pagination = <T extends object, U extends DefaultQueries>({
   getList,
   listComponent: Component,
+  listProps,
   limit = 10,
   onStartCallback,
   successCallback,
@@ -105,7 +110,7 @@ const Pagination = <T extends object, U extends DefaultQueries>({
           scrollThreshold={0.9}
           loader={<Loader className={styles.loader} />}
         >
-          <Component data={state.data} />
+          <Component data={state.data} {...listProps} />
         </InfiniteScroll>
       )}
     </div>

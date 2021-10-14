@@ -8,6 +8,15 @@ export type ReferralsPayloadType = {
   errorCallback?: () => void;
 };
 
+export type ClonesPayloadType = {
+  page?: number;
+  limit?: number;
+  level: number;
+  program: number;
+  successCallback?: (res: IReferralTree) => void;
+  errorCallback?: () => void;
+};
+
 export type TeamPayloadType = {
   id: string | number;
   program: number;

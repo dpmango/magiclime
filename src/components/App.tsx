@@ -8,7 +8,6 @@ import { Theme } from '@consta/uikit/Theme';
 
 import { setLogged } from 'store/reducers/user';
 import { setTheme } from 'store/reducers/settings';
-import { getAllMeta } from 'store/reducers/meta';
 import { RootState } from 'store/reducers/rootReducer';
 import { ScrollTo } from 'utils/helpers/scroll';
 import { setAuthToken } from 'utils/api';
@@ -42,10 +41,6 @@ const App: FC = () => {
     setAuthToken(Cookies.get('access') as string);
     dispatch(setLogged());
   }
-
-  useEffect(() => {
-    dispatch(getAllMeta(null));
-  }, []);
 
   useEffect(() => {
     ScrollTo(0, 300);

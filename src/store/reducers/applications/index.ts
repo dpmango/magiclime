@@ -21,7 +21,6 @@ import moment from 'moment';
 const initialState = {
   outcoming: [] as IApplicationsDisplay[],
   incoming: [] as IApplicationsDisplay[],
-  incomingSelect: [] as IApplicationSelect[],
 };
 
 export const getOutcoming = createAsyncThunk(
@@ -33,7 +32,21 @@ export const getOutcoming = createAsyncThunk(
       if (err) {
         throw new Error(err);
       } else {
-        dispatch(setOutcoming(data! || []));
+        const dataMapped = data
+          ? data.map(
+              (x: IApplicationOutcoming): IApplicationsDisplay => ({
+                id: x.id,
+                login: x.to_user.username,
+                matrix: `${getProgramById(x.program)} ${x.level}`,
+                date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+                status: x.status,
+                statusText: statusToText(x.status),
+                level: x.level,
+                program: x.program,
+              })
+            )
+          : [];
+        dispatch(setOutcoming(dataMapped));
       }
       return data;
     } catch (err: any) {
@@ -52,7 +65,21 @@ export const getIncoming = createAsyncThunk(
       if (err) {
         throw new Error(err);
       } else {
-        dispatch(setIncoming(data! || []));
+        const dataMapped = data
+          ? data.map(
+              (x: IApplicationIncoming): IApplicationsDisplay => ({
+                id: x.id,
+                login: x.from_user.username,
+                matrix: `${getProgramById(x.program)} ${x.level}`,
+                date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
+                statusText: statusToText(x.status),
+                status: x.status,
+                level: x.level,
+                program: x.program,
+              })
+            )
+          : [];
+        dispatch(setIncoming(dataMapped));
       }
       return data;
     } catch (err: any) {
@@ -79,45 +106,11 @@ const applicationsSlice = createSlice({
   name: 'applications',
   initialState,
   reducers: {
-    setOutcoming: (state, action: PayloadAction<IApplicationOutcoming[]>) => {
-      const dataMapped = action.payload.map(
-        (x: IApplicationOutcoming): IApplicationsDisplay => ({
-          id: x.id,
-          login: x.to_user.username,
-          matrix: `${getProgramById(x.program)} ${x.level}`,
-          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
-          status: x.status,
-          statusText: statusToText(x.status),
-          level: x.level,
-          program: x.program,
-        })
-      );
-
-      state.outcoming = [...dataMapped];
+    setOutcoming: (state, action: PayloadAction<IApplicationsDisplay[]>) => {
+      state.outcoming = [...action.payload];
     },
-    setIncoming: (state, action: PayloadAction<IApplicationIncoming[]>) => {
-      const dataMapped = action.payload.map(
-        (x: IApplicationIncoming): IApplicationsDisplay => ({
-          id: x.id,
-          login: x.from_user.username,
-          matrix: `${getProgramById(x.program)} ${x.level}`,
-          date: moment(x.created_at).format('DD.MM.YY HH:mm:ss'),
-          statusText: statusToText(x.status),
-          status: x.status,
-          level: x.level,
-          program: x.program,
-        })
-      );
-
-      const dataSelectMapped = dataMapped.map((x) => ({
-        id: x.id,
-        label: `${x.id} - ${x.login}`,
-        level: x.level,
-        program: x.program,
-      }));
-
-      state.incoming = [...dataMapped];
-      state.incomingSelect = [...dataSelectMapped];
+    setIncoming: (state, action: PayloadAction<IApplicationsDisplay[]>) => {
+      state.incoming = [...action.payload];
     },
   },
 });

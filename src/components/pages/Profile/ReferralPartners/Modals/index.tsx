@@ -1,19 +1,19 @@
-import React, { FC, useState, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@consta/uikit/Button';
-import { TextField } from '@consta/uikit/TextField';
 import { Select } from '@consta/uikit/Select';
+import BaseModal from 'components/Common/BaseModal';
+import Flex from 'components/Common/Flex';
 
 import Typography from 'components/Common/Typography';
-import Flex from 'components/Common/Flex';
-import BaseModal from 'components/Common/BaseModal';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { SetStateType } from 'types/common';
 import { ISelectOption } from 'types/interfaces/common';
-import { getIncoming } from 'store/reducers/applications';
-import { RootState } from 'store/reducers/rootReducer';
-import { IApplicationSelect } from 'types/interfaces/profile';
+import {
+  IApplicationIncoming,
+  IApplicationSelect,
+} from 'types/interfaces/profile';
+import { getActiveIncomingApplicationsService } from '../../../../../utils/api/routes/position';
 
 import { IModalProps } from '../types';
 import useStyles from './styles';
@@ -37,13 +37,9 @@ const ReferralModals: FC<IProps> = ({
   levelID,
   programID,
 }) => {
+  const [requests, setRequests] = useState<IApplicationIncoming[]>([]);
   const styles = useStyles();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  const incomingSelectOptions = useSelector(
-    (state: RootState) => state.applications.incomingSelect
-  );
 
   const [partner, setPartner] = useState<ISelectOption | null>(null);
 
@@ -56,19 +52,29 @@ const ReferralModals: FC<IProps> = ({
   };
 
   const selectableItems = useMemo(() => {
+    const dataMapped = requests.map(
+      (x): IApplicationSelect => ({
+        id: x.id,
+        label: `${x.id} - ${x.from_user.username}`,
+        level: x.level,
+        program: x.program,
+      })
+    );
+
     if (levelID !== undefined && programID !== undefined) {
-      return incomingSelectOptions.filter(
+      return dataMapped.filter(
         (x: IApplicationSelect) =>
           x.level === levelID && x.program === programID
       );
     }
 
-    return incomingSelectOptions;
-  }, [incomingSelectOptions, levelID, programID]);
+    return dataMapped;
+  }, [requests, levelID, programID]);
 
   useEffect(() => {
-    dispatch(getIncoming());
-    setPartner(null);
+    getActiveIncomingApplicationsService().then((res) => {
+      setRequests(res.data);
+    });
   }, []);
 
   return (

@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, ReactElement, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import groupBy from 'lodash/groupBy';
 import cns from 'classnames';
 import { IconCheck } from '@consta/uikit/IconCheck';
+import { IconArrowRight } from '@consta/uikit/IconArrowRight';
+import { Button } from '@consta/uikit/Button';
 
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
@@ -128,14 +131,15 @@ const Achievements: FC<IProps> = ({ profile, isMyProfile }) => {
                 </Flex>
               ))}
             </div>
-
-            {/* <Button
-              label="Смотреть все"
-              size="s"
-              view="secondary"
-              className={styles.boxCta}
-              iconRight={IconArrowRight}
-            /> */}
+            <Link to="/profile/me/settings/achievements">
+              <Button
+                label="Смотреть все"
+                size="s"
+                view="secondary"
+                className={styles.boxCta}
+                iconRight={IconArrowRight}
+              />
+            </Link>
           </>
         ) : (
           <Typography

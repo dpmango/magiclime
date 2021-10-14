@@ -20,6 +20,11 @@ const useStyles = makeStyles<null, { level: number }>({
       left: ({ level }) => -19 + level * 30,
       bottom: 30,
     },
+    '&:last-of-type': {
+      '&::before': {
+        bottom: 42,
+      },
+    },
   },
   last: {
     '&::after': {

@@ -29,6 +29,7 @@ export default {
     events: '/profile/events/',
     programsList: '/matrices/programs_info/',
     getLevel: '/matrices/max_level_in_program/',
+    invited: '/matrices/invited_noactive_users/',
   },
   payments: {
     root: '/payments/',
@@ -80,6 +81,7 @@ export default {
   position: {
     outcoming: '/profile/position_requests/',
     incoming: '/position-requests/',
+    activeIncoming: '/position-requests/active/',
     post: '/position-requests/',
     approve: (id: number | string) => `/position-requests/${id}/approve/`,
     reject: (id: number | string) => `/position-requests/${id}/reject/`,

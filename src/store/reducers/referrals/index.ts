@@ -11,7 +11,11 @@ import {
   IReferralTeam,
   IClone,
 } from 'types/interfaces/referrals';
-import { ReferralsPayloadType, TeamPayloadType } from './types';
+import {
+  ReferralsPayloadType,
+  ClonesPayloadType,
+  TeamPayloadType,
+} from './types';
 
 const initialState = {
   loading: true,
@@ -42,7 +46,7 @@ export const getReferrals = createAsyncThunk<any, ReferralsPayloadType>(
   }
 );
 
-export const getClones = createAsyncThunk<any, ReferralsPayloadType>(
+export const getClones = createAsyncThunk<any, ClonesPayloadType>(
   'referrals/getClones',
   async (payload, { dispatch, rejectWithValue }) => {
     const { successCallback, errorCallback, ...data } = payload;

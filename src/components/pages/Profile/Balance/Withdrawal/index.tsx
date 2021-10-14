@@ -61,7 +61,7 @@ const Withdrawal: FC = () => {
     setError('');
 
     const [err, data] = await postWithdrawalBalance({
-      amount: parseFloat(values.amount) / 100000,
+      amount: parseFloat(values.amount),
       wallet: values.credentials,
     });
 
