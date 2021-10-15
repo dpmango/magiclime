@@ -28,7 +28,7 @@ const ProfileStep: FC = () => {
           isPassword
         />
         <FormikInput
-          label="Рефедральный код"
+          label="Реферальный код"
           name="media_sponsor"
           isRequired={false}
           placeholder="Введите код"

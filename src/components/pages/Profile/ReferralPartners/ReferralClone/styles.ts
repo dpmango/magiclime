@@ -9,9 +9,9 @@ const useStyles = makeStyles(() => ({
     marginBottom: 0,
     cursor: 'pointer',
     transition: 'background .25s ease-in-out',
-    '&:first-child': {
-      borderTopWidth: 0,
-    },
+    // '&:first-child': {
+    //   borderTopWidth: 0,
+    // },
     '&:hover': {
       background: 'var(--color-bg-stripe)',
     },

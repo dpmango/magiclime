@@ -7,11 +7,13 @@ import moment from 'moment';
 import Typography from 'components/Common/Typography';
 import Flex from 'components/Common/Flex';
 import { IReferralTeam } from 'types/interfaces/referrals';
+import { Plurize } from '../../../../../utils/helpers/plurize';
 
 import useStyles from './styles';
 
 interface IProps {
   data: IReferralTeam;
+  childrenCount?: number;
   nestedLevel?: number;
   root?: boolean;
   onReferralClick?: (id: number) => void;
@@ -28,6 +30,7 @@ const ReferralUser: FC<IProps> = ({
     level,
     name,
   },
+  childrenCount,
   root,
   nestedLevel = 0,
   onReferralClick,
@@ -35,14 +38,14 @@ const ReferralUser: FC<IProps> = ({
   const styles = useStyles({ nestedLevel, root });
   const { t } = useTranslation();
 
-  // const referralsPlural = useMemo(() => {
-  //   return Plurize(
-  //     referrals_count || 0,
-  //     t('profile.spacePlural.one'),
-  //     t('profile.spacePlural.two'),
-  //     t('profile.spacePlural.five')
-  //   );
-  // }, [referrals_count]);
+  const referralsPlural = useMemo(() => {
+    return Plurize(
+      childrenCount || 0,
+      t('profile.referral.card.countPlural.one'),
+      t('profile.referral.card.countPlural.two'),
+      t('profile.referral.card.countPlural.five')
+    );
+  }, [childrenCount]);
 
   const timestamp = useMemo(() => {
     if (!date_joined) {
@@ -70,8 +73,14 @@ const ReferralUser: FC<IProps> = ({
             <Flex align="center">
               {username}&nbsp;
               {!root && (
-                <Typography view="secondary" lineHeight="s" size="m">
-                  [{t('profile.referral.card.level')} {level}]
+                <Typography
+                  view="secondary"
+                  lineHeight="s"
+                  size="xs"
+                  margin="0 0 0 5px"
+                >
+                  {t('profile.referral.card.level')} {max_program_level},{' '}
+                  {childrenCount} {referralsPlural}
                 </Typography>
               )}
             </Flex>

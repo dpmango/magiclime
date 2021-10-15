@@ -29,6 +29,7 @@ const Tree: FC<IProps> = ({ tree, clickFunc, level = 0 }) => {
         >
           <ReferralUser
             data={item}
+            childrenCount={item.children.length}
             onReferralClick={clickFunc}
             nestedLevel={level}
           />

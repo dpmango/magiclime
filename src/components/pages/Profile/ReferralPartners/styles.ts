@@ -72,6 +72,14 @@ const useStyles = makeStyles({
       width: '100%',
     },
   },
+  cloneBtn: {
+    background: 'none',
+    color: 'var(--color-typo-link)',
+    textShadow: 'none',
+    '&:hover': {
+      background: 'var(--color-bg-ghost) !important',
+    },
+  },
   filtersMatrixBtn: {
     marginRight: 6,
     marginBottom: 6,

@@ -48,9 +48,9 @@ const useStyles = makeStyles<null, IProps>(() => ({
     paddingRight: 12,
     paddingLeft: 30,
     '& .Text': {
-      overflow: 'hidden',
+      //overflow: 'hidden',
       whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis',
+      //textOverflow: 'ellipsis',
     },
     '& ': (() => {
       return root

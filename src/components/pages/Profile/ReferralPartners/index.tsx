@@ -536,14 +536,12 @@ const Referrals: FC = () => {
                   />
                 </div>
                 <div className={styles.filtersGroup}>
-                  <Typography
-                    view="link"
-                    size="s"
-                    align="center"
+                  <Button
+                    width="full"
+                    className={styles.cloneBtn}
                     onClick={handleClonePlaceClick}
-                  >
-                    Куда встанет клон?
-                  </Typography>
+                    label="Куда встанет клон?"
+                  />
                 </div>
               </>
             )}
