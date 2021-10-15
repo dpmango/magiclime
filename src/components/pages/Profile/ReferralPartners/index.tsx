@@ -521,28 +521,25 @@ const Referrals: FC = () => {
             </div>
             {!error && (
               <>
-                <div className={styles.filtersGroup}>
-                  <Button
-                    width="full"
-                    loading={!referralsTree.price}
-                    onClick={() => setModalConfirm({ id: 0, opened: true })}
-                    label={
-                      referralsTree.price
-                        ? `${t('profile.referral.buy.cta')} ${
-                            referralsTree.price
-                          } ${t('profile.referral.buy.bonuses')}`
-                        : ''
-                    }
-                  />
-                </div>
-                <div className={styles.filtersGroup}>
-                  <Button
-                    width="full"
-                    className={styles.cloneBtn}
-                    onClick={handleClonePlaceClick}
-                    label="Куда встанет клон?"
-                  />
-                </div>
+                <Button
+                  width="full"
+                  loading={!referralsTree.price}
+                  onClick={() => setModalConfirm({ id: 0, opened: true })}
+                  label={
+                    referralsTree.price
+                      ? `${t('profile.referral.buy.cta')} ${
+                          referralsTree.price
+                        } ${t('profile.referral.buy.bonuses')}`
+                      : ''
+                  }
+                />
+
+                <Button
+                  width="full"
+                  className={styles.cloneBtn}
+                  onClick={handleClonePlaceClick}
+                  label="Куда встанет клон?"
+                />
               </>
             )}
 
