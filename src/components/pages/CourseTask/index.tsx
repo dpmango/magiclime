@@ -126,26 +126,22 @@ const CoursePage: FC = () => {
   }, [getExercis]);
 
   const handleContinue = useCallback(async () => {
-    if (nextSectionId) {
-      const [err, data] = await completeExerciseService(activeSectionId);
-      // const [err, data] = await completeCourseService(22);
+    const [err, data] = await completeExerciseService(activeSectionId);
+    // const [err, data] = await completeCourseService(22);
 
-      if (!err) {
-        // move to next section (compleate current, make next available and set current to next)
-        setSections([
-          ...sections.map((s) => ({
-            ...s,
-            ...{
-              compleated: s.id === activeSectionId || s.compleated,
-              available: s.id === nextSectionId || s.available,
-              current: s.id === nextSectionId,
-            },
-          })),
-        ]);
-
-        ScrollTo(0);
-      }
-    } else {
+    if (!err && nextSectionId) {
+      // move to next section (compleate current, make next available and set current to next)
+      setSections([
+        ...sections.map((s) => ({
+          ...s,
+          ...{
+            compleated: s.id === activeSectionId || s.compleated,
+            available: s.id === nextSectionId || s.available,
+            current: s.id === nextSectionId,
+          },
+        })),
+      ]);
+    } else if (!nextSectionId) {
       const [err, data] = await completeCourseService(course!.id);
 
       if (!err) {
@@ -153,6 +149,8 @@ const CoursePage: FC = () => {
         history.push('/courses');
       }
     }
+
+    ScrollTo(0);
   }, [nextSectionId, activeSectionId, sections, course]);
 
   const handleSectionClick = useCallback(

@@ -64,7 +64,7 @@ const useStyles = makeStyles({
     },
   },
   filters: {
-    marginTop: 58,
+    marginTop: 53,
   },
   filtersGroup: {
     marginBottom: 24,
@@ -76,6 +76,7 @@ const useStyles = makeStyles({
     background: 'none',
     color: 'var(--color-typo-link)',
     textShadow: 'none',
+    margin: '6px 0',
     '&:hover': {
       background: 'var(--color-bg-ghost) !important',
     },

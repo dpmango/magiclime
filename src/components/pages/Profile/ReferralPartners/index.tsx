@@ -326,7 +326,7 @@ const Referrals: FC = () => {
 
   const buyBtnAvailable = useMemo(() => {
     const isBitlime = filterProgram.id === 1 && selectedLevel === 1;
-    const isLime = filterProgram.id === 4 && selectedLevel === 1;
+    const isLime = filterProgram.id === 6 && selectedLevel === 1;
 
     return (
       profile.is_bought_1level_bitlime ||
@@ -521,28 +521,25 @@ const Referrals: FC = () => {
             </div>
             {!error && (
               <>
-                <div className={styles.filtersGroup}>
-                  <Button
-                    width="full"
-                    loading={!referralsTree.price}
-                    onClick={() => setModalConfirm({ id: 0, opened: true })}
-                    label={
-                      referralsTree.price
-                        ? `${t('profile.referral.buy.cta')} ${
-                            referralsTree.price
-                          } ${t('profile.referral.buy.bonuses')}`
-                        : ''
-                    }
-                  />
-                </div>
-                <div className={styles.filtersGroup}>
-                  <Button
-                    width="full"
-                    className={styles.cloneBtn}
-                    onClick={handleClonePlaceClick}
-                    label="Куда встанет клон?"
-                  />
-                </div>
+                <Button
+                  width="full"
+                  loading={!referralsTree.price}
+                  onClick={() => setModalConfirm({ id: 0, opened: true })}
+                  label={
+                    referralsTree.price
+                      ? `${t('profile.referral.buy.cta')} ${
+                          referralsTree.price
+                        } ${t('profile.referral.buy.bonuses')}`
+                      : ''
+                  }
+                />
+
+                <Button
+                  width="full"
+                  className={styles.cloneBtn}
+                  onClick={handleClonePlaceClick}
+                  label="Куда встанет клон?"
+                />
               </>
             )}
 

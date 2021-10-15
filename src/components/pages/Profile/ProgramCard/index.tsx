@@ -17,7 +17,7 @@ interface IProps {
 
 const ProgramCard: FC<IProps> = ({ data }) => {
   const level = useMemo(() => {
-    return data.all_levels[0] === 0 ? data.matrix_level + 1 : data.matrix_level;
+    return data.all_levels[0] === 0 ? data.matrix_level : data.matrix_level;
   }, []);
 
   const progressWidth = useMemo(() => {
@@ -154,7 +154,7 @@ const ProgramCard: FC<IProps> = ({ data }) => {
             size="l"
             weight="semibold"
           >
-            {t('profile.programCard.blocked.title')}
+            {data.program_label}
           </Typography>
           <Link to={partnerLink}>
             <Button size="m" label={t('profile.programCard.blocked.cta')} />
