@@ -326,7 +326,7 @@ const Referrals: FC = () => {
 
   const buyBtnAvailable = useMemo(() => {
     const isBitlime = filterProgram.id === 1 && selectedLevel === 1;
-    const isLime = filterProgram.id === 4 && selectedLevel === 1;
+    const isLime = filterProgram.id === 6 && selectedLevel === 1;
 
     return (
       profile.is_bought_1level_bitlime ||
